@@ -1,0 +1,196 @@
+import styled from 'styled-components';
+
+export const Row = styled.div`
+  max-width: 1140px;
+  margin: 0 auto;
+`;
+
+export const Section = styled.section`
+  padding: 40px 0px;
+`;
+
+export const H2 = styled.h2`
+  font-size: 1.8em;
+  word-spacing: 2px;
+  text-align: center;
+  margin-bottom: 30px;
+  letter-spacing: 1px;
+  font-weight: 300;
+  font-family: Raleway, sans-serif;
+  position: relative;
+
+  &::after {
+    display: block;
+    height: 2px;
+    background-color: #e67e22;
+    content: "";
+    width: 100px;
+    margin: 30px auto 0;
+  }
+`;
+
+export const H3 = styled.h3`
+  font-size: 1.125em;
+  margin-bottom: 15px;
+  font-weight: 700;
+  font-family: Raleway, sans-serif;
+`;
+
+export const Paragraph = styled.p`
+  font-size: 0.9em;
+  line-height: 1.45;
+`;
+
+export const Box = styled.div`
+  width: 23.8%;
+  padding: 1%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const IconBox = styled.div`
+  background-color: ${({ theme }) => theme.colors.primary};
+  border-radius: 50%;
+  width: 5.5em;
+  padding: 1rem;
+  margin-bottom: 1rem
+`;
+
+export const LongCopy = styled.p`
+  line-height: 1.5;
+  width: 70%;
+  margin: 0 auto 30px;
+  text-align: center;
+  font-size: 1em;
+`;
+
+export const FadeIn = styled.div`
+  animation: fadeIn 1.5s ease-in-out;
+`;
+
+export const MealsGrid = styled.ul`
+  list-style: none;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+`;
+
+export const MealItem = styled.li`
+  width: 25%;
+  overflow: hidden;
+`;
+
+export const MealPhoto = styled.figure`
+  background-color: #000;
+  overflow: hidden;
+  margin: 0;
+
+  img {
+    width: 100%;
+    height: auto;
+    opacity: 0.7;
+    transform: scale(1.16);
+    transition: transform 0.5s, opacity 0.5s;
+
+    &:hover {
+      transform: scale(1.1);
+      opacity: 1;
+    }
+  }
+`;
+
+export const StepsBox = styled.div<{ align?: 'left' | 'right' }>`
+  text-align: ${props => (props.align === 'right' ? 'right' : 'left')};
+  padding: 3%;
+  margin-top: ${props => (props.align === 'right' ? '30px' : '70px')};
+`;
+
+export const Step = styled.div`
+  margin-bottom: 50px;
+
+  &:last-of-type {
+    margin-bottom: 80px;
+  }
+
+  div {
+    color: #e67e22;
+    border: 2px solid #e67e22;
+    border-radius: 50%;
+    height: 55px;
+    width: 55px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 1.5em;
+    float: left;
+    margin-right: 25px;
+  }
+
+  p {
+    top: 10px;
+    position: relative;
+  }
+`;
+
+export const AppImage = styled.img`
+  width: 65%;
+`;
+
+export const AppLinks = styled.div`
+  margin-top: 20px;
+  display: flex;
+
+  a img {
+    height: 65px;
+    width: auto;
+    margin-right: 15px;
+  }
+`;
+
+export const ImageGrid = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+`;
+
+export const ImageContainer = styled.div`
+  flex: 0 0 calc(25% - 15px);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 20px;
+`;
+
+export const ImageWrapper = styled.div`
+  width: 100%;
+  height: 0;
+  padding-bottom: 66.5%;
+  position: relative;
+  overflow: hidden;
+`;
+
+export const StyledImg = styled.img`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+`;
+
+export const ImageCaption = styled.div`
+  text-align: center;
+  margin-top: 10px;
+  font-size: 18px;
+  color: #4a4a4a;
+`;
+
