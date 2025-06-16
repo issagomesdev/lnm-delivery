@@ -7,6 +7,8 @@ import { GlobalStyle } from '../styles/global'
 import { theme } from '../styles/theme'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import { useIsMobile } from '@/hooks/useIsMobile';
+
 
 const DividerLine = styled.div`
   width: 100%;
@@ -20,6 +22,8 @@ const DividerLine = styled.div`
 `
 
 export default function RootLayout({ children }: { children: ReactNode }) {
+  const isMobile = useIsMobile();
+
   return (
     <html lang="pt-BR">
       <head>
@@ -28,7 +32,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body>
         <ThemeProvider theme={theme}>
           <GlobalStyle />
-          <Header />
+          { !isMobile && <Header />}
           <main>{children}</main>
           <DividerLine />
           <Footer />

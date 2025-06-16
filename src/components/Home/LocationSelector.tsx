@@ -33,7 +33,6 @@ export default function LocationSelector() {
 
   return (
     <LocationContainer>
-      <h1>Descubra os melhores deliveries do litoral</h1>
       <LocationSelectorContainer>
         <h2>Informe sua localização</h2>
         <Select>

@@ -14,6 +14,12 @@ const Row = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   margin-bottom: 1rem;
+
+  @media (max-width: 600px) {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
 `
 
 const FooterNav = styled.ul`
@@ -39,6 +45,10 @@ const FooterNav = styled.ul`
         color: #ddd;
       }
     }
+  }
+
+  @media (max-width: 600px) {
+    justify-content: center;
   }
 `
 

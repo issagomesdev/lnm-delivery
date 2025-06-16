@@ -1,16 +1,19 @@
 'use client'
 
-import HeroSection from '@/components/Home/HeroSection';
+import AppWeb from '@/components/Web/App';
+import AppMob from '@/components/Mobile/App';
 import ScrollDown from '@/components/Home/ScrollDown';
-import { FeaturesSection } from '@/components/Home/Sections/FeaturesSection';
-import { MealsSection } from '@/components/Home/Sections/MealsSection';
-import { HowItWorksSection } from '@/components/Home/Sections/HowItWorksSection';
-import { CitiesSection } from '@/components/Home/Sections/CitiesSection';
+import FeaturesSection from '@/components/Home/Sections/FeaturesSection';
+import MealsSection from '@/components/Home/Sections/MealsSection';
+import HowItWorksSection from '@/components/Home/Sections/HowItWorksSection';
+import CitiesSection from '@/components/Home/Sections/CitiesSection';
 import { useEffect, useRef, useState } from 'react'
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 export default function Home() {
   const featuresRef = useRef<HTMLDivElement>(null)
   const [showScroll, setShowScroll] = useState(true)
+  const isMobile = useIsMobile();
 
     useEffect(() => {
     const handleScroll = () => {
@@ -31,7 +34,7 @@ export default function Home() {
 
   return (
     <>
-      <HeroSection />
+      {isMobile ? <AppMob /> : <AppWeb />}
       <ScrollDown isVisible={showScroll}/>
       <div ref={featuresRef}>
         <FeaturesSection />

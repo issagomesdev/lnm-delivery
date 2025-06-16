@@ -2,31 +2,6 @@
 
 import styled, { keyframes } from 'styled-components'
 
-export const Container = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  position: relative;
-`
-
-export const MaskedImage = styled.div`
-  position: relative;
-  display: inline-block;
-
-  img {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(255, 255, 255, 0.6); 
-    pointer-events: none;
-  }
-`
-
 export const LocationContainer = styled.div`
   position: absolute;
   width: 100%;
@@ -34,7 +9,11 @@ export const LocationContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 6rem;
+  margin-top: 11rem;
+
+  @media (max-width: 768px) {
+    margin-top: 3rem;
+  }
 `
 
 export const LocationSelectorContainer = styled.div`
@@ -61,6 +40,10 @@ export const Select = styled.div`
     font-size: 1rem;
     color: ${({ theme }) => theme.colors.text};
   }
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `
 
 export const LocationIcon = styled.h3`
@@ -70,9 +53,13 @@ export const LocationIcon = styled.h3`
   align-items: center;
   cursor: pointer;
   font-weight: 500;
-
+  
   img {
     width: 1.6rem;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
   }
 `
 
@@ -88,7 +75,8 @@ export const SearchDeliveryButton = styled.button`
   justify-content: center;
   align-items: center;
   color: white;
-  font-weight: 500;
+  font-weight: 500;´
+  cursor: pointer;
 `
 
 export const LinkAppContainer = styled.div`
@@ -100,6 +88,12 @@ export const LinkAppContainer = styled.div`
 
   img {
     width: 15rem;
+  }
+
+  @media (max-width: 768px) {
+    img {
+      width: 10rem;
+    }
   }
 `
 

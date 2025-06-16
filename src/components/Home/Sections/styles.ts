@@ -3,10 +3,37 @@ import styled from 'styled-components';
 export const Row = styled.div`
   max-width: 1140px;
   margin: 0 auto;
+
+  p {
+    font-weight: 400;
+  }
+
+  h2 {
+    font-size: 1.8em;
+  }
+
+  @media (max-width: 768px) {
+    h2 {
+      font-size: 1.5em;
+    }
+
+    p {
+      width: 100%;
+      margin-left: 0%;
+    }
+
+    .steps & {
+      flex-direction: column;
+    }
+  }
 `;
 
 export const Section = styled.section`
-  padding: 40px 0px;
+  padding: 40px 20px;
+
+  &.meals {
+    padding: 40px 0;
+  }
 `;
 
 export const H2 = styled.h2`
@@ -15,8 +42,7 @@ export const H2 = styled.h2`
   text-align: center;
   margin-bottom: 30px;
   letter-spacing: 1px;
-  font-weight: 300;
-  font-family: Raleway, sans-serif;
+  font-weight: 500;
   position: relative;
 
   &::after {
@@ -32,8 +58,7 @@ export const H2 = styled.h2`
 export const H3 = styled.h3`
   font-size: 1.125em;
   margin-bottom: 15px;
-  font-weight: 700;
-  font-family: Raleway, sans-serif;
+  font-weight: 800;
 `;
 
 export const Paragraph = styled.p`
@@ -48,6 +73,18 @@ export const Box = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  p {
+    text-align: justify;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+
+    p {
+      text-align: center;
+    }
+  }
 `;
 
 export const IconBox = styled.div`
@@ -103,12 +140,6 @@ export const MealPhoto = styled.figure`
   }
 `;
 
-export const StepsBox = styled.div<{ align?: 'left' | 'right' }>`
-  text-align: ${props => (props.align === 'right' ? 'right' : 'left')};
-  padding: 3%;
-  margin-top: ${props => (props.align === 'right' ? '30px' : '70px')};
-`;
-
 export const Step = styled.div`
   margin-bottom: 50px;
 
@@ -135,8 +166,36 @@ export const Step = styled.div`
   }
 `;
 
+export const StepsBox = styled.div<{ align?: 'left' | 'right' }>`
+  text-align: ${props => (props.align === 'right' ? 'right' : 'left')};
+  padding: 3%;
+  margin-top: ${props => (props.align === 'right' ? '30px' : '70px')};
+
+  @media (max-width: 768px) {
+    margin: 0;
+    &#image {
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+  }
+`;
+
 export const AppImage = styled.img`
-  width: 65%;
+  width: 60%;
+
+  @media (max-width: 1024px) {
+    width: 80%;
+  }
+
+  @media (max-width: 900px) {
+    width: 100%;
+  }
+
+  @media (max-width: 769px) {
+    width: 40%;
+  }
+
 `;
 
 export const AppLinks = styled.div`
@@ -147,6 +206,10 @@ export const AppLinks = styled.div`
     height: 65px;
     width: auto;
     margin-right: 15px;
+  }
+
+  @media (max-width: 500px) {
+    flex-direction: column;
   }
 `;
 
@@ -162,6 +225,14 @@ export const ImageContainer = styled.div`
   position: relative;
   overflow: hidden;
   margin-bottom: 20px;
+
+  @media (max-width: 992px) {
+    flex: 0 0 calc(50% - 10px);
+  }
+
+  @media (max-width: 576px) {
+     flex: 0 0 100%;
+  }
 `;
 
 export const ImageWrapper = styled.div`
