@@ -58,7 +58,11 @@ export default function MyOrders() {
     }
 
     const handleTrackOrder = (step:string, id:string, date: string) => {
-        router.push(`/meus-pedidos/rastreio?step=${step}&id=${id}&date=${date}`)
+        router.push(`/meus-pedidos/rastreio/${id}?step=${step}&date=${date}`)
+    }
+
+    const handleOrderDetails = (id:string) => {
+        router.push(`/meus-pedidos/detalhes/${id}`);
     }
 
     return (
@@ -73,7 +77,7 @@ export default function MyOrders() {
                                 <span>{order.date}</span>
                                 <p>Pedido #{order.id}</p>
                                 <p>{order.name}</p>
-                                <strong onClick={() => handleTrackOrder(order.status, order.id, order.date)}>
+                                <strong style={{ cursor: 'pointer' }} onClick={() => handleOrderDetails(order.id)}>
                                     <Icon icon="mdi:eye" width="15" />
                                     Detalhes do pedido
                                 </strong>
@@ -83,7 +87,7 @@ export default function MyOrders() {
                             ) : order.status === 'delivered' && !order.rating ? (
                                 <ActionButton color="green" onClick={() => openWarning('Pedido já avaliado', 'Caso queira alterar sua avaliação, favor enviar e-mail para "suporte@litoralnmesa.com.br" informando o código #21775087')}><img src={'/images/my-orders/rate.png'} /> Pedido avaliado</ActionButton>
                             ) : order.status !== 'canceled' ? (
-                                <ActionButton color="blue"><img src={'/images/my-orders/acompanhar-pedido.png'} /> Acompanhar pedido</ActionButton>
+                                <ActionButton onClick={() => handleTrackOrder(order.status, order.id, order.date)} color="blue"><img src={'/images/my-orders/acompanhar-pedido.png'} /> Acompanhar pedido</ActionButton>
                             ) : null}
                         </OrderCard>
                     ))}

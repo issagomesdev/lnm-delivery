@@ -30,6 +30,12 @@ export const Container = styled.div`
     @media (max-width: 980px) {
         justify-content: center;
     }
+
+    @media (max-width: 600px) {
+        >h2 {
+            font-size: 15px;
+        }
+    }
 `
 
 export const LogoWrapper = styled.div` 
