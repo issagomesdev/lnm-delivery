@@ -19,8 +19,6 @@ const criteria = [
 
 export default function RatingComponent({ isOpen, onClose }: RatingComponentProps) {
 
-    if (!isOpen) return null
-
     const [ratings, setRatings] = useState<Record<string, number>>({});
     const [comment, setComment] = useState('');
     const [commentModalOpen, setCommentModalOpen] = useState(false);
@@ -39,6 +37,8 @@ export default function RatingComponent({ isOpen, onClose }: RatingComponentProp
         console.log('Pedido Avaliado!', comment, ratings);
         setConfirmModalOpen(true);
     }
+
+    if (!isOpen) return null
 
     return (
         <Overlay>
