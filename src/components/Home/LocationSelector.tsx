@@ -1,7 +1,7 @@
 'use client'
 import { LocationContainer, LocationSelectorContainer, Select, LocationIcon, SearchDeliveryButton } from './styles'
 import AppLinks from './AppLinks'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 export default function LocationSelector() {
   const [neighborhoods, setNeighborhoods] = useState<string[]>([])
