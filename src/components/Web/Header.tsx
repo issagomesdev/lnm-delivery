@@ -1,8 +1,8 @@
 'use client'
 
 import styled from 'styled-components'
-import { Icon } from '@iconify/react'
 import { useState } from 'react'
+import FloatingMenu from '@/components/Web/FloatingMenu'
 
 const Container = styled.header`
   background: ${({ theme }) => theme.colors.background};
@@ -24,7 +24,7 @@ const Nav = styled.nav`
 
 const NavItem = styled.a.withConfig({
   shouldForwardProp: (prop) => prop !== 'active'
-})<{ active?: boolean }>`
+}) <{ active?: boolean }>`
   color: ${({ theme, active }) => active ? theme.colors.primary : theme.colors.text_secondary};
   text-decoration: ${({ active }) => active ? 'underline' : 'none'};
   cursor: pointer;
@@ -46,13 +46,14 @@ const NavItem = styled.a.withConfig({
 
 export default function Header() {
 
-  const [currentHash, setCurrentHash] = useState<string>('')
+  const [currentHash, setCurrentHash] = useState<string>('');
+  const [isOpen, setIsOpen] = useState(false);
 
   const links = [
     { id: 1, section: '#historia', label: 'Fazendo História' },
     { id: 2, href: 'https://litoralnamesa.com.br/contato/', label: 'Fale Conosco' },
     { id: 3, href: 'https://litoralnamesa.com.br/seja-parceiro/', label: 'Seja Parceiro' },
-    { id: 4, icon: 'account-icon.png', label: 'Entrar' },
+    { id: 4, icon: 'account-icon.png', label: 'Entrar', callback: () => setIsOpen(true) },
   ]
 
   return (
@@ -68,7 +69,9 @@ export default function Header() {
               href={item.href}
               active={isActive}
               onClick={(e) => {
-                if(item.section && hash) {
+                if (item.callback) {
+                  item.callback()
+                } else if (item.section && hash) {
                   e.preventDefault()
                   const el = document.getElementById(hash)
                   if (el) el.scrollIntoView({ behavior: 'smooth' })
@@ -85,6 +88,9 @@ export default function Header() {
           )
         })}
       </Nav>
+      {isOpen && (
+       <FloatingMenu onClose={() => setIsOpen(false)} />
+      )}
     </Container>
   )
 }

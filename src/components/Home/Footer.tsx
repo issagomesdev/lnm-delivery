@@ -83,14 +83,27 @@ const Copyright = styled.p`
   margin-top: 20px;
 `
 
+const DividerLine = styled.div`
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(
+    to right,
+    #ff5100 0%, #ff5100 33.33%,
+    #ed9268 33.33%, #ed9268 66.66%,
+    #ff621a 66.66%, #ff621a 100%
+  );
+`
+
 export default function Footer() {
   return (
+    <>
+    <DividerLine />
     <FooterContainer>
       <Row>
         <FooterNav>
-          <li><a href="#sobre-nos">Sobre nós</a></li>
-          <li><a href="/termos-de-uso">Termos e Condições de Uso</a></li>
-          <li><a href="/politica-de-privacidade">Política de Privacidade</a></li>
+          <li><a href="#historia">Sobre nós</a></li>
+          <li><a href="https://litoralnamesa.com.br/termos-de-uso/">Termos e Condições de Uso</a></li>
+          <li><a href="https://litoralnamesa.com.br/politica-de-privacidade/">Política de Privacidade</a></li>
         </FooterNav>
 
         <SocialIcons>
@@ -119,6 +132,7 @@ export default function Footer() {
         </Copyright>
       </Row>
     </FooterContainer>
+    </>
   )
 }
 

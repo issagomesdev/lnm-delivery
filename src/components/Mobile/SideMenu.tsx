@@ -3,9 +3,8 @@
 import { useState } from 'react';
 import { MenuButton, MenuPanel, MenuOverlay, Content, UserContent, Nav, NavItem } from './styles';
 import { Icon } from '@iconify/react';
-import { theme } from '@/styles/theme';
 
-export default function FloatingMenu() {
+export default function SideMenu() {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleMenu = () => setIsOpen(prev => !prev);
@@ -15,7 +14,7 @@ export default function FloatingMenu() {
         { href: '/meus-pedidos', icon: 'Icon Meus pedidos.png', label: 'Meus pedidos' },
         { href: '/meus-enderecos', icon: 'Icon Meus endereços.png', label: 'Meus endereços' },
         { href: '/fale-conosco', icon: 'Icon Fale conosco.png', label: 'Fale conosco' },
-        { href: '/termos-de-uso', icon: 'Icon Termos de uso.png', label: 'Termos de uso' },
+        { href: 'https://litoralnamesa.com.br/termos-de-uso/', icon: 'Icon Termos de uso.png', label: 'Termos de uso' },
         { href: '/seja-parceiro', icon: 'Icon Seja parceiro.png', label: 'Seja parceiro' },
         { href: '/logout', icon: 'Icon Deslogar.png', label: 'Deslogar' },
     ]
@@ -44,7 +43,7 @@ export default function FloatingMenu() {
                                     key={item.href}
                                     href={item.href}
                                     style={{ display: 'flex', alignItems: 'center', }}>
-                                    <img src={`/images/home-menu/${item.icon}`} alt="Logo" width="12" style={{ marginRight: '0.5rem' }} />
+                                    <img src={`/images/home-menu/${item.icon}`} alt="Logo" style={{ marginRight: '0.5rem' }} />
                                     {item.label}
                                 </NavItem>
                             )

@@ -9,6 +9,7 @@ import HowItWorksSection from '@/components/Home/Sections/HowItWorksSection';
 import CitiesSection from '@/components/Home/Sections/CitiesSection';
 import { useEffect, useRef, useState } from 'react'
 import { useIsMobile } from '@/hooks/useIsMobile';
+import Footer from '@/components/Home/Footer';
 
 export default function Home() {
   const featuresRef = useRef<HTMLDivElement>(null)
@@ -42,6 +43,7 @@ export default function Home() {
       <MealsSection />
       <HowItWorksSection />
       <CitiesSection />
+      <Footer />
     </>
   )
 }

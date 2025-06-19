@@ -1,8 +1,6 @@
 import { Section, Row, H2, ImageGrid, ImageContainer, ImageWrapper, StyledImg, ImageCaption } from './styles';
 import React from 'react';
 
-
-
 export default function CitiesSection() {
   return (
     <Section id="cities">
