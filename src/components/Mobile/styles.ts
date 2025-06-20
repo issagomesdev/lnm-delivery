@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.background};
-  height: 100vh;
+  min-height: 100vh;
 `
 
 export const Logo = styled.div`
@@ -13,7 +13,7 @@ export const Logo = styled.div`
   justify-content: center;
 
   img {
-    width: 200px;
+    width: 100px;
   }
 `
 

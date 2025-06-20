@@ -6,10 +6,12 @@ import FloatingMenu from '@/components/Web/FloatingMenu'
 
 const Container = styled.header`
   background: ${({ theme }) => theme.colors.background};
-  padding: 1rem 2rem;
+  height: 4.5rem;
   font-weight: regular;
   display: flex;
+  align-items: center;
   justify-content: flex-start;
+  padding: 0 2rem;
 `
 
 const Nav = styled.nav`

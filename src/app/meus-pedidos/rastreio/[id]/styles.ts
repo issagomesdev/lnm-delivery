@@ -15,7 +15,11 @@ export const StepProgress = styled.div`
   display: flex;
   justify-content: space-around;
   margin-top: 1rem;
-  width: 100%;
+  width: 60%;
+
+  @media (max-width: 800px) {
+    width: 100%;
+  }
 `;
 
 export const StepItem = styled.div`
@@ -98,7 +102,7 @@ export const Label = styled.span`
 `;
 
 export const Emoji = styled.img`
-  width: 20rem;
+  width: 15rem;
 `;
 
 export const OrderInfo = styled.div`
@@ -131,10 +135,14 @@ export const OrderButton = styled.button`
   padding: 1rem;
   margin: 1rem 0;
   border-radius: 4px;
-  width: 70%;
+  width: 40%;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
+
+  @media (max-width: 800px) {
+    width: 70%;
+  }
 `;
 
 export const ContactChannel = styled.div`

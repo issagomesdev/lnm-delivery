@@ -58,10 +58,10 @@ export default function LocationSelector() {
           Buscar Delivery
         </SearchDeliveryButton>}
 
-        <LocationIcon>
+        {selectedCity.length == 0 && <LocationIcon>
           <img src="/images/btn_my_location.png" />
           Usar minha localização
-        </LocationIcon>
+        </LocationIcon>}
         <AppLinks />
       </LocationSelectorContainer>
     </LocationContainer>

@@ -9,8 +9,8 @@ export const Container = styled.div`
     position: relative;
     background-color: ${({ theme }) => theme.colors.primary};
     width: 100%;
-    height: 6rem;
-    padding: .6rem 2rem;
+    height: 4.5rem;
+    padding: 0 2rem;
     color: #fff;
     font-weight: 300;
 
@@ -31,19 +31,17 @@ export const Container = styled.div`
         justify-content: center;
     }
 
-    @media (max-width: 600px) {
-        >h2 {
-            font-size: 15px;
-        }
+    >h2 {
+        font-size: 16px;
     }
 `
 
 export const LogoWrapper = styled.div` 
-    width: 15rem;
+    height: 40px;
     position: relative;
 
     >img {
-        width: 100%;
+        height: 100%;
     }
 
     &::after {

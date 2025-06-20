@@ -3,7 +3,6 @@
 import styled, { keyframes } from 'styled-components'
 
 export const LocationContainer = styled.div`
-  position: absolute;
   width: 100%;
   gap: 6rem;
   display: flex;
@@ -11,8 +10,12 @@ export const LocationContainer = styled.div`
   align-items: center;
   margin-top: 11rem;
 
-  @media (max-width: 768px) {
-    margin-top: 3rem;
+  @media (max-width: 980px) {
+    margin-top: 1rem;
+  }
+
+  @media (min-width: 980px) {
+   position: absolute;
   }
 `
 
@@ -68,14 +71,14 @@ export const SearchDeliveryButton = styled.button`
   outline: none;
   border: none;
   width: 95%;
-  padding: 0.5rem 0;
+  padding: 0.8rem 0;
   border-radius: ${({ theme }) => theme.borderRadius};
   display: flex;
   gap: 0.5rem;
   justify-content: center;
   align-items: center;
   color: white;
-  font-weight: 500;´
+  font-weight: 500;
   cursor: pointer;
 `
 

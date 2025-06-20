@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled,  { keyframes, css } from 'styled-components';
 
 export const Row = styled.div`
   max-width: 1140px;
@@ -17,7 +17,7 @@ export const Row = styled.div`
       font-size: 1.5em;
     }
 
-    p {
+    >p {
       width: 100%;
       margin-left: 0%;
     }
@@ -141,7 +141,9 @@ export const MealPhoto = styled.figure`
 `;
 
 export const Step = styled.div`
-  margin-bottom: 50px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 
   &:last-of-type {
     margin-bottom: 80px;
@@ -156,14 +158,17 @@ export const Step = styled.div`
     text-align: center;
     line-height: 50px;
     font-size: 1.5em;
-    float: left;
-    margin-right: 25px;
   }
 
   p {
-    top: 10px;
-    position: relative;
+    width: 85%;
   }
+`;
+
+export const StepsItens = styled.div<{ align?: 'left' | 'right' }>`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;
 
 export const StepsBox = styled.div<{ align?: 'left' | 'right' }>`
@@ -178,6 +183,37 @@ export const StepsBox = styled.div<{ align?: 'left' | 'right' }>`
       display: flex;
       justify-content: center;
     }
+  }
+`;
+
+interface AnimatedDivProps {
+  $visible: boolean;
+}
+
+export const AnimatedDiv = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== '$visible',
+})<AnimatedDivProps>`
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.5s ease-out;
+  display: flex;
+  justify-content: center;
+
+  ${({ $visible }) =>
+    $visible &&
+    css`
+      animation: ${fadeInUp} 0.6s ease forwards;
+    `}
+`;
+
+const fadeInUp = keyframes`
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
   }
 `;
 
@@ -199,9 +235,9 @@ export const AppImage = styled.img`
 `;
 
 export const AppLinks = styled.div`
-  margin-top: 20px;
   display: flex;
-
+  align-items: center;
+  
   a img {
     height: 65px;
     width: auto;
