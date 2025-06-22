@@ -1,7 +1,7 @@
 'use client'
 
 import Header from "@/components/Authenticated/Header";
-import { Datas, Data, Label, Textarea, Notice } from "@/components/Authenticated/MyAccount/styles";
+import { Datas, Data, Label, Textarea, Notice } from "@/app/minha-conta/styles";
 import ModalComponent from "@/components/shared/Modal/ModalComponent";
 import { useState } from "react";
 

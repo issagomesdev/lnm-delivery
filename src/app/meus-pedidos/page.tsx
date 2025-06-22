@@ -3,9 +3,9 @@
 import Header from "@/components/Authenticated/Header";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useState } from 'react';
-import { Container, OrderCard, OrderInfo, StatusTag, ActionButton, Pagination } from "@/components/Authenticated/MyOrders/styles";
+import { Container, OrderCard, OrderInfo, StatusTag, ActionButton, Pagination } from "./styles";
 import RatingComponent from "@/components/Authenticated/MyOrders/RatingComponent";
-import { Label } from "@/components/Authenticated/MyAccount/styles";
+import { Label } from "@/app/minha-conta/styles";
 import ModalComponent from "@/components/shared/Modal/ModalComponent";
 import { useRouter } from 'next/navigation'
 

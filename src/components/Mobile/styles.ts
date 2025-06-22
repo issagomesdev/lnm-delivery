@@ -19,8 +19,8 @@ export const Logo = styled.div`
 
 export const MenuButton = styled.button<{ $open: boolean }>`
   position: absolute;
-  top: 1.5rem;
-  ${({ $open }) => ($open ? 'left: 1.5rem' : 'right: 1.5rem')};
+  top: .7rem;
+  ${({ $open }) => ($open ? 'left: 1rem' : 'right: 1rem')};
   z-index: 999;
   background-color: ${({ theme }) => theme.colors.primary};
   border: none;

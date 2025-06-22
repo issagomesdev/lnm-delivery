@@ -1,8 +1,8 @@
 'use client'
 
 import React, { useState } from 'react';
-import { Overlay, ModalBox,CancelButton, ConfirmButton } from '@/components/shared/Modal/styles';
-import {  Title, RatingRow, Stars, CommentBox, BottomRow, SecondModal } from "./styles"
+import { Overlay, ModalBox, CancelButton, ConfirmButton } from '@/components/shared/Modal/styles';
+import { Title, RatingRow, Stars, CommentBox, BottomRow, SecondModal } from "./styles"
 import { Icon } from '@iconify/react';
 
 interface RatingComponentProps {

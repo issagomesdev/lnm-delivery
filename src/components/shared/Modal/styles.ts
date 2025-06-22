@@ -22,6 +22,7 @@ export const ModalBox = styled.div`
   max-width: 400px;
   padding: 2rem;
   text-align: center;
+  position: relative;
 `
 
 export const Content = styled.div`
