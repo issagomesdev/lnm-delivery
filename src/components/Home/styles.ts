@@ -116,7 +116,7 @@ export const ScrollDownContainer = styled.span`
   cursor: pointer;
   padding: 0.5rem;
   border-radius: 50%;
-  right: 50%;
+  right: 48%;
   transform: translateX(50%);
   display: flex;
   justify-content: center;
@@ -130,5 +130,9 @@ export const ScrollDownContainer = styled.span`
   &.hidden {
     opacity: 0;
     visibility: hidden;
+  }
+
+  @media (max-width: 768px) {
+    right: 45%;
   }
 `

@@ -1,11 +1,11 @@
 'use client'
 
-import Header from '@/components/Authenticated/Header';
+import Header from '@/components/Into/Header';
 import React, { useState } from 'react';
 import { ActionButton, Actions, AddButton, Card, Container, Datas } from './styles';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import ModalComponent from "@/components/shared/Modal/ModalComponent";
-import AddressFormComponent from '@/components/Authenticated/MyAddresses/AddressFormComponent';
+import AddressFormComponent from '@/components/Into/MyAddresses/AddressFormComponent';
 
 const MyAddresses = () => {
 
@@ -113,7 +113,8 @@ const MyAddresses = () => {
             <Datas>
               <strong>{item.apelido}</strong>
               <p><b>Rua</b> {item.rua}</p>
-              <p><b>Número:</b> {item.numero} Bairro: {item.bairro}</p>
+              <p><b>Número:</b> {item.numero}</p>
+              <p><b>Bairro:</b> {item.bairro}</p>
               <p><b>Cidade/UF:</b> {item.cidade}-{item.uf}</p>
             </Datas>
 

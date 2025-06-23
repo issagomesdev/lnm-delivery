@@ -2,7 +2,7 @@
 
 import { Container, Info, Note, StoreInfo, Table } from './styles';
 import { useParams } from 'next/navigation';
-import Header from '@/components/Authenticated/Header';
+import Header from '@/components/Into/Header';
 
 export default function OrderDetails() {
   const params = useParams();

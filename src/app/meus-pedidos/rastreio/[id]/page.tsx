@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Container, StepProgress, StepItem, StepCircle, Circle, Label, Emoji, OrderInfo, DeliveryTime, OrderButton, ContactChannel, CallButton } from './styles';
-import Header from "@/components/Authenticated/Header";
+import Header from "@/components/Into/Header";
 import { useSearchParams, useParams } from 'next/navigation';
 import { Icon } from '@iconify/react/dist/iconify.js';
 

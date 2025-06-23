@@ -39,7 +39,8 @@ export const Container = styled.div`
 export const LogoWrapper = styled.div` 
     height: 40px;
     position: relative;
-
+    cursor: pointer;
+    
     >img {
         height: 100%;
     }

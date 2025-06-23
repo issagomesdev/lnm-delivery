@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Overlay, ModalBox, CancelButton, ConfirmButton } from '@/components/shared/Modal/styles';
+import { Overlay, ModalBox } from '@/components/shared/Modal/styles';
 import { useAddressForm } from '@/controllers/AdressesController';
 import { Title, Form, Field, CloseButton, Button } from './styles';
 import { Icon } from '@iconify/react';

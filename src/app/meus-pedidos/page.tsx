@@ -1,10 +1,10 @@
 'use client'
 
-import Header from "@/components/Authenticated/Header";
+import Header from "@/components/Into/Header";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useState } from 'react';
 import { Container, OrderCard, OrderInfo, StatusTag, ActionButton, Pagination } from "./styles";
-import RatingComponent from "@/components/Authenticated/MyOrders/RatingComponent";
+import RatingComponent from "@/components/Into/MyOrders/RatingComponent";
 import { Label } from "@/app/minha-conta/styles";
 import ModalComponent from "@/components/shared/Modal/ModalComponent";
 import { useRouter } from 'next/navigation'

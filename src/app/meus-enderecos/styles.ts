@@ -35,6 +35,11 @@ export const Card = styled.div`
     font-size: 14px;
     line-height: 1.5;
   }
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    gap: 15px;
+  }
 `;
 
 export const Datas = styled.div`
