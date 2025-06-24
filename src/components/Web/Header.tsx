@@ -1,8 +1,9 @@
 'use client'
 
 import styled from 'styled-components'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import FloatingMenu from '@/components/Web/FloatingMenu'
+import { useRouter } from 'next/navigation'
 
 const Container = styled.header`
   background: ${({ theme }) => theme.colors.background};
@@ -12,6 +13,8 @@ const Container = styled.header`
   align-items: center;
   justify-content: flex-start;
   padding: 0 2rem;
+  border-bottom: 1px solid  ${({ theme }) => theme.colors.separators};
+  margin-bottom: 2em;
 `
 
 const Nav = styled.nav`
@@ -50,6 +53,23 @@ export default function Header() {
 
   const [currentHash, setCurrentHash] = useState<string>('');
   const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
 
   const links = [
     { id: 1, section: '#historia', label: 'Fazendo História' },
@@ -60,7 +80,7 @@ export default function Header() {
 
   return (
     <Container>
-      <img src="/images/logo.png" alt="Logo" style={{ height: '40px' }} />
+      <img src="/images/logo.png" alt="Logo" style={{ height: '40px', cursor: 'pointer' }} onClick={() => router.push("/")} />
       <Nav>
         {links.map((item) => {
           const hash = item.section?.replace('#', '')
@@ -91,7 +111,7 @@ export default function Header() {
         })}
       </Nav>
       {isOpen && (
-       <FloatingMenu onClose={() => setIsOpen(false)} />
+        <FloatingMenu ref={menuRef} onClose={() => setIsOpen(false)} />
       )}
     </Container>
   )

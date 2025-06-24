@@ -14,7 +14,7 @@ export default function SideMenu() {
         { href: '/meus-pedidos', icon: 'Icon Meus pedidos.png', label: 'Meus pedidos' },
         { href: '/meus-enderecos', icon: 'Icon Meus endereços.png', label: 'Meus endereços' },
         { href: '/fale-conosco', icon: 'Icon Fale conosco.png', label: 'Fale conosco' },
-        { href: 'https://litoralnamesa.com.br/termos-de-uso/', icon: 'Icon Termos de uso.png', label: 'Termos de uso' },
+        { href: '/termos-de-uso', icon: 'Icon Termos de uso.png', label: 'Termos de uso' },
         { href: '/seja-parceiro', icon: 'Icon Seja parceiro.png', label: 'Seja parceiro' },
         { href: '/logout', icon: 'Icon Deslogar.png', label: 'Deslogar' },
     ]

@@ -12,24 +12,42 @@ export const CategoriesWrapper = styled.div`
   display: flex;
   overflow-x: auto;
   gap: 12px;
-  padding: 8px 0;
+  padding: 2px 0;
+  position: relative;
+  padding-bottom: 5px;
+
+  &::-webkit-scrollbar {
+    height: 6px;
+    background-color: #F5F5F5;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: ${({ theme }) => theme.colors.primary};
+  }
 `;
 
 export const CategoryItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 80px;
+  width: fit-content;
+  cursor: pointer;
 `;
 
 export const CategoryImage = styled.img`
-  width: 48px;
-  height: 48px;
+  width: 60px;
+  height: 60px;
 `;
 
 export const CategoryName = styled.span`
   font-size: 12px;
   margin-top: 4px;
+  text-wrap-mode: nowrap;
+  background: ${({ theme }) => theme.colors.primary};;
+  padding: 3px 11px;
+  border-radius: 15px;
+  color: #fff;
+  font-weight: 500;
 `;
 
 // banners
@@ -38,6 +56,16 @@ export const BannersWrapper = styled.div`
   overflow-x: auto;
   gap: 12px;
   margin: 16px 0;
+  padding-bottom: 5px;
+
+  &::-webkit-scrollbar {
+    height: 6px;
+    background-color: #F5F5F5;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: ${({ theme }) => theme.colors.primary};
+  }
 `;
 
 export const BannerImage = styled.img`
@@ -56,26 +84,39 @@ export const ShopsWrapper = styled.div`
 
 export const FiltersWrapper = styled.div`
   display: flex;
-  gap: 8px;
+  gap: 15px;
   align-items: center;
   flex-wrap: wrap;
 `;
 
-export const FilterInput = styled.input`
+export const FilterInput = styled.div`
+  display: flex;
   flex: 1;
+  gap: 10px;
   padding: 10px 12px;
-  border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 14px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+  input {
+    border: none;
+    outline: none;
+    width: 100%;
+    background-color: transparent;
+  }
 `;
 
 export const FilterButton = styled.button`
   background-color: #f5f5f5;
   border: 1px solid #ccc;
   border-radius: 6px;
-  padding: 10px 14px;
+  padding: 8px 14px;
   font-size: 14px;
   cursor: pointer;
+  color: gray;
+  display: flex;
+  gap: 10px;
+  align-items: center;
 `;
 
 export const OpenCount = styled.div`
@@ -171,10 +212,12 @@ export const BottomNavWrapper = styled.div`
   border-top: 1px solid #eee;
 `;
 
-export const NavItem = styled.div`
+export const NavItem = styled.div <{ active?: boolean }>`
   display: flex;
+  gap: 3px;
   flex-direction: column;
   align-items: center;
   font-size: 12px;
-  color: #333;
+  font-weight: 500;
+  color: ${({active, theme}) => (active ? theme.colors.primary : '#333')};
 `;

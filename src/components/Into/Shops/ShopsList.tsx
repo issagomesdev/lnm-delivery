@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import { shops } from './data';
+import { useTheme } from 'styled-components';
+import { Icon } from '@iconify/react';
 import {
   ShopsWrapper,
   FiltersWrapper,
@@ -20,6 +22,7 @@ import {
 
 const ShopsList = () => {
   const [search, setSearch] = useState('');
+  const theme = useTheme();
 
   const now = new Date();
   const filteredShops = shops.filter((shop) =>
@@ -44,12 +47,16 @@ const ShopsList = () => {
   return (
     <ShopsWrapper>
       <FiltersWrapper>
-        <FilterInput
-          placeholder="Buscar por loja ou categoria"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <FilterButton>Filtro avançado</FilterButton>
+        <FilterInput>
+          <Icon icon={'lets-icons:search-alt'} color={'gray'} width="20" />
+          <input placeholder="Buscar por loja ou categoria"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)} />
+        </FilterInput>
+        <FilterButton>
+          <Icon icon={'mage:filter'} width="15" />
+          Filtro avançado
+        </FilterButton>
       </FiltersWrapper>
 
       <OpenCount>Lojas abertas ({openShops.length})</OpenCount>

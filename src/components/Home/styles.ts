@@ -8,14 +8,9 @@ export const LocationContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 11rem;
 
   @media (max-width: 980px) {
     margin-top: 1rem;
-  }
-
-  @media (min-width: 980px) {
-   position: absolute;
   }
 `
 

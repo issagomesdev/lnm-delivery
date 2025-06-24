@@ -1,6 +1,6 @@
 'use client'
 
-import { Container, MaskedImage } from './styles'
+import { Container, Banner, MaskedImage } from './styles'
 import LocationSelector from '@/components/Home/LocationSelector'
 import Header from '@/components/Web/Header'
 
@@ -9,11 +9,13 @@ export default function App() {
     <>
       <Header />
       <Container>
+        <Banner>
+          <h1>Peça nos melhores deliveries do litoral</h1>
+          <LocationSelector />
+        </Banner>
         <MaskedImage>
-          <img src="/images/home.jpg" alt="" width="100%" />
+          <img src="/images/home.png" alt="" width="100%" />
         </MaskedImage>
-        <h1 style={{ position: 'absolute', width: '100%', textAlign: 'center', marginTop: '6rem' }}>Descubra os melhores deliveries do litoral</h1>
-        <LocationSelector />
       </Container>
     </>
   )

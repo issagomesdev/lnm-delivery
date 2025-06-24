@@ -2,11 +2,13 @@
 import { LocationContainer, LocationSelectorContainer, Select, LocationIcon, SearchDeliveryButton } from './styles'
 import AppLinks from './AppLinks'
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function LocationSelector() {
   const [neighborhoods, setNeighborhoods] = useState<string[]>([])
   const [selectedCity, setSelectedCity] = useState<string>('')
   const [selectedNeighborhood, setSelectedNeighborhood] = useState<string>('')
+  const router = useRouter()
 
   const cities = [
     { name: 'São Sebastião', neighborhoods: ['Centro', 'Juquehy', 'Maresias'] },
@@ -53,10 +55,11 @@ export default function LocationSelector() {
           </select>
         </Select>}
 
-        {selectedCity.length > 0 && selectedNeighborhood.length > 0 && <SearchDeliveryButton>
-          <img src="/images/search.png" alt="Buscar Delivery" width={'20rem'} />
-          Buscar Delivery
-        </SearchDeliveryButton>}
+        {selectedCity.length > 0 && selectedNeighborhood.length > 0 &&
+          <SearchDeliveryButton onClick={() => router.push("/shops")}>
+            <img src="/images/search.png" alt="Buscar Delivery" width={'20rem'} />
+            Buscar Delivery
+          </SearchDeliveryButton>}
 
         {selectedCity.length == 0 && <LocationIcon>
           <img src="/images/btn_my_location.png" />

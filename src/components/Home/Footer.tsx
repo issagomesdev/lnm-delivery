@@ -102,8 +102,8 @@ export default function Footer() {
       <Row>
         <FooterNav>
           <li><a href="#historia">Sobre nós</a></li>
-          <li><a href="https://litoralnamesa.com.br/termos-de-uso/">Termos e Condições de Uso</a></li>
-          <li><a href="https://litoralnamesa.com.br/politica-de-privacidade/">Política de Privacidade</a></li>
+          <li><a href="/termos-de-uso">Termos e Condições de Uso</a></li>
+          <li><a href="/politica-de-privacidade">Política de Privacidade</a></li>
         </FooterNav>
 
         <SocialIcons>

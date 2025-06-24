@@ -14,7 +14,7 @@ export default function MealsSection() {
         {row.map(num => (
           <MealItem key={num}>
             <MealPhoto>
-              <img src={`/images/meal-photos/${num}.jpg`} alt={`Meal ${num}`} />
+              <img src={`/images/meal-photos/0${num}.jpg`} alt={`Meal ${num}`} />
             </MealPhoto>
           </MealItem>
         ))}

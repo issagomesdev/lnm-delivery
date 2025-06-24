@@ -4,11 +4,27 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-around;
   position: relative;
+  margin-bottom: 5rem
+`
+
+export const Banner = styled.div`
+  display: flex;
+  position: relative;
+  gap: 30px;
+  flex-direction: column;
+  justify-content: center;
+
+  h1 {
+    text-align: center;
+    margin-top: 6rem
+    width: 100%
+  }
 `
 
 export const MaskedImage = styled.div`
+  width: 35%;
   position: relative;
   display: inline-block;
 
@@ -16,14 +32,6 @@ export const MaskedImage = styled.div`
     display: block;
     width: 100%;
     height: auto;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(255, 255, 255, 0.6); 
-    pointer-events: none;
   }
 `
 

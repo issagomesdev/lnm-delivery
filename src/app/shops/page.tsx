@@ -11,7 +11,7 @@ import { Wrapper } from '@/components/Into/Shops/styles';
 const ShopsPage = () => {
   return (
     <>
-      <Header name={'Minha Conta'} />
+      <Header/>
       <Wrapper>
         <Categories />
         <Banners />

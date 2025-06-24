@@ -7,9 +7,18 @@ import { Icon } from '@iconify/react';
 const BottomNav = () => {
   return (
     <BottomNavWrapper>
-      <NavItem><Icon icon="tabler:home" /> Lojas</NavItem>
-      <NavItem><Icon icon="tabler:receipt" /> Cupons</NavItem>
-      <NavItem><Icon icon="tabler:heart" /> Favoritos</NavItem>
+      <NavItem active={true}>
+        <Icon icon="ic:round-home" width="30"/>
+        Lojas
+      </NavItem>
+      <NavItem>
+        <Icon icon="fluent-emoji-high-contrast:label" width="30"/>
+        Cupons
+      </NavItem>
+      <NavItem>
+        <Icon icon="ic:round-favorite" width="30"/>
+        Favoritos
+      </NavItem>
     </BottomNavWrapper>
   );
 };
