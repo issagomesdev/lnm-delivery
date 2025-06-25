@@ -1,15 +1,45 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BannersWrapper, BannerImage } from './styles';
 import { banners } from './data';
-
+import { useHorizontalScrollDrag } from '@/hooks/useHorizontalScrollDrag';
 
 const Banners = () => {
+  const { ref, isDragging, events } = useHorizontalScrollDrag();
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const interval = setInterval(() => {
+      if (!el) return;
+
+      const isAtEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 1;
+
+      if (isAtEnd) {
+        el.scrollTo({ left: 0, behavior: 'auto' });
+      } else {
+        el.scrollBy({ left: 150, behavior: 'smooth' });
+      }
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [ref]);
+
   return (
-    <BannersWrapper>
+    <BannersWrapper
+      ref={ref}
+      {...events}
+      style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
+    >
       {banners.map((banner, i) => (
-        <BannerImage key={i} src={banner.path} alt={banner.name} />
+        <BannerImage
+          key={i}
+          src={banner.path}
+          alt={banner.name}
+          onDragStart={(e) => e.preventDefault()}
+        />
       ))}
     </BannersWrapper>
   );

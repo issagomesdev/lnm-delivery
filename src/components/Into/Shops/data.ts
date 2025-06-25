@@ -30,6 +30,21 @@ export const categories = [
   { id: 29, name: 'Peixaria', path: '/images/categories/29 Peixaria.png' },
 ];
 
+export const orderOptions = [
+  { id: 'alphabetical', label: 'Ordem alfabética' },
+  { id: 'distance', label: 'Menor distância' },
+  { id: 'deliveryFee', label: 'Menor taxa de entrega' },
+  { id: 'deliveryTime', label: 'Menor tempo de entrega' },
+  { id: 'rating', label: 'Melhor avaliado' },
+];
+
+export const paymentMethods = [
+  'Alelo Refeição', 'AmericanExpress', 'Banricompras Crédito', 'Banricompras Débito',
+  'Ben Visa Vale Refeição', 'Cabal Crédito', 'Cabal Débito', 'Dinheiro', 'DinnersClub',
+  'Elo Crédito', 'Elo Débito', 'Good Card Crédito', 'Hipercard Crédito',
+  'MasterCard Crédito', 'MasterCard Débito', 'Nugo Crédito', 'Pix - QR Code na máquina'
+];
+
 export const banners = [
   { id: 1, name: 'Mercado', path: '/images/banners/banner 01.png' },
   { id: 2, name: 'Padaria', path: '/images/banners/banner 02.png' },
@@ -37,17 +52,17 @@ export const banners = [
   { id: 4, name: 'Lanches', path: '/images/banners/banner 04.png' },
 ];
 
-export const shops = Array.from({ length: 30 }, (_, i) => {
+export const shops = Array.from({ length: 20 }, (_, i) => {
   const openingTime = new Date();
-  openingTime.setHours(9 + (i % 3) * 2, 0, 0);
+  openingTime.setHours(15 + (i % 3) * 2, 0, 0);
 
   const closingTime = new Date();
   closingTime.setHours(20 + (i % 4), 0, 0);
 
   return {
-    name: `Loja Exemplo ${i + 1}`,
+    name: i % 2 === 0 ? `Loja Exemplo ${i + 1}` : `Loja Exemplo ${i + 1} Nome Grande`,
     image: i % 5 === 0 ? `/images/stores/store${(i % 5) + 1}.png` : '',
-    category: categories[i % categories.length].name,
+    category: { id: categories[i % categories.length].id, name: categories[i % categories.length].name },
     deliveryTime: 30 + (i % 5) * 10,
     deliveryFee: i % 3 === 0 ? 0 : 5 + (i % 4),
     openingTime,

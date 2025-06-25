@@ -1,10 +1,12 @@
 import styled from 'styled-components';
-
+import { styled as styledBase } from 'styled-components';
 
 export const Wrapper = styled.div`
   display: flex;
+  gap: 1.5rem;
   flex-direction: column;
-  padding: 16px;
+  padding: 3rem 1rem;
+  margin-bottom: 5rem;
 `;
 
 // categories
@@ -24,26 +26,48 @@ export const CategoriesWrapper = styled.div`
   &::-webkit-scrollbar-thumb {
     background-color: ${({ theme }) => theme.colors.primary};
   }
+
+  &:not(:hover)::-webkit-scrollbar-thumb, &:not(:hover)::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
-export const CategoryItem = styled.div`
+interface CategorySelectedProps {
+  isSelected?: boolean;
+}
+
+export const CategoryItem = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== 'isSelected',
+})<CategorySelectedProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
   min-width: 6rem;
   cursor: pointer;
   position: relative;
+  user-select: none;
+  border-radius: 8px;
+  padding: 6px;
+  transition: 0.3s;
 `;
 
-export const CategoryImage = styled.img`
-  width: 60px;
+export const CategoryImage = styled.img.withConfig({
+  shouldForwardProp: (prop) => prop !== 'isSelected',
+})<CategorySelectedProps>`
+  width: 80px;
   height: auto;
+  border-radius: 8px;
+  
+  background-color: ${({ isSelected }) =>
+    isSelected ? '#E6F4F1' : 'transparent'};
 `;
 
-export const CategoryName = styled.span`
+export const CategoryName = styled.span.withConfig({
+  shouldForwardProp: (prop) => prop !== 'isSelected',
+})<CategorySelectedProps>`
   font-size: 12px;
   margin-top: 4px;
-  background: ${({ theme }) => theme.colors.primary};
+  background: ;
   padding: 3px 10px;
   text-align: center;
   border-radius: 15px;
@@ -53,6 +77,9 @@ export const CategoryName = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   width: 100%;
+
+  background-color: ${({ isSelected, theme }) =>
+    isSelected ? theme.colors.conceptual_green: theme.colors.primary };
 `;
 
 // banners
@@ -71,6 +98,10 @@ export const BannersWrapper = styled.div`
   &::-webkit-scrollbar-thumb {
     background-color: ${({ theme }) => theme.colors.primary};
   }
+
+  &:not(:hover)::-webkit-scrollbar-thumb, &:not(:hover)::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const BannerImage = styled.img`
@@ -83,8 +114,7 @@ export const BannerImage = styled.img`
 export const ShopsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-bottom: 8rem;
+  gap: 2rem;
 `;
 
 export const FiltersWrapper = styled.div`
@@ -123,14 +153,28 @@ export const FilterButton = styled.button`
   display: flex;
   gap: 10px;
   align-items: center;
+
+  @media (max-width: 400px) {
+    padding: 4px 8px;
+    font-size: 10px;
+  }
 `;
 
-export const ShopCount = styled.div<{ close?: boolean }>`
-  margin: 12px 0 4px;
+interface ShopCountProps {
+  close?: boolean;
+}
+
+export const ShopCount = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== 'close',
+}) <ShopCountProps>`
   font-weight: bold;
-  color: ${({close}) => (close ? '#fff': '#24b03c')};
-  background-color: ${({close}) => (close ? '#d67085': 'transparent')};
-  padding: ${({close}) => (close ? '2rem 1rem': '0 1rem')};
+  color: ${({ close }) => (close ? '#fff' : '#24b03c')};
+  background-color: ${({ close }) => (close ? '#d67085' : 'transparent')};
+  padding: ${({ close }) => (close ? '2rem 1rem' : '0 1rem')};
+
+  @media (max-width: 400px) {
+    font-size: 14px;
+  }
 `;
 
 export const ShopItems = styled.div`
@@ -167,6 +211,9 @@ export const ShopImage = styled.img`
 export const ShopInfo = styled.div`
   flex: 1;
   display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  max-width: 100%;
   flex-direction: column;
   gap: 5px;
 `;
@@ -174,6 +221,10 @@ export const ShopInfo = styled.div`
 export const ShopName = styled.h4`
   margin: 0;
   font-size: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 95%;
 `;
 
 export const ShopMeta = styled.p`
@@ -205,6 +256,12 @@ export const ShopMeta = styled.p`
 `;
 
 export const ShopFooter = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const ShopRating = styled.div`
   font-size: 14px;
   font-weight: bold;
   color: ${({ theme }) => theme.colors.text_secondary};
@@ -212,32 +269,67 @@ export const ShopFooter = styled.div`
   display: flex;
   align-items: center;
   gap: 2px;
-
-  @media (max-width: 768px) {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-  }
 `;
 
+export const ShopOffer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`
+
 export const Tag = styled.div`
-  display: inline-block;
   background-color: #fdf2e4;
-  color: #c27b1f;
+  color: ${({ theme }) => theme.colors.primary};
   font-size: 12px;
   padding: 4px 8px;
   border-radius: 6px;
   margin-top: 6px;
-  width: fit-content;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 500;
   gap: 5px;
-  width: 100%;
+  width: fit-content;
+  text-align: center;
 
   p {
      width: 90%;
+  }
+`;
+
+export const ShopsEmpty = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+
+  p {
+    color: ${({ theme }) => theme.colors.primary};
+    font-weight: 500;
+  }
+`;
+
+export const ShopsEmptyIcon = styled.div`
+  width: 12rem;
+
+  img {
+    width: 100%;
+  }
+`;
+
+export const FilterIsActiveCard = styled.div`
+  width: 100%;
+  background-color: ${({ theme }) => theme.colors.green_highlight};
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: .7rem 1rem;
+  text-align: center;
+
+  h4 {
+    color: #fff;
+    font-weight: 500;
   }
 `;
 
@@ -254,12 +346,91 @@ export const BottomNavWrapper = styled.div`
   border-top: 1px solid #eee;
 `;
 
-export const NavItem = styled.div <{ active?: boolean }>`
+interface NavItemProps {
+  active?: boolean;
+}
+
+export const NavItem = styledBase.a.withConfig({
+  shouldForwardProp: (prop) => prop !== 'active', 
+}) <NavItemProps>`
   display: flex;
   gap: 3px;
   flex-direction: column;
   align-items: center;
   font-size: 12px;
   font-weight: 500;
-  color: ${({active, theme}) => (active ? theme.colors.primary : '#333')};
+  color: ${({ active, theme }) => (active ? theme.colors.primary : '#333')};
+`;
+
+// Advanced Filter
+
+export const FilterSections = styled.div`
+  overflow: hidden scroll;
+  height: 85%;
+`;
+
+export const Section = styled.div`
+  padding: 16px;
+`;
+
+export const SectionTitle = styled.h4`
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  text-align: start;
+`;
+
+export const CheckboxWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  justify-content: space-between;
+  
+  input[type='radio'] {
+    accent-color: ${({ theme }) => theme.colors.primary};
+  }
+
+  label {
+    font-size: 14px;
+  }
+`;
+
+export const TagList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+`;
+
+interface TagItemProps {
+  isActive?: boolean;
+}
+
+export const TagItem = styled.span.withConfig({
+  shouldForwardProp: (prop) => prop !== 'isActive', 
+})<TagItemProps>`
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 12px;
+  background: ${({ isActive, theme }) => isActive ? theme.colors.primary : '#eee'};
+  color: ${({ isActive }) => isActive ? '#fff' : '#333'};
+  cursor: pointer;
+  user-select: none;
+`;
+
+export const FooterButton = styled.button`
+  width: 100%;
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: white;
+  font-weight: bold;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  position: sticky;
+  bottom: 0;
 `;

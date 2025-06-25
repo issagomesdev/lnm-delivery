@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
-import { Overlay, ModalBox } from '@/components/shared/Modal/styles';
+import { Title, Overlay, ModalBox, CloseXButton } from '@/components/shared/Modal/styles';
 import { useAddressForm } from '@/controllers/AdressesController';
-import { Title, Form, Field, CloseButton, Button } from './styles';
+import { Form, Field, Button } from './styles';
 import { Icon } from '@iconify/react';
 
 type AddressFormData = {
@@ -38,9 +38,9 @@ const AddressFormComponent = ({ isOpen, onClose, initialData }: AddressFormCompo
     <Overlay>
       <ModalBox style={{ height: '90%', overflow: 'auto hidden', padding: 0 }}>
         <Title>{initialData? 'Editar' : 'Cadastrar '} endereço</Title>
-        <CloseButton>
+        <CloseXButton>
           <Icon icon={'material-symbols:close'} color="#fff" width="24" onClick={() => { onClose(), resetForm() }} />
-        </CloseButton>
+        </CloseXButton>
         <Form onSubmit={handleSubmit}>
           <Field>
             <label>Estado</label>

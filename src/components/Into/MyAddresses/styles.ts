@@ -1,16 +1,5 @@
 import styled from 'styled-components';
 
-export const Title = styled.h3`
-  text-align: center;
-  margin-bottom: 1rem;
-  font-size: 1rem;
-  font-weight: 500;
-  background: ${({ theme }) => theme.colors.primary};
-  color: #fff;
-  padding: 1em;
-  border-radius: 3px 3px 0 0;
-`;
-
 export const Form = styled.form`
   margin: auto;
   border-radius: 8px;
@@ -38,15 +27,6 @@ export const Field = styled.div`
     border-radius: 4px;
     border: 1px solid #ccc;
   }
-`;
-
-export const CloseButton = styled.button`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-  background: transparent;
-  border: 0;
 `;
 
 export const Button = styled.button`

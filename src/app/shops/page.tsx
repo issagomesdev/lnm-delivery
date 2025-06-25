@@ -1,7 +1,7 @@
 'use client';
 
 import Header from "@/components/Into/Header";
-import React from 'react';
+import React, { useState } from 'react';
 import Categories from '@/components/Into/Shops/Categories';
 import Banners from '@/components/Into/Shops/Banners';
 import ShopsList from '@/components/Into/Shops/ShopsList';
@@ -9,13 +9,19 @@ import BottomNav from '@/components/Into/Shops/BottomNav';
 import { Wrapper } from '@/components/Into/Shops/styles';
 
 const ShopsPage = () => {
+  const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
+
   return (
     <>
-      <Header/>
+      <Header />
       <Wrapper>
-        <Categories />
+        <Categories 
+         selectedCategories={selectedCategories}
+          setSelectedCategories={setSelectedCategories}/>
         <Banners />
-        <ShopsList />
+        <ShopsList
+         selectedCategories={selectedCategories}
+          setSelectedCategories={setSelectedCategories}/>
         <BottomNav />
       </Wrapper>
     </>

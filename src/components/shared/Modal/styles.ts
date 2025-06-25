@@ -2,6 +2,17 @@
 
 import styled from 'styled-components'
 
+export const Title = styled.h3`
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  background: ${({ theme }) => theme.colors.primary};
+  color: #fff;
+  padding: 1em;
+  border-radius: 3px 3px 0 0;
+`;
+
 export const Overlay = styled.div`
   position: fixed;
   top: 0;
@@ -54,3 +65,12 @@ export const ConfirmButton = styled.button`
   width: 100%;
   cursor: pointer;
 `
+
+export const CloseXButton = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+`;

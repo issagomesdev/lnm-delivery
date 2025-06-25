@@ -34,7 +34,7 @@ export const Select = styled.div`
     background-color: transparent;
     outline: none;
     border: none;
-    padding: 0.5rem;
+    padding: 0.3rem 0.5rem;
     font-size: 1rem;
     color: ${({ theme }) => theme.colors.text};
   }
@@ -65,8 +65,8 @@ export const SearchDeliveryButton = styled.button`
   background: ${({ theme }) => theme.colors.primary};
   outline: none;
   border: none;
-  width: 95%;
-  padding: 0.8rem 0;
+  width: 99%;
+  padding: 1rem 0;
   border-radius: ${({ theme }) => theme.borderRadius};
   display: flex;
   gap: 0.5rem;
@@ -85,12 +85,12 @@ export const LinkAppContainer = styled.div`
   margin-top: 2rem;
 
   img {
-    width: 15rem;
+    width: 10rem;
   }
 
   @media (max-width: 768px) {
     img {
-      width: 10rem;
+      width: 7rem;
     }
   }
 `
