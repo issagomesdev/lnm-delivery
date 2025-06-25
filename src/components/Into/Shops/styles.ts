@@ -367,7 +367,6 @@ export const NavItem = styledBase.a.withConfig({
 export const FilterSections = styled.div`
   overflow: hidden scroll;
   height: 85%;
-  margin-bottom: 3rem;
 `;
 
 export const Section = styled.div`

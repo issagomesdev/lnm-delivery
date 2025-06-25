@@ -109,7 +109,7 @@ export default function AdvancedFilter({
                         </TagList>
                     </Section>
 
-                    <Section>
+                    <Section style={{ marginBottom: '3rem' }}>
                         <SectionTitle>Forma de pagamento</SectionTitle>
                         <TagList>
                             {paymentMethods.map(method => {
