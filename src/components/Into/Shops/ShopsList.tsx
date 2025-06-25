@@ -72,7 +72,7 @@ const ShopsList = ({ selectedCategories, setSelectedCategories }: ShopsListProps
     setOpenShops(opened);
     setCloseShops(closed);
 
-    console.log(now, filtered, openShops, closeShops, selectedCategories)
+    // console.log(now, filtered, openShops, closeShops, selectedCategories)
   }, [shops, search, selectedCategories]);
 
   return (
