@@ -30,24 +30,29 @@ export const CategoryItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: fit-content;
+  min-width: 6rem;
   cursor: pointer;
+  position: relative;
 `;
 
 export const CategoryImage = styled.img`
   width: 60px;
-  height: 60px;
+  height: auto;
 `;
 
 export const CategoryName = styled.span`
   font-size: 12px;
   margin-top: 4px;
-  text-wrap-mode: nowrap;
-  background: ${({ theme }) => theme.colors.primary};;
-  padding: 3px 11px;
+  background: ${({ theme }) => theme.colors.primary};
+  padding: 3px 10px;
+  text-align: center;
   border-radius: 15px;
   color: #fff;
   font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
 `;
 
 // banners
@@ -79,21 +84,22 @@ export const ShopsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
-  margin-bottom: 4rem;
+  margin-bottom: 8rem;
 `;
 
 export const FiltersWrapper = styled.div`
   display: flex;
-  gap: 15px;
+  gap: 10px;
   align-items: center;
   flex-wrap: wrap;
+  justify-content: space-between;
 `;
 
 export const FilterInput = styled.div`
   display: flex;
   flex: 1;
   gap: 10px;
-  padding: 10px 12px;
+  padding: 10px;
   border-radius: 6px;
   font-size: 14px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -107,9 +113,9 @@ export const FilterInput = styled.div`
 `;
 
 export const FilterButton = styled.button`
-  background-color: #f5f5f5;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  background-color: ${({ theme }) => theme.colors.separators};
+  border: 2px solid #ccc;
+  border-radius: 8px;
   padding: 8px 14px;
   font-size: 14px;
   cursor: pointer;
@@ -119,10 +125,12 @@ export const FilterButton = styled.button`
   align-items: center;
 `;
 
-export const OpenCount = styled.div`
+export const ShopCount = styled.div<{ close?: boolean }>`
   margin: 12px 0 4px;
   font-weight: bold;
-  color: #24b03c;
+  color: ${({close}) => (close ? '#fff': '#24b03c')};
+  background-color: ${({close}) => (close ? '#d67085': 'transparent')};
+  padding: ${({close}) => (close ? '2rem 1rem': '0 1rem')};
 `;
 
 export const ShopItems = styled.div`
@@ -130,7 +138,7 @@ export const ShopItems = styled.div`
   grid-template-columns: 1fr;
   gap: 16px;
 
-  @media (min-width: 768px) {
+  @media (min-width: 980px) {
     grid-template-columns: repeat(3, 1fr);
   }
 `;
@@ -160,6 +168,7 @@ export const ShopInfo = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
+  gap: 5px;
 `;
 
 export const ShopName = styled.h4`
@@ -167,16 +176,42 @@ export const ShopName = styled.h4`
   font-size: 15px;
 `;
 
-export const ShopMeta = styled.span`
-  font-size: 13px;
+export const ShopMeta = styled.p`
+  font-size: 10px;
   color: #666;
+  display: flex;
+  gap: 10px;
+
+  span {
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  &.time {
+    color: ${({ theme }) => theme.colors.conceptual_green};
+    font-weight: 500;
+  }
+
+  &.close {
+    color: #fff;
+    background-color: #f02649;
+    font-weight: 500;
+    padding: 2px 6px;
+    width: fit-content;
+    border-radius: 10px;
+  }
 `;
 
 export const ShopFooter = styled.div`
   font-size: 14px;
   font-weight: bold;
-  color: #f5a623;
+  color: ${({ theme }) => theme.colors.text_secondary};
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 2px;
 
   @media (max-width: 768px) {
     position: absolute;
@@ -193,10 +228,17 @@ export const Tag = styled.div`
   padding: 4px 8px;
   border-radius: 6px;
   margin-top: 6px;
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  gap: 5px;
+  width: 100%;
+
+  p {
+     width: 90%;
+  }
 `;
 
 // bottom navigation

@@ -9,7 +9,7 @@ import {
   FiltersWrapper,
   FilterInput,
   FilterButton,
-  OpenCount,
+  ShopCount,
   ShopItem,
   ShopImage,
   ShopInfo,
@@ -19,10 +19,12 @@ import {
   Tag,
   ShopItems,
 } from './styles';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 const ShopsList = () => {
   const [search, setSearch] = useState('');
   const theme = useTheme();
+  const isMobile = useIsMobile();
 
   const now = new Date();
   const filteredShops = shops.filter((shop) =>
@@ -36,8 +38,12 @@ const ShopsList = () => {
     return aIsOpen ? -1 : 1;
   });
 
-  const openShops = shops.filter((shop) =>
+  const openShops = filteredShops.filter((shop) =>
     now >= new Date(shop.openingTime) && now <= new Date(shop.closingTime)
+  );
+
+  const closeShops = filteredShops.filter((shop) =>
+    now > new Date(shop.openingTime) && now > new Date(shop.closingTime)
   );
 
   useEffect(() => {
@@ -53,22 +59,24 @@ const ShopsList = () => {
             value={search}
             onChange={(e) => setSearch(e.target.value)} />
         </FilterInput>
-        <FilterButton>
+        {!isMobile && <FilterButton>
           <Icon icon={'mage:filter'} width="15" />
           Filtro avançado
-        </FilterButton>
+        </FilterButton>}
       </FiltersWrapper>
 
-      <OpenCount>Lojas abertas ({openShops.length})</OpenCount>
+      <FiltersWrapper>
+        <ShopCount>Lojas abertas ({openShops.length})</ShopCount>
+        {isMobile && <FilterButton>
+          <Icon icon={'mage:filter'} width="15" />
+          Filtro avançado
+        </FilterButton>}
+      </FiltersWrapper>
 
       <ShopItems>
-        {filteredShops.map((shop, i) => {
+        {openShops.map((shop, i) => {
           const isOpen = now >= new Date(shop.openingTime) && now <= new Date(shop.closingTime);
           const closingHour = new Date(shop.closingTime).toLocaleTimeString([], {
-            hour: '2-digit',
-            minute: '2-digit',
-          });
-          const openingHour = new Date(shop.openingTime).toLocaleTimeString([], {
             hour: '2-digit',
             minute: '2-digit',
           });
@@ -78,15 +86,63 @@ const ShopsList = () => {
               <ShopImage src={'/images/default-store.png'} alt={shop.name} />
               <ShopInfo>
                 <ShopName>{shop.name}</ShopName>
-                <ShopMeta>{shop.category} • {shop.deliveryTime} min • R${shop.deliveryFee.toFixed(2)}</ShopMeta>
-                <ShopMeta>{isOpen ? `Fecha às ${closingHour}` : `Abre às ${openingHour}`}</ShopMeta>
-                {shop.offer && <Tag>{shop.offer}</Tag>}
+                <ShopMeta> {shop.category} </ShopMeta>
+                <ShopMeta>
+                  <span> <Icon icon={'formkit:time'} width="15" /> {shop.deliveryTime} min </span>
+                  <span> <Icon icon={'mdi:delivery-dining'} width="15" />  R${shop.deliveryFee.toFixed(2)} </span>
+                </ShopMeta>
+                <ShopMeta className={isOpen ? 'time' : 'close'}>{isOpen ? `Fecha às ${closingHour}` : 'Fechado'}</ShopMeta>
+                {shop.offer &&
+                  <Tag>
+                    <Icon icon={'streamline-plump:announcement-megaphone'} width="20" />
+                    <p> {shop.offer} </p>
+                  </Tag>}
               </ShopInfo>
-              <ShopFooter>{shop.rating.toFixed(1) + '⭐'}  </ShopFooter>
+              <ShopFooter>
+                <Icon icon={'material-symbols:star-rounded'} width="20" color={'#f5a623'} />
+                {shop.rating.toFixed(1)}
+              </ShopFooter>
             </ShopItem>
           );
         })}
       </ShopItems>
+
+      {search.trim().length > 0 && <ShopCount close={true}>Fechadas agora ({closeShops.length})</ShopCount>}
+
+      {<ShopItems>
+        {closeShops.map((shop, i) => {
+          const isOpen = now >= new Date(shop.openingTime) && now <= new Date(shop.closingTime);
+          const closingHour = new Date(shop.closingTime).toLocaleTimeString([], {
+            hour: '2-digit',
+            minute: '2-digit',
+          });
+
+          return (
+            <ShopItem key={i} style={{ opacity: isOpen ? 1 : 0.5 }}>
+              <ShopImage style={{ filter: !isOpen ? 'grayscale(85%)' : '' }} src={'/images/default-store.png'} alt={shop.name} />
+              <ShopInfo>
+                <ShopName>{shop.name}</ShopName>
+                <ShopMeta> {shop.category} </ShopMeta>
+                <ShopMeta>
+                  <span> <Icon icon={'formkit:time'} width="15" /> {shop.deliveryTime} min </span>
+                  <span> <Icon icon={'mdi:delivery-dining'} width="15" />  R${shop.deliveryFee.toFixed(2)} </span>
+                </ShopMeta>
+                <ShopMeta className={isOpen ? 'time' : 'close'}>{isOpen ? `Fecha às ${closingHour}` : 'Fechado'}</ShopMeta>
+                {shop.offer &&
+                  <Tag>
+                    <Icon icon={'streamline-plump:announcement-megaphone'} width="20" />
+                    <p> {shop.offer} </p>
+                  </Tag>}
+              </ShopInfo>
+              <ShopFooter>
+                <Icon icon={'material-symbols:star-rounded'} width="20" color={'#f5a623'} />
+                {shop.rating.toFixed(1)}
+              </ShopFooter>
+            </ShopItem>
+          );
+        })}
+      </ShopItems>
+      }
 
     </ShopsWrapper>
   );
