@@ -52,7 +52,7 @@ export const banners = [
   { id: 4, name: 'Lanches', path: '/images/banners/banner 04.png' },
 ];
 
-export const shops = Array.from({ length: 28 }, (_, i) => {
+export const shops = Array.from({ length: 50 }, (_, i) => {
   const openingTime = new Date();
   openingTime.setHours(15 + (i % 3) * 2, 0, 0);
 
