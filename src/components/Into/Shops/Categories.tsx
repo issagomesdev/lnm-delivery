@@ -1,25 +1,17 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CategoriesWrapper, CategoryItem, CategoryImage, CategoryName } from './styles';
 import { categories } from './data';
 import { useHorizontalScrollDrag } from '@/hooks/useHorizontalScrollDrag';
 
 type Props = {
-  selectedCategories: number[];
-  setSelectedCategories: React.Dispatch<React.SetStateAction<number[]>>;
+  selectedCategory: string;
+  setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const Categories = ({ selectedCategories, setSelectedCategories }: Props) => {
+const Categories = ({ selectedCategory, setSelectedCategory }: Props) => {
   const { ref, isDragging, events } = useHorizontalScrollDrag();
-
-  const toggleCategory = (id: number) => {
-    setSelectedCategories((prev) =>
-      prev.includes(id)
-        ? prev.filter((cat) => cat !== id)
-        : [...prev, id]
-    );
-  };
 
   return (
     <CategoriesWrapper
@@ -28,23 +20,22 @@ const Categories = ({ selectedCategories, setSelectedCategories }: Props) => {
       style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
     >
       {categories.map((category) => {
-        const isSelected = selectedCategories.includes(category.id);
 
         return (
           <CategoryItem
             key={category.id}
-            isSelected={isSelected}
-            onClick={() => toggleCategory(category.id)}
+            isSelected={selectedCategory === category.name}
+            onClick={() => setSelectedCategory(category.name)}
           >
             <CategoryImage
               src={category.path}
               alt={category.name}
-              isSelected={isSelected}
+              isSelected={selectedCategory === category.name}
               onDragStart={(e) => e.preventDefault()}
             />
-            <CategoryName isSelected={isSelected}>{category.name}</CategoryName>
+            <CategoryName isSelected={selectedCategory === category.name}>{category.name}</CategoryName>
 
-            {isSelected && (
+            {selectedCategory === category.name && (
               <span
                 style={{
                   position: 'absolute',
@@ -60,11 +51,11 @@ const Categories = ({ selectedCategories, setSelectedCategories }: Props) => {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  cursor: 'pointer',
+                  cursor: 'pointer'
                 }}
                 onClick={(e) => {
                   e.stopPropagation();
-                  toggleCategory(category.id);
+                  setSelectedCategory('')
                 }}
               >
                 ✕

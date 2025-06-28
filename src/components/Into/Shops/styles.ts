@@ -1,12 +1,22 @@
 import styled from 'styled-components';
 import { styled as styledBase } from 'styled-components';
 
-export const Wrapper = styled.div`
+interface Props {
+  fixed?: boolean;
+}
+
+export const Wrapper = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== 'fixed',
+}) <Props>`
   display: flex;
   gap: 1.5rem;
   flex-direction: column;
-  padding: 3rem 1rem;
+  padding: ${({ fixed }) => (fixed ? '7.5rem' : '2rem')} 1rem 3rem 1rem;
   margin-bottom: 5rem;
+
+  @media (max-width: 980px) {
+    padding: ${({ fixed }) => (fixed ? '5.5rem' : '2rem')} 1rem 3rem 1rem;
+  }
 `;
 
 // categories
@@ -102,6 +112,10 @@ export const BannersWrapper = styled.div`
   &:not(:hover)::-webkit-scrollbar-thumb, &:not(:hover)::-webkit-scrollbar {
     display: none;
   }
+  
+  @media (max-width: 980px) {
+  margin: 0;
+  }
 `;
 
 export const BannerImage = styled.img`
@@ -168,9 +182,8 @@ export const ShopCount = styled.div.withConfig({
   shouldForwardProp: (prop) => prop !== 'close',
 }) <ShopCountProps>`
   font-weight: bold;
-  color: ${({ close }) => (close ? '#fff' : '#24b03c')};
-  background-color: ${({ close }) => (close ? '#d67085' : 'transparent')};
-  padding: ${({ close }) => (close ? '2rem 1rem' : '0 1rem')};
+  color: ${({ close }) => (close ? '#f02649' : '#24b03c')};
+  padding: 0 1rem;
 
   @media (max-width: 400px) {
     font-size: 14px;
@@ -194,7 +207,7 @@ export const ShopItem = styled.div`
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  align-items: center;
+  align-items: flex-start;
   position: relative;
   width: 100%;
   box-sizing: border-box;
@@ -238,6 +251,25 @@ export const ShopMeta = styled.p`
     display: flex;
     align-items: center;
     gap: 5px;
+  }
+
+  &.coupon {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+  }
+  
+  &.rule {
+    font-size: 10px;
+    color: #ef4b77;
+    font-weight: 500;
+  }
+
+  &.coupon span {
+    color: ${({ theme }) => theme.colors.conceptual_green};
+    border: 2px solid ${({ theme }) => theme.colors.conceptual_green};
+    border-radius: 6px;
+    padding: 2px 5px
   }
 
   &.time {
@@ -322,7 +354,7 @@ export const FilterIsActiveCard = styled.div`
   width: 100%;
   background-color: ${({ theme }) => theme.colors.green_highlight};
   position: fixed;
-  top: 0;
+  top: 4.5rem;
   right: 0;
   padding: .7rem 1rem;
   text-align: center;
@@ -360,6 +392,7 @@ export const NavItem = styledBase.a.withConfig({
   font-size: 12px;
   font-weight: 500;
   color: ${({ active, theme }) => (active ? theme.colors.primary : '#333')};
+  cursor: pointer;
 `;
 
 // Advanced Filter
@@ -433,4 +466,38 @@ export const FooterButton = styled.button`
   cursor: pointer;
   position: sticky;
   bottom: 0;
+`;
+
+// Cupons
+
+export const CuponsLabel = styled.div`
+`;
+
+export const CouponsEmpty = styled.div`
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 30px;
+
+  p {
+    font-weight: 500;
+    color: #b5b5b5;
+    font-size: 15px;
+    width: 80%;
+  }
+`;
+
+export const CouponsEmptyIcon = styled.div`display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 15px;
+
+  img {
+    width: 12rem;
+    height: auto;
+  }
+
 `;

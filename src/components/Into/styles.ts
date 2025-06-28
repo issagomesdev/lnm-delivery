@@ -2,7 +2,14 @@
 
 import styled from 'styled-components'
 
-export const Container = styled.div`
+interface Props {
+    full?: boolean;
+    fixed?: boolean;
+}
+
+export const Container = styled.div.withConfig({
+    shouldForwardProp: (prop) => !['full', 'fixed'].includes(prop),
+}) <Props>`
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -13,6 +20,8 @@ export const Container = styled.div`
     padding: 0 2rem;
     color: #fff;
     font-weight: 300;
+    position: ${({ fixed }) => (fixed ? 'fixed' : 'relative')};
+    z-index: 99;
 
     >img {
         width: 15rem;
@@ -36,29 +45,80 @@ export const Container = styled.div`
     }
 `
 
-export const LogoWrapper = styled.div` 
-    height: 40px;
-    position: relative;
-    cursor: pointer;
-    
-    >img {
-        height: 100%;
-    }
+export const RightSide = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'full',
+}) <Props>` 
+    display: flex;
+    width: ${({ full }) => (full ? 'fit-content' : '85%')};
 
-    &::after {
-        content: '';
-        display: block;
-        width: 1px;
-        height: 100%;
-        position: absolute;
-        background-color: ${({ theme }) => theme.colors.background};
-        top: 0;
-        right: -30px;
+    >h2 {
+        width: ${({ full }) => (full ? 'fit-content' : '100%')};
+        text-align: center;
+    }
+    hr {
+        border: 1px solid #fff;
+        margin: 0 2rem 0 1rem;
     }
 
     @media (max-width: 980px) {
         display: none;
     }
+`
+
+export const LocationContainer = styled.div` 
+    display: flex;
+    align-items: flex-start;
+    gap: 5px;
+    cursor: pointer;
+    position: relative;
+    justify-content: flex-end;
+`
+
+export const SelectedLocation = styled.div` 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    h4 {
+        display: flex;
+        gap: 5px;
+        font-weight: 500;
+        font-size: 15px;
+        align-items: center;
+        width: 100%;
+        justify-content: flex-end;
+    }
+    
+    span {
+        font-size: 12px;
+    }
+
+`
+
+export const LogoWrapper = styled.div` 
+    height: 40px;
+    position: relative;
+    cursor: pointer;
+    margin-right: 1.5rem;
+
+    >img {
+        height: 100%;
+    }
+`
+
+export const LeftSide = styled.div` 
+    display: flex;
+    gap: 25px;
+
+    @media (max-width: 980px) {
+        display: none;
+    }
+`
+
+export const NavItem = styled.a`
+  color: #fff;
+  cursor: pointer;
+  font-weight: 500;
 `
 
 export const UserContent = styled.div`
@@ -70,12 +130,9 @@ export const UserContent = styled.div`
     font-weight: 500;
     font-size: 1rem;
     cursor: pointer;
+    white-space: nowrap;
 
     img {
         width: 3rem;
-    }
-
-    @media (max-width: 980px) {
-        display: none;
     }
 `

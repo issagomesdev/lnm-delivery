@@ -10,18 +10,20 @@ import { Wrapper } from '@/components/Into/Shops/styles';
 
 const ShopsPage = () => {
   const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
 
   return (
     <>
-      <Header />
-      <Wrapper>
+      <Header full={true} fixed={true}/>
+      <Wrapper fixed={true}>
         <Categories 
-         selectedCategories={selectedCategories}
-          setSelectedCategories={setSelectedCategories}/>
+         selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}/>
         <Banners />
         <ShopsList
-         selectedCategories={selectedCategories}
-          setSelectedCategories={setSelectedCategories}/>
+          selectedCategories={selectedCategories}
+          setSelectedCategories={setSelectedCategories}
+          selectedCategory={selectedCategory}/>
         <BottomNav />
       </Wrapper>
     </>

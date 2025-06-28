@@ -1,11 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { MenuButton, MenuPanel, MenuOverlay, Content, UserContent, Nav, NavItem } from './styles';
+import { MenuButton, MenuPanel, MenuOverlay, Content, UserContent, Nav, NavItem, MobileHeader } from './styles';
 import { Icon } from '@iconify/react';
+import { useLocation } from '@/contexts/LocationContext';
+import ChangeLocation from '../Into/ChangeLocation';
 
 export default function SideMenu() {
     const [isOpen, setIsOpen] = useState(false);
+    const { selectedCity, selectedNeighborhood } = useLocation();
 
     const toggleMenu = () => setIsOpen(prev => !prev);
 
@@ -20,10 +23,14 @@ export default function SideMenu() {
     ]
 
     return (
-        <>
+        <MobileHeader>
             <MenuButton onClick={toggleMenu} $open={true}>
                 <Icon icon="material-symbols:menu-rounded" width="24" color="#fff" />
             </MenuButton>
+
+            {selectedCity && selectedNeighborhood &&
+                <ChangeLocation/>
+            }
 
             <MenuOverlay $isOpen={isOpen} onClick={toggleMenu} />
 
@@ -32,6 +39,7 @@ export default function SideMenu() {
                     <Icon icon="ic:round-close" width="15" color="#fff" />
                 </MenuButton>
                 <Content>
+
                     <UserContent>
                         <img src="/images/account-icon.png" />
                         Eduardo Santos
@@ -51,6 +59,6 @@ export default function SideMenu() {
                     </Nav>
                 </Content>
             </MenuPanel>
-        </>
+        </MobileHeader>
     );
 }

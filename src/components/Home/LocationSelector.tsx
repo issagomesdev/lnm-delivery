@@ -3,11 +3,14 @@ import { LocationContainer, LocationSelectorContainer, Select, LocationIcon, Sea
 import AppLinks from './AppLinks'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { useLocation } from '@/contexts/LocationContext';
 
 export default function LocationSelector() {
   const [neighborhoods, setNeighborhoods] = useState<string[]>([])
-  const [selectedCity, setSelectedCity] = useState<string>('')
-  const [selectedNeighborhood, setSelectedNeighborhood] = useState<string>('')
+  const [selectedCityLocal, setSelectedCityLocal] = useState<string>('')
+  const [selectedNeighborhoodLocal, setSelectedNeighborhoodLocal] = useState<string>('')
+  const { setSelectedCity, setSelectedNeighborhood } = useLocation();
+
   const router = useRouter()
 
   const cities = [
@@ -20,8 +23,8 @@ export default function LocationSelector() {
   const handleCityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const cityName = event.target.value;
     setNeighborhoods([]);
-    setSelectedNeighborhood('');
-    setSelectedCity(cityName);
+    setSelectedNeighborhoodLocal('');
+    setSelectedCityLocal(cityName);
 
     const city = cities.find(c => c.name === cityName);
     if (city) {
@@ -29,8 +32,10 @@ export default function LocationSelector() {
     }
   };
 
-  const handleNeighborhoodChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedNeighborhood(event.target.value);
+  const searchDelivery = () => {
+    setSelectedCity(selectedCityLocal);
+    setSelectedNeighborhood(selectedNeighborhoodLocal);
+    router.push("/shops")
   }
 
   return (
@@ -38,7 +43,7 @@ export default function LocationSelector() {
       <LocationSelectorContainer>
         <h2>Informe sua localização</h2>
         <Select>
-          <select onChange={handleCityChange} value={selectedCity}>
+          <select onChange={handleCityChange} value={selectedCityLocal}>
             <option value="">Selecione sua cidade</option>
             {cities.map((city, index) => (
               <option key={index} value={city.name}>{city.name}</option>
@@ -47,7 +52,7 @@ export default function LocationSelector() {
         </Select>
 
         {neighborhoods.length > 0 && <Select>
-          <select onChange={handleNeighborhoodChange} value={selectedNeighborhood}>
+          <select onChange={(event) => setSelectedNeighborhoodLocal(event.target.value)} value={selectedNeighborhoodLocal}>
             <option value="">Selecione seu bairro</option>
             {neighborhoods.map((neighborhood, index) => (
               <option key={index} value={neighborhood}>{neighborhood}</option>
@@ -55,13 +60,13 @@ export default function LocationSelector() {
           </select>
         </Select>}
 
-        {selectedCity.length > 0 && selectedNeighborhood.length > 0 &&
-          <SearchDeliveryButton onClick={() => router.push("/shops")}>
+        {selectedCityLocal.length > 0 && setSelectedNeighborhoodLocal.length > 0 &&
+          <SearchDeliveryButton onClick={searchDelivery}>
             <img src="/images/search.png" alt="Buscar Delivery" width={'20rem'} />
             Buscar Delivery
           </SearchDeliveryButton>}
 
-        {selectedCity.length == 0 && <LocationIcon>
+        {selectedCityLocal.length == 0 && <LocationIcon>
           <img src="/images/btn_my_location.png" />
           Usar minha localização
         </LocationIcon>}

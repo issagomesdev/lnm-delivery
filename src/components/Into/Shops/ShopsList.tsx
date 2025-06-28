@@ -21,18 +21,24 @@ import {
   ShopItems,
   ShopsEmpty,
   ShopsEmptyIcon,
-  FilterIsActiveCard
+  FilterIsActiveCard,
+  CuponsLabel,
+  CouponsEmpty,
+  CouponsEmptyIcon
 } from './styles';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import AdvancedFilter from './AdvancedFilter';
 import { CloseXButton } from '@/components/shared/Modal/styles';
+import { useLocation } from '@/contexts/LocationContext';
 
 type ShopsListProps = {
-  selectedCategories: number[];
-  setSelectedCategories: React.Dispatch<React.SetStateAction<number[]>>;
+  selectedCategories?: number[];
+  setSelectedCategories?: React.Dispatch<React.SetStateAction<number[]>>;
+  selectedCategory?: string;
+  mode?: 'coupon' | 'fav';
 };
 
-const ShopsList = ({ selectedCategories, setSelectedCategories }: ShopsListProps) => {
+const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory, mode }: ShopsListProps) => {
   const [search, setSearch] = useState('');
   const isMobile = useIsMobile();
   const now = new Date();
@@ -43,22 +49,35 @@ const ShopsList = ({ selectedCategories, setSelectedCategories }: ShopsListProps
   const [selectedOrder, setSelectedOrder] = useState<string | null>(null);
   const [selectedPayments, setSelectedPayments] = useState<string[]>([]);
   const [filterIsActive, setFilterIsActive] = useState<boolean>(false);
+  const { selectedCity, selectedNeighborhood } = useLocation();
 
   useEffect(() => {
-    const filtered = shops
-      .filter((shop) =>
-        shop.name.toLowerCase().includes(search.toLowerCase()) &&
-        (selectedCategories.length === 0 || selectedCategories.includes(shop.category.id))
-      )
-      .sort((a, b) => {
-        const aIsOpen =
-          now >= new Date(a.openingTime) && now <= new Date(a.closingTime);
-        const bIsOpen =
-          now >= new Date(b.openingTime) && now <= new Date(b.closingTime);
+    let filtered;
 
-        if (aIsOpen === bIsOpen) return 0;
-        return aIsOpen ? -1 : 1;
-      });
+    if (mode === 'coupon') {
+      filtered = shops.filter((shop) => shop.coupon);
+    } else if (mode === 'fav') {
+      filtered = shops.filter((shop) => shop.fav);
+    } else {
+      filtered = shops
+        .filter((shop) =>
+          shop.name.toLowerCase().includes(search.toLowerCase()) &&
+          (
+            !selectedCategory && selectedCategories?.length === 0 ||
+            (selectedCategory && shop.category.name === selectedCategory) ||
+            (selectedCategories && selectedCategories.length > 0 && selectedCategories.includes(shop.category.id))
+          )
+        )
+        .sort((a, b) => {
+          const aIsOpen =
+            now >= new Date(a.openingTime) && now <= new Date(a.closingTime);
+          const bIsOpen =
+            now >= new Date(b.openingTime) && now <= new Date(b.closingTime);
+
+          if (aIsOpen === bIsOpen) return 0;
+          return aIsOpen ? -1 : 1;
+        });
+    }
 
     const opened = filtered.filter(
       (shop) => now >= new Date(shop.openingTime) && now <= new Date(shop.closingTime)
@@ -72,12 +91,12 @@ const ShopsList = ({ selectedCategories, setSelectedCategories }: ShopsListProps
     setOpenShops(opened);
     setCloseShops(closed);
 
-    // console.log(now, filtered, openShops, closeShops, selectedCategories)
-  }, [shops, search, selectedCategories]);
+    console.log(now, filtered, openShops, closeShops, selectedCategories)
+  }, [shops, search, selectedCategories, selectedCategory]);
 
   return (
     <ShopsWrapper>
-      <FiltersWrapper>
+      {!mode && <FiltersWrapper>
         <FilterInput>
           <Icon icon={'lets-icons:search-alt'} color={'gray'} width="20" />
           <input placeholder="Buscar por loja ou categoria"
@@ -88,11 +107,28 @@ const ShopsList = ({ selectedCategories, setSelectedCategories }: ShopsListProps
           <Icon icon={'mage:filter'} width="15" />
           Filtro avançado
         </FilterButton>}
-      </FiltersWrapper>
+      </FiltersWrapper>}
+
+      {mode && mode === 'coupon' && filteredShops.length > 0 &&
+        <CuponsLabel>
+          <h3>Lojas com cupons disponíveis em</h3>
+          <p>{selectedNeighborhood} - {selectedCity}</p>
+        </CuponsLabel>
+      }
+
+      {mode && mode === 'coupon' && filteredShops.length === 0 &&
+        <CouponsEmpty>
+          <CouponsEmptyIcon>
+            <img src="/images/Icon sem cupons.png" alt="Icon sem cupons" />
+            <h2>Até o momento não há lojas com cupons disponíveis para sua localização.</h2>
+          </CouponsEmptyIcon>
+          <p>Nota: Alguns cupons possuem disponibilidade limitada e por esse motivo podem se esgotar bem na hora da validação no checkout. O aplicativo leva alguns instantes para atualizar essa listagem em sua sessão.</p>
+        </CouponsEmpty>
+      }
 
       <FiltersWrapper>
         {filteredShops.length > 0 && <ShopCount>Lojas abertas ({openShops.length})</ShopCount>}
-        {isMobile && <FilterButton onClick={() => setFilterIsOpen(true)}>
+        {!mode && isMobile && <FilterButton onClick={() => setFilterIsOpen(true)}>
           <Icon icon={'mage:filter'} width="12" />
           Filtro avançado
         </FilterButton>}
@@ -111,32 +147,43 @@ const ShopsList = ({ selectedCategories, setSelectedCategories }: ShopsListProps
               <ShopInfo>
                 <ShopName>{shop.name}</ShopName>
                 <ShopMeta> {shop.category.name} </ShopMeta>
-                <ShopMeta>
-                  <span> <Icon icon={'formkit:time'} width="15" /> {shop.deliveryTime} min </span>
-                  <span> <Icon icon={'mdi:delivery-dining'} width="15" />  R${shop.deliveryFee.toFixed(2)} </span>
-                </ShopMeta>
-                <ShopFooter>
-                  <ShopMeta className={'time'}>Fecha às {closingHour}</ShopMeta>
-                  <ShopRating>
-                    <Icon icon={'material-symbols:star-rounded'} width="20" color={'#f5a623'} />
-                    {shop.rating.toFixed(1)}
-                  </ShopRating>
-                </ShopFooter>
-                {shop.offer &&
-                  <ShopOffer>
-                    <Tag>
-                      <Icon icon={'streamline-plump:announcement-megaphone'} width="20" />
-                      <p> {shop.offer} </p>
-                    </Tag>
-                  </ShopOffer>}
+                {mode && mode === 'coupon' &&
+                  <>
+                    <ShopMeta className={'coupon'}> Cupom: <span>{shop.coupon.name}</span> </ShopMeta>
+                    <ShopMeta className={'coupon'}> {shop.coupon.description} </ShopMeta>
+                    {shop.coupon.minimum_value > 0 && <ShopMeta className={'coupon'}> Pedido mínimo para uso: R$ {shop.coupon.minimum_value.toFixed(2)} </ShopMeta>}
+                    {shop.coupon.rule && <ShopMeta className={'coupon rule'}> {shop.coupon.rule} </ShopMeta>}
+                  </>
+                }
+                {(!mode || mode === 'fav') &&
+                  <>
+                    <ShopMeta>
+                      <span> <Icon icon={'formkit:time'} width="15" /> {shop.deliveryTime} min </span>
+                      <span> <Icon icon={'mdi:delivery-dining'} width="15" />  R${shop.deliveryFee.toFixed(2)} </span>
+                    </ShopMeta>
+                    <ShopFooter>
+                      <ShopMeta className={'time'}>Fecha às {closingHour}</ShopMeta>
+                      <ShopRating>
+                        <Icon icon={'material-symbols:star-rounded'} width="20" color={'#f5a623'} />
+                        {shop.rating.toFixed(1)}
+                      </ShopRating>
+                    </ShopFooter>
+                    {shop.offer &&
+                      <ShopOffer>
+                        <Tag>
+                          <Icon icon={'streamline-plump:announcement-megaphone'} width="20" />
+                          <p> {shop.offer} </p>
+                        </Tag>
+                      </ShopOffer>}
+                  </>
+                }
               </ShopInfo>
             </ShopItem>
           );
         })}
       </ShopItems>
 
-
-      {search.trim().length > 0 && filteredShops.length > 0 && closeShops.length > 0 && <ShopCount close={true}>Fechadas agora ({closeShops.length})</ShopCount>}
+      {closeShops.length > 0 && <ShopCount close={true}>Fechadas agora ({closeShops.length})</ShopCount>}
 
       {<ShopItems>
         {closeShops.map((shop, i) => {
@@ -146,22 +193,34 @@ const ShopsList = ({ selectedCategories, setSelectedCategories }: ShopsListProps
               <ShopInfo>
                 <ShopName>{shop.name}</ShopName>
                 <ShopMeta> {shop.category.name} </ShopMeta>
-                <ShopMeta>
-                  <span> <Icon icon={'formkit:time'} width="15" /> {shop.deliveryTime} min </span>
-                  <span> <Icon icon={'mdi:delivery-dining'} width="15" />  R${shop.deliveryFee.toFixed(2)} </span>
-                </ShopMeta>
-                <ShopFooter>
-                  <ShopMeta className={'close'}>Fechado</ShopMeta>
-                  <ShopRating>
-                    <Icon icon={'material-symbols:star-rounded'} width="20" color={'#f5a623'} />
-                    {shop.rating.toFixed(1)}
-                  </ShopRating>
-                </ShopFooter>
-                {shop.offer &&
-                  <Tag>
-                    <Icon icon={'streamline-plump:announcement-megaphone'} width="20" />
-                    <p> {shop.offer} </p>
-                  </Tag>}
+                {mode && mode === 'coupon' &&
+                  <>
+                    <ShopMeta className={'coupon'}> Cupom: <span>{shop.coupon.name}</span> </ShopMeta>
+                    <ShopMeta className={'coupon'}> {shop.coupon.description} </ShopMeta>
+                    {shop.coupon.minimum_value > 0 && <ShopMeta className={'coupon'}> Pedido mínimo para uso: R$ {shop.coupon.minimum_value.toFixed(2)} </ShopMeta>}
+                    {shop.coupon.rule && <ShopMeta className={'coupon rule'}> {shop.coupon.rule} </ShopMeta>}
+                  </>
+                }
+                {(!mode || mode === 'fav') &&
+                  <>
+                    <ShopMeta>
+                      <span> <Icon icon={'formkit:time'} width="15" /> {shop.deliveryTime} min </span>
+                      <span> <Icon icon={'mdi:delivery-dining'} width="15" />  R${shop.deliveryFee.toFixed(2)} </span>
+                    </ShopMeta>
+                    <ShopFooter>
+                      <ShopMeta className={'close'}>Fechado</ShopMeta>
+                      <ShopRating>
+                        <Icon icon={'material-symbols:star-rounded'} width="20" color={'#f5a623'} />
+                        {shop.rating.toFixed(1)}
+                      </ShopRating>
+                    </ShopFooter>
+                    {shop.offer &&
+                      <Tag>
+                        <Icon icon={'streamline-plump:announcement-megaphone'} width="20" />
+                        <p> {shop.offer} </p>
+                      </Tag>}
+                  </>
+                }
               </ShopInfo>
 
             </ShopItem>
@@ -170,7 +229,7 @@ const ShopsList = ({ selectedCategories, setSelectedCategories }: ShopsListProps
       </ShopItems>
       }
 
-      {filteredShops.length === 0 && <ShopsEmpty>
+      {!mode && filteredShops.length === 0 && <ShopsEmpty>
         <ShopsEmptyIcon>
           <img src="/images/Icon Opsss.png" />
         </ShopsEmptyIcon>
@@ -192,12 +251,12 @@ const ShopsList = ({ selectedCategories, setSelectedCategories }: ShopsListProps
         onClose={() => setFilterIsOpen(false)}
         onApply={(order, categories, payments) => {
           setSelectedOrder(order)
-          setSelectedCategories(categories);
+          setSelectedCategories ? setSelectedCategories(categories) : null;
           setSelectedPayments(payments);
           setFilterIsOpen(false);
           setFilterIsActive(true)
         }}
-        values={[selectedOrder, selectedCategories, selectedPayments]}
+        values={[selectedOrder, selectedCategories ?? [], selectedPayments]}
       />
 
     </ShopsWrapper>

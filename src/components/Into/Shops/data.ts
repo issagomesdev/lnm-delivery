@@ -52,12 +52,12 @@ export const banners = [
   { id: 4, name: 'Lanches', path: '/images/banners/banner 04.png' },
 ];
 
-export const shops = Array.from({ length: 20 }, (_, i) => {
+export const shops = Array.from({ length: 28 }, (_, i) => {
   const openingTime = new Date();
   openingTime.setHours(15 + (i % 3) * 2, 0, 0);
 
   const closingTime = new Date();
-  closingTime.setHours(20 + (i % 4), 0, 0);
+  closingTime.setHours(18 + (i % 4), 0, 0);
 
   return {
     name: i % 2 === 0 ? `Loja Exemplo ${i + 1}` : `Loja Exemplo ${i + 1} Nome Grande`,
@@ -67,8 +67,25 @@ export const shops = Array.from({ length: 20 }, (_, i) => {
     deliveryFee: i % 3 === 0 ? 0 : 5 + (i % 4),
     openingTime,
     closingTime,
+    fav: i % 2 === 0 ? true : false,
     rating: 3 + (i % 3) + Math.random(),
-    offer: i % 4 === 0 ? 'frete grátis' : i % 5 === 0 ? 'Combo espetos + porção + refrigerante' : '',
+    offer: i % 4 === 0 ? 'frete grátis' : i % 5 === 0 ? 'FRETEGRATIS' : '',
+    coupon: i % 4 === 0 ? {
+      name: '3% OFF',
+      description: '3% desc. em produto',
+      rule: 'VÁLIDO PARA COMBOS HAMBÚRGUER + FRITAS + REFRI LATA',
+      minimum_value: 0
+    } : i % 5 === 0 ? {
+      name: 'TIOCOX',
+      description: 'R$ 6.00 desc. em produtos',
+      rule: '',
+      minimum_value: 0
+    } : i % 6 === 0 ? {
+      name: 'FRETEGRATIS',
+      description: 'Frete grátis',
+      rule: '',
+      minimum_value: 30
+    } : null,
   };
 });
 

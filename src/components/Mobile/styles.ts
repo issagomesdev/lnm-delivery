@@ -17,6 +17,10 @@ export const Logo = styled.div`
   }
 `
 
+export const MobileHeader = styled.div`
+  width: 100%;
+`
+
 export const MenuButton = styled.button<{ $open: boolean }>`
   position: absolute;
   top: .7rem;
@@ -97,6 +101,7 @@ export const NavItem = styled.a`
   font-weight: 400;
   gap: .3rem;
   font-size: 1rem;
+  
   img {
       width: 2.5rem;
     }

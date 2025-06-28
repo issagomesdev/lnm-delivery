@@ -4,6 +4,7 @@ import { ReactNode } from 'react'
 import { ThemeProvider } from 'styled-components'
 import { GlobalStyle } from '../styles/global'
 import { theme } from '../styles/theme'
+import { LocationProvider } from '@/contexts/LocationContext';
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -14,7 +15,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body>
         <ThemeProvider theme={theme}>
           <GlobalStyle />
-          <main>{children}</main>
+          <LocationProvider>
+            <main>{children}</main>
+          </LocationProvider>
         </ThemeProvider>
       </body>
     </html>
