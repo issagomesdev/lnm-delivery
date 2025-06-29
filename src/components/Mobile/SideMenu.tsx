@@ -5,11 +5,12 @@ import { MenuButton, MenuPanel, MenuOverlay, Content, UserContent, Nav, NavItem,
 import { Icon } from '@iconify/react';
 import { useLocation } from '@/contexts/LocationContext';
 import ChangeLocation from '../Into/ChangeLocation';
+import { usePathname } from 'next/navigation';
 
 export default function SideMenu() {
     const [isOpen, setIsOpen] = useState(false);
     const { selectedCity, selectedNeighborhood } = useLocation();
-
+    const pathname = usePathname();
     const toggleMenu = () => setIsOpen(prev => !prev);
 
     const links = [
@@ -28,9 +29,9 @@ export default function SideMenu() {
                 <Icon icon="material-symbols:menu-rounded" width="24" color="#fff" />
             </MenuButton>
 
-            {selectedCity && selectedNeighborhood &&
-                <ChangeLocation/>
-            }
+            {selectedCity && selectedNeighborhood && pathname !== '/' && (
+                <ChangeLocation />
+            )}
 
             <MenuOverlay $isOpen={isOpen} onClick={toggleMenu} />
 

@@ -20,7 +20,7 @@ export const Container = styled.div.withConfig({
     padding: 0 2rem;
     color: #fff;
     font-weight: 300;
-    position: ${({ fixed }) => (fixed ? 'fixed' : 'relative')};
+    position: relative;
     z-index: 99;
 
     >img {
@@ -38,6 +38,11 @@ export const Container = styled.div.withConfig({
 
     @media (max-width: 980px) {
         justify-content: center;
+        position: fixed;
+    }
+
+    @media (min-width: 980px) {
+        position: ${({ fixed }) => (fixed ? 'fixed' : 'relative')};
     }
 
     >h2 {
