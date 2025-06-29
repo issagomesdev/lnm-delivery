@@ -10,6 +10,7 @@ export const Datas = styled.div`
 
     @media (max-width: 980px) {
         flex-direction: column;
+        padding: 7rem 2rem;
     }
 `
 

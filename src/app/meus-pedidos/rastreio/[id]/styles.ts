@@ -3,12 +3,16 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  padding: 1rem;
+  padding: 3rem 1rem;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
+
+  @media (max-width: 980px) {
+    padding: 7rem 2rem;
+  }
 `;
 
 export const StepProgress = styled.div`
@@ -102,7 +106,7 @@ export const Label = styled.span`
 `;
 
 export const Emoji = styled.img`
-  width: 15rem;
+  width: 12rem;
 `;
 
 export const OrderInfo = styled.div`
@@ -111,9 +115,17 @@ export const OrderInfo = styled.div`
   align-items: center;
   gap: 5px;
 
-  >h3 {
+  h3 {
     color: ${({ theme }) => (theme.colors.primary)};
-    font-size: 2rem
+    font-size: 1.5rem
+  }
+
+  p {
+    font-size: .8rem;
+  }
+
+  h4 {
+    font-size: .9rem;
   }
 `;
 
@@ -125,6 +137,7 @@ export const DeliveryTime = styled.div`
 
   >a {
     text-decoration: underline;
+    font-size: .9rem;
   }
 `;
 
@@ -142,6 +155,10 @@ export const OrderButton = styled.button`
 
   @media (max-width: 800px) {
     width: 70%;
+  }
+
+  @media (max-width: 600px) {
+    width: 100%;
   }
 `;
 
@@ -163,5 +180,9 @@ export const CallButton = styled.button`
   align-items: center;
   justify-content: center;
   gap: 5px;
-  width: 100%;
+  width: 70%;
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 `;

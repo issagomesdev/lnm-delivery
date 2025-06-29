@@ -20,7 +20,7 @@ const Banners = () => {
       if (isAtEnd) {
         el.scrollTo({ left: 0, behavior: 'auto' });
       } else {
-        el.scrollBy({ left: 150, behavior: 'smooth' });
+        el.scrollBy({ left: 300, behavior: 'smooth' });
       }
     }, 3000);
 

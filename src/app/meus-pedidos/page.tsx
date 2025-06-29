@@ -67,7 +67,7 @@ export default function MyOrders() {
 
     return (
         <>
-            <Header name={'Meus pedidos'} />
+            <Header name={'Meus pedidos'} full={false}/>
             {
                 allOrders.length > 0 ? <Container>
                     {currentOrders.map((order) => (

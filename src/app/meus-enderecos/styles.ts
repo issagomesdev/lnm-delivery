@@ -3,6 +3,10 @@ import styled from 'styled-components';
 export const Container = styled.div`
   margin: 0 auto;
   padding: 2rem;
+
+  @media (max-width: 980px) {
+    padding: 6rem 2rem;
+  }
 `;
 
 export const AddButton = styled.button`

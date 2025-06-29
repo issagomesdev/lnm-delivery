@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  padding: 1rem;
+  padding: 3rem 1rem;
+
+  @media (max-width: 980px) {
+    padding: 7rem 2rem;
+  }
 `;
 
 export const OrderCard = styled.div`

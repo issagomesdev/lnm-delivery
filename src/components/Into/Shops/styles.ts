@@ -12,10 +12,11 @@ export const Wrapper = styled.div.withConfig({
   gap: 1.5rem;
   flex-direction: column;
   padding: ${({ fixed }) => (fixed ? '7.5rem' : '2rem')} 1rem 3rem 1rem;
-  margin-bottom: 5rem;
+  margin-bottom: 3rem;
 
   @media (max-width: 980px) {
-    padding: ${({ fixed }) => (fixed ? '5.5rem' : '6rem')} 1rem 3rem 1rem;
+    padding: ${({ fixed }) => (fixed ? '5.5rem' : '6rem')} 1rem 0 1rem;
+    margin-bottom: 5rem;
   }
 `;
 

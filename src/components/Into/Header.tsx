@@ -73,7 +73,7 @@ export default function Header({ name, full = false, fixed = false }: { name?: s
                 )}
             </LeftSide>
 
-            {isMobile && (<SideMenu />)}
+            {isMobile && (<SideMenu locationSelector={full}/>)}
         </Container>
     )
 }

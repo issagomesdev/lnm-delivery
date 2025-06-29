@@ -24,7 +24,7 @@ export default function MyAccount() {
 
   return (
     <>
-      <Header name={'Minha Conta'} />
+      <Header name={'Minha Conta'} full={false}/>
       <Datas>
         <Data>
           <h3>Dados da conta</h3>

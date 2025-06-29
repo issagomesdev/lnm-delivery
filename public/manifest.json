@@ -1,0 +1,29 @@
+{
+    "name": "Litoral na mesa",
+    "short_name": "LNM",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#FF5722",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "/icons/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icons/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "/images/pwa-preview1.png",
+            "sizes": "515x770",
+            "type": "image/png",
+            "form_factor": "wide"
+        }
+    ]
+}

@@ -3,7 +3,11 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  padding: 1.5rem;
+  padding: 1rem 2rem;
+
+  @media (max-width: 980px) {
+    padding: 5.5rem 2rem;
+  }
 `;
 
 export const StoreInfo = styled.div`

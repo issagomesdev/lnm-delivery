@@ -102,7 +102,7 @@ const MyAddresses = () => {
 
   return (
     <>
-      <Header name={'Meus Endereços'} />
+      <Header name={'Meus Endereços'} full={false}/>
       <Container>
         <AddButton onClick={() => setIsModalCreate(true)}>
           + Adicionar endereço

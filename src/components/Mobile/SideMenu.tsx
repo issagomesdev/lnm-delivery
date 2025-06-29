@@ -7,7 +7,7 @@ import { useLocation } from '@/contexts/LocationContext';
 import ChangeLocation from '../Into/ChangeLocation';
 import { usePathname } from 'next/navigation';
 
-export default function SideMenu() {
+export default function SideMenu({ locationSelector = true }: { locationSelector?: boolean }) {
     const [isOpen, setIsOpen] = useState(false);
     const { selectedCity, selectedNeighborhood } = useLocation();
     const pathname = usePathname();
@@ -29,7 +29,7 @@ export default function SideMenu() {
                 <Icon icon="material-symbols:menu-rounded" width="24" color="#fff" />
             </MenuButton>
 
-            {selectedCity && selectedNeighborhood && pathname !== '/' && (
+            {locationSelector && selectedCity && selectedNeighborhood && (
                 <ChangeLocation />
             )}
 
