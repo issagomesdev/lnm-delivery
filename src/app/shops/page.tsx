@@ -11,19 +11,23 @@ import { Wrapper } from '@/components/Into/Shops/styles';
 const ShopsPage = () => {
   const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [filterIsActive, setFilterIsActive] = useState<boolean>(false);
 
   return (
     <>
       <Header full={true} fixed={true}/>
       <Wrapper fixed={true}>
         <Categories 
+        filterIsActive={filterIsActive}
          selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}/>
-        <Banners />
+        <Banners filterIsActive={filterIsActive}/>
         <ShopsList
           selectedCategories={selectedCategories}
           setSelectedCategories={setSelectedCategories}
-          selectedCategory={selectedCategory}/>
+          selectedCategory={selectedCategory}
+          filterIsActive={filterIsActive}
+          setFilterIsActive={setFilterIsActive}/>
         <BottomNav />
       </Wrapper>
     </>

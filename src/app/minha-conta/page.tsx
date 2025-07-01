@@ -44,7 +44,7 @@ export default function MyAccount() {
         <Data>
           <div>
             <h3>Dados de acesso</h3>
-            <p>Esses dados são a dua forma de acesso ao Litoral na Mesa.</p>
+            <p>Esses dados são a sua forma de acesso ao Litoral na Mesa.</p>
           </div>
           <div>
             <p>Celular</p>

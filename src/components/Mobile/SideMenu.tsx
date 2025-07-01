@@ -24,7 +24,7 @@ export default function SideMenu({ locationSelector = true }: { locationSelector
     ]
 
     return (
-        <MobileHeader>
+        <MobileHeader $view={locationSelector}>
             <MenuButton onClick={toggleMenu} $open={true}>
                 <Icon icon="material-symbols:menu-rounded" width="24" color="#fff" />
             </MenuButton>

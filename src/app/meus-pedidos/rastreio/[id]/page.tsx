@@ -60,7 +60,7 @@ export default function TrackOrderPage() {
 
   return (
     <>
-      <Header name={'ACOMPANHE SEU PEDIDO'} full={false}/>
+      <Header name={'Acompanhe seu pedido'} full={false}/>
       <Container>
         <StepProgress>
           {steps.map((s, i) => (

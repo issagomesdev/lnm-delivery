@@ -58,7 +58,6 @@ export const CategoryItem = styled.div.withConfig({
   position: relative;
   user-select: none;
   border-radius: 8px;
-  padding: 6px;
   transition: 0.3s;
 `;
 
@@ -171,7 +170,6 @@ export const FilterButton = styled.button`
 
   @media (max-width: 400px) {
     padding: 4px 8px;
-    font-size: 10px;
   }
 `;
 
@@ -187,7 +185,8 @@ export const ShopCount = styled.div.withConfig({
   padding: 0 1rem;
 
   @media (max-width: 400px) {
-    font-size: 14px;
+    font-size: 13px;
+    padding: 0;
   }
 `;
 

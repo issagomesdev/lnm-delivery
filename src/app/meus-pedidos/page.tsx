@@ -8,6 +8,7 @@ import RatingComponent from "@/components/Into/MyOrders/RatingComponent";
 import { Label } from "@/app/minha-conta/styles";
 import ModalComponent from "@/components/shared/Modal/ModalComponent";
 import { useRouter } from 'next/navigation'
+import OrderDetails from "@/components/Into/MyOrders/OrderDetails";
 
 type Order = {
     id: string;
@@ -44,6 +45,8 @@ export default function MyOrders() {
     const [ratingIsOpen, setRatingIsOpen] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [warning, setWarning] = useState({ title: '', text: '' });
+    const [orderIsOpen, setOrderIsOpen] = useState(false);
+    const [IDOrder, setIDOrder] = useState('');
     const router = useRouter()
 
     const handlePageChange = (page: number) => {
@@ -57,17 +60,13 @@ export default function MyOrders() {
         setIsModalOpen(true);
     }
 
-    const handleTrackOrder = (step:string, id:string, date: string) => {
+    const handleTrackOrder = (step: string, id: string, date: string) => {
         router.push(`/meus-pedidos/rastreio/${id}?step=${step}&date=${date}`)
-    }
-
-    const handleOrderDetails = (id:string) => {
-        router.push(`/meus-pedidos/detalhes/${id}`);
     }
 
     return (
         <>
-            <Header name={'Meus pedidos'} full={false}/>
+            <Header name={'Meus pedidos'} full={false} />
             {
                 allOrders.length > 0 ? <Container>
                     {currentOrders.map((order) => (
@@ -77,7 +76,7 @@ export default function MyOrders() {
                                 <span>{order.date}</span>
                                 <p>Pedido #{order.id}</p>
                                 <p>{order.name}</p>
-                                <strong style={{ cursor: 'pointer' }} onClick={() => handleOrderDetails(order.id)}>
+                                <strong style={{ cursor: 'pointer' }} onClick={() => { setIDOrder(order.id); setOrderIsOpen(true) }}>
                                     <Icon icon="mdi:eye" width="15" />
                                     Detalhes do pedido
                                 </strong>
@@ -115,6 +114,12 @@ export default function MyOrders() {
             >
                 <Label>{warning.text}</Label>
             </ModalComponent>
+
+            <OrderDetails
+                isOpen={orderIsOpen}
+                onClose={() => setOrderIsOpen(false)}
+                id={IDOrder}
+            />
         </>
     );
 }

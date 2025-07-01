@@ -66,8 +66,8 @@ export const StepCircle = styled.div`
 
 
 export const Circle = styled.div`
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -80,7 +80,7 @@ export const Circle = styled.div`
     display: block;
     width: 45%;
     right: 0;
-    height: 10px;
+    height: 7px;
     position: absolute;
     background-color: #ccc;
     z-index: -1;
@@ -117,15 +117,11 @@ export const OrderInfo = styled.div`
 
   h3 {
     color: ${({ theme }) => (theme.colors.primary)};
-    font-size: 1.5rem
+    font-size: 1rem
   }
 
   p {
-    font-size: .8rem;
-  }
-
-  h4 {
-    font-size: .9rem;
+    font-size: 10px;
   }
 `;
 
@@ -138,6 +134,10 @@ export const DeliveryTime = styled.div`
   >a {
     text-decoration: underline;
     font-size: .9rem;
+  }
+
+  h4 {
+    font-size: 13px;
   }
 `;
 

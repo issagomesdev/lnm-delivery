@@ -35,20 +35,21 @@ type ShopsListProps = {
   selectedCategories?: number[];
   setSelectedCategories?: React.Dispatch<React.SetStateAction<number[]>>;
   selectedCategory?: string;
+  filterIsActive?: boolean;
+  setFilterIsActive?: React.Dispatch<React.SetStateAction<boolean>>;
   mode?: 'coupon' | 'fav';
 };
 
-const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory, mode }: ShopsListProps) => {
+const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory, filterIsActive, setFilterIsActive, mode }: ShopsListProps) => {
   const [search, setSearch] = useState('');
   const isMobile = useIsMobile();
   const now = new Date();
   const [filteredShops, setFilteredShops] = useState<any[]>([]);
   const [openShops, setOpenShops] = useState<any[]>([]);
   const [closeShops, setCloseShops] = useState<any[]>([]);
-  const [FilterIsOpen, setFilterIsOpen] = useState(false);
+  const [filterIsOpen, setFilterIsOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState<string | null>(null);
   const [selectedPayments, setSelectedPayments] = useState<string[]>([]);
-  const [filterIsActive, setFilterIsActive] = useState<boolean>(false);
   const { selectedCity, selectedNeighborhood } = useLocation();
 
   useEffect(() => {
@@ -127,7 +128,7 @@ const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory
       }
 
       <FiltersWrapper>
-        {filteredShops.length > 0 && <ShopCount>Lojas abertas ({openShops.length})</ShopCount>}
+        {openShops.length > 0? <ShopCount>Lojas abertas ({openShops.length})</ShopCount> : <ShopCount close={true}>Fechadas agora ({closeShops.length})</ShopCount>}
         {!mode && isMobile && <FilterButton onClick={() => setFilterIsOpen(true)}>
           <Icon icon={'mage:filter'} width="12" />
           Filtro avançado
@@ -183,7 +184,7 @@ const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory
         })}
       </ShopItems>
 
-      {closeShops.length > 0 && <ShopCount close={true}>Fechadas agora ({closeShops.length})</ShopCount>}
+      {openShops.length > 0 && closeShops.length > 0 && <ShopCount close={true}>Fechadas agora ({closeShops.length})</ShopCount>}
 
       {<ShopItems>
         {closeShops.map((shop, i) => {
@@ -241,20 +242,20 @@ const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory
         <FilterIsActiveCard>
           <h4>Filtro avançado ativo</h4>
           <CloseXButton>
-            <Icon icon="material-symbols:close" color="#fff" width="24" onClick={() => setFilterIsActive(false)} />
+            <Icon icon="material-symbols:close" color="#fff" width="24" onClick={() => { setFilterIsActive && setFilterIsActive(false); setSelectedPayments([]); setSelectedOrder(null); setSelectedCategories && setSelectedCategories([]) }} />
           </CloseXButton>
         </FilterIsActiveCard>
       }
 
       <AdvancedFilter
-        isOpen={FilterIsOpen}
+        isOpen={filterIsOpen}
         onClose={() => setFilterIsOpen(false)}
         onApply={(order, categories, payments) => {
           setSelectedOrder(order)
-          setSelectedCategories ? setSelectedCategories(categories) : null;
+          setSelectedCategories && setSelectedCategories(categories);
           setSelectedPayments(payments);
           setFilterIsOpen(false);
-          setFilterIsActive(true)
+          setFilterIsActive && setFilterIsActive(true)
         }}
         values={[selectedOrder, selectedCategories ?? [], selectedPayments]}
       />

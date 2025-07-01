@@ -50,6 +50,7 @@ export default function Header({ name, full = false, fixed = false }: { name?: s
                     <ChangeLocation />
                 }
             </RightSide>
+            <h2>{name ?? ''}</h2>
 
             <LeftSide>
                 {full && links.map((item) => {
@@ -73,7 +74,7 @@ export default function Header({ name, full = false, fixed = false }: { name?: s
                 )}
             </LeftSide>
 
-            {isMobile && (<SideMenu locationSelector={full}/>)}
+            {isMobile && (<SideMenu locationSelector={full} />)}
         </Container>
     )
 }

@@ -8,9 +8,10 @@ import { useHorizontalScrollDrag } from '@/hooks/useHorizontalScrollDrag';
 type Props = {
   selectedCategory: string;
   setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
+  filterIsActive: boolean
 };
 
-const Categories = ({ selectedCategory, setSelectedCategory }: Props) => {
+const Categories = ({ selectedCategory, setSelectedCategory, filterIsActive }: Props) => {
   const { ref, isDragging, events } = useHorizontalScrollDrag();
 
   return (
@@ -19,7 +20,7 @@ const Categories = ({ selectedCategory, setSelectedCategory }: Props) => {
       {...events}
       style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
     >
-      {categories.map((category) => {
+      {!filterIsActive && categories.map((category) => {
 
         return (
           <CategoryItem

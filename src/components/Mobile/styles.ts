@@ -17,8 +17,8 @@ export const Logo = styled.div`
   }
 `
 
-export const MobileHeader = styled.div`
-  width: 100%;
+export const MobileHeader = styled.div<{ $view: boolean }>`
+  width: ${({ $view }) => ($view ? '100%' : '0%')};
 `
 
 export const MenuButton = styled.button<{ $open: boolean }>`
