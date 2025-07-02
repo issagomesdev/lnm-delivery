@@ -93,6 +93,7 @@ export const CategoryName = styled.span.withConfig({
 `;
 
 // banners
+
 export const BannersWrapper = styled.div`
   display: flex;
   overflow-x: auto;
@@ -122,6 +123,11 @@ export const BannerImage = styled.img`
   width: 100%;
   max-width: 400px;
   border-radius: 8px;
+
+  @media (max-width: 450px) {
+    min-width: 90vw;
+    max-width: 90vw;
+  }
 `;
 
 // shops

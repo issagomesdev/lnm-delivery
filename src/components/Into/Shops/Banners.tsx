@@ -8,24 +8,35 @@ import { useHorizontalScrollDrag } from '@/hooks/useHorizontalScrollDrag';
 const Banners = ({filterIsActive}: {filterIsActive: boolean}) => {
   const { ref, isDragging, events } = useHorizontalScrollDrag();
 
-  useEffect(() => {
-    const el = ref.current;
+useEffect(() => {
+  const el = ref.current;
+  if (!el) return;
+
+  let currentIndex = 0;
+
+  const interval = setInterval(() => {
     if (!el) return;
 
-    const interval = setInterval(() => {
-      if (!el) return;
+    const banners = el.querySelectorAll('img');
+    if (!banners.length) return;
 
-      const isAtEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 1;
+    currentIndex = (currentIndex + 1) % banners.length;
 
-      if (isAtEnd) {
-        el.scrollTo({ left: 0, behavior: 'auto' });
-      } else {
-        el.scrollBy({ left: 300, behavior: 'smooth' });
-      }
-    }, 3000);
+    const banner = banners[currentIndex] as HTMLElement;
+    const bannerLeft = banner.offsetLeft;
+    const bannerWidth = banner.offsetWidth;
+    const scrollCenter = bannerLeft - (el.clientWidth / 2) + (bannerWidth / 2);
 
-    return () => clearInterval(interval);
-  }, [ref]);
+    el.scrollTo({
+      left: scrollCenter - 15,
+      behavior: 'smooth'
+    });
+
+  }, 3000);
+
+  return () => clearInterval(interval);
+}, [ref]);
+
 
   return (
     <BannersWrapper
