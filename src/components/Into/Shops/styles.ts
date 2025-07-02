@@ -218,6 +218,11 @@ export const ShopItem = styled.div`
   width: 100%;
   box-sizing: border-box;
   overflow: hidden;
+  cursor: pointer;
+
+  &:hover {
+      filter: brightness(0.9);
+  }
 `;
 
 export const ShopImage = styled.img`

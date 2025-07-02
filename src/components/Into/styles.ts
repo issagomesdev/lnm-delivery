@@ -51,6 +51,16 @@ export const Container = styled.div.withConfig({
     >h2 {
         font-size: 16px;
     }
+
+    >span {
+        display: flex;
+        font-weight: 500;
+        font-size: 12px;
+        position: absolute;
+        left: 15px;
+        gap: 2px;
+        cursor: pointer;
+    }
 `
 
 export const RightSide = styled.div.withConfig({

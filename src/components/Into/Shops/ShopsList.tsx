@@ -30,6 +30,8 @@ import { useIsMobile } from '@/hooks/useIsMobile';
 import AdvancedFilter from './AdvancedFilter';
 import { CloseXButton } from '@/components/shared/Modal/styles';
 import { useLocation } from '@/contexts/LocationContext';
+import { useRouter } from 'next/navigation'
+
 
 type ShopsListProps = {
   selectedCategories?: number[];
@@ -51,6 +53,7 @@ const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory
   const [selectedOrder, setSelectedOrder] = useState<string | null>(null);
   const [selectedPayments, setSelectedPayments] = useState<string[]>([]);
   const { selectedCity, selectedNeighborhood } = useLocation();
+  const router = useRouter()
 
   useEffect(() => {
     let filtered;
@@ -127,8 +130,10 @@ const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory
         </CouponsEmpty>
       }
 
+      {/* lojas abertas */}
+
       <FiltersWrapper>
-        {openShops.length > 0? <ShopCount>Lojas abertas ({openShops.length})</ShopCount> : <ShopCount close={true}>Fechadas agora ({closeShops.length})</ShopCount>}
+        {openShops.length > 0 ? <ShopCount>Lojas abertas ({openShops.length})</ShopCount> : <ShopCount close={true}>Fechadas agora ({closeShops.length})</ShopCount>}
         {!mode && isMobile && <FilterButton onClick={() => setFilterIsOpen(true)}>
           <Icon icon={'mage:filter'} width="12" />
           Filtro avançado
@@ -143,7 +148,7 @@ const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory
           });
 
           return (
-            <ShopItem key={i}>
+            <ShopItem key={i} onClick={() => { router.push(`/shops/${shop.id}`) }}>
               <ShopImage src={'/images/default-store.png'} alt={shop.name} />
               <ShopInfo>
                 <ShopName>{shop.name}</ShopName>
@@ -184,12 +189,14 @@ const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory
         })}
       </ShopItems>
 
+      {/* lojas fechadas */}
+
       {openShops.length > 0 && closeShops.length > 0 && <ShopCount close={true}>Fechadas agora ({closeShops.length})</ShopCount>}
 
       {<ShopItems>
         {closeShops.map((shop, i) => {
           return (
-            <ShopItem key={i} style={{ opacity: 0.5 }}>
+            <ShopItem key={i} style={{ opacity: 0.5 }} onClick={() => { router.push(`/shops/${shop.id}`) }}>
               <ShopImage style={{ filter: 'grayscale(85%)' }} src={'/images/default-store.png'} alt={shop.name} />
               <ShopInfo>
                 <ShopName>{shop.name}</ShopName>

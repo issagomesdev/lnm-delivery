@@ -60,6 +60,7 @@ export const shops = Array.from({ length: 50 }, (_, i) => {
   closingTime.setHours(15 + (i % 4), 0, 0);
 
   return {
+    id: i + 1,
     name: i % 2 === 0 ? `Loja Exemplo ${i + 1}` : `Loja Exemplo ${i + 1} Nome Grande`,
     image: i % 5 === 0 ? `/images/stores/store${(i % 5) + 1}.png` : '',
     category: { id: categories[i % categories.length].id, name: categories[i % categories.length].name },
