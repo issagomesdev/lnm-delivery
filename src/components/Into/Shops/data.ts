@@ -57,12 +57,13 @@ export const shops = Array.from({ length: 50 }, (_, i) => {
   openingTime.setHours(10 + (i % 3) * 2, 0, 0);
 
   const closingTime = new Date();
-  closingTime.setHours(15 + (i % 4), 0, 0);
+  closingTime.setHours(18 + (i % 4), 0, 0);
 
   return {
     id: i + 1,
     name: i % 2 === 0 ? `Loja Exemplo ${i + 1}` : `Loja Exemplo ${i + 1} Nome Grande`,
-    image: i % 5 === 0 ? `/images/stores/store${(i % 5) + 1}.png` : '',
+    image: "/images/default-store.png",
+    cover: "/images/default-store-banner.jpg",
     category: { id: categories[i % categories.length].id, name: categories[i % categories.length].name },
     deliveryTime: 30 + (i % 5) * 10,
     deliveryFee: i % 3 === 0 ? 0 : 5 + (i % 4),
@@ -71,22 +72,28 @@ export const shops = Array.from({ length: 50 }, (_, i) => {
     fav: i % 2 === 0 ? true : false,
     rating: 3 + (i % 3) + Math.random(),
     offer: i % 4 === 0 ? 'frete grátis' : i % 5 === 0 ? 'FRETEGRATIS' : '',
+    minimum_value_order: i % 4 === 0 ? 19.99 : i % 5 === 0 ? 30 : 0,
     coupon: i % 4 === 0 ? {
       name: '3% OFF',
-      description: '3% desc. em produto',
-      rule: 'VÁLIDO PARA COMBOS HAMBÚRGUER + FRITAS + REFRI LATA',
+      discount: '3%',
+      rule: 'COMBOS HAMBÚRGUER + FRITAS + REFRI LATA',
       minimum_value: 0
     } : i % 5 === 0 ? {
       name: 'TIOCOX',
-      description: 'R$ 6.00 desc. em produtos',
+      discount: 'R$ 6.00',
       rule: '',
       minimum_value: 0
     } : i % 6 === 0 ? {
       name: 'FRETEGRATIS',
-      description: 'Frete grátis',
+      discount: 'Frete grátis',
       rule: '',
       minimum_value: 30
     } : null,
+    fees: [
+      { name: "Calhetas", fees: "10.50 "},
+      { name: "Camburi", fees: "11.00 "},
+      { name: "Paúba", fees: "10.00 "},
+    ]
   };
 });
 

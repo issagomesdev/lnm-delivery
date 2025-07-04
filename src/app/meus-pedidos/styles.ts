@@ -4,7 +4,7 @@ export const Container = styled.div`
   padding: 3rem 1rem;
 
   @media (max-width: 980px) {
-    padding: 7rem 2rem;
+    padding: 7rem 1rem;
   }
 `;
 
@@ -18,8 +18,6 @@ export const OrderCard = styled.div`
 `;
 
 export const OrderInfo = styled.div`
-  margin-bottom: 0.5rem;
-
   strong {
     font-weight: 700;
     font-size: .9rem;
@@ -40,6 +38,12 @@ export const OrderInfo = styled.div`
     margin: 0.3rem 0;
     font-size: 0.95rem;
   }
+
+  @media (max-width: 400px) {
+    strong {
+      font-size: .8rem;
+    }
+  }
 `;
 
 export const StatusTag = styled.div<{ status: string }>`
@@ -54,6 +58,10 @@ export const StatusTag = styled.div<{ status: string }>`
   display: inline-block;
   font-size: 1rem;
   margin-bottom: 0.5rem;
+
+  @media (max-width: 400px) {
+    font-size: .9rem;
+  }
 `;
 
 export const ActionButton = styled.button<{ color: 'orange' | 'green' | 'blue' }>`
@@ -73,6 +81,11 @@ export const ActionButton = styled.button<{ color: 'orange' | 'green' | 'blue' }
 
   >img {
     width: 1rem;
+  }
+
+   @media (max-width: 400px) {
+    font-size: 0.70rem;
+    padding: 8px;
   }
 `;
 

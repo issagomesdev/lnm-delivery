@@ -133,7 +133,7 @@ const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory
       {/* lojas abertas */}
 
       <FiltersWrapper>
-        {openShops.length > 0 ? <ShopCount>Lojas abertas ({openShops.length})</ShopCount> : <ShopCount close={true}>Fechadas agora ({closeShops.length})</ShopCount>}
+        {openShops.length > 0 ? <ShopCount>Lojas abertas ({openShops.length})</ShopCount> : closeShops.length > 0 ? <ShopCount close={true}>Fechadas agora ({closeShops.length})</ShopCount> : ''}
         {!mode && isMobile && <FilterButton onClick={() => setFilterIsOpen(true)}>
           <Icon icon={'mage:filter'} width="12" />
           Filtro avançado
@@ -156,9 +156,9 @@ const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory
                 {mode && mode === 'coupon' &&
                   <>
                     <ShopMeta className={'coupon'}> Cupom: <span>{shop.coupon.name}</span> </ShopMeta>
-                    <ShopMeta className={'coupon'}> {shop.coupon.description} </ShopMeta>
+                    <ShopMeta className={'coupon'}> {shop.coupon.discount} {shop.coupon.discount !== "Frete grátis" && "desc. em produtos"} </ShopMeta>
                     {shop.coupon.minimum_value > 0 && <ShopMeta className={'coupon'}> Pedido mínimo para uso: R$ {shop.coupon.minimum_value.toFixed(2)} </ShopMeta>}
-                    {shop.coupon.rule && <ShopMeta className={'coupon rule'}> {shop.coupon.rule} </ShopMeta>}
+                    {shop.coupon.rule && <ShopMeta className={'coupon rule'}> VÁLIDO PARA {shop.coupon.rule} </ShopMeta>}
                   </>
                 }
                 {(!mode || mode === 'fav') &&
@@ -204,7 +204,7 @@ const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory
                 {mode && mode === 'coupon' &&
                   <>
                     <ShopMeta className={'coupon'}> Cupom: <span>{shop.coupon.name}</span> </ShopMeta>
-                    <ShopMeta className={'coupon'}> {shop.coupon.description} </ShopMeta>
+                    <ShopMeta className={'coupon'}> {shop.coupon.discount} {shop.coupon.discount !== "Frete grátis" && "desc. em produtos"} </ShopMeta>
                     {shop.coupon.minimum_value > 0 && <ShopMeta className={'coupon'}> Pedido mínimo para uso: R$ {shop.coupon.minimum_value.toFixed(2)} </ShopMeta>}
                     {shop.coupon.rule && <ShopMeta className={'coupon rule'}> {shop.coupon.rule} </ShopMeta>}
                   </>

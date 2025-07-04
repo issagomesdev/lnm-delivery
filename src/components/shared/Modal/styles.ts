@@ -36,6 +36,12 @@ export const ModalBox = styled.div`
   position: relative;
 `
 
+export const Label = styled.p`
+  font-size: 0.9rem;
+  color: #333;
+  margin-bottom: 1rem;
+`
+
 export const Content = styled.div`
   margin: 1rem 0;
   color: #333;
@@ -62,7 +68,8 @@ export const ConfirmButton = styled.button`
   border: none;
   color: white;
   padding: .7rem;
-  width: 100%;
+  min-width: 160px;
+  border-radius: 4px;
   cursor: pointer;
 `
 

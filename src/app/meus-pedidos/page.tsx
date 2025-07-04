@@ -2,10 +2,10 @@
 
 import Header from "@/components/Into/Header";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Container, OrderCard, OrderInfo, StatusTag, ActionButton, Pagination } from "./styles";
 import RatingComponent from "@/components/Into/MyOrders/RatingComponent";
-import { Label } from "@/app/minha-conta/styles";
+import { Label } from "@/components/shared/Modal/styles";
 import ModalComponent from "@/components/shared/Modal/ModalComponent";
 import { useRouter } from 'next/navigation'
 import OrderDetails from "@/components/Into/MyOrders/OrderDetails";
@@ -63,6 +63,18 @@ export default function MyOrders() {
     const handleTrackOrder = (step: string, id: string, date: string) => {
         router.push(`/meus-pedidos/rastreio/${id}?step=${step}&date=${date}`)
     }
+
+    useEffect(() => {
+        if (orderIsOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [orderIsOpen]);
 
     return (
         <>

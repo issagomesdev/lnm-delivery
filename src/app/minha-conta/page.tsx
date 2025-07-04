@@ -1,9 +1,10 @@
 'use client'
 
 import Header from "@/components/Into/Header";
-import { Datas, Data, Label, Textarea, Notice } from "@/app/minha-conta/styles";
+import { Datas, Data, Textarea, Notice } from "@/app/minha-conta/styles";
 import ModalComponent from "@/components/shared/Modal/ModalComponent";
 import { useState } from "react";
+import { Label } from "@/components/shared/Modal/styles";
 
 export default function MyAccount() {
   const [isModalOpen, setIsModalOpen] = useState(false)

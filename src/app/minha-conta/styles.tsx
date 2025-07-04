@@ -55,14 +55,6 @@ export const Data = styled.div`
     }
 `
 
-export const Label = styled.p`
-  font-size: 0.9rem;
-  color: #333;
-  margin-bottom: 1rem;
-`
-
-
-
 export const Textarea = styled.textarea`
   width: 100%;
   height: 80px;
