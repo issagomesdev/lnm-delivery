@@ -11,7 +11,7 @@ import {
   RatingBadge,
   ShopName,
   QuickInfoItem,
-  ItemIcon,
+  ItemIcon
 } from './styles';
 import DeliveryFees from './DeliveryFees';
 import ModalComponent from '@/components/shared/Modal/ModalComponent';
@@ -19,28 +19,38 @@ import Informations from './Informations';
 import { useEffect, useState } from 'react';
 import { ConfirmButton, Label } from '@/components/shared/Modal/styles';
 import { useTheme } from 'styled-components';
-import { span } from 'framer-motion/client';
+import Reviews from './Reviews';
+import { shopCategories } from '../data';
+import { ShopCategoriesList } from './ShopCategoriesList';
+import { isBefore, isAfter } from 'date-fns';
+import { useRouter } from 'next/navigation';
 
 const ShopProfile = ({ shop }: { shop: any }) => {
 
+  const [reviewsIsOpen, setReviewsIsOpen] = useState(false);
   const [feesIsOpen, setFeesIsOpen] = useState(false);
   const [infoIsOpen, setInfoIsOpen] = useState(false);
   const [timeInfoIsOpen, setTimeInfoIsOpen] = useState(false);
   const [couponAlertIsOpen, setCouponAlertIsOpen] = useState(false);
   const [shopIsClosed, setShopIsClosed] = useState(false);
+  const [categories, setCategories] = useState<any>([]);
   const theme = useTheme();
+  const router= useRouter();
 
   useEffect(() => {
     const now = new Date();
-    if (now < new Date(shop.openingTime) || now > new Date(shop.closingTime)) setShopIsClosed(true)
-    else if (shop.coupon) setCouponAlertIsOpen(true)
-  }, [])
+    const isClosed = isBefore(now, new Date(shop.openingTime)) || isAfter(now, new Date(shop.closingTime));
+    setShopIsClosed(isClosed);
+
+    if (!isClosed && shop.coupon) setCouponAlertIsOpen(true);
+    setCategories(shopCategories(shop.id));
+  }, []);
 
   return (
     <Wrapper>
       <Cover>
         <CoverImage src={shop.cover} alt={`Capa da loja ${shop.name}`} />
-        <RatingBadge>
+        <RatingBadge onClick={() => setReviewsIsOpen(true)}>
           <Icon icon={"material-symbols:star-rounded"} width="15" />
           avaliações {shop.rating.toFixed(1)}
           <Icon icon={"ep:arrow-right-bold"} width="9" />
@@ -75,6 +85,13 @@ const ShopProfile = ({ shop }: { shop: any }) => {
         <hr />
       </ProfileSection>
 
+      {!shopIsClosed && categories.length > 0 && (
+        <ShopCategoriesList
+          categories={categories}
+          onSelectCategory={(category) =>  router.push(`/shops/${shop.id}/cardapio?category=${category.name}`)}
+        />
+      )}
+
       {/* Restaurante fechado tratativa */}
       {shopIsClosed && (
         <div style={{ textAlign: 'center', margin: '2rem', minHeight: '10vw' }}>
@@ -84,6 +101,13 @@ const ShopProfile = ({ shop }: { shop: any }) => {
           <ConfirmButton onClick={() => setInfoIsOpen(true)}> Ver horários de atendimento </ConfirmButton>
         </div>
       )}
+
+      {/* Modal de avaliações */}
+      <Reviews
+        isOpen={reviewsIsOpen}
+        onClose={() => setReviewsIsOpen(false)}
+        id={shop.id}>
+      </Reviews>
 
       {/* Modal de taxas de entregas */}
       <DeliveryFees
@@ -110,16 +134,16 @@ const ShopProfile = ({ shop }: { shop: any }) => {
       >
         {shop.coupon &&
           <>
-          <img src="/images/desconto-popup.png" alt="Desconto" style={{ width: '100%', maxWidth: '200px', margin: '0 auto', display: 'block' }} />
+            <img src="/images/desconto-popup.png" alt="Desconto" style={{ width: '100%', maxWidth: '200px', margin: '0 auto', display: 'block' }} />
 
-          <p style={{ textAlign: 'center', marginTop: '1rem', fontSize: '16px' }}>
-            Estamos com cupom <span style={{ color: theme.colors.primary, fontWeight: 'bold' }}>{shop.coupon.name}. </span>
-            <br />
-            <span>{shop.coupon.discount} de desconto, válido para {shop.coupon.rule.length > 0 ? <span style={{ color: theme.colors.primary, fontWeight: 'bold' }}>{shop.coupon.rule}</span> : <span> todos os produtos</span>}</span>
-            <br />
-            {shop.coupon.minimum_value > 0 && <span>O pedido mínimo para efetivação do cupom é de <span style={{ color: theme.colors.primary, fontWeight: 'bold' }}>R$ {shop.coupon.minimum_value}</span> em produto.</span>}
-          </p>
-        </>
+            <p style={{ textAlign: 'center', marginTop: '1rem', fontSize: '16px' }}>
+              Estamos com cupom <span style={{ color: theme.colors.primary, fontWeight: 'bold' }}>{shop.coupon.name}. </span>
+              <br />
+              <span>{shop.coupon.discount === 'Frete grátis' ? shop.coupon.discount : shop.coupon.discount + ' de desconto'}, válido para {shop.coupon?.rule ? <span style={{ color: theme.colors.primary, fontWeight: 'bold' }}>{shop.coupon.rule}</span> : <span> todos os produtos</span>}</span>
+              <br />
+              {shop.coupon.minimum_value > 0 && <span>O pedido mínimo para efetivação do cupom é de <span style={{ color: theme.colors.primary, fontWeight: 'bold' }}>R$ {shop.coupon.minimum_value}</span> em produto.</span>}
+            </p>
+          </>
         }
       </ModalComponent>
 
@@ -128,7 +152,6 @@ const ShopProfile = ({ shop }: { shop: any }) => {
         isOpen={infoIsOpen}
         onClose={() => setInfoIsOpen(false)}
       />
-
 
     </Wrapper>
   );

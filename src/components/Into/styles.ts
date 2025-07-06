@@ -43,8 +43,8 @@ export const Container = styled.div.withConfig({
 
     @media (min-width: 980px) {
         position: ${({ fixed }) => (fixed ? 'fixed' : 'relative')};
-        >h2 {
-        display: none;
+        >h2:not(.category) {
+            display: none;
         }
     }
 

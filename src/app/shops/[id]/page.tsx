@@ -1,6 +1,6 @@
 'use client';
 
-import { Container, Heart } from './styles';
+import { Heart } from './styles';
 import { Icon } from '@iconify/react';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -35,7 +35,7 @@ const ShopPage = () => {
     }, [showEffect]);
 
     return (
-        <Container>
+        <>
             <Header>
                 <Heart onClick={toggleLike}>
                     <Icon
@@ -50,7 +50,7 @@ const ShopPage = () => {
             {shop && <ShopProfile shop={shop}/>}
 
             <FavoriteEffect visible={showEffect} like={isLiked} />
-        </Container>
+        </>
     );
 };
 

@@ -15,7 +15,7 @@ export const Wrapper = styled.div`
 
 export const Cover = styled.div`
   position: relative;
-  height: 340px;
+  height: 300px;
 `;
 
 export const CoverImage = styled.img`
@@ -75,6 +75,7 @@ export const RatingBadge = styled.div`
     position: absolute;
     right: 20px;
     bottom: 4%;
+    cursor: pointer;
 `;
 
 export const InfoRow = styled.div`
@@ -144,6 +145,8 @@ export const ItemIcon = styled(Icon)`
 
 export const Content = styled.div`
   padding: 16px 24px;
+  height: 85%;
+  overflow: auto;
 `;
 
 export const SearchInput = styled.input`
@@ -248,3 +251,123 @@ export const FeeRow = styled.div`
   cursor: pointer;
   width: fit-content;
 `;
+
+// Reviews
+
+ export const Summary = styled.div`
+  text-align: center;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h2 {
+    font-size: 2rem;
+    margin: 8px 0;
+  }
+
+  p, strong {
+    font-size: 14px;
+    color: ${({ theme }) => theme.colors.text_secondary};
+    font-weight: 500;
+    margin-top: 8px;
+  }
+`;
+
+ export const Stars = styled.div`
+  color: #FFD700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 500;
+`;
+
+ export const RatingsSummary = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: #ebebeb;
+  border-radius: 4px;
+  flex-wrap: wrap;
+  row-gap: 15px;
+  column-gap: 12px;
+
+ @media (max-width: 450px) {
+    justify-content: space-around;
+  }
+`;
+
+ export const RatingRow = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  strong, span {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  strong {
+    color: ${({ theme }) => theme.colors.text_secondary};
+  }
+
+  span {
+    font-weight: 500;
+  }
+`;
+
+ export const ReviewsContainer = styled.div`
+    margin-top: 1rem;
+`;
+
+ export const CommentBox = styled.div`
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 12px;
+  border-bottom: 2px solid ${({ theme }) => theme.colors.separators};
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+`;
+
+
+ export const RatingHeader = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+`;
+
+// Categories
+
+export const CategoriesContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 2rem 0;
+  padding: 0 2rem;
+`;
+
+export const CategoryItem = styled.button`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 16px;
+  background-color: #fff;
+  border: none;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.separators};
+  font-size: 15px;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.separators};
+  }
+
+  span {
+    font-weight: 600;
+    color: ${({ theme }) => theme.colors.text_secondary};
+  }
+`;
+
