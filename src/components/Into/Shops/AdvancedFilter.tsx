@@ -99,7 +99,7 @@ export default function AdvancedFilter({
                                 return (
                                     <TagItem
                                         key={cat.id}
-                                        isActive={selected}
+                                        active={selected}
                                         onClick={() => toggleCategories(cat.id)}
                                     >
                                         {cat.name}
@@ -117,7 +117,7 @@ export default function AdvancedFilter({
                                 return (
                                     <TagItem
                                         key={method}
-                                        isActive={selected}
+                                        active={selected}
                                         onClick={() => togglePayment(method)}
                                     >
                                         {method}

@@ -14,6 +14,7 @@ export default function SideMenu({ locationSelector = true }: { locationSelector
     const toggleMenu = () => setIsOpen(prev => !prev);
 
     const links = [
+        { href: 'shops', icon: 'Icon inicio.png', label: 'Inicio' },
         { href: '/minha-conta', icon: 'Icon Minha conta.png', label: 'Minha conta' },
         { href: '/meus-pedidos', icon: 'Icon Meus pedidos.png', label: 'Meus pedidos' },
         { href: '/meus-enderecos', icon: 'Icon Meus endereços.png', label: 'Meus endereços' },

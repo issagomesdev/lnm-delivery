@@ -21,7 +21,7 @@ export const Container = styled.div.withConfig({
     color: #fff;
     font-weight: 300;
     position: relative;
-    z-index: 99;
+    z-index: 999;
 
     >img {
         width: 15rem;

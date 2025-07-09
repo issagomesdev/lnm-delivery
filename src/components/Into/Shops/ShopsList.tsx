@@ -24,14 +24,14 @@ import {
   FilterIsActiveCard,
   CuponsLabel,
   CouponsEmpty,
-  CouponsEmptyIcon
+  CouponsEmptyIcon,
+  FilterAdvance
 } from './styles';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import AdvancedFilter from './AdvancedFilter';
 import { CloseXButton } from '@/components/shared/Modal/styles';
 import { useLocation } from '@/contexts/LocationContext';
-import { useRouter } from 'next/navigation'
-
+import { useRouter } from 'next/navigation';
 
 type ShopsListProps = {
   selectedCategories?: number[];
@@ -40,9 +40,10 @@ type ShopsListProps = {
   filterIsActive?: boolean;
   setFilterIsActive?: React.Dispatch<React.SetStateAction<boolean>>;
   mode?: 'coupon' | 'fav';
+  triggered: boolean;
 };
 
-const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory, filterIsActive, setFilterIsActive, mode }: ShopsListProps) => {
+const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory, filterIsActive, setFilterIsActive, mode, triggered }: ShopsListProps) => {
   const [search, setSearch] = useState('');
   const isMobile = useIsMobile();
   const now = new Date();
@@ -100,7 +101,7 @@ const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory
 
   return (
     <ShopsWrapper>
-      {!mode && <FiltersWrapper>
+      {!mode && <FiltersWrapper fixed={triggered}>
         <FilterInput>
           <Icon icon={'lets-icons:search-alt'} color={'gray'} width="20" />
           <input placeholder="Buscar por loja ou categoria"
@@ -111,6 +112,17 @@ const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory
           <Icon icon={'mage:filter'} width="15" />
           Filtro avançado
         </FilterButton>}
+
+        {isMobile && <FilterAdvance>
+          { openShops.length > 0 && <ShopCount>Lojas abertas ({openShops.length})</ShopCount> }
+          { openShops.length < 1 && closeShops.length > 0 && <ShopCount close={true}>Fechadas agora ({closeShops.length})</ShopCount> }
+          {!mode && isMobile && <FilterButton onClick={() => setFilterIsOpen(true)}>
+            <Icon icon={'mage:filter'} width="12" />
+            Filtro avançado
+          </FilterButton>}
+        </FilterAdvance>
+        }
+
       </FiltersWrapper>}
 
       {mode && mode === 'coupon' && filteredShops.length > 0 &&
@@ -131,14 +143,6 @@ const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory
       }
 
       {/* lojas abertas */}
-
-      <FiltersWrapper>
-        {openShops.length > 0 ? <ShopCount>Lojas abertas ({openShops.length})</ShopCount> : closeShops.length > 0 ? <ShopCount close={true}>Fechadas agora ({closeShops.length})</ShopCount> : ''}
-        {!mode && isMobile && <FilterButton onClick={() => setFilterIsOpen(true)}>
-          <Icon icon={'mage:filter'} width="12" />
-          Filtro avançado
-        </FilterButton>}
-      </FiltersWrapper>
 
       <ShopItems>
         {openShops.map((shop, i) => {

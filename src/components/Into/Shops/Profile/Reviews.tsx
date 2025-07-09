@@ -62,7 +62,7 @@ const Reviews = ({ isOpen, onClose, id }: { isOpen: boolean; onClose: () => void
 
         <Title>AVALIAÇÕES</Title>
 
-        <Content>
+        <Content style={{ padding: 0 }}>
           <Summary>
             <p>Média dos últimos 90 dias</p>
             <h2>{totalAverage.toFixed(1)}</h2>

@@ -2,12 +2,16 @@
 
 import styled, { css } from 'styled-components';
 
+interface Props {
+    withImage?: boolean;
+    fixed?: boolean;
+}
+
 export const CategorySelector = styled.div`
   display: flex;
   gap: 0.75rem;
   align-items: center;
   overflow: auto;
-  padding: 10px 0;
 
   &::-webkit-scrollbar {
     height: 6px;
@@ -22,6 +26,22 @@ export const CategorySelector = styled.div`
     display: none;
   }
 `;
+
+export const CategoriesHeader = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'fixed',
+}) <Props>`
+  position: ${({ fixed }) => fixed? 'fixed' : 'relative'};
+  width: 100%;
+  ${({ fixed }) => fixed? 'padding: 1rem; left: 0; top: 0;' : ''}
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  @media (max-width: 980px){
+    padding-top: ${({ fixed }) => fixed? '80px' : '0'};
+  }
+`
 
 export const CategoryButton = styled.button<{ selected: boolean }>`
   padding: 0.5rem 1rem;
@@ -42,11 +62,14 @@ export const CategoryButton = styled.button<{ selected: boolean }>`
   }
 `;
 
-export const MenuItems = styled.div`
+export const MenuItems = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'fixed',
+}) <Props>`
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
   justify-content: space-between;
+  margin-top: ${({ fixed }) => fixed? '9rem' : '0'};
 
     &::-webkit-scrollbar {
     height: 6px;
@@ -62,7 +85,9 @@ export const MenuItems = styled.div`
   }
 `;
 
-export const MenuItem = styled.div<{ withImage?: boolean }>`
+export const MenuItem = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'withImage',
+}) <Props>`
   display: flex;
   flex-direction: ${({ withImage }) => (withImage ? 'row' : 'column')};
   align-items: ${({ withImage }) => (withImage ? 'flex-start' : 'flex-start')};

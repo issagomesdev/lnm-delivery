@@ -144,7 +144,7 @@ export const ItemIcon = styled(Icon)`
 // DeliveryFees
 
 export const Content = styled.div`
-  padding: 16px 24px;
+  padding: 16px;
   height: 85%;
   overflow: auto;
 `;
@@ -285,10 +285,9 @@ export const FeeRow = styled.div`
  export const RatingsSummary = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 1rem;
+  padding: 1rem 12px;
   background-color: #ebebeb;
   border-radius: 4px;
-  flex-wrap: wrap;
   row-gap: 15px;
   column-gap: 12px;
 
@@ -316,6 +315,13 @@ export const FeeRow = styled.div`
   span {
     font-weight: 500;
   }
+
+ @media (max-width: 400px) {
+    strong {
+      font-size: 10px;
+      white-space: nowrap;
+    }
+  }
 `;
 
  export const ReviewsContainer = styled.div`
@@ -330,6 +336,7 @@ export const FeeRow = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  padding: 16px;
 `;
 
 
@@ -345,7 +352,7 @@ export const CategoriesContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin: 2rem 0;
-  padding: 0 2rem;
+  padding: 0 1rem;
 `;
 
 export const CategoryItem = styled.button`

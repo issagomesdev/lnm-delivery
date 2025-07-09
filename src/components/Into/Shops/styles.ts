@@ -3,6 +3,9 @@ import { styled as styledBase } from 'styled-components';
 
 interface Props {
   fixed?: boolean;
+  isSelected?: boolean;
+  close?: boolean;
+  active?: boolean;
 }
 
 export const Wrapper = styled.div.withConfig({
@@ -43,13 +46,10 @@ export const CategoriesWrapper = styled.div`
   }
 `;
 
-interface CategorySelectedProps {
-  isSelected?: boolean;
-}
 
 export const CategoryItem = styled.div.withConfig({
   shouldForwardProp: (prop) => prop !== 'isSelected',
-})<CategorySelectedProps>`
+})<Props>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -63,7 +63,7 @@ export const CategoryItem = styled.div.withConfig({
 
 export const CategoryImage = styled.img.withConfig({
   shouldForwardProp: (prop) => prop !== 'isSelected',
-})<CategorySelectedProps>`
+})<Props>`
   width: 80px;
   height: auto;
   border-radius: 8px;
@@ -74,7 +74,7 @@ export const CategoryImage = styled.img.withConfig({
 
 export const CategoryName = styled.span.withConfig({
   shouldForwardProp: (prop) => prop !== 'isSelected',
-})<CategorySelectedProps>`
+})<Props>`
   font-size: 12px;
   margin-top: 4px;
   background: ;
@@ -137,12 +137,22 @@ export const ShopsWrapper = styled.div`
   gap: 2rem;
 `;
 
-export const FiltersWrapper = styled.div`
+export const FiltersWrapper = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'fixed',
+}) <Props>`
+  position: ${({ fixed }) => fixed? 'fixed' : 'relative'};
+  ${({ fixed }) => fixed? 'padding: 1rem; left: 0; top: 72px;' : ''}
+  width: 100%;
   display: flex;
   gap: 10px;
-  align-items: center;
   flex-wrap: wrap;
   justify-content: space-between;
+  z-index: 9;
+  background-color: #fff;
+
+  @media (max-width: 980px){
+    flex-direction: column;
+  }
 `;
 
 export const FilterInput = styled.div`
@@ -179,13 +189,16 @@ export const FilterButton = styled.button`
   }
 `;
 
-interface ShopCountProps {
-  close?: boolean;
-}
+export const FilterAdvance = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
 
 export const ShopCount = styled.div.withConfig({
   shouldForwardProp: (prop) => prop !== 'close',
-}) <ShopCountProps>`
+}) <Props>`
   font-weight: bold;
   color: ${({ close }) => (close ? '#f02649' : '#24b03c')};
   padding: 0 1rem;
@@ -389,13 +402,9 @@ export const BottomNavWrapper = styled.div`
   border-top: 1px solid #eee;
 `;
 
-interface NavItemProps {
-  active?: boolean;
-}
-
 export const NavItem = styledBase.a.withConfig({
   shouldForwardProp: (prop) => prop !== 'active', 
-}) <NavItemProps>`
+}) <Props>`
   display: flex;
   gap: 3px;
   flex-direction: column;
@@ -446,18 +455,14 @@ export const TagList = styled.div`
   gap: 8px;
 `;
 
-interface TagItemProps {
-  isActive?: boolean;
-}
-
 export const TagItem = styled.span.withConfig({
-  shouldForwardProp: (prop) => prop !== 'isActive', 
-})<TagItemProps>`
+  shouldForwardProp: (prop) => prop !== 'active', 
+})<Props>`
   padding: 6px 12px;
   font-size: 13px;
   border-radius: 12px;
-  background: ${({ isActive, theme }) => isActive ? theme.colors.primary : '#eee'};
-  color: ${({ isActive }) => isActive ? '#fff' : '#333'};
+  background: ${({ active, theme }) => active ? theme.colors.primary : '#eee'};
+  color: ${({ active }) => active ? '#fff' : '#333'};
   cursor: pointer;
   user-select: none;
 `;

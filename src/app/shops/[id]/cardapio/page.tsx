@@ -14,15 +14,19 @@ import {
     MenuPrice,
     MenuImage,
     MenuItems,
+    CategoriesHeader,
 } from "./styles";
 import { FilterInput, Wrapper } from "@/components/Into/Shops/styles";
 import { Icon } from '@iconify/react';
+import { useScrollTop } from "@/hooks/useScrollTop";
 
 const Cardapio = () => {
     const searchParams = useSearchParams();
     const selectedCategory = searchParams?.get("category");
     const [category, setCategory] = useState<any>();
     const [search, setSearch] = useState('');
+    const isAtTop = useScrollTop();
+
     const router = useRouter();
 
     const handleSelectCategory = (cat: any) => {
@@ -41,6 +45,7 @@ const Cardapio = () => {
             if (selected) setCategory(selected);
         }
     }, [selectedCategory]);
+
     return (
         <>
             <Header>
@@ -48,29 +53,31 @@ const Cardapio = () => {
             </Header>
 
             {
-                category ? <Wrapper>
-                    <CategorySelector>
-                        {categories.map((cat) => (
-                            <CategoryButton
-                                key={cat.id}
-                                selected={cat.id === category.id}
-                                onClick={() => handleSelectCategory(cat)}
-                            >
-                                {cat.name}
-                            </CategoryButton>
-                        ))}
-                    </CategorySelector>
+                category ? <Wrapper style={{ marginBottom: 0 }}>
+                    <CategoriesHeader fixed={!isAtTop}>
+                        <CategorySelector>
+                            {categories.map((cat) => (
+                                <CategoryButton
+                                    key={cat.id}
+                                    selected={cat.id === category.id}
+                                    onClick={() => handleSelectCategory(cat)}
+                                >
+                                    {cat.name}
+                                </CategoryButton>
+                            ))}
+                        </CategorySelector>
 
-                    <FilterInput>
-                        <Icon icon={'lets-icons:search-alt'} color={'gray'} width="20" />
-                        <input
-                            type="text"
-                            placeholder="Buscar por nome ou descrição..."
-                            value={search}
-                            onChange={(e) => setSearch(e.target.value)} />
-                    </FilterInput>
+                        <FilterInput>
+                            <Icon icon={'lets-icons:search-alt'} color={'gray'} width="20" />
+                            <input
+                                type="text"
+                                placeholder="Buscar por nome ou descrição..."
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)} />
+                        </FilterInput>
+                    </CategoriesHeader>
 
-                    <MenuItems>
+                    <MenuItems fixed={!isAtTop}>
                         {filteredItems?.map((item: any) => (
                             <MenuItem key={item.id} withImage={!!item.photo}>
                                 <MenuInfo>
