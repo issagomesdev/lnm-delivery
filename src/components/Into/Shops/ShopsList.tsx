@@ -40,7 +40,7 @@ type ShopsListProps = {
   filterIsActive?: boolean;
   setFilterIsActive?: React.Dispatch<React.SetStateAction<boolean>>;
   mode?: 'coupon' | 'fav';
-  triggered: boolean;
+  triggered?: boolean;
 };
 
 const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory, filterIsActive, setFilterIsActive, mode, triggered }: ShopsListProps) => {

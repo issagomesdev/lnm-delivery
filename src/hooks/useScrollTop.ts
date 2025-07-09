@@ -9,7 +9,7 @@ export const useScrollTop = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // verifica ao montar
+    handleScroll();
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
