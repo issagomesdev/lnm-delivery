@@ -1,6 +1,9 @@
 'use client'
 
 import styled from 'styled-components'
+interface Props {
+  width?: number;
+}
 
 export const Title = styled.h3`
   text-align: center;
@@ -26,11 +29,13 @@ export const Overlay = styled.div`
   align-items: center;
 `
 
-export const ModalBox = styled.div`
+export const ModalBox = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== 'width',
+})<Props>`
   background: #fff;
   border-radius: 4px;
   width: 90%;
-  max-width: 400px;
+  max-width: ${({ width }) => width ? `${width}px` : '400px'};
   padding: 2rem;
   text-align: center;
   position: relative;
@@ -45,6 +50,19 @@ export const Label = styled.p`
 export const Content = styled.div`
   margin: 1rem 0;
   color: #333;
+  overflow-x: auto;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    background-color: #F5F5F5;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    margin: 19px;
+    background-color: ${({ theme }) => theme.colors.primary};
+    border-radius: 8px;
+    border: 2px solid #F5F5F5;
+  }
 `
 
 export const ButtonGroup = styled.div`

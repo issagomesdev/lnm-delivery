@@ -5,7 +5,7 @@ import { Icon } from '@iconify/react';
 
 export const Wrapper = styled.div`
   position: relative;
-  margin-bottom: 16px;
+  margin-bottom: 5rem;
 
   hr {
    margin-top: 1rem;

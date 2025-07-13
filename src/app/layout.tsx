@@ -5,6 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import { GlobalStyle } from '../styles/global';
 import { theme } from '../styles/theme';
 import { LocationProvider } from '@/contexts/LocationContext';
+import { ShoppingCartProvider } from '@/contexts/ShoppingCartContext';
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -29,7 +30,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <ThemeProvider theme={theme}>
           <GlobalStyle />
           <LocationProvider>
-            <main>{children}</main>
+            <ShoppingCartProvider>
+              <main>{children}</main>
+            </ShoppingCartProvider>
           </LocationProvider>
         </ThemeProvider>
       </body>

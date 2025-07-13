@@ -10,14 +10,15 @@ type ModalConfirmProps = {
   onConfirmText?: string
   title?: string
   children?: ReactNode
+  width?: number
 }
 
-export default function ModalComponent({ isOpen, onClose, onConfirm, onConfirmText = 'Confirmar', title, children }: ModalConfirmProps) {
+export default function ModalComponent({ isOpen, onClose, onConfirm, onConfirmText = 'Confirmar', title, children, width }: ModalConfirmProps) {
   if (!isOpen) return null
 
   return (
     <Overlay>
-      <ModalBox>
+      <ModalBox width={width}>
         {title && <h2>{title}</h2>}
         <Content>{children}</Content>
         <ButtonGroup>

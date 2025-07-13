@@ -101,13 +101,15 @@ const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory
 
   return (
     <ShopsWrapper>
-      {!mode && <FiltersWrapper fixed={triggered}>
+      {!mode && <FiltersWrapper fixed={triggered}  style={triggered && filterIsActive ? { top: '113px' } : undefined}>
+
         <FilterInput>
           <Icon icon={'lets-icons:search-alt'} color={'gray'} width="20" />
           <input placeholder="Buscar por loja ou categoria"
             value={search}
             onChange={(e) => setSearch(e.target.value)} />
         </FilterInput>
+
         {!isMobile && <FilterButton onClick={() => setFilterIsOpen(true)}>
           <Icon icon={'mage:filter'} width="15" />
           Filtro avançado

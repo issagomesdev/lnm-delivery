@@ -1,8 +1,8 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { categories } from "@/components/Into/Shops/data";
+import { shopCategories } from "@/components/Into/Shops/data";
 import Header from "@/components/Into/Shops/Profile/Header";
 import {
     CategorySelector,
@@ -19,15 +19,26 @@ import {
 import { FilterInput, Wrapper } from "@/components/Into/Shops/styles";
 import { Icon } from '@iconify/react';
 import { useScrollTop } from "@/hooks/useScrollTop";
+import { Checkout } from "@/components/Into/Shops/ShoppingCart/Checkout";
+import { useShoppingCart } from '@/contexts/ShoppingCartContext';
+import CartBar from "@/components/Into/Shops/ShoppingCart/CartBar";
 
 const Cardapio = () => {
     const searchParams = useSearchParams();
+    const params = useParams();
+    const shopId = params.id || 1;
     const selectedCategory = searchParams?.get("category");
     const [category, setCategory] = useState<any>();
+    const [checkoutIsOpen, setCheckoutIsOpen] = useState(false);
     const [search, setSearch] = useState('');
     const isAtTop = useScrollTop();
-
     const router = useRouter();
+    const categories = shopCategories(Number(shopId));
+    const { addItem, cart } = useShoppingCart();
+
+    const [itemSelected, setItemSelected] = useState<any>({
+        categoryID: null, id: null
+    });
 
     const handleSelectCategory = (cat: any) => {
         router.push(`?categoria=${encodeURIComponent(cat.name)}`);
@@ -45,6 +56,22 @@ const Cardapio = () => {
             if (selected) setCategory(selected);
         }
     }, [selectedCategory]);
+
+    const openCheckout = (categoryID: number, id: number) => {
+        setCheckoutIsOpen(true)
+        setItemSelected({
+            categoryID: categoryID, id: id
+        });
+    }
+
+    const addProductToCart = (item: any) => {
+        setCheckoutIsOpen(false);
+        
+        addItem( { ...item, id: cart.length + 1 });
+
+        console.log('Produto adicionado ao carrinho:', cart);
+    };
+
 
     return (
         <>
@@ -79,7 +106,7 @@ const Cardapio = () => {
 
                     <MenuItems fixed={!isAtTop}>
                         {filteredItems?.map((item: any) => (
-                            <MenuItem key={item.id} withImage={!!item.photo}>
+                            <MenuItem key={item.id} withImage={!!item.photo} onClick={() => openCheckout(category.id, item.id)}>
                                 <MenuInfo>
                                     <MenuName>{item.name}</MenuName>
                                     <MenuDescription>{item.description}</MenuDescription>
@@ -91,6 +118,18 @@ const Cardapio = () => {
                     </MenuItems>
                 </Wrapper> : <h1>carregando...</h1>
             }
+
+            <CartBar />
+
+            <Checkout
+                isOpen={checkoutIsOpen}
+                selected={itemSelected}
+                onClose={(product) => {
+                    if (product) {
+                        addProductToCart(product);
+                    }
+                    setCheckoutIsOpen(false);
+                }} />
 
         </>
     );

@@ -8,6 +8,7 @@ import Header from '@/components/Into/Shops/Profile/Header';
 import ShopProfile from '@/components/Into/Shops/Profile/ShopProfile';
 import { shops } from '@/components/Into/Shops/data';
 import FavoriteEffect from '@/components/Into/Shops/Profile/FavoriteEffect';
+import CartBar from '@/components/Into/Shops/ShoppingCart/CartBar';
 
 const ShopPage = () => {
     const params = useParams();
@@ -48,6 +49,8 @@ const ShopPage = () => {
             </Header>
             
             {shop && <ShopProfile shop={shop}/>}
+
+            <CartBar />
 
             <FavoriteEffect visible={showEffect} like={isLiked} />
         </>

@@ -25,7 +25,7 @@ export const CategorySelector = styled.div`
   &:not(:hover)::-webkit-scrollbar-thumb, &:not(:hover)::-webkit-scrollbar {
     display: none;
   }
-`;
+`;  
 
 export const CategoriesHeader = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'fixed',
@@ -95,7 +95,8 @@ export const MenuItem = styled.div.withConfig({
   border-bottom: 1px solid ${({ theme }) => theme.colors.separators};
   padding: 1rem;
   gap: 1rem;
-  width: calc(50% - 0.75rem); // 2 itens por linha, considerando o gap
+  width: calc(50% - 0.75rem);
+  cursor: pointer;
 
   ${({ withImage }) =>
     withImage &&

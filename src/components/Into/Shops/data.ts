@@ -1,6 +1,8 @@
-import { dataCategories } from "./dataCategories";
+import { dataCategories, dataGroupOptions } from "./dataCategories";
 
 export const categories = dataCategories;
+
+export const groupOptions = dataGroupOptions;
 
 export const orderOptions = [
   { id: 'alphabetical', label: 'Ordem alfabética' },
@@ -29,7 +31,7 @@ export const shops = Array.from({ length: 50 }, (_, i) => {
   openingTime.setHours(10 + (i % 3) * 2, 0, 0);
 
   const closingTime = new Date();
-  closingTime.setHours(18 + (i % 4), 0, 0);
+  closingTime.setHours(23 + (i % 4), 0, 0);
 
   return {
     id: i,

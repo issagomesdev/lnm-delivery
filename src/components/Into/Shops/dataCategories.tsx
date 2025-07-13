@@ -46,7 +46,8 @@ export const dataCategories = [
         "price": 14.37,
         "photo": ""
       }
-    ]
+    ],
+    "IDGroup": 1
   },
   {
     "id": 2,
@@ -130,7 +131,8 @@ export const dataCategories = [
         "price": 24.06,
         "photo": ""
       }
-    ]
+    ],
+    "IDGroup": 2
   },
   {
     "id": 3,
@@ -200,7 +202,8 @@ export const dataCategories = [
         "price": 44.41,
         "photo": "/images/menu-item-default.jpg"
       }
-    ]
+    ],
+    "IDGroup": 3
   },
   {
     "id": 4,
@@ -235,7 +238,8 @@ export const dataCategories = [
         "price": 49.35,
         "photo": "/images/menu-item-default.jpg"
       }
-    ]
+    ],
+    "IDGroup": 4
   },
   {
     "id": 5,
@@ -312,7 +316,8 @@ export const dataCategories = [
         "price": 35.67,
         "photo": "/images/menu-item-default.jpg"
       }
-    ]
+    ],
+    "IDGroup": 5
   },
   {
     "id": 6,
@@ -403,7 +408,8 @@ export const dataCategories = [
         "price": 39.38,
         "photo": "/images/menu-item-default.jpg"
       }
-    ]
+    ],
+    "IDGroup": 6
   },
   {
     "id": 7,
@@ -494,7 +500,8 @@ export const dataCategories = [
         "price": 49.9,
         "photo": "/images/menu-item-default.jpg"
       }
-    ]
+    ],
+    "IDGroup": 1
   },
   {
     "id": 8,
@@ -536,7 +543,8 @@ export const dataCategories = [
         "price": 23.03,
         "photo": "/images/menu-item-default.jpg"
       }
-    ]
+    ],
+    "IDGroup": 2
   },
   {
     "id": 9,
@@ -599,7 +607,8 @@ export const dataCategories = [
         "price": 10.27,
         "photo": "/images/menu-item-default.jpg"
       }
-    ]
+    ],
+    "IDGroup": 3
   },
   {
     "id": 10,
@@ -690,7 +699,8 @@ export const dataCategories = [
         "price": 19.47,
         "photo": "/images/menu-item-default.jpg"
       }
-    ]
+    ],
+    "IDGroup": 4
   },
   {
     "id": 11,
@@ -753,7 +763,8 @@ export const dataCategories = [
         "price": 49.12,
         "photo": "/images/menu-item-default.jpg"
       }
-    ]
+    ],
+    "IDGroup": 5
   },
   {
     "id": 12,
@@ -844,7 +855,8 @@ export const dataCategories = [
         "price": 46.62,
         "photo": "/images/menu-item-default.jpg"
       }
-    ]
+    ],
+    "IDGroup": 6
   },
   {
     "id": 13,
@@ -900,7 +912,8 @@ export const dataCategories = [
         "price": 17.63,
         "photo": ""
       }
-    ]
+    ],
+    "IDGroup": 1
   },
   {
     "id": 14,
@@ -977,7 +990,8 @@ export const dataCategories = [
         "price": 44.17,
         "photo": "/images/menu-item-default.jpg"
       }
-    ]
+    ],
+    "IDGroup": 2
   },
   {
     "id": 15,
@@ -1061,7 +1075,8 @@ export const dataCategories = [
         "price": 14.49,
         "photo": "/images/menu-item-default.jpg"
       }
-    ]
+    ],
+    "IDGroup": 3
   },
   {
     "id": 16,
@@ -1089,7 +1104,8 @@ export const dataCategories = [
         "price": 26.57,
         "photo": ""
       }
-    ]
+    ],
+    "IDGroup": 4
   },
   {
     "id": 17,
@@ -1152,7 +1168,8 @@ export const dataCategories = [
         "price": 31.99,
         "photo": ""
       }
-    ]
+    ],
+    "IDGroup": 5
   },
   {
     "id": 18,
@@ -1208,7 +1225,8 @@ export const dataCategories = [
         "price": 20.74,
         "photo": ""
       }
-    ]
+    ],
+    "IDGroup": 6
   },
   {
     "id": 19,
@@ -1299,7 +1317,8 @@ export const dataCategories = [
         "price": 43.8,
         "photo": "/images/menu-item-default.jpg"
       }
-    ]
+    ],
+    "IDGroup": 1
   },
   {
     "id": 20,
@@ -1362,7 +1381,8 @@ export const dataCategories = [
         "price": 41.73,
         "photo": "/images/menu-item-default.jpg"
       }
-    ]
+    ],
+    "IDGroup": 2
   },
   {
     "id": 21,
@@ -1425,7 +1445,8 @@ export const dataCategories = [
         "price": 49.65,
         "photo": ""
       }
-    ]
+    ],
+    "IDGroup": 3
   },
   {
     "id": 22,
@@ -1502,7 +1523,8 @@ export const dataCategories = [
         "price": 23.06,
         "photo": ""
       }
-    ]
+    ],
+    "IDGroup": 4
   },
   {
     "id": 23,
@@ -1544,7 +1566,8 @@ export const dataCategories = [
         "price": 19.97,
         "photo": "/images/menu-item-default.jpg"
       }
-    ]
+    ],
+    "IDGroup": 5
   },
   {
     "id": 24,
@@ -1572,7 +1595,8 @@ export const dataCategories = [
         "price": 31.53,
         "photo": ""
       }
-    ]
+    ],
+    "IDGroup": 6
   },
   {
     "id": 25,
@@ -1656,7 +1680,8 @@ export const dataCategories = [
         "price": 37.42,
         "photo": ""
       }
-    ]
+    ],
+    "IDGroup": 1
   },
   {
     "id": 26,
@@ -1698,7 +1723,8 @@ export const dataCategories = [
         "price": 30.68,
         "photo": ""
       }
-    ]
+    ],
+    "IDGroup": 2
   },
   {
     "id": 27,
@@ -1747,7 +1773,8 @@ export const dataCategories = [
         "price": 28.79,
         "photo": "/images/menu-item-default.jpg"
       }
-    ]
+    ],
+    "IDGroup": 3
   },
   {
     "id": 28,
@@ -1789,7 +1816,8 @@ export const dataCategories = [
         "price": 34.99,
         "photo": ""
       }
-    ]
+    ],
+    "IDGroup": 4
   },
   {
     "id": 29,
@@ -1859,6 +1887,211 @@ export const dataCategories = [
         "price": 27.06,
         "photo": "/images/menu-item-default.jpg"
       }
-    ]
+    ],
+    "IDGroup": 5
   }
 ]
+
+export const dataGroupOptions = [
+  {
+    id: 1,
+    groups: [
+      {
+        id: 1,
+        name: 'Escolha os adicionais',
+        required: false,
+        min: 1,
+        max: 1,
+        options: [
+          { id: 1, name: 'Leite condensado', value: 0 },
+          { id: 2, name: 'Leite em pó', value: 0 }
+        ]
+      },
+      {
+        id: 2,
+        name: 'Extras',
+        required: false,
+        min: 4,
+        max: 6,
+        options: [
+          { id: 1, name: 'Banana picada', value: 3.00 },
+          { id: 2, name: 'Morangos picados', value: 5.00 }
+        ]
+      }
+    ]
+  },
+  {
+    id: 2,
+    groups: [
+      {
+        id: 1,
+        name: 'Escolha o tamanho da pizza',
+        required: true,
+        min: 1,
+        max: 1,
+        options: [
+          { id: 1, name: 'Pequena', value: 25 },
+          { id: 2, name: 'Média', value: 35 },
+          { id: 3, name: 'Grande', value: 45 }
+        ]
+      },
+      {
+        id: 2,
+        name: 'Sabores (até 2)',
+        required: true,
+        min: 1,
+        max: 2,
+        options: [
+          { id: 1, name: 'Calabresa', value: 0 },
+          { id: 2, name: 'Frango com Catupiry', value: 0 },
+          { id: 3, name: 'Quatro Queijos', value: 0 },
+          { id: 4, name: 'Portuguesa', value: 0 }
+        ]
+      },
+      {
+        id: 3,
+        name: 'Borda recheada?',
+        required: false,
+        min: 0,
+        max: 1,
+        options: [
+          { id: 1, name: 'Cheddar', value: 5 },
+          { id: 2, name: 'Catupiry', value: 5 }
+        ]
+      }
+    ]
+  },
+  {
+    id: 3,
+    groups: [
+      {
+        id: 1,
+        name: 'Escolha o tipo de bebida',
+        required: true,
+        min: 1,
+        max: 1,
+        options: [
+          { id: 1, name: 'Refrigerante', value: 6 },
+          { id: 2, name: 'Suco Natural', value: 8 },
+          { id: 3, name: 'Água com gás', value: 4 },
+          { id: 4, name: 'Água sem gás', value: 3 }
+        ]
+      },
+      {
+        id: 2,
+        name: 'Tamanho da bebida',
+        required: true,
+        min: 1,
+        max: 1,
+        options: [
+          { id: 1, name: '300ml', value: 0 },
+          { id: 2, name: '500ml', value: 2 },
+          { id: 3, name: '1L', value: 4 }
+        ]
+      },
+    ]
+  },
+  {
+    id: 4,
+    groups: [
+      {
+        id: 1,
+        name: 'Escolha o recheio do salgado',
+        required: true,
+        min: 1,
+        max: 1,
+        options: [
+          { id: 1, name: 'Frango', value: 0 },
+          { id: 2, name: 'Carne', value: 0 },
+          { id: 3, name: 'Presunto e Queijo', value: 0 },
+          { id: 4, name: 'Calabresa', value: 0 }
+        ]
+      },
+      {
+        id: 2,
+        name: 'Adicionais',
+        required: false,
+        min: 0,
+        max: 3,
+        options: [
+          { id: 1, name: 'Catupiry', value: 2 },
+          { id: 2, name: 'Cheddar', value: 2 },
+          { id: 3, name: 'Bacon', value: 3 }
+        ]
+      }
+    ]
+  },
+  {
+    id: 5,
+    groups: [
+      {
+        id: 1,
+        name: 'Escolha o tipo de açaí',
+        required: true,
+        min: 1,
+        max: 1,
+        options: [
+          { id: 1, name: 'Puro', value: 0 },
+          { id: 2, name: 'Com banana', value: 1 },
+          { id: 3, name: 'Com morango', value: 2 }
+        ]
+      },
+      {
+        id: 2,
+        name: 'Toppings',
+        required: false,
+        min: 0,
+        max: 5,
+        options: [
+          { id: 1, name: 'Granola', value: 1 },
+          { id: 2, name: 'Leite em pó', value: 1 },
+          { id: 3, name: 'Leite condensado', value: 1 },
+          { id: 4, name: 'Paçoca', value: 2 },
+          { id: 5, name: 'Chocoball', value: 2 }
+        ]
+      }
+    ]
+  },
+  {
+    id: 6,
+    groups: [
+      {
+        id: 1,
+        name: 'Escolha o tipo de hambúrguer',
+        required: true,
+        min: 1,
+        max: 1,
+        options: [
+          { id: 1, name: 'Carne Bovina', value: 0 },
+          { id: 2, name: 'Frango', value: 0 },
+          { id: 3, name: 'Veggie', value: 0 }
+        ]
+      },
+      {
+        id: 2,
+        name: 'Adicionais do lanche',
+        required: false,
+        min: 0,
+        max: 4,
+        options: [
+          { id: 1, name: 'Bacon', value: 3 },
+          { id: 2, name: 'Ovo', value: 2 },
+          { id: 3, name: 'Cheddar', value: 2 },
+          { id: 4, name: 'Onion Rings', value: 3 }
+        ]
+      },
+      {
+        id: 3,
+        name: 'Molhos',
+        required: false,
+        min: 0,
+        max: 2,
+        options: [
+          { id: 1, name: 'Barbecue', value: 0 },
+          { id: 2, name: 'Maionese da casa', value: 0 },
+          { id: 3, name: 'Ketchup', value: 0 }
+        ]
+      }
+    ]
+  }
+];

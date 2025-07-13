@@ -1,11 +1,8 @@
 'use client';
 
-import { useState } from 'react';
 import { Icon } from '@iconify/react';
 import { Title, Overlay, ModalBox, CloseXButton } from '@/components/shared/Modal/styles';
 import { CommentBox, Content, RatingHeader, RatingRow, RatingsSummary, ReviewsContainer, Stars, Summary } from './styles';
-import { format } from 'date-fns';
-import { ptBR } from 'date-fns/locale/pt-BR';
 import { reviewData } from '../data';
 
 const average = {
