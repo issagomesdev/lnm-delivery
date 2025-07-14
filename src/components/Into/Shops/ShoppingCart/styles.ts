@@ -41,7 +41,7 @@ export const OptionsLabel = styled.strong`
   padding: 10px 0;
 `;
 
-export const OptionHeader  = styled.div`
+export const OptionHeader = styled.div`
   background-color: #ebebeb;
   padding: 10px;
   border-radius: 6px;
@@ -149,7 +149,7 @@ export const Footer = styled.div`
 
 export const AddButton = styled.button.withConfig({
   shouldForwardProp: (prop) => prop !== 'active',
-})<Props>`
+}) <Props>`
   background: ${({ active, theme }) =>
     active ? theme.colors.primary : theme.colors.separators};
   color: white;
@@ -283,5 +283,104 @@ export const SaveButton = styled.button`
   position: absolute;
   left: 0;
   bottom: 0;
+  cursor: pointer;
+`;
+
+// DeliveryMethods
+
+export const AddressField = styled.div`
+  display: block;
+  text-align: left;
+
+  >label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+`;
+
+export const MethodWrapper = styled.div`
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+
+  label {
+    font-weight: 500;
+    display: flex;
+    gap: 2px;
+  }
+
+  input {
+    margin-right: 4px;
+  }
+`;
+
+export const CustomCheckbox = styled.input`
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid ${({ theme }) => theme.colors.text_secondary};
+  border-radius: 4px;
+  margin-right: 8px;
+  cursor: pointer;
+  position: relative;
+
+  &:checked {
+    background-color:  ${({ theme }) => theme.colors.primary};
+    border: 2px solid ${({ theme }) => theme.colors.primary};
+  }
+
+  &:checked::after {
+    content: '✔';
+    color: white;
+    font-size: 12px;
+    position: absolute;
+    top: -1.5px;
+    left: 3px;
+    font-weight: bold;
+  }
+`;
+
+export const Select = styled.select`
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 1rem;
+`;
+
+export const NewAddressButton = styled.button`
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 1.5rem;
+  background: #ccc;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  &:disabled {
+    opacity: 0.5;
+  }
+`;
+
+export const PriceSummary = styled.div`
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-around;
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 5px;
+  }
+`;
+
+export const PaymentButton = styled.button`
+  width: 100%;
+  padding: 12px;
+  background: #009688;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+  border: none;
   cursor: pointer;
 `;

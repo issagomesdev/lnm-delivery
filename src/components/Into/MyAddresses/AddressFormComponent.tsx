@@ -6,21 +6,10 @@ import { useAddressForm } from '@/controllers/AdressesController';
 import { Form, Field, Button } from './styles';
 import { Icon } from '@iconify/react';
 
-type AddressFormData = {
-  estado: string;
-  cidade: string;
-  bairro: string;
-  endereco: string;
-  numero: string;
-  complemento: string;
-  referencia: string;
-  apelido: string;
-};
-
 interface AddressFormComponentProps {
   isOpen: boolean;
-  onClose: () => void;
-  initialData?: Partial<AddressFormData>;
+  onClose: (data?: any) => void;
+  initialData?: Partial<any>;
 }
 
 const AddressFormComponent = ({ isOpen, onClose, initialData }: AddressFormComponentProps) => {
@@ -28,7 +17,7 @@ const AddressFormComponent = ({ isOpen, onClose, initialData }: AddressFormCompo
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onClose()
+    onClose(form)
     resetForm()
   };
 

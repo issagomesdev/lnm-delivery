@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Header from '@/components/Into/Shops/Profile/Header';
 import ShopProfile from '@/components/Into/Shops/Profile/ShopProfile';
-import { shops } from '@/components/Into/Shops/data';
+import { shops } from '@/components/Into/data';
 import FavoriteEffect from '@/components/Into/Shops/Profile/FavoriteEffect';
 import CartBar from '@/components/Into/Shops/ShoppingCart/CartBar';
 

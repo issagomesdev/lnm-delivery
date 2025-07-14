@@ -232,5 +232,60 @@ export const shopCategories = (id: number) => {
   }
 };
 
-
-
+export const addressesData = [
+    {
+      id: 1,
+      apelido: 'Teste são sebastião',
+      endereco: 'Rua das Flores',
+      numero: '707',
+      bairro: 'Indaiá',
+      cidade: 'São Sebastião',
+      referencia: 'efw',
+      complemento: 'de',
+      estado: 'SP',
+    },
+    {
+      id: 2,
+      apelido: 'Teste caraguatatuba',
+      endereco: 'Av. Central',
+      numero: '348',
+      bairro: 'Tabatinga',
+      cidade: 'Caraguatatuba',
+      referencia: 'ewq',
+      complemento: 'de',
+      estado: 'SP',
+    },
+    {
+      id: 3,
+      apelido: 'Teste ilhabela',
+      endereco: 'Av. Central',
+      numero: '966',
+      bairro: 'Indaiá',
+      cidade: 'Ilhabela',
+      complemento: 'de',
+      referencia: 'eq',
+      estado: 'SP',
+    },
+    {
+      id: 4,
+      apelido: 'Teste ilhabela',
+      endereco: 'Rua das Flores',
+      numero: '379',
+      bairro: 'Jardim das Palmeiras',
+      cidade: 'Ilhabela',
+      complemento: 'de',
+      referencia: '',
+      estado: 'SP',
+    },
+    {
+      id: 5,
+      apelido: 'Teste caraguatatuba',
+      endereco: 'Rua das Flores',
+      numero: '821',
+      bairro: 'Estufa II',
+      cidade: 'Caraguatatuba',
+      complemento: 'de',
+      referencia: 'fd',
+      estado: 'SP',
+    },
+]

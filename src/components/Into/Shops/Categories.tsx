@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { CategoriesWrapper, CategoryItem, CategoryImage, CategoryName } from './styles';
-import { categories } from './data';
+import { categories } from '../data';
 import { useHorizontalScrollDrag } from '@/hooks/useHorizontalScrollDrag';
 
 type Props = {

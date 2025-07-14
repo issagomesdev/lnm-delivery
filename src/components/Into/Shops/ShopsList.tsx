@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { shops } from './data';
+import { shops } from '../data';
 import { Icon } from '@iconify/react';
 import {
   ShopsWrapper,

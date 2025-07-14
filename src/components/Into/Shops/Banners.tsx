@@ -2,7 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { BannersWrapper, BannerImage } from './styles';
-import { banners } from './data';
+import { banners } from '../data';
 import { useHorizontalScrollDrag } from '@/hooks/useHorizontalScrollDrag';
 
 const Banners = ({filterIsActive}: {filterIsActive: boolean}) => {

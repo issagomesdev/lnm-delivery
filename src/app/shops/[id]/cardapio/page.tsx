@@ -2,7 +2,7 @@
 
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { shopCategories } from "@/components/Into/Shops/data";
+import { shopCategories } from "@/components/Into/data";
 import Header from "@/components/Into/Shops/Profile/Header";
 import {
     CategorySelector,

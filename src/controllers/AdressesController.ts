@@ -39,7 +39,7 @@ export const useAddressForm = (initialData?: Partial<typeof defaultForm>) => {
 
     if (field === 'estado') {
       setForm((prev) => ({ ...prev, cidade: '', bairro: '' }));
-      setCidades([]); // Limpa as cidades ao trocar estado
+      setCidades([]); 
     }
 
     if (field === 'cidade') {

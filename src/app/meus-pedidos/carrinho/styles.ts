@@ -3,9 +3,10 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   padding: 1rem;
+  margin-bottom: 6rem;
 
   @media (max-width: 980px) {
-    padding-top: 4rem;  
+    padding-top: 4rem;
   }
 `;
 

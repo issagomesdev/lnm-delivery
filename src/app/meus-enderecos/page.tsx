@@ -1,87 +1,20 @@
 'use client'
 
 import Header from '@/components/Into/Header';
-import React, { useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import { ActionButton, Actions, AddButton, Card, Container, Datas } from './styles';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import ModalComponent from "@/components/shared/Modal/ModalComponent";
 import AddressFormComponent from '@/components/Into/MyAddresses/AddressFormComponent';
+import { addressesData } from '@/components/Into/data';
 
 const MyAddresses = () => {
 
-  type Address = {
-    id: number;
-    apelido: string;
-    rua: string;
-    numero: string;
-    bairro: string;
-    cidade: string;
-    referencia: string;
-    complemento: string;
-    uf: string;
-  };
-
-  const [addresses, setAddresses] = useState<Address[]>([
-    {
-      id: 1,
-      apelido: 'Teste são sebastião',
-      rua: 'Rua das Flores',
-      numero: '707',
-      bairro: 'Indaiá',
-      cidade: 'São Sebastião',
-      referencia: 'efw',
-      complemento: 'de',
-      uf: 'SP',
-    },
-    {
-      id: 2,
-      apelido: 'Teste caraguatatuba',
-      rua: 'Av. Central',
-      numero: '348',
-      bairro: 'Tabatinga',
-      cidade: 'Caraguatatuba',
-      referencia: 'ewq',
-      complemento: 'de',
-      uf: 'SP',
-    },
-    {
-      id: 3,
-      apelido: 'Teste ilhabela',
-      rua: 'Av. Central',
-      numero: '966',
-      bairro: 'Indaiá',
-      cidade: 'Ilhabela',
-      complemento: 'de',
-      referencia: 'eq',
-      uf: 'SP',
-    },
-    {
-      id: 4,
-      apelido: 'Teste ilhabela',
-      rua: 'Rua das Flores',
-      numero: '379',
-      bairro: 'Jardim das Palmeiras',
-      cidade: 'Ilhabela',
-      complemento: 'de',
-      referencia: '',
-      uf: 'SP',
-    },
-    {
-      id: 5,
-      apelido: 'Teste caraguatatuba',
-      rua: 'Rua das Flores',
-      numero: '821',
-      bairro: 'Estufa II',
-      cidade: 'Caraguatatuba',
-      complemento: 'de',
-      referencia: 'fd',
-      uf: 'SP',
-    },
-  ]);
+  const [addresses, setAddresses] = useState<any[]>(addressesData);
   const [isModalDelete, setIsModalDelete] = useState(false);
   const [isModalCreate, setIsModalCreate] = useState(false);
   const [isModalEdit, setIsModalEdit] = useState(false);
-  const [selected, setSelected] = useState<Address>();
+  const [selected, setSelected] = useState<any>();
 
   const handleDelete = (id: number) => {
     setAddresses(prev => prev.filter((i) => i.id !== id));
@@ -96,13 +29,9 @@ const MyAddresses = () => {
     }
   };
 
-  const handleCreate = () => {
-
-  };
-
   return (
     <>
-      <Header name={'Meus Endereços'} full={false}/>
+      <Header name={'Meus Endereços'} full={false} />
       <Container>
         <AddButton onClick={() => setIsModalCreate(true)}>
           + Adicionar endereço
@@ -112,10 +41,10 @@ const MyAddresses = () => {
           <Card key={index}>
             <Datas>
               <strong>{item.apelido}</strong>
-              <p><b>Rua</b> {item.rua}</p>
+              <p><b>Rua</b> {item.endereco}</p>
               <p><b>Número:</b> {item.numero}</p>
               <p><b>Bairro:</b> {item.bairro}</p>
-              <p><b>Cidade/UF:</b> {item.cidade}-{item.uf}</p>
+              <p><b>Cidade/UF:</b> {item.cidade}-{item.estado}</p>
             </Datas>
 
             <Actions>
@@ -142,18 +71,31 @@ const MyAddresses = () => {
       </ModalComponent>
 
       <AddressFormComponent
-        onClose={() => setIsModalCreate(false)}
+        onClose={(data: any) => {
+          console.log(data)
+          if (data) {
+            setAddresses(prev => [...prev, { ...data, id: prev.length + 1 }]);
+          }
+
+          setIsModalCreate(false);
+        }}
         isOpen={isModalCreate}
       />
 
       <AddressFormComponent
         isOpen={isModalEdit}
-        onClose={() => setIsModalEdit(false)}
+        onClose={(data: any) => {
+          if (data) {
+            setAddresses(prev => prev.map((i) => i.id === selected?.id ? { ...data, id: i.id } : i));
+          }
+
+          setIsModalEdit(false);
+        }}
         initialData={{
-          estado: selected?.uf,
+          estado: selected?.estado,
           cidade: selected?.cidade,
           bairro: selected?.bairro,
-          endereco: selected?.rua,
+          endereco: selected?.endereco,
           numero: selected?.numero,
           complemento: selected?.complemento,
           referencia: selected?.referencia,

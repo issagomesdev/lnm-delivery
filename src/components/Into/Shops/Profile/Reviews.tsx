@@ -3,7 +3,7 @@
 import { Icon } from '@iconify/react';
 import { Title, Overlay, ModalBox, CloseXButton } from '@/components/shared/Modal/styles';
 import { CommentBox, Content, RatingHeader, RatingRow, RatingsSummary, ReviewsContainer, Stars, Summary } from './styles';
-import { reviewData } from '../data';
+import { reviewData } from '../../data';
 
 const average = {
   product: 0,

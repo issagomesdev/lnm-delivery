@@ -12,7 +12,7 @@ import {
     Section
 } from './styles';
 import { Icon } from '@iconify/react';
-import { categories, orderOptions, paymentMethods } from './data';
+import { categories, orderOptions, paymentMethods } from '../data';
 
 interface AdvancedFilterProps {
     isOpen: boolean;

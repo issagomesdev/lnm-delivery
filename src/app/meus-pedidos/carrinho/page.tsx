@@ -7,10 +7,12 @@ import { Actions, CategoryName, SubTotal, Delete, DetailsLink, ItemCard, ItemNam
 import { useRouter } from "next/navigation";
 import { ItemDetails } from "@/components/Into/Shops/ShoppingCart/ItemDetails";
 import { useState } from "react";
+import { DeliveryMethods } from "@/components/Into/Shops/ShoppingCart/DeliveryMethods";
 
 const Carrinho = () => {
     const { cart, removeItem, updateItemQuantity } = useShoppingCart();
     const [detailsIsOpen, setDetailsIsOpen] = useState(false);
+    const [deliveryIsOpen, setDeliveryIsOpen] = useState(false);
     const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
     const router = useRouter();
 
@@ -67,7 +69,7 @@ const Carrinho = () => {
                         <strong>Subtotal:</strong>
                         <strong>R$ {total.toFixed(2)}</strong>
                     </SubTotal>
-                    <RightButton>
+                    <RightButton onClick={() => setDeliveryIsOpen(true)}>
                         FINALIZAR
                     </RightButton>
                 </TotalFooter>
@@ -77,6 +79,8 @@ const Carrinho = () => {
                 setDetailsIsOpen(false);
                 setSelectedItemId(null);
             }} id={selectedItemId}/>
+
+            <DeliveryMethods isOpen={deliveryIsOpen} onClose={() => setDeliveryIsOpen(false)} productsTotal={total}/>
         </>
     );
 };

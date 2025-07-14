@@ -1,11 +1,11 @@
 
 import { Title, Overlay, ModalBox, Content, CloseXButton } from '@/components/shared/Modal/styles';
 import { Icon } from '@iconify/react';
-import { categories } from "@/components/Into/Shops/data";
+import { categories } from "@/components/Into/data";
 import { useEffect, useState } from 'react';
 import { ItemImage, Description, Price, Section, OptionGroup, OptionItem, QuantityControls, TextArea, Footer, AddButton, QuantityButton, TotalPrice, ItemInfo, OptionsLabel, OptionHeader, OptionQuantity, ItemName } from './styles';
 import { Label } from '@/components/shared/Modal/styles';
-import { groupOptions } from '@/components/Into/Shops/data';
+import { groupOptions } from '@/components/Into/data';
 import ModalComponent from '@/components/shared/Modal/ModalComponent';
 import { useIsMobile } from '@/hooks/useIsMobile';
 
@@ -159,7 +159,7 @@ export const Checkout = ({ isOpen, onClose, selected }: { isOpen: boolean; onClo
 
     return (
         <Overlay>
-            <ModalBox style={{ overflow: 'auto hidden', padding: 0 }} $mobileFull={isMobile}>
+            <ModalBox style={{ overflow: 'auto hidden', padding: 0, width: isMobile? '100%' : '90%', height: isMobile? '100%' : '95%', maxWidth: isMobile? '100%' : '400px' }} >
                 <CloseXButton>
                     <Icon icon="material-symbols:close" color="#fff" width="24" onClick={() => { setSelectedOptions({}); onClose() }} />
                 </CloseXButton>

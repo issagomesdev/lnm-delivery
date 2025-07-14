@@ -20,7 +20,7 @@ import { useEffect, useState } from 'react';
 import { ConfirmButton, Label } from '@/components/shared/Modal/styles';
 import { useTheme } from 'styled-components';
 import Reviews from './Reviews';
-import { shopCategories } from '../data';
+import { shopCategories } from '../../data';
 import { ShopCategoriesList } from './ShopCategoriesList';
 import { isBefore, isAfter } from 'date-fns';
 import { useRouter } from 'next/navigation';
