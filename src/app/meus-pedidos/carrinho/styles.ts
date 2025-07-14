@@ -3,6 +3,10 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   padding: 1rem;
+
+  @media (max-width: 980px) {
+    padding-top: 4rem;  
+  }
 `;
 
 export const ItemCard = styled.div`

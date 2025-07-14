@@ -7,6 +7,7 @@ import { ItemImage, Description, Price, Section, OptionGroup, OptionItem, Quanti
 import { Label } from '@/components/shared/Modal/styles';
 import { groupOptions } from '@/components/Into/Shops/data';
 import ModalComponent from '@/components/shared/Modal/ModalComponent';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 export const Checkout = ({ isOpen, onClose, selected }: { isOpen: boolean; onClose: (product?: any) => void; selected: any }) => {
 
@@ -17,6 +18,7 @@ export const Checkout = ({ isOpen, onClose, selected }: { isOpen: boolean; onClo
     const [quantity, setQuantity] = useState(1);
     const [observations, setObservations] = useState('');
     const [requiredAlert, setRequiredAlert] = useState(false);
+    const isMobile = useIsMobile();
 
     useEffect(() => {
         const findCategory = categories.find((cat: any) => cat.id == selected.categoryID);
@@ -157,7 +159,7 @@ export const Checkout = ({ isOpen, onClose, selected }: { isOpen: boolean; onClo
 
     return (
         <Overlay>
-            <ModalBox style={{ height: '95%', overflow: 'auto hidden', padding: 0 }}>
+            <ModalBox style={{ overflow: 'auto hidden', padding: 0 }} $mobileFull={isMobile}>
                 <CloseXButton>
                     <Icon icon="material-symbols:close" color="#fff" width="24" onClick={() => { setSelectedOptions({}); onClose() }} />
                 </CloseXButton>

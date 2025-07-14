@@ -27,12 +27,16 @@ export const banners = [
 ];
 
 export const shops = Array.from({ length: 50 }, (_, i) => {
-  const openingTime = new Date();
-  openingTime.setHours(10 + (i % 3) * 2, 0, 0);
+  let openingTime = new Date();
+  let closingTime = new Date();
 
-  const closingTime = new Date();
-  closingTime.setHours(23 + (i % 4), 0, 0);
-
+  if (i < 25) {
+    openingTime.setHours(0, 0, 0);
+    closingTime.setHours(23, 59, 59);
+  } else {
+    openingTime.setHours(10 + (i % 3) * 2, 0, 0); 
+    closingTime.setHours(10 + (i % 4), 0, 0);
+  }
   return {
     id: i,
     name: i % 2 === 0 ? `Loja Exemplo ${i + 1}` : `Loja Exemplo ${i + 1} Nome Grande`,
@@ -64,9 +68,9 @@ export const shops = Array.from({ length: 50 }, (_, i) => {
       minimum_value: 30
     } : null,
     fees: [
-      { name: "Calhetas", fees: "10.50 "},
-      { name: "Camburi", fees: "11.00 "},
-      { name: "Paúba", fees: "10.00 "},
+      { name: "Calhetas", fees: "10.50 " },
+      { name: "Camburi", fees: "11.00 " },
+      { name: "Paúba", fees: "10.00 " },
     ]
   };
 });

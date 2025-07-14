@@ -101,7 +101,7 @@ const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory
 
   return (
     <ShopsWrapper>
-      {!mode && <FiltersWrapper fixed={triggered}  style={triggered && filterIsActive ? { top: '113px' } : undefined}>
+      {!mode && <FiltersWrapper fixed={triggered} style={triggered && filterIsActive ? { top: '113px' } : undefined}>
 
         <FilterInput>
           <Icon icon={'lets-icons:search-alt'} color={'gray'} width="20" />
@@ -116,8 +116,8 @@ const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory
         </FilterButton>}
 
         {isMobile && <FilterAdvance>
-          { openShops.length > 0 && <ShopCount>Lojas abertas ({openShops.length})</ShopCount> }
-          { openShops.length < 1 && closeShops.length > 0 && <ShopCount close={true}>Fechadas agora ({closeShops.length})</ShopCount> }
+          {openShops.length > 0 && <ShopCount>Lojas abertas ({openShops.length})</ShopCount>}
+          {openShops.length < 1 && closeShops.length > 0 && <ShopCount close={true}>Fechadas agora ({closeShops.length})</ShopCount>}
           {!mode && isMobile && <FilterButton onClick={() => setFilterIsOpen(true)}>
             <Icon icon={'mage:filter'} width="12" />
             Filtro avançado
@@ -145,6 +145,8 @@ const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory
       }
 
       {/* lojas abertas */}
+
+      {!isMobile && openShops.length > 0 && <ShopCount>Lojas abertas ({openShops.length})</ShopCount>}
 
       <ShopItems>
         {openShops.map((shop, i) => {

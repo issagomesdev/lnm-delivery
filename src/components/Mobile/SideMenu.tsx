@@ -47,17 +47,22 @@ export default function SideMenu({ locationSelector = true }: { locationSelector
                         Eduardo Santos
                     </UserContent>
                     <Nav>
-                        {links.map((item) => {
-                            return (
+                        {links
+                            .filter((item) => !(item.label === 'Inicio' && pathname === '/'))
+                            .map((item) => (
                                 <NavItem
                                     key={item.href}
                                     href={item.href}
-                                    style={{ display: 'flex', alignItems: 'center', }}>
-                                    <img src={`/images/home-menu/${item.icon}`} alt="Logo" style={{ marginRight: '0.5rem' }} />
+                                    style={{ display: 'flex', alignItems: 'center' }}
+                                >
+                                    <img
+                                        src={`/images/home-menu/${item.icon}`}
+                                        alt="Logo"
+                                        style={{ marginRight: '0.5rem' }}
+                                    />
                                     {item.label}
                                 </NavItem>
-                            )
-                        })}
+                            ))}
                     </Nav>
                 </Content>
             </MenuPanel>

@@ -1,8 +1,9 @@
 'use client'
 
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 interface Props {
   width?: number;
+  $mobileFull?: boolean;
 }
 
 export const Title = styled.h3`
@@ -30,16 +31,28 @@ export const Overlay = styled.div`
 `
 
 export const ModalBox = styled.div.withConfig({
-  shouldForwardProp: (prop) => prop !== 'width',
+  shouldForwardProp: (prop) => prop !== 'width' && prop !== '$mobileFull',
 })<Props>`
   background: #fff;
   border-radius: 4px;
   width: 90%;
-  max-width: ${({ width }) => width ? `${width}px` : '400px'};
+  max-width: ${({ width }) => (width ? `${width}px` : '400px')};
   padding: 2rem;
   text-align: center;
   position: relative;
-`
+
+  ${({ $mobileFull }) =>
+    $mobileFull?
+    css`
+      @media (max-width: 980px) {
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+      }
+    ` : `@media (min-width: 980px) {
+          height: 95%;
+      }`}
+`;
 
 export const Label = styled.p`
   font-size: 0.9rem;
