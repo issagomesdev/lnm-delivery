@@ -18,7 +18,7 @@ import {
     ChangeBox
 } from './styles';
 import ModalComponent from '@/components/shared/Modal/ModalComponent';
-import Router from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 const paymentOptions = [
     'Dinheiro',
@@ -34,7 +34,7 @@ const paymentOptions = [
 ];
 
 export const PaymentMethods = ({ isOpen, onClose, productsTotal, handleData }: { isOpen: boolean; onClose: (step: 1 | null) => void, productsTotal: any, handleData:any }) => {
-    const router = Router.useRouter();
+    const router = useRouter()
     const [coupon, setCoupon] = useState('');
     const [couponInvalid, setCouponInvalid] = useState(false);
     const [paymentType, setPaymentType] = useState<'entrega' | 'online'>('entrega');
