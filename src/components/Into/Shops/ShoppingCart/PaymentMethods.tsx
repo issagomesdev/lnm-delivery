@@ -18,7 +18,7 @@ import {
     ChangeBox
 } from './styles';
 import ModalComponent from '@/components/shared/Modal/ModalComponent';
-import { on } from 'events';
+import Router from 'next/navigation';
 
 const paymentOptions = [
     'Dinheiro',
@@ -33,7 +33,8 @@ const paymentOptions = [
     'Pix - QR Code na máquina'
 ];
 
-export const PaymentMethods = ({ isOpen, onClose, productsTotal, handleData }: { isOpen: boolean; onClose: () => void, productsTotal: any, handleData:any }) => {
+export const PaymentMethods = ({ isOpen, onClose, productsTotal, handleData }: { isOpen: boolean; onClose: (step: 1 | null) => void, productsTotal: any, handleData:any }) => {
+    const router = Router.useRouter();
     const [coupon, setCoupon] = useState('');
     const [couponInvalid, setCouponInvalid] = useState(false);
     const [paymentType, setPaymentType] = useState<'entrega' | 'online'>('entrega');
@@ -75,7 +76,9 @@ export const PaymentMethods = ({ isOpen, onClose, productsTotal, handleData }: {
             changeFor
         });
 
-        onClose();
+        onClose(null);
+
+        router.push(`/meus-pedidos/rastreio/21777179?step=pendent&date=26/05/2025%2016:10`)
 
     }
 
@@ -89,7 +92,7 @@ export const PaymentMethods = ({ isOpen, onClose, productsTotal, handleData }: {
         setNeedChange(true);
         setChangeFor(0);
         setAlertData({ isOpen: false, title: '', message: '' });
-        onClose();
+        onClose(null);
     }
 
     const validateCoupon = () => {
@@ -116,7 +119,7 @@ export const PaymentMethods = ({ isOpen, onClose, productsTotal, handleData }: {
             <ModalBox style={{ height: '95%', overflow: 'auto hidden', padding: 0 }}>
                 <CloseXButton $return={true} onClick={() => {
                     resetAll();
-                    onClose();
+                    onClose(1);
                 }}>
                     <Icon icon="solar:alt-arrow-left-outline" color="#fff" width="30" />
                 </CloseXButton>

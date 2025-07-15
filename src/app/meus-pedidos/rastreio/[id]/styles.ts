@@ -123,6 +123,12 @@ export const OrderInfo = styled.div`
   p {
     font-size: 10px;
   }
+
+  p.active {
+    color: ${({ theme }) => (theme.colors.blue)};
+    text-decoration: underline;
+    cursor: pointer;
+  }
 `;
 
 export const DeliveryTime = styled.div`

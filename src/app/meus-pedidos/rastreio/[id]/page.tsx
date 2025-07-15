@@ -1,10 +1,11 @@
 'use client'
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, StepProgress, StepItem, StepCircle, Circle, Label, Emoji, OrderInfo, DeliveryTime, OrderButton, ContactChannel, CallButton } from './styles';
 import Header from "@/components/Into/Header";
 import { useSearchParams, useParams } from 'next/navigation';
 import { Icon } from '@iconify/react/dist/iconify.js';
+import RatingComponent from "@/components/Into/MyOrders/RatingComponent";
 
 const steps = ['pendent', 'accepted', 'dispatched', 'delivered'] as const;
 type Step = typeof steps[number];
@@ -57,10 +58,12 @@ export default function TrackOrderPage() {
     dispatched: 'A Caminho',
     delivered: 'Entregue',
   };
+  
+  const [ratingIsOpen, setRatingIsOpen] = useState(false);
 
   return (
     <>
-      <Header name={'Acompanhe seu pedido'} full={false}/>
+      <Header name={'Acompanhe seu pedido'} full={false} />
       <Container>
         <StepProgress>
           {steps.map((s, i) => (
@@ -88,7 +91,11 @@ export default function TrackOrderPage() {
 
         <OrderInfo>
           <h3>{messages[step].title}</h3>
-          <p>{messages[step].text}</p>
+          <p className={step === 'delivered' ? 'active' : ''} onClick={() => {
+            if (step === 'delivered') {
+                setRatingIsOpen(true)
+            }
+          }}>{messages[step].text}</p>
         </OrderInfo>
 
         {stepOrder[step] > 0 &&
@@ -109,6 +116,11 @@ export default function TrackOrderPage() {
             </CallButton>
           </ContactChannel>
         }
+
+        <RatingComponent
+          isOpen={ratingIsOpen}
+          onClose={() => setRatingIsOpen(false)}
+        />
       </Container>
     </>
   );

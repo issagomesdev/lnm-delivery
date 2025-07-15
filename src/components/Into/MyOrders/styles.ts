@@ -44,7 +44,7 @@ export const CommentBox = styled.div`
 
 export const BottomRow = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   margin-top: 1.5rem;
   gap: 1rem;
 `;

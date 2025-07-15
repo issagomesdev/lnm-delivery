@@ -91,7 +91,7 @@ const Carrinho = () => {
 
             <PaymentMethods
                 isOpen={steps === 2}
-                onClose={() => setSteps(null)} 
+                onClose={(step: 1 | null) => setSteps(step)} 
                 productsTotal={total}
                 handleData={(data:any) => setPaymentData(data)}/>
         </>
