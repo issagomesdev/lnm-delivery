@@ -144,7 +144,8 @@ export const FiltersWrapper = styled.div.withConfig({
   ${({ fixed }) => fixed? 'padding: 1rem; left: 0; top: 72px;' : ''}
   width: 100%;
   display: flex;
-  gap: 10px;
+  row-gap: 2rem;
+  column-gap: 10px;
   flex-wrap: wrap;
   justify-content: space-between;
   z-index: 9;

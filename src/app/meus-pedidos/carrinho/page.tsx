@@ -8,12 +8,15 @@ import { useRouter } from "next/navigation";
 import { ItemDetails } from "@/components/Into/Shops/ShoppingCart/ItemDetails";
 import { useState } from "react";
 import { DeliveryMethods } from "@/components/Into/Shops/ShoppingCart/DeliveryMethods";
+import { PaymentMethods } from "@/components/Into/Shops/ShoppingCart/PaymentMethods";
 
 const Carrinho = () => {
     const { cart, removeItem, updateItemQuantity } = useShoppingCart();
     const [detailsIsOpen, setDetailsIsOpen] = useState(false);
-    const [deliveryIsOpen, setDeliveryIsOpen] = useState(false);
+    const [steps, setSteps] = useState<1 | 2 | null>(null);
     const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
+    const [deliveryData, setDeliveryData] = useState<any>({});
+    const [paymentData, setPaymentData] = useState<any>({});
     const router = useRouter();
 
     const handleIncrease = (id: number) => {
@@ -69,7 +72,7 @@ const Carrinho = () => {
                         <strong>Subtotal:</strong>
                         <strong>R$ {total.toFixed(2)}</strong>
                     </SubTotal>
-                    <RightButton onClick={() => setDeliveryIsOpen(true)}>
+                    <RightButton onClick={() => setSteps(1)}>
                         FINALIZAR
                     </RightButton>
                 </TotalFooter>
@@ -78,9 +81,19 @@ const Carrinho = () => {
             <ItemDetails isOpen={detailsIsOpen} onClose={() => {
                 setDetailsIsOpen(false);
                 setSelectedItemId(null);
-            }} id={selectedItemId}/>
+            }} id={selectedItemId} />
 
-            <DeliveryMethods isOpen={deliveryIsOpen} onClose={() => setDeliveryIsOpen(false)} productsTotal={total}/>
+            <DeliveryMethods
+                isOpen={steps === 1}
+                onClose={(step: 2 | null) => setSteps(step)}
+                productsTotal={total}
+                handleData={(data:any) => setDeliveryData(data)}/>
+
+            <PaymentMethods
+                isOpen={steps === 2}
+                onClose={() => setSteps(null)} 
+                productsTotal={total}
+                handleData={(data:any) => setPaymentData(data)}/>
         </>
     );
 };

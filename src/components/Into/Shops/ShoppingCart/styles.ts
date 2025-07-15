@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 interface Props {
-  active: boolean;
+  active?: boolean;
+  valid?: boolean;
 }
 
 export const ItemImage = styled.div`
@@ -326,7 +327,7 @@ export const CustomCheckbox = styled.input`
   position: relative;
 
   &:checked {
-    background-color:  ${({ theme }) => theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.primary};
     border: 2px solid ${({ theme }) => theme.colors.primary};
   }
 
@@ -383,4 +384,203 @@ export const PaymentButton = styled.button`
   font-weight: bold;
   border: none;
   cursor: pointer;
+`;
+
+export const ConfirmDelivery = styled.div`
+    position: absolute;
+    background: transparent;
+    width: 95%;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    right: 50%;
+    top: 50%;
+    transform: translate(50%, -50%);
+    z-index: 1000;
+`;
+
+export const ConfirmDeliveryContent = styled.div`
+    background: #fff;
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+`;
+
+// PaymentMethods
+
+export const PaymentField = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  span {
+    font-size: 10px;
+    font-weight: 500;
+    color: #999;
+  }
+`;
+
+export const CouponBox = styled.button.withConfig({
+  shouldForwardProp: (prop) => prop !== 'valid',
+}) <Props>`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 6px 10px;
+  margin-bottom: 1rem;
+
+  svg {
+    flex-shrink: 0;
+  }
+
+  input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    background: transparent;  
+    color: ${({ valid }) => valid ? '#000' : 'red'};
+  }
+`;
+
+export const ValidateButton = styled.button`
+  background: #00a88c;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 14px;
+
+  &:hover {
+    background: #008b75;
+  }
+`;
+
+export const SectionTitle = styled.p`
+  font-weight: bold;
+  font-size: 14px;
+  margin: 0 0 1rem;
+`;
+
+export const PaymentOption = styled.label`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 1rem;
+  font-size: 14px;
+  font-weight: 500;
+
+  input[type='checkbox'] {
+    accent-color: ${({ theme }) => theme.colors.primary};
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+  }
+
+  span {
+    color: #aaa;
+    font-size: 12px;
+  }
+
+  &[disabled] {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  p {
+    margin: 0;
+  }
+`;
+
+export const PaymentSelect = styled.select`
+  width: 100%;
+  padding: 10px;
+  margin: 0 0 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
+`;
+
+export const PaymentText = styled.p`
+  font-size: 13px;
+  margin: 0;
+`;
+
+export const ChangeBox = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  width: 100%;
+
+  input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    background: transparent;  
+  }
+`;
+
+export const ObservationToggle = styled.label`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: bold;
+  font-size: 14px;
+  margin-top: 1rem;
+  width: 100%;
+  justify-content: space-between;
+
+  input[type='checkbox'] {
+    accent-color: ${({ theme }) => theme.colors.primary};
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+`;
+
+export const ObservationTextarea = styled.textarea`
+  width: 100%;
+  min-height: 90px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 14px;
+  margin: 0.5rem 0;
+
+  &::placeholder {
+    color: #aaa;
+  }
+`;
+
+export const SubmitButton = styled.button`
+  width: 100%;
+  background: #00a88c;
+  color: white;
+  padding: 12px;
+  font-size: 15px;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  margin-top: 1.5rem;
+  cursor: pointer;
+
+  &:hover {
+    background: #008b75;
+  }
 `;

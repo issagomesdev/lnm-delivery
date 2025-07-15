@@ -26,7 +26,7 @@ export const ItemDetails = ({ isOpen, onClose, id }: { isOpen: boolean; onClose:
 
                 <Title style={{ margin: 0 }}>Detalhes do item</Title>
 
-                <Content style={{ padding: '1rem' }}>
+                <Content>
 
                     <ItemData>
                         <ItemLabel> Item </ItemLabel>

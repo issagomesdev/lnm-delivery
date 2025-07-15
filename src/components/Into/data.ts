@@ -243,6 +243,7 @@ export const addressesData = [
       referencia: 'efw',
       complemento: 'de',
       estado: 'SP',
+      compatible: true
     },
     {
       id: 2,
@@ -254,6 +255,7 @@ export const addressesData = [
       referencia: 'ewq',
       complemento: 'de',
       estado: 'SP',
+      compatible: false
     },
     {
       id: 3,
@@ -265,6 +267,7 @@ export const addressesData = [
       complemento: 'de',
       referencia: 'eq',
       estado: 'SP',
+      compatible: true
     },
     {
       id: 4,
@@ -276,6 +279,7 @@ export const addressesData = [
       complemento: 'de',
       referencia: '',
       estado: 'SP',
+      compatible: false
     },
     {
       id: 5,
@@ -287,5 +291,6 @@ export const addressesData = [
       complemento: 'de',
       referencia: 'fd',
       estado: 'SP',
+      compatible: true
     },
 ]

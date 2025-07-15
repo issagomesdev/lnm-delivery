@@ -4,6 +4,7 @@ import styled from 'styled-components'
 interface Props {
   width?: number;
   $mobileFull?: boolean;
+  $return?: boolean
 }
 
 export const Title = styled.h3`
@@ -49,7 +50,8 @@ export const Label = styled.p`
 `
 
 export const Content = styled.div`
-  margin: 1rem 0;
+  padding: 1rem;
+  margin: 0;
   color: #333;
   overflow-x: auto;
 
@@ -80,6 +82,7 @@ export const CancelButton = styled.button`
   padding: .7rem;
   width: 100%;
   cursor: pointer;
+  border-radius: 4px;
 `
 
 export const ConfirmButton = styled.button`
@@ -92,10 +95,12 @@ export const ConfirmButton = styled.button`
   cursor: pointer;
 `
 
-export const CloseXButton = styled.button`
+export const CloseXButton = styled.button.withConfig({
+  shouldForwardProp: (prop) => prop !== 'return',
+})<Props>`
   position: absolute;
   top: 10px;
-  right: 10px;
+  ${({ $return }) => $return ? 'left: 10px;' : 'right: 10px;'}
   cursor: pointer;
   background: transparent;
   border: 0;
