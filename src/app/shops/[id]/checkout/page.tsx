@@ -163,7 +163,7 @@ const Checkout = () => {
 
         setTimeout(() => {
             router.push(`/shops/${shopId}/cardapio?category=${encodeURIComponent(category.name)}`);
-        }, 1000)
+        }, 2000)
     }
 
     if (!item) return <h1>carregando...</h1>
