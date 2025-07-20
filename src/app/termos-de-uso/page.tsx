@@ -48,6 +48,96 @@ const TermsPage = () => {
       <Section>
         <Title>Termos de Uso</Title>
         <Paragraph>
+          <Strong>1. Termos & Condições de Uso</Strong>
+        </Paragraph>
+        <Paragraph>
+          Esta página contém os termos e condições sobre os quais prestamos nossos serviços. Por favor, leia estes termos cuidadosamente antes de fazer seus pedidos dentro de nossa plataforma (Site e Apps). Você deve entender que ao fazer esses pedidos, você está automaticamente concordando com os Termos do <Strong>LITORAL NA MESA</Strong>.
+        </Paragraph>
+
+        <Paragraph>
+          <Strong>2. Nossa Atuação</Strong>
+        </Paragraph>
+        <Paragraph>
+          O <Strong>LITORAL NA MESA</Strong> COMUNICAÇÃO LTDA - ME, inscrita no CNPJ sob o nº 18.882.242/0001-11, é uma empresa prestadora de serviços na internet, que consiste em ofertar ao USUÁRIO um espaço para a contratação de serviços alimentícios e correlatos prestados por terceiros, não diretamente relacionados ao <Strong>LITORAL NA MESA</Strong>, para que os USUÁRIOS possam, com maior comodidade, adquirir destes terceiros os produtos ou serviços por eles anunciados.
+        </Paragraph>
+        <Paragraph>
+          O <Strong>LITORAL NA MESA</Strong>, portanto, possibilita aos USUÁRIOS conhecerem as ofertas e produtos de terceiros, e permite a negociação entre o USUÁRIO e os terceiros diretamente, sem sua intervenção na finalização dos negócios, não sendo, nesta qualidade, fornecedora de quaisquer produtos ou serviços anunciados no site.
+        </Paragraph>
+
+        <Paragraph>
+          <Strong>3. Cadastro e Conta</Strong>
+        </Paragraph>
+        <Paragraph>
+          Os serviços do <Strong>LITORAL NA MESA</Strong> estão disponíveis apenas para as pessoas que tenham capacidade legal para contratá-los. Não podem utilizá-los, assim, pessoas que não gozem dessa capacidade.
+        </Paragraph>
+        <Paragraph>
+          Apenas será confirmado o cadastramento do interessado que preencher todos os campos do cadastro. O futuro USUÁRIO deverá completá-lo com informações exatas, precisas e verdadeiras, e assume o compromisso de atualizar os seus dados pessoais sempre que neles ocorrer alguma alteração. O <Strong>LITORAL NA MESA</Strong> se reserva o direito de utilizar todos os meios válidos e possíveis para identificar seus usuários.
+        </Paragraph>
+        <Paragraph>
+          O <Strong>LITORAL NA MESA</Strong> não se responsabiliza pela correção dos dados pessoais inseridos por seus USUÁRIOS. Os USUÁRIOS garantem e respondem, em qualquer caso, pela veracidade, exatidão e autenticidade dos dados pessoais cadastrados.
+        </Paragraph>
+        <Paragraph>
+          Caso o <Strong>LITORAL NA MESA</Strong> decida verificar a veracidade dos dados cadastrais de um usuário e constate haver entre eles dados incorretos ou inverídicos, ou ainda caso o USUÁRIO se furte ou se negue a enviar os documentos eventualmente, o <Strong>LITORAL NA MESA</Strong> poderá bloquear, suspender temporariamente ou cancelar definitivamente o cadastro do USUÁRIO, sem prejuízo de outras medidas que entender necessárias.
+        </Paragraph>
+        <Paragraph>
+          Havendo a aplicação de qualquer das sanções acima referidas, automaticamente serão canceladas todas as solicitações ou pedidos formulados pelo USUÁRIO, não assistindo ao USUÁRIO, por essa razão, qualquer sorte de indenização ou ressarcimento.
+        </Paragraph>
+        <Paragraph>
+          O USUÁRIO acessará sua conta através de um e-mail e um número de celular por ele escolhido, onde receberá seus códigos de acesso e compromete-se a não informar a terceiros esses dados, responsabilizando-se integralmente pelo uso que deles seja feito.
+        </Paragraph>
+        <Paragraph>
+          O USUÁRIO compromete-se a notificar o <Strong>LITORAL NA MESA</Strong> imediatamente, e através de meio seguro, a respeito de qualquer uso não autorizado de sua conta, bem como eventuais acessos não autorizados por terceiros à esta.
+        </Paragraph>
+        <Paragraph>
+          O USUÁRIO será o único responsável pelas operações efetuadas em sua conta, uma vez que o acesso à conta só será possível mediante a aposição de código de acesso recebido via e-mail e no número de telefone celular do titular da conta via SMS ou via Whatsapp, cujo conhecimento é exclusivo do USUÁRIO.
+        </Paragraph>
+        <Paragraph>
+          Em nenhuma hipótese será permitida a cessão, venda, aluguel ou outra forma de transferência da conta do USUÁRIO. Também não se permitirá a manutenção de mais de um cadastro por um mesmo número de celular ou mesmo endereço de Email, ou ainda a criação de novos cadastros por pessoas cujos cadastros originais tenham sido cancelados por infrações às políticas do <Strong>LITORAL NA MESA</Strong>.
+        </Paragraph>
+
+        <Paragraph>
+          <Strong>4. Privacidade de Informações</Strong>
+        </Paragraph>
+        <Paragraph>
+          Toda informação ou dados pessoais prestados pelo USUÁRIO ao <Strong>LITORAL NA MESA</Strong> serão armazenados em servidores seguros. O <Strong>LITORAL NA MESA</Strong> tomará todas as medidas possíveis para manter a confidencialidade e a segurança descritas nesta cláusula, porém não responderá por prejuízo que possa ser derivado da violação dessas medidas por parte de terceiros que utilizem as redes públicas ou a internet, subvertendo os sistemas de segurança para acessar as informações de USUÁRIOS.
+        </Paragraph>
+        <Paragraph>
+          O USUÁRIO declara ainda conhecer as Políticas de Privacidade e Confidencialidade adotadas pelo <Strong>LITORAL NA MESA</Strong>, que estarão sempre publicadas e atualizadas neste PORTAL.
+        </Paragraph>
+
+        <Paragraph>
+          <Strong>5. Alteração Contratual</Strong>
+        </Paragraph>
+        <Paragraph>
+          O <Strong>LITORAL NA MESA</Strong> poderá alterar, a qualquer tempo, estes Termos e Condições Gerais de Uso, visando seu aprimoramento e melhoria dos serviços prestados. Os novos Termos e Condições Gerais de Uso entrarão em vigor em 10 (dez) dias após a sua publicação no site.
+        </Paragraph>
+        <Paragraph>
+          No prazo de 05 (cinco) dias contados a partir da publicação das modificações, o USUÁRIO deverá comunicar-se com o <Strong>LITORAL NA MESA</Strong>, por e-mail ou outra forma segura, caso não concorde com os termos alterados.
+        </Paragraph>
+        <Paragraph>
+          Nesse caso, o vínculo entre o USUÁRIO e o <Strong>LITORAL NA MESA</Strong> deixará de existir, desde que não existam contas ou dívidas em aberto.
+        </Paragraph>
+        <Paragraph>
+          Não havendo manifestação no prazo estipulado, entender-se-á que o USUÁRIO aceitou tacitamente os novos Termos e Condições Gerais de Uso, e este continuará vinculando as partes.
+        </Paragraph>
+
+        <Paragraph>
+          <Strong>6. Produtos Anunciados e Contratados</Strong>
+        </Paragraph>
+        <Paragraph>
+          Os produtos e serviços anunciados no site e APP <Strong>LITORAL NA MESA</Strong> e eventualmente contratados ou adquiridos pelo USUÁRIO são de responsabilidade única e exclusiva dos terceiros anunciantes, e toda relação de consumo estabelecida se dará com estes, e não com o <Strong>LITORAL NA MESA</Strong>.
+        </Paragraph>
+        <Paragraph>
+          Desta forma, o USUÁRIO aceita, expressamente, que o <Strong>LITORAL NA MESA</Strong> não é fornecedora de quaisquer bens e serviços, exceto o serviço de aproximação dos fornecedores com o USUÁRIO, com a finalidade de facilitar a contratação destes pelos USUÁRIOS.
+        </Paragraph>
+        <Paragraph>
+          Neste sentido, todas as fotos, descrições, qualificações, adjetivos e toda e qualquer informação referente ao produto ou serviço final a ser eventualmente contratado pelo USUÁRIO são de responsabilidades únicas e exclusivas dos anunciantes, não tendo o <Strong>LITORAL NA MESA</Strong> qualquer responsabilidade sobre estas.
+        </Paragraph>
+        <Paragraph>
+          O USUÁRIO aceita, também expressamente, que quaisquer dúvidas e reclamações sobre os produtos e serviços anunciados e porventura contratados devem ser encaminhadas diretamente aos anunciantes, e nunca ao <Strong>LITORAL NA MESA</Strong>, que desde já se reserva o direito de desconsiderar e não responder a tais tipos de questionamentos ou reclamações.
+        </Paragraph>
+        
+        <Paragraph>
           <Strong>7. Pedidos e Processamento de Pedidos</Strong>
         </Paragraph>
         <Paragraph>

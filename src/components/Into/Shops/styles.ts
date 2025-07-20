@@ -115,7 +115,7 @@ export const BannersWrapper = styled.div`
   }
   
   @media (max-width: 980px) {
-  margin: 0;
+   margin: 0;
   }
 `;
 
@@ -368,7 +368,7 @@ export const ShopsEmpty = styled.div`
 `;
 
 export const ShopsEmptyIcon = styled.div`
-  width: 12rem;
+  width: 8rem;
 
   img {
     width: 100%;

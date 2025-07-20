@@ -48,6 +48,12 @@ export const Container = styled.div.withConfig({
         }
     }
 
+    @media (max-width: 425px) {
+        >h2.category {
+            font-size: 11px;
+        }
+    }
+
     >h2 {
         font-size: 16px;
     }
@@ -71,7 +77,10 @@ export const RightSide = styled.div.withConfig({
 
     >h2 {
         width: ${({ full }) => (full ? 'fit-content' : '100%')};
-        text-align: center;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     hr {
         border: 1px solid #fff;

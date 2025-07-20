@@ -6,12 +6,13 @@ import { Icon } from "@iconify/react";
 import { Actions, CategoryName, SubTotal, Delete, DetailsLink, ItemCard, ItemName, LeftButton, Price, QtyBtn, QuantityControls, RightButton, TotalFooter, Wrapper } from "./styles";
 import { useRouter } from "next/navigation";
 import { ItemDetails } from "@/components/Into/Shops/ShoppingCart/ItemDetails";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DeliveryMethods } from "@/components/Into/Shops/ShoppingCart/DeliveryMethods";
 import { PaymentMethods } from "@/components/Into/Shops/ShoppingCart/PaymentMethods";
+import { useCustomBackAction } from '@/hooks/useCustomBackAction';
 
 const Carrinho = () => {
-    const { cart, removeItem, updateItemQuantity } = useShoppingCart();
+    const { cart, removeItem, updateItemQuantity, clearCart } = useShoppingCart();
     const [detailsIsOpen, setDetailsIsOpen] = useState(false);
     const [steps, setSteps] = useState<1 | 2 | null>(null);
     const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
@@ -34,6 +35,23 @@ const Carrinho = () => {
         const extrasTotal = extras.reduce((a, b) => a + b, 0);
         return acc + item.price * item.quantity + extrasTotal;
     }, 0);
+
+    useEffect(() => {
+        if (cart.length < 1 && steps === null) {
+            router.back();
+        }
+    }, [cart]);
+
+    useCustomBackAction(() => {
+        if (steps === 1) {
+            setSteps(null)
+            return true;
+        } else if (steps === 2) {
+            setSteps(1)
+        }
+
+        return false;
+    });
 
     return (
         <>
@@ -87,13 +105,19 @@ const Carrinho = () => {
                 isOpen={steps === 1}
                 onClose={(step: 2 | null) => setSteps(step)}
                 productsTotal={total}
-                handleData={(data:any) => setDeliveryData(data)}/>
+                handleData={(data: any) => setDeliveryData(data)} />
 
             <PaymentMethods
                 isOpen={steps === 2}
-                onClose={(step: 1 | null) => setSteps(step)} 
+                onClose={(step: 1 | null) => setSteps(step)}
                 productsTotal={total}
-                handleData={(data:any) => setPaymentData(data)}/>
+                handleData={(data: any) => {
+                    setPaymentData(data);
+                    clearCart();
+                    setTimeout(() => {
+                        router.push(`/meus-pedidos/rastreio/21777179?step=pendent&date=26/05/2025%2016:10`);
+                    }, 100);
+                }} />
         </>
     );
 };

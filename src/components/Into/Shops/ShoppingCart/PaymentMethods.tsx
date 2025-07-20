@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Title, Overlay, ModalBox, Label, Content, CloseXButton } from '@/components/shared/Modal/styles';
 import { NumericFormat } from 'react-number-format';
 import { Icon } from '@iconify/react';
@@ -33,7 +33,7 @@ const paymentOptions = [
     'Pix - QR Code na máquina'
 ];
 
-export const PaymentMethods = ({ isOpen, onClose, productsTotal, handleData }: { isOpen: boolean; onClose: (step: 1 | null) => void, productsTotal: any, handleData:any }) => {
+export const PaymentMethods = ({ isOpen, onClose, productsTotal, handleData }: { isOpen: boolean; onClose: (step: 1 | null) => void, productsTotal: any, handleData: any }) => {
     const router = useRouter()
     const [coupon, setCoupon] = useState('');
     const [couponInvalid, setCouponInvalid] = useState(false);
@@ -46,6 +46,16 @@ export const PaymentMethods = ({ isOpen, onClose, productsTotal, handleData }: {
     const [alertData, setAlertData] = useState<{ isOpen: boolean; title: string; message: string }>({ isOpen: false, title: '', message: '' });
 
     const handleRequest = () => {
+
+        if (!method) {
+            setAlertData({
+                isOpen: true,
+                title: 'Opss!',
+                message: 'Por favor, antes de continuar selecione a forma de pagamento.'
+            });
+            return;
+        }
+
         if (method === 'Dinheiro' && (needChange && changeFor === 0)) {
             setAlertData({
                 isOpen: true,
@@ -75,10 +85,6 @@ export const PaymentMethods = ({ isOpen, onClose, productsTotal, handleData }: {
             observation,
             changeFor
         });
-
-        onClose(null);
-
-        router.push(`/meus-pedidos/rastreio/21777179?step=pendent&date=26/05/2025%2016:10`)
 
     }
 
@@ -116,7 +122,7 @@ export const PaymentMethods = ({ isOpen, onClose, productsTotal, handleData }: {
 
     return (
         <Overlay>
-            <ModalBox style={{ height: '95%', overflow: 'auto hidden', padding: 0 }}>
+            <ModalBox style={{ height: 'fit-content', overflow: 'auto hidden', padding: 0 }}>
                 <CloseXButton $return={true} onClick={() => {
                     resetAll();
                     onClose(1);

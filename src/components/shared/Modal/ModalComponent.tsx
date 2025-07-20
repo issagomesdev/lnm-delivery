@@ -6,6 +6,7 @@ import { ReactNode } from 'react'
 type ModalConfirmProps = {
   isOpen: boolean
   onClose?: () => void
+  onCloseText?: string
   onConfirm?: () => void
   onConfirmText?: string
   title?: string
@@ -13,7 +14,7 @@ type ModalConfirmProps = {
   width?: number
 }
 
-export default function ModalComponent({ isOpen, onClose, onConfirm, onConfirmText = 'Confirmar', title, children, width }: ModalConfirmProps) {
+export default function ModalComponent({ isOpen, onClose, onCloseText = 'Cancelar', onConfirm, onConfirmText = 'Confirmar', title, children, width }: ModalConfirmProps) {
   if (!isOpen) return null
 
   return (
@@ -22,7 +23,7 @@ export default function ModalComponent({ isOpen, onClose, onConfirm, onConfirmTe
         {title && <h2>{title}</h2>}
         <Content>{children}</Content>
         <ButtonGroup>
-          {onClose && <CancelButton onClick={onClose}>Cancelar</CancelButton>}
+          {onClose && <CancelButton onClick={onClose}>{onCloseText}</CancelButton>}
           {onConfirm && <ConfirmButton onClick={onConfirm}>{onConfirmText}</ConfirmButton> }
         </ButtonGroup>
       </ModalBox>

@@ -41,6 +41,10 @@ export const ModalBox = styled.div.withConfig({
   padding: 2rem;
   text-align: center;
   position: relative;
+
+  >h2 {
+    color: #000
+  }
 `
 
 export const Label = styled.p`
@@ -53,7 +57,6 @@ export const Content = styled.div`
   padding: 1rem;
   margin: 0;
   color: #333;
-  overflow-x: auto;
 
   &::-webkit-scrollbar {
     width: 10px;

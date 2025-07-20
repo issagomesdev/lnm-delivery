@@ -242,7 +242,7 @@ export const FeeRow = styled.div`
 
  export const MapButton = styled.button`
   margin-top: 1rem;
-  background-color: #f4a261;
+  background-color: ${({ theme }) => theme.colors.primary};
   border: none;
   color: #fff;
   font-size: 0.9rem;

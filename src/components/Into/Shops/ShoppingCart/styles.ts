@@ -1,174 +1,9 @@
 import styled from "styled-components";
 
 interface Props {
-  active?: boolean;
   valid?: boolean;
 }
 
-export const ItemImage = styled.div`
-    width: 100%;
-
-    >img {
-        width: 100%;
-        heigth: auto;
-    }
-`;
-
-export const ItemInfo = styled.div`
-   
-`;
-
-export const Content = styled.div`
-  padding: 16px;
-  overflow-y: auto;
-  flex: 1;
-`;
-
-export const Section = styled.div`
-  padding: 10px 15px;
-  text-align: left;
-  
-  h3, h4 {
-    margin: 0 0 6px 0;
-  }
-`;
-
-export const OptionsLabel = styled.strong`
-  color: ${({ theme }) => theme.colors.primary};
-  display: block;
-  text-align: left;
-  border-bottom: 2px solid ${({ theme }) => theme.colors.separators};
-  margin: 0 15px;
-  padding: 10px 0;
-`;
-
-export const OptionHeader = styled.div`
-  background-color: #ebebeb;
-  padding: 10px;
-  border-radius: 6px;
-  position: relative;
-
-  >span.required {
-    color: #fff;
-    background-color: ${({ theme }) => theme.colors.primary};
-    font-weight: bold;
-    font-size: 8px;
-    padding: 2px 5px;
-    border-radius: 3px;
-    position: absolute;
-    right: 10px;
-    bottom: 5px;
-  }
-`;
-
-export const OptionQuantity = styled.div`
-    display: flex;
-    align-items: center;
-    font-size: 10px;
-    font-weight: 500;
-    color: #777;
-    
-    span {
-        margin-right: 10px;
-    }
-`;
-
-export const Description = styled.p`
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 4px;
-`;
-
-export const Price = styled.p`
-  color: ${({ theme }) => theme.colors.green_highlight};
-  font-weight: bold;
-  margin: 10px 0 0 0;
-`;
-
-export const OptionGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 10px;
-`;
-
-export const OptionItem = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-export const ItemName = styled.div`
-    display: flex;
-    flex-direction: column;
-    font-size: 14px;
-
-    >span {
-      font-size: 12px;
-      margin-top: 5px;
-      font-weight: 500;
-      color: ${({ theme }) => theme.colors.green_highlight};
-    }
-`;
-
-export const QuantityControls = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  span {
-    min-width: 20px;
-    text-align: center;
-  }
-`;
-
-export const QuantityButton = styled.button`
-  background: ${({ theme }) => theme.colors.primary};
-  border: none;
-  color: #fff;
-  border-radius: 4px;
-  width: 28px;
-  height: 28px;
-  font-size: 16px;
-  cursor: pointer;
-`;
-
-export const TextArea = styled.textarea`
-  width: 100%;
-  min-height: 80px;
-  border: 1px dashed #ccc;
-  padding: 8px;
-  resize: none;
-  border-radius: 6px;
-`;
-
-export const Footer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 12px 16px;
-  border-top: 1px solid #eee;
-`;
-
-export const AddButton = styled.button.withConfig({
-  shouldForwardProp: (prop) => prop !== 'active',
-}) <Props>`
-  background: ${({ active, theme }) =>
-    active ? theme.colors.primary : theme.colors.separators};
-  color: white;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 8px;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  cursor: ${({ active }) => (active ? 'pointer' : 'not-allowed')};
-  opacity: ${({ active }) => (active ? 1 : 0.6)};
-  transition: 0.3s ease all;
-`;
-
-export const TotalPrice = styled.span`
-  font-weight: bold;
-`;
 
 // CartBar
 
@@ -192,7 +27,7 @@ export const Label = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 15px;
+  font-size: 18px;
   position: relative;
   font-weight: 500;
   
@@ -214,7 +49,7 @@ export const Label = styled.div`
 
 export const Total = styled.div`
   font-weight: bold;
-  font-size: 15px;
+  font-size: 18px;
 `;
 
 // ItemDetails
@@ -305,6 +140,13 @@ export const MethodWrapper = styled.div`
   gap: 1rem;
   margin-bottom: 2rem;
 
+  input[type='checkbox'] {
+    accent-color: ${({ theme }) => theme.colors.primary};
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+  }
+
   label {
     font-weight: 500;
     display: flex;
@@ -325,21 +167,6 @@ export const CustomCheckbox = styled.input`
   margin-right: 8px;
   cursor: pointer;
   position: relative;
-
-  &:checked {
-    background-color: ${({ theme }) => theme.colors.primary};
-    border: 2px solid ${({ theme }) => theme.colors.primary};
-  }
-
-  &:checked::after {
-    content: '✔';
-    color: white;
-    font-size: 12px;
-    position: absolute;
-    top: -1.5px;
-    left: 3px;
-    font-weight: bold;
-  }
 `;
 
 export const Select = styled.select`
@@ -387,21 +214,22 @@ export const PaymentButton = styled.button`
 `;
 
 export const ConfirmDelivery = styled.div`
-    position: absolute;
-    background: transparent;
-    width: 95%;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-    right: 50%;
-    top: 50%;
-    transform: translate(50%, -50%);
-    z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 1000;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const ConfirmDeliveryContent = styled.div`
     background: #fff;
     border-radius: 4px;
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: fit-content;
     text-align: center;
 `;
 
@@ -419,7 +247,7 @@ export const PaymentField = styled.div`
   }
 `;
 
-export const CouponBox = styled.button.withConfig({
+export const CouponBox = styled.div.withConfig({
   shouldForwardProp: (prop) => prop !== 'valid',
 }) <Props>`
   display: flex;
@@ -443,6 +271,7 @@ export const CouponBox = styled.button.withConfig({
     font-size: 14px;
     background: transparent;  
     color: ${({ valid }) => valid ? '#000' : 'red'};
+    width: 80%;
   }
 `;
 

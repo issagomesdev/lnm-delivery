@@ -324,91 +324,91 @@ export const dataCategories = [
     "name": "Pizza",
     "path": "/images/categories/06 Pizza.png",
     "menu": [
-      {
-        "id": 1,
-        "name": "Pastel de queijo",
-        "description": "Pastel de queijo fresquinho, ideal para qualquer momento.",
-        "price": 17.61,
-        "photo": "/images/menu-item-default.jpg"
-      },
-      {
-        "id": 2,
-        "name": "Batata frita",
-        "description": "Batata frita fresquinho, ideal para qualquer momento.",
-        "price": 21.74,
-        "photo": ""
-      },
-      {
-        "id": 3,
-        "name": "Salmão grelhado",
-        "description": "Salmão grelhado fresquinho, ideal para qualquer momento.",
-        "price": 48.73,
-        "photo": ""
-      },
-      {
-        "id": 4,
-        "name": "Arroz integral",
-        "description": "Arroz integral fresquinho, ideal para qualquer momento.",
-        "price": 21.2,
-        "photo": "/images/menu-item-default.jpg"
-      },
-      {
-        "id": 5,
-        "name": "Café expresso",
-        "description": "Café expresso fresquinho, ideal para qualquer momento.",
-        "price": 46.38,
-        "photo": ""
-      },
-      {
-        "id": 6,
-        "name": "Pizza quatro queijos",
-        "description": "Pizza quatro queijos fresquinho, ideal para qualquer momento.",
-        "price": 14.89,
-        "photo": ""
-      },
-      {
-        "id": 7,
-        "name": "Salada vegana",
-        "description": "Salada vegana fresquinho, ideal para qualquer momento.",
-        "price": 48.07,
-        "photo": ""
-      },
-      {
-        "id": 8,
-        "name": "Suplemento whey",
-        "description": "Suplemento whey fresquinho, ideal para qualquer momento.",
-        "price": 29.49,
-        "photo": "/images/menu-item-default.jpg"
-      },
-      {
-        "id": 9,
-        "name": "Suco natural",
-        "description": "Suco natural fresquinho, ideal para qualquer momento.",
-        "price": 43.8,
-        "photo": "/images/menu-item-default.jpg"
-      },
-      {
-        "id": 10,
-        "name": "Coxinha de frango",
-        "description": "Coxinha de frango fresquinho, ideal para qualquer momento.",
-        "price": 40.74,
-        "photo": ""
-      },
-      {
-        "id": 11,
-        "name": "Feijoada",
-        "description": "Feijoada fresquinho, ideal para qualquer momento.",
-        "price": 18.65,
-        "photo": "/images/menu-item-default.jpg"
-      },
-      {
-        "id": 12,
-        "name": "Esfiha de carne",
-        "description": "Esfiha de carne fresquinho, ideal para qualquer momento.",
-        "price": 39.38,
-        "photo": "/images/menu-item-default.jpg"
-      }
-    ],
+  {
+    "id": 1,
+    "name": "Mussarela",
+    "description": "molho de tomate, mussarela, rodelas de tomate e orégano.",
+    "price": 17.61,
+    "photo": "/images/menu-item-default.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Frango com Catupiry",
+    "description": "molho de tomate, frango desfiado e temperado com catupiry.",
+    "price": 21.74,
+    "photo": ""
+  },
+  {
+    "id": 3,
+    "name": "Brócolis com bacon",
+    "description": "molho de tomate, brócolis, bacon e mussarela ralada.",
+    "price": 48.73,
+    "photo": ""
+  },
+  {
+    "id": 4,
+    "name": "Marguerita",
+    "description": "molho de tomate, mussarela, rodelas de tomate e manjericão.",
+    "price": 21.2,
+    "photo": "/images/menu-item-default.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Calabresa",
+    "description": "molho de tomate, calabresa fatiada e cebola.",
+    "price": 46.38,
+    "photo": ""
+  },
+  {
+    "id": 6,
+    "name": "Atum com Mussarela",
+    "description": "molho de tomate, atum desfiado e mussarela.",
+    "price": 14.89,
+    "photo": ""
+  },
+  {
+    "id": 7,
+    "name": "Pepperoni",
+    "description": "Molho de tomate, pepperoni fatiado, e mussarela.",
+    "price": 48.07,
+    "photo": ""
+  },
+  {
+    "id": 8,
+    "name": "Napolitana",
+    "description": "molho de tomate, mussarela, presunto, rodelas de tomate e orégano.",
+    "price": 29.49,
+    "photo": "/images/menu-item-default.jpg"
+  },
+  {
+    "id": 9,
+    "name": "Quatro Queijos",
+    "description": "molho de tomate, mussarela, provolone, gorgonzola e parmesão.",
+    "price": 39.90,
+    "photo": ""
+  },
+  {
+    "id": 10,
+    "name": "Portuguesa",
+    "description": "molho de tomate, presunto, ovos, cebola, ervilha e mussarela.",
+    "price": 42.50,
+    "photo": ""
+  },
+  {
+    "id": 11,
+    "name": "Bacon com Cheddar",
+    "description": "molho de tomate, mussarela, bacon crocante e cheddar cremoso.",
+    "price": 36.80,
+    "photo": "/images/menu-item-default.jpg"
+  },
+  {
+    "id": 12,
+    "name": "Vegetariana",
+    "description": "molho de tomate, abobrinha, berinjela, pimentão, cebola e mussarela.",
+    "price": 33.25,
+    "photo": ""
+  }
+],
     "IDGroup": 6
   },
   {

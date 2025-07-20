@@ -6,6 +6,7 @@ import Header from "@/components/Into/Header";
 import { useSearchParams, useParams } from 'next/navigation';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import RatingComponent from "@/components/Into/MyOrders/RatingComponent";
+import OrderDetails from '@/components/Into/MyOrders/OrderDetails';
 
 const steps = ['pendent', 'accepted', 'dispatched', 'delivered'] as const;
 type Step = typeof steps[number];
@@ -51,14 +52,14 @@ export default function TrackOrderPage() {
   const orderId = params?.id as string;
   const searchParams = useSearchParams();
   const step = (searchParams.get('step') ?? 'pendent') as Step;
-
+  const [orderIsOpen, setOrderIsOpen] = useState(false);
   const statusLabels: Record<Step, string> = {
     pendent: 'Realizado',
     accepted: 'Aceito',
     dispatched: 'A Caminho',
     delivered: 'Entregue',
   };
-  
+
   const [ratingIsOpen, setRatingIsOpen] = useState(false);
 
   return (
@@ -93,7 +94,7 @@ export default function TrackOrderPage() {
           <h3>{messages[step].title}</h3>
           <p className={step === 'delivered' ? 'active' : ''} onClick={() => {
             if (step === 'delivered') {
-                setRatingIsOpen(true)
+              setRatingIsOpen(true)
             }
           }}>{messages[step].text}</p>
         </OrderInfo>
@@ -105,7 +106,7 @@ export default function TrackOrderPage() {
           </DeliveryTime>
         }
 
-        <OrderButton>Detalhes do pedido #{orderId}</OrderButton>
+        <OrderButton onClick={() => setOrderIsOpen(true)}>Detalhes do pedido #{orderId}</OrderButton>
 
         {stepOrder[step] > 0 &&
           <ContactChannel>
@@ -121,6 +122,13 @@ export default function TrackOrderPage() {
           isOpen={ratingIsOpen}
           onClose={() => setRatingIsOpen(false)}
         />
+
+        <OrderDetails
+          isOpen={orderIsOpen}
+          onClose={() => setOrderIsOpen(false)}
+          id={orderId}
+        />
+
       </Container>
     </>
   );

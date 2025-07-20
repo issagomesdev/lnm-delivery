@@ -15,7 +15,6 @@ const ShoppingCartContext = createContext<ShoppingCartContextType | undefined>(u
 
 export const ShoppingCartProvider = ({ children }: { children: ReactNode }) => {
   const [cart, setCart] = useState<any[]>([]);
-  const [address, setAddress] = useState<any>({});
 
   const addItem = (item: Omit<any, 'id'>) => {
     const newItem: any = {

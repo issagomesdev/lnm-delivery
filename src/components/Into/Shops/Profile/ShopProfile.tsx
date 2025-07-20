@@ -23,7 +23,7 @@ import Reviews from './Reviews';
 import { shopCategories } from '../../data';
 import { ShopCategoriesList } from './ShopCategoriesList';
 import { isBefore, isAfter } from 'date-fns';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const ShopProfile = ({ shop }: { shop: any }) => {
 
@@ -36,13 +36,15 @@ const ShopProfile = ({ shop }: { shop: any }) => {
   const [categories, setCategories] = useState<any>([]);
   const theme = useTheme();
   const router= useRouter();
+  const searchParams = useSearchParams();
+  const CouponAlert = searchParams?.get("CouponAlert");
 
   useEffect(() => {
     const now = new Date();
     const isClosed = isBefore(now, new Date(shop.openingTime)) || isAfter(now, new Date(shop.closingTime));
     setShopIsClosed(isClosed);
 
-    if (!isClosed && shop.coupon) setCouponAlertIsOpen(true);
+    if (!isClosed && shop.coupon && !CouponAlert) setCouponAlertIsOpen(true);
     setCategories(shopCategories(shop.id));
   }, []);
 

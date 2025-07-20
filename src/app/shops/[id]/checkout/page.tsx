@@ -1,35 +1,41 @@
 
-import { Title, Overlay, ModalBox, Content, CloseXButton } from '@/components/shared/Modal/styles';
-import { Icon } from '@iconify/react';
-import { categories } from "@/components/Into/data";
-import { useEffect, useState } from 'react';
-import { ItemImage, Description, Price, Section, OptionGroup, OptionItem, QuantityControls, TextArea, Footer, AddButton, QuantityButton, TotalPrice, ItemInfo, OptionsLabel, OptionHeader, OptionQuantity, ItemName } from './styles';
-import { Label } from '@/components/shared/Modal/styles';
-import { groupOptions } from '@/components/Into/data';
-import ModalComponent from '@/components/shared/Modal/ModalComponent';
-import { useIsMobile } from '@/hooks/useIsMobile';
+"use client";
 
-export const Checkout = ({ isOpen, onClose, selected }: { isOpen: boolean; onClose: (product?: any) => void; selected: any }) => {
+import { categories, groupOptions } from "@/components/Into/data";
+import Header from "@/components/Into/Shops/Profile/Header";
+import ModalComponent from "@/components/shared/Modal/ModalComponent";
+import { Label } from "@/components/shared/Modal/styles";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Container, Content, ItemImage, Section, ItemInfo, Description, Price, OptionsLabel, OptionHeader, OptionQuantity, OptionGroup, OptionItem, ItemName, QuantityControls, QuantityButton, TextArea, Footer, AddButton, TotalPrice, AddItem } from "./styles";
+import { useShoppingCart } from "@/contexts/ShoppingCartContext";
 
+const Checkout = () => {
     const [item, setItem] = useState<any>();
     const [category, setCategory] = useState<any>();
     const [groupOption, setGroupOption] = useState<any>();
     const [selectedOptions, setSelectedOptions] = useState<any>({});
     const [quantity, setQuantity] = useState(1);
-    const [observations, setObservations] = useState('');
+    const [observations, setObservations] = useState<string>('');
     const [requiredAlert, setRequiredAlert] = useState(false);
-    const isMobile = useIsMobile();
+    const [addItemAnimation, setAddItemAnimation] = useState(false);
+    const searchParams = useSearchParams();
+    const categoryID = searchParams?.get("categoryID");
+    const id = searchParams?.get("id");
+    const params = useParams();
+    const shopId = params.id || '';
+    const { addItem, cart } = useShoppingCart();
+    const router = useRouter();
 
     useEffect(() => {
-        const findCategory = categories.find((cat: any) => cat.id == selected.categoryID);
-        const findItem = findCategory?.menu.find((i: any) => i.id == selected.id);
+        const findCategory = categories.find((cat: any) => cat.id == categoryID);
+        const findItem = findCategory?.menu.find((i: any) => i.id == id);
         const findGroupOption = groupOptions.find((g: any) => g.id == findCategory?.IDGroup);
         setCategory(findCategory);
         setItem(findItem)
         setGroupOption(findGroupOption || []);
-    }, [selected])
+    }, [])
 
-    if (!isOpen || !item) return null;
 
     const handleSelect = (group: any, option: any) => {
 
@@ -129,7 +135,7 @@ export const Checkout = ({ isOpen, onClose, selected }: { isOpen: boolean; onClo
 
         return requiredGroups.some((group: any) => {
             const selectedCount = countTotalSelectedItems(group.id);
-            
+
             return selectedCount < group.min;
         });
     };
@@ -142,39 +148,46 @@ export const Checkout = ({ isOpen, onClose, selected }: { isOpen: boolean; onClo
             return;
         }
 
-        const product = {
+        setAddItemAnimation(true)
+
+        addItem({
             ...item,
+            id: cart.length + 1,
             itemId: item.id,
             category: category.name,
             quantity: quantity,
             options: selectedOptions,
             observations: observations,
-        };
+        });
 
-        setSelectedOptions({});
-        setQuantity(1);
-        setObservations('');
-        onClose(product);
+
+        setTimeout(() => {
+            router.push(`/shops/${shopId}/cardapio?category=${encodeURIComponent(category.name)}`);
+        }, 1000)
     }
 
+    if (!item) return <h1>carregando...</h1>
+
     return (
-        <Overlay>
-            <ModalBox style={{ overflow: 'auto hidden', padding: 0, width: isMobile? '100%' : '90%', height: isMobile? '100%' : '95%', maxWidth: isMobile? '100%' : '400px' }} >
-                <CloseXButton>
-                    <Icon icon="material-symbols:close" color="#fff" width="24" onClick={() => { setSelectedOptions({}); onClose() }} />
-                </CloseXButton>
+        <>
+            <Header>
+                <h2 className="category">ADICIONANDO PRODUTO</h2>
+            </Header>
 
-                <Title style={{ margin: 0 }}>ADICIONANDO PRODUTO</Title>
+            {addItemAnimation && <AddItem>
+                <img src={`/images/addItem.gif`} alt={'addItemInCart'} />
+            </AddItem>}
 
-                <Content style={{ height: '83%', margin: 0 }}>
+            <Container>
 
-                    {item && item.photo && <ItemImage>
-                        <img src={item.photo} alt={item.name} />
-                    </ItemImage>}
+                {item && item.photo && <ItemImage>
+                    <img src={item.photo} alt={item.name} />
+                </ItemImage>}
 
+                <Content>
                     <Section>
                         <ItemInfo>
-                            <h3>{item.name}</h3>
+                            <h3>{item?.name}</h3>
                             <Description>{item.description}</Description>
                         </ItemInfo>
                         <Price>R$ {item.price?.toFixed(2)}</Price>
@@ -224,36 +237,39 @@ export const Checkout = ({ isOpen, onClose, selected }: { isOpen: boolean; onClo
                     })}
 
                     <Section>
-                        <TextArea
-                            placeholder="Adicionar observações..."
-                            value={observations}
-                            onChange={(e) => setObservations(e.target.value)}
-                        />
+                        <TextArea>
+                            <strong>Adicionar observação?</strong>
+                            <textarea
+                                placeholder="Clique aqui"
+                                value={observations}
+                                onChange={(e) => setObservations(e.target.value)} />
+                        </TextArea>
                     </Section>
                 </Content>
-                <Footer>
-                    <QuantityControls>
-                        <QuantityButton onClick={() => setQuantity(Math.max(1, quantity - 1))}>-</QuantityButton>
-                        <span>{quantity}</span>
-                        <QuantityButton onClick={() => setQuantity(quantity + 1)}>+</QuantityButton>
-                    </QuantityControls>
+            </Container>
+            <Footer>
+                <QuantityControls>
+                    <QuantityButton onClick={() => setQuantity(Math.max(1, quantity - 1))}>-</QuantityButton>
+                    <span>{quantity}</span>
+                    <QuantityButton onClick={() => setQuantity(quantity + 1)}>+</QuantityButton>
+                </QuantityControls>
 
-                    <AddButton onClick={addProductToCart} active={!hasUnfulfilledRequiredGroups()}>
-                        Adicionar <TotalPrice>R$ {totalPrice.toFixed(2)}</TotalPrice>
-                    </AddButton>
-                </Footer>
-            </ModalBox>
+                <AddButton onClick={addProductToCart} active={!hasUnfulfilledRequiredGroups()}>
+                    Adicionar <TotalPrice>R$ {totalPrice.toFixed(2)}</TotalPrice>
+                </AddButton>
+            </Footer>
 
             <ModalComponent
                 isOpen={requiredAlert}
                 onConfirm={() => setRequiredAlert(false)}
                 onConfirmText={"Ok, entendi"}
                 title={'Opsss!'}
-                width={360}
             >
                 <Label>Antes de adicionar o produto ao carrinho, você deve selecionar as opções obrigatórias.</Label>
             </ModalComponent>
 
-        </Overlay>
-    )
-}
+        </>
+    );
+};
+
+export default Checkout;

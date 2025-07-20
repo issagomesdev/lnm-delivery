@@ -100,8 +100,8 @@ const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory
   }, [shops, search, selectedCategories, selectedCategory]);
 
   return (
-    <ShopsWrapper>
-      {!mode && <FiltersWrapper fixed={triggered} style={triggered && filterIsActive ? { top: '113px' } : undefined}>
+    <ShopsWrapper style={!triggered || filteredShops.length < 1? { gap: '1rem'} : {}}>
+      {!mode && <FiltersWrapper fixed={triggered && filteredShops.length > 0} style={triggered && filterIsActive ? { top: '113px' } : undefined}>
 
         <FilterInput>
           <Icon icon={'lets-icons:search-alt'} color={'gray'} width="20" />

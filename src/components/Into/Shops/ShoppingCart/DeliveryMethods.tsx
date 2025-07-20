@@ -52,7 +52,7 @@ export const DeliveryMethods = ({ isOpen, onClose, productsTotal, handleData }: 
 
     return (
         <Overlay>
-            <ModalBox style={{ height: '95%', overflow: 'auto hidden', padding: 0 }}>
+            <ModalBox style={{ height: 'fit-content', overflow: 'auto hidden', padding: 0 }}>
                 <CloseXButton $return={true} onClick={() => {
                     resetAll();
                     onClose(null);
@@ -69,7 +69,7 @@ export const DeliveryMethods = ({ isOpen, onClose, productsTotal, handleData }: 
                         <label>Método de entrega</label>
                         <MethodWrapper>
                             <label>
-                                <CustomCheckbox
+                                <input
                                     type="checkbox"
                                     checked={deliveryMethod === 'entrega'}
                                     onChange={() => setDeliveryMethod('entrega')}
@@ -77,7 +77,7 @@ export const DeliveryMethods = ({ isOpen, onClose, productsTotal, handleData }: 
                                 Entrega
                             </label>
                             <label>
-                                <CustomCheckbox
+                                <input
                                     type="checkbox"
                                     checked={deliveryMethod === 'retirada'}
                                     onChange={() => setDeliveryMethod('retirada')}
@@ -173,10 +173,10 @@ export const DeliveryMethods = ({ isOpen, onClose, productsTotal, handleData }: 
                 isOpen={adressIncompatibleIsOpen}
                 onConfirm={() => setAdressIncompatibleIsOpen(false)}
                 onConfirmText={"Ok, entendi"}
-                title={'Desculpe-nos pelo o transtorno'}
+                title={'Desculpe-nos pelo transtorno'}
             >
                 <Label>Estabelecimento não atende ao endereço indicado.
-                    <br /><br />Certifique-se se você selecionou o endereço corretamente.</Label>
+                    <br /><br />Certifique-se que você selecionou o endereço corretamente.</Label>
             </ModalComponent>
 
             <AddressFormComponent

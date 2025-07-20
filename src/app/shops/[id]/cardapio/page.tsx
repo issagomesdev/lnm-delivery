@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { shopCategories } from "@/components/Into/data";
 import Header from "@/components/Into/Shops/Profile/Header";
 import {
@@ -19,29 +19,23 @@ import {
 import { FilterInput, Wrapper } from "@/components/Into/Shops/styles";
 import { Icon } from '@iconify/react';
 import { useScrollTop } from "@/hooks/useScrollTop";
-import { Checkout } from "@/components/Into/Shops/ShoppingCart/Checkout";
-import { useShoppingCart } from '@/contexts/ShoppingCartContext';
 import CartBar from "@/components/Into/Shops/ShoppingCart/CartBar";
 
 const Cardapio = () => {
     const searchParams = useSearchParams();
     const params = useParams();
-    const shopId = params.id || 1;
+    const shopId = params.id || '';
     const selectedCategory = searchParams?.get("category");
     const [category, setCategory] = useState<any>();
-    const [checkoutIsOpen, setCheckoutIsOpen] = useState(false);
     const [search, setSearch] = useState('');
     const isAtTop = useScrollTop();
     const router = useRouter();
     const categories = shopCategories(Number(shopId));
-    const { addItem, cart } = useShoppingCart();
-
-    const [itemSelected, setItemSelected] = useState<any>({
-        categoryID: null, id: null
-    });
-
+    const isFirstRender = useRef(true);
+    const categoryRefs = useRef<Record<number, HTMLDivElement | null>>({});
+    
     const handleSelectCategory = (cat: any) => {
-        router.push(`?categoria=${encodeURIComponent(cat.name)}`);
+        router.push(`?category=${encodeURIComponent(cat.name)}`);
         setCategory(cat)
     };
 
@@ -53,24 +47,21 @@ const Cardapio = () => {
     useEffect(() => {
         if (selectedCategory) {
             const selected = categories.find((i) => i.name === selectedCategory);
-            if (selected) setCategory(selected);
+            if (selected) {
+                setCategory(selected);
+
+                if (isFirstRender.current) {
+                    isFirstRender.current = false;
+                    setTimeout(() => {
+                        const button = categoryRefs.current[selected.id];
+                        if (button) {
+                            button.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                        }
+                    }, 100);
+                }
+            }
         }
     }, [selectedCategory]);
-
-    const openCheckout = (categoryID: number, id: number) => {
-        setCheckoutIsOpen(true)
-        setItemSelected({
-            categoryID: categoryID, id: id
-        });
-    }
-
-    const addProductToCart = (item: any) => {
-        setCheckoutIsOpen(false);
-        
-        addItem( { ...item, id: cart.length + 1 });
-
-        console.log('Produto adicionado ao carrinho:', cart);
-    };
 
 
     return (
@@ -84,13 +75,19 @@ const Cardapio = () => {
                     <CategoriesHeader fixed={!isAtTop}>
                         <CategorySelector>
                             {categories.map((cat) => (
-                                <CategoryButton
+                                <div
                                     key={cat.id}
-                                    selected={cat.id === category.id}
-                                    onClick={() => handleSelectCategory(cat)}
+                                    ref={(el: HTMLDivElement | null) => {
+                                        if (el) categoryRefs.current[cat.id] = el;
+                                    }}
                                 >
-                                    {cat.name}
-                                </CategoryButton>
+                                    <CategoryButton
+                                        selected={cat.id === category.id}
+                                        onClick={() => handleSelectCategory(cat)}
+                                    >
+                                        {cat.name}
+                                    </CategoryButton>
+                                </div>
                             ))}
                         </CategorySelector>
 
@@ -106,7 +103,7 @@ const Cardapio = () => {
 
                     <MenuItems fixed={!isAtTop}>
                         {filteredItems?.map((item: any) => (
-                            <MenuItem key={item.id} withImage={!!item.photo} onClick={() => openCheckout(category.id, item.id)}>
+                            <MenuItem key={item.id} withImage={!!item.photo} onClick={() => router.push(`/shops/${shopId}/checkout?id=${item.id}&categoryID=${category.id}`)}>
                                 <MenuInfo>
                                     <MenuName>{item.name}</MenuName>
                                     <MenuDescription>{item.description}</MenuDescription>
@@ -120,16 +117,6 @@ const Cardapio = () => {
             }
 
             <CartBar />
-
-            <Checkout
-                isOpen={checkoutIsOpen}
-                selected={itemSelected}
-                onClose={(product) => {
-                    if (product) {
-                        addProductToCart(product);
-                    }
-                    setCheckoutIsOpen(false);
-                }} />
 
         </>
     );
