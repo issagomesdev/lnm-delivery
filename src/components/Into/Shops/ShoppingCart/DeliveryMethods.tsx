@@ -51,7 +51,7 @@ export const DeliveryMethods = ({ isOpen, onClose, productsTotal, handleData }: 
     if (!isOpen) return null;
 
     return (
-        <Overlay>
+        <Overlay style={{ backgroundColor: 'rgb(0 0 0 / 87%)' }}>
             <ModalBox style={{ height: 'fit-content', overflow: 'auto hidden', padding: 0 }}>
                 <CloseXButton $return={true} onClick={() => {
                     resetAll();

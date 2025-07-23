@@ -90,7 +90,7 @@ const ShopProfile = ({ shop }: { shop: any }) => {
       {!shopIsClosed && categories.length > 0 && (
         <ShopCategoriesList
           categories={categories}
-          onSelectCategory={(category) =>  router.push(`/shops/${shop.id}/cardapio?category=${category.name}`)}
+          onSelectCategory={(category) => router.push(category.name === 'Pizza'?  `/shops/${shop.id}/monte-sua-pizza`: `/shops/${shop.id}/cardapio?category=${category.name}`)}
         />
       )}
 

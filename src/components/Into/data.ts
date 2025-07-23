@@ -38,30 +38,30 @@ export const shops = Array.from({ length: 50 }, (_, i) => {
     closingTime.setHours(10 + (i % 4), 0, 0);
   }
   return {
-    id: i,
-    name: i % 2 === 0 ? `Loja Exemplo ${i + 1}` : `Loja Exemplo ${i + 1} Nome Grande`,
+    id: i + 1,
+    name: (i + 1) % 2 === 0 ? `Loja Exemplo ${i + 1}` : `Loja Exemplo ${i + 1} Nome Grande`,
     image: "/images/default-store.png",
     cover: "/images/default-store-banner.jpg",
-    category: { id: categories[i % categories.length].id, name: categories[i % categories.length].name },
-    deliveryTime: 30 + (i % 5) * 10,
-    deliveryFee: i % 3 === 0 ? 0 : 5 + (i % 4),
+    category: { id: categories[(i + 1) % categories.length].id, name: categories[(i + 1) % categories.length].name },
+    deliveryTime: 30 + ((i + 1) % 5) * 10,
+    deliveryFee: (i + 1) % 3 === 0 ? 0 : 5 + ((i + 1) % 4),
     openingTime,
     closingTime,
-    fav: i % 2 === 0 ? true : false,
-    rating: 3 + (i % 3) + Math.random(),
-    offer: i % 4 === 0 ? 'frete grátis' : i % 5 === 0 ? 'FRETEGRATIS' : '',
-    minimum_value_order: i % 4 === 0 ? 19.99 : i % 5 === 0 ? 30 : 0,
-    coupon: i % 4 === 0 ? {
+    fav: (i + 1) % 2 === 0 ? true : false,
+    rating: 3 + ((i + 1) % 3) + Math.random(),
+    offer: (i + 1) % 4 === 0 ? 'frete grátis' : (i + 1) % 5 === 0 ? 'FRETEGRATIS' : '',
+    minimum_value_order: (i + 1) % 4 === 0 ? 19.99 : (i + 1) % 5 === 0 ? 30 : 0,
+    coupon: (i + 1) % 4 === 0 ? {
       name: '3% OFF',
       discount: '3%',
       rule: 'COMBOS HAMBÚRGUER + FRITAS + REFRI LATA',
       minimum_value: 0
-    } : i % 5 === 0 ? {
+    } : (i + 1) % 5 === 0 ? {
       name: 'TIOCOX',
       discount: 'R$ 6.00',
       rule: '',
       minimum_value: 0
-    } : i % 6 === 0 ? {
+    } : (i + 1) % 6 === 0 ? {
       name: 'FRETEGRATIS',
       discount: 'Frete grátis',
       rule: '',

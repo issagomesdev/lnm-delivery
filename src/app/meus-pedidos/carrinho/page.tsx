@@ -3,7 +3,7 @@
 import Header from "@/components/Into/Shops/Profile/Header";
 import { useShoppingCart } from "@/contexts/ShoppingCartContext";
 import { Icon } from "@iconify/react";
-import { Actions, CategoryName, SubTotal, Delete, DetailsLink, ItemCard, ItemName, LeftButton, Price, QtyBtn, QuantityControls, RightButton, TotalFooter, Wrapper } from "./styles";
+import { Actions, CategoryName, SubTotal, Delete, DetailsLink, ItemCard, ItemName, LeftButton, Price, QtyBtn, QuantityControls, RightButton, TotalFooter, Wrapper, ItemsCard } from "./styles";
 import { useRouter } from "next/navigation";
 import { ItemDetails } from "@/components/Into/Shops/ShoppingCart/ItemDetails";
 import { useEffect, useState } from "react";
@@ -19,7 +19,7 @@ const Carrinho = () => {
     const [deliveryData, setDeliveryData] = useState<any>({});
     const [paymentData, setPaymentData] = useState<any>({});
     const router = useRouter();
-
+    console.log(cart)
     const handleIncrease = (id: number) => {
         updateItemQuantity(id, 1);
     };
@@ -60,6 +60,7 @@ const Carrinho = () => {
             </Header>
 
             <Wrapper>
+                <ItemsCard>
                 {cart.map((item) => (
                     <ItemCard key={item.id}>
                         <CategoryName>{item.category}</CategoryName>
@@ -83,6 +84,7 @@ const Carrinho = () => {
                         </Actions>
                     </ItemCard>
                 ))}
+                </ItemsCard>
 
                 <TotalFooter>
                     <LeftButton onClick={() => router.back()}>CONTINUAR COMPRANDO</LeftButton>

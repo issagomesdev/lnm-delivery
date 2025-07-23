@@ -1,12 +1,13 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Container, StepProgress, StepItem, StepCircle, Circle, Label, Emoji, OrderInfo, DeliveryTime, OrderButton, ContactChannel, CallButton } from './styles';
 import Header from "@/components/Into/Header";
-import { useSearchParams, useParams } from 'next/navigation';
+import { useSearchParams, useParams, useRouter } from 'next/navigation';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import RatingComponent from "@/components/Into/MyOrders/RatingComponent";
 import OrderDetails from '@/components/Into/MyOrders/OrderDetails';
+import { useCustomBackAction } from '@/hooks/useCustomBackAction';
 
 const steps = ['pendent', 'accepted', 'dispatched', 'delivered'] as const;
 type Step = typeof steps[number];
@@ -61,6 +62,14 @@ export default function TrackOrderPage() {
   };
 
   const [ratingIsOpen, setRatingIsOpen] = useState(false);
+  const router = useRouter();
+
+  useCustomBackAction(
+    useCallback(() => {
+      router.push(`/shops`);
+      return false;
+    }, [])
+  );
 
   return (
     <>

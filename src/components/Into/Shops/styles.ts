@@ -519,3 +519,4 @@ export const CouponsEmptyIcon = styled.div`display: flex;
   }
 
 `;
+

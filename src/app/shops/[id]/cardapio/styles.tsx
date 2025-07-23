@@ -113,6 +113,7 @@ export const MenuItem = styled.div.withConfig({
 
 export const MenuInfo = styled.div`
   flex: 1;
+  width: 100%;
 `;
 
 export const MenuName = styled.h3`

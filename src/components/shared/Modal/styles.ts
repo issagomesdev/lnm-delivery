@@ -57,7 +57,9 @@ export const Content = styled.div`
   padding: 1rem;
   margin: 0;
   color: #333;
-
+  overflow: hidden scroll;
+  width: 100%;
+  
   &::-webkit-scrollbar {
     width: 10px;
     background-color: #F5F5F5;

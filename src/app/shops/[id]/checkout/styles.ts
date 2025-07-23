@@ -38,8 +38,6 @@ export const ItemImage = styled.div`
     }
 `;
 
-
-
 export const ItemInfo = styled.div`
    
 `;
@@ -58,6 +56,7 @@ const slideDown = keyframes`
 export const Container = styled.div`
   overflow-y: auto;
   flex: 1;
+  height: 80%;
 
   @media (min-width:700px){
    display: flex;
@@ -83,6 +82,7 @@ export const AddItem = styled.div`
 
 export const Content = styled.div`
   width: 100%;
+  margin-bottom: 100px;
 
   @media (min-width:700px) {
    height: 34rem;
@@ -168,7 +168,7 @@ export const OptionGroup = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-top: 10px;
+  margin: 10px;
 `;
 
 export const OptionItem = styled.div`
@@ -182,6 +182,13 @@ export const OptionItem = styled.div`
     width: 18px;
     height: 18px;
     cursor: pointer;
+    border-radius: 4px;
+  }
+
+  input[type="checkbox"]:not(:checked) {
+    appearance: none;
+    -webkit-appearance: none;
+    border: 2px solid rgba(0, 0, 0, 0.54);
   }
 `;
 
@@ -224,7 +231,7 @@ export const QuantityButton = styled.button`
 export const TextArea = styled.div`
   
   width: 100%;
-  border: 2px solid #000;
+  border: 2px solid rgba(0, 0, 0, 0.54);
   border-radius: 6px;
   padding: 10px;
 
@@ -247,6 +254,10 @@ export const Footer = styled.div`
   justify-content: space-between;
   padding: 16px;
   border-top: 1px solid #eee;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  background: #fff;
 `;
 
 export const AddButton = styled.button.withConfig({
@@ -270,3 +281,6 @@ export const AddButton = styled.button.withConfig({
 export const TotalPrice = styled.span`
   font-weight: bold;
 `;
+
+
+// 

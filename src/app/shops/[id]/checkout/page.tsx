@@ -29,10 +29,30 @@ const Checkout = () => {
 
     useEffect(() => {
         const findCategory = categories.find((cat: any) => cat.id == categoryID);
-        const findItem = findCategory?.menu.find((i: any) => i.id == id);
+        if (findCategory && findCategory.name === "Pizza") {
+            const items = id?.split(",").map(Number) || [];
+            const findItems = items.flatMap((id: number) =>
+                findCategory?.menu.filter((item: any) => item.id === id)
+            ) || [];
+
+            if (findItems) {
+                const calculatePrice: number = 2;
+                const prices = findItems.map((item: any) => item.price);
+
+                const newItem = {
+                    name: findItems.map((item) => item.name).join(" / "),
+                    photo: findItems[0].photo,
+                    description: `Você está pedindo uma combinação de pizza de ${items.length} ${items.length > 1 ? 'sabores' : 'sabor'}.`,
+                    price: calculatePrice === 0 ? Math.max(...prices) : calculatePrice === 1 ? Math.max(...prices) : prices.reduce((acc, val) => acc + val, 0) / prices.length
+                }
+                setItem(newItem)
+            }
+        } else {
+            const findItem = findCategory?.menu.find((i: any) => i.id == id);
+            setItem(findItem)
+        }
         const findGroupOption = groupOptions.find((g: any) => g.id == findCategory?.IDGroup);
         setCategory(findCategory);
-        setItem(findItem)
         setGroupOption(findGroupOption || []);
     }, [])
 
@@ -162,8 +182,12 @@ const Checkout = () => {
 
 
         setTimeout(() => {
-            router.push(`/shops/${shopId}/cardapio?category=${encodeURIComponent(category.name)}`);
-        }, 2000)
+            if (category.name === "Pizza") {
+                router.push(`/shops/${shopId}`);
+            } else {
+                router.push(`/shops/${shopId}/cardapio?category=${encodeURIComponent(category.name)}`);
+            }
+        }, 1000)
     }
 
     if (!item) return <h1>carregando...</h1>

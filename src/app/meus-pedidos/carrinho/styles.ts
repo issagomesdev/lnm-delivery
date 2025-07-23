@@ -2,12 +2,17 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  padding: 1rem;
   margin-bottom: 6rem;
 
   @media (max-width: 980px) {
     padding-top: 4rem;
   }
+`;
+
+export const ItemsCard = styled.div`
+  overflow: hidden scroll;
+  padding: 0 1rem;
+  height: 75vh;
 `;
 
 export const ItemCard = styled.div`

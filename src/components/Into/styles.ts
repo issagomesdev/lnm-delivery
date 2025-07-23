@@ -39,6 +39,7 @@ export const Container = styled.div.withConfig({
     @media (max-width: 980px) {
         justify-content: center;
         position: fixed;
+        top: 0;
     }
 
     @media (min-width: 980px) {
