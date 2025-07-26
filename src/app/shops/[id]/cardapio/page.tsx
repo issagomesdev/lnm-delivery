@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { shopCategories } from "@/components/Into/data";
 import Header from "@/components/Into/Shops/Profile/Header";
 import {
@@ -23,6 +23,7 @@ import CartBar from "@/components/Into/Shops/ShoppingCart/CartBar";
 import { Checkout } from "@/components/Into/Shops/Checkout/Checkout";
 import { useShoppingCart } from "@/contexts/ShoppingCartContext";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import { useCustomBackAction } from "@/hooks/useCustomBackAction";
 
 const Cardapio = () => {
     const searchParams = useSearchParams();
@@ -39,7 +40,6 @@ const Cardapio = () => {
     const [checkoutIsOpen, setCheckoutIsOpen] = useState(false);
     const [itemSelected, setItemSelected] = useState({});
     const { addItem, cart } = useShoppingCart();
-    const isMobile = useIsMobile();
 
     const handleSelectCategory = (cat: any) => {
         if (cat.name === "Pizza") {
@@ -64,28 +64,39 @@ const Cardapio = () => {
     };
 
     useEffect(() => {
+
         if (selectedCategory === "Pizza") {
             router.push(`/shops/${shopId}/monte-sua-pizza`);
             return
         }
 
-        if (selectedCategory) {
-            const selected = categories.find((i) => i.name === selectedCategory);
-            if (selected) {
-                setCategory(selected);
+        const selected = categories.find((i) => i.name === (selectedCategory ?? categories[0].name));
 
-                if (isFirstRender.current) {
-                    isFirstRender.current = false;
-                    setTimeout(() => {
-                        const button = categoryRefs.current[selected.id];
-                        if (button) {
-                            button.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-                        }
-                    }, 100);
-                }
+        if (selected) {
+            setCategory(selected);
+
+            if (isFirstRender.current) {
+                isFirstRender.current = false;
+                setTimeout(() => {
+                    const button = categoryRefs.current[selected.id];
+                    if (button) {
+                        button.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                    }
+                }, 100);
             }
         }
     }, [selectedCategory]);
+
+    useCustomBackAction(
+        useCallback(() => {
+            if (checkoutIsOpen) {
+                setCheckoutIsOpen(false);
+            } else {
+                router.replace(`/shops/${shopId}?CouponAlert=false`);
+            }
+            return true;
+        }, [checkoutIsOpen, router, shopId])
+    );
 
     return (
         <>
@@ -127,12 +138,8 @@ const Cardapio = () => {
                     <MenuItems fixed={!isAtTop}>
                         {filteredItems?.map((item: any) => (
                             <MenuItem key={item.id} withImage={!!item.photo} onClick={() => {
-                                if(isMobile){
-                                    router.push(`/shops/${shopId}/checkout?id=${item.id}&categoryID=${category.id}`)
-                                } else {
-                                    setItemSelected({id: item.id, categoryID: category.id});
-                                    setCheckoutIsOpen(true);
-                                }
+                                setItemSelected({ id: item.id, categoryID: category.id });
+                                setCheckoutIsOpen(true);
                             }}>
                                 <MenuInfo>
                                     <MenuName>{item.name}</MenuName>

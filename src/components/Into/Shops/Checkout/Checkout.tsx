@@ -1,5 +1,5 @@
 
-import { Title, Overlay, ModalBox, Content, CloseXButton } from '@/components/shared/Modal/styles';
+import { Title, Overlay, CloseXButton } from '@/components/shared/Modal/styles';
 import { Icon } from '@iconify/react';
 import { categories, groupOptions } from "@/components/Into/data";
 import { useEffect, useState } from 'react';
@@ -7,7 +7,7 @@ import { ItemImage } from './styles';
 import { useShoppingCart } from '@/contexts/ShoppingCartContext';
 import { useRouter } from 'next/navigation';
 import { QuantityControls } from '@/app/meus-pedidos/carrinho/styles';
-import { Container, Section, ItemInfo, Description, Price, OptionsLabel, OptionHeader, OptionQuantity, OptionGroup, OptionItem, ItemName, QuantityButton, TextArea, Footer, AddButton, TotalPrice, AddItem } from "@/app/shops/[id]/checkout/styles";
+import { ModalBox, Container, Content, Section, ItemInfo, Description, Price, OptionsLabel, OptionHeader, OptionQuantity, OptionGroup, OptionItem, ItemName, QuantityButton, TextArea, Footer, AddButton, TotalPrice, AddItem } from "@/components/Into/Shops/Checkout/styles";
 import { Label } from "@/components/shared/Modal/styles";
 import ModalComponent from '@/components/shared/Modal/ModalComponent';
 
@@ -194,7 +194,7 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
 
     return (
         <Overlay>
-            <ModalBox style={{ height: '95%', overflow: 'auto hidden', padding: 0, maxWidth: '65%' }}>
+            <ModalBox>
                 <CloseXButton>
                     <Icon icon="material-symbols:close" color="#fff" width="24" onClick={() => {
                         setAddItemAnimation(false);
@@ -280,7 +280,7 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
                         </Section>
                     </Content>
                 </Container>
-                <Footer style={{ position: 'absolute' }}>
+                <Footer>
                     <QuantityControls>
                         <QuantityButton onClick={() => setQuantity(Math.max(1, quantity - 1))}>-</QuantityButton>
                         <span>{quantity}</span>

@@ -6,38 +6,7 @@ import { useIsMobile } from '@/hooks/useIsMobile';
 import Header from '@/components/Web/Header';
 import SideMenu from '@/components/Mobile/SideMenu';
 import Footer from '@/components/Home/Footer';
-
-const Section = styled.section`
-  padding: 4rem 0;
-  max-width: 80%;
-  margin: 0 auto;
-`;
-
-const Title = styled.h2`
-  text-align: center;
-  font-size: 2.2rem;
-  font-weight: 500;
-  margin-bottom: 2rem;
-  position: relative;
-
-  &::after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 2px;
-    background-color: ${({ theme }) => theme.colors.primary};
-    margin: 0.5rem auto 0;
-  }
-`;
-
-const Paragraph = styled.p`
-  line-height: 1.7;
-  margin-bottom: 1.2rem;
-`;
-
-const Strong = styled.strong`
-  font-weight: bold;
-`;
+import { Paragraph, Section, Strong, Title } from '@/components/shared/pageStyles';
 
 const TermsPage = () => {
   const isMobile = useIsMobile();

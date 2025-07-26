@@ -2,14 +2,14 @@ import { useEffect } from 'react';
 
 export function useCustomBackAction(callback: () => boolean | void) {
   useEffect(() => {
-    const handlePopState = () => {
+    const handlePopState = (event: PopStateEvent) => {
       const shouldBlock = callback();
 
       if (shouldBlock === false) {
-        window.history.back();
-      } else {
-        window.history.pushState(null, '', window.location.pathname);
+        return;
       }
+
+      window.history.pushState(null, '', window.location.pathname);
     };
 
     window.history.pushState(null, '', window.location.pathname);

@@ -91,7 +91,6 @@ const PizzaBuild = () => {
     useCustomBackAction(
         useCallback(() => {
             if (steps > 1) {
-
                 setSteps((prev) => prev - 1);
                 return true;
             }

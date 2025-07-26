@@ -6,20 +6,20 @@ import { Icon } from "@iconify/react";
 import { Actions, CategoryName, SubTotal, Delete, DetailsLink, ItemCard, ItemName, LeftButton, Price, QtyBtn, QuantityControls, RightButton, TotalFooter, Wrapper, ItemsCard } from "./styles";
 import { useRouter } from "next/navigation";
 import { ItemDetails } from "@/components/Into/Shops/ShoppingCart/ItemDetails";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { DeliveryMethods } from "@/components/Into/Shops/ShoppingCart/DeliveryMethods";
 import { PaymentMethods } from "@/components/Into/Shops/ShoppingCart/PaymentMethods";
 import { useCustomBackAction } from '@/hooks/useCustomBackAction';
 
 const Carrinho = () => {
-    const { cart, removeItem, updateItemQuantity, clearCart } = useShoppingCart();
+    const {cart, removeItem, updateItemQuantity, clearCart } = useShoppingCart();
     const [detailsIsOpen, setDetailsIsOpen] = useState(false);
     const [steps, setSteps] = useState<1 | 2 | null>(null);
     const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
     const [deliveryData, setDeliveryData] = useState<any>({});
     const [paymentData, setPaymentData] = useState<any>({});
     const router = useRouter();
-    console.log(cart)
+
     const handleIncrease = (id: number) => {
         updateItemQuantity(id, 1);
     };
@@ -42,16 +42,19 @@ const Carrinho = () => {
         }
     }, [cart]);
 
-    useCustomBackAction(() => {
-        if (steps === 1) {
-            setSteps(null)
-            return true;
-        } else if (steps === 2) {
-            setSteps(1)
-        }
+    useCustomBackAction(
+        useCallback(() => {
+            if (steps === 1) {
+                setSteps(null)
+                return true;
+            } else if (steps === 2) {
+                setSteps(1)
+                return true;
+            }
 
-        return false;
-    });
+            return false;
+        }, [steps])
+    );
 
     return (
         <>
@@ -61,29 +64,29 @@ const Carrinho = () => {
 
             <Wrapper>
                 <ItemsCard>
-                {cart.map((item) => (
-                    <ItemCard key={item.id}>
-                        <CategoryName>{item.category}</CategoryName>
-                        <ItemName>{item.name}</ItemName>
-                        <DetailsLink onClick={() => {
-                            setDetailsIsOpen(true);
-                            setSelectedItemId(item.id);
-                        }}>Detalhes deste item</DetailsLink>
-                        <Price><strong>Valor:</strong> R$ {item.price.toFixed(2)}</Price>
+                    {cart.map((item) => (
+                        <ItemCard key={item.id}>
+                            <CategoryName>{item.category}</CategoryName>
+                            <ItemName>{item.name}</ItemName>
+                            <DetailsLink onClick={() => {
+                                setDetailsIsOpen(true);
+                                setSelectedItemId(item.id);
+                            }}>Detalhes deste item</DetailsLink>
+                            <Price><strong>Valor:</strong> R$ {item.price.toFixed(2)}</Price>
 
-                        <Actions>
-                            <Delete onClick={() => removeItem(item.id)}>
-                                <Icon icon="material-symbols:close" width={20} />
-                            </Delete>
+                            <Actions>
+                                <Delete onClick={() => removeItem(item.id)}>
+                                    <Icon icon="material-symbols:close" width={20} />
+                                </Delete>
 
-                            <QuantityControls>
-                                <QtyBtn onClick={() => handleDecrease(item.id)}>-</QtyBtn>
-                                <span>{item.quantity}</span>
-                                <QtyBtn onClick={() => handleIncrease(item.id)}>+</QtyBtn>
-                            </QuantityControls>
-                        </Actions>
-                    </ItemCard>
-                ))}
+                                <QuantityControls>
+                                    <QtyBtn onClick={() => handleDecrease(item.id)}>-</QtyBtn>
+                                    <span>{item.quantity}</span>
+                                    <QtyBtn onClick={() => handleIncrease(item.id)}>+</QtyBtn>
+                                </QuantityControls>
+                            </Actions>
+                        </ItemCard>
+                    ))}
                 </ItemsCard>
 
                 <TotalFooter>

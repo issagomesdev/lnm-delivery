@@ -25,7 +25,7 @@ const ShopPage = () => {
 
     useEffect(() => {
         const item = shops.find(s => s.id.toString() === id)
-        if(item) setShop(item)
+        if (item) setShop(item)
     }, []);
 
     useEffect(() => {
@@ -47,8 +47,8 @@ const ShopPage = () => {
                     />
                 </Heart>
             </Header>
-            
-            {shop && <ShopProfile shop={shop}/>}
+
+            {shop && <ShopProfile shop={shop} />}
 
             <CartBar />
 
