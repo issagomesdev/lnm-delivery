@@ -7,7 +7,7 @@ import ModalComponent from "@/components/shared/Modal/ModalComponent";
 import { Label } from "@/components/shared/Modal/styles";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Container, Content, ItemImage, Section, ItemInfo, Description, Price, OptionsLabel, OptionHeader, OptionQuantity, OptionGroup, OptionItem, ItemName, QuantityControls, QuantityButton, TextArea, Footer, AddButton, TotalPrice, AddItem } from "./styles";
+import { Container, Content, ItemImage, Section, ItemInfo, Description, Price, OptionsLabel, OptionHeader, OptionQuantity, OptionGroup, OptionItem, ItemName, QuantityControls, QuantityButton, TextArea, Footer, AddButton, TotalPrice, AddItem } from "@/components/Into/Shops/Checkout/styles"
 import { useShoppingCart } from "@/contexts/ShoppingCartContext";
 
 const Checkout = () => {
