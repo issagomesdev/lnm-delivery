@@ -1,15 +1,20 @@
 import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
-export function useCustomBackAction(callback: () => boolean | void) {
+export function useCustomBackAction(callback: () => string | boolean | void) {
+  const router = useRouter();
+
   useEffect(() => {
-    const handlePopState = (event: PopStateEvent) => {
-      const shouldBlock = callback();
+    const handlePopState = () => {
+      const result = callback();
 
-      if (shouldBlock === false) {
-        return;
+      if (typeof result === 'string') {
+        router.push(result);
+      } else if (result === false) {
+        window.history.back();
+      } else {
+        window.history.pushState(null, '', window.location.pathname);
       }
-
-      window.history.pushState(null, '', window.location.pathname);
     };
 
     window.history.pushState(null, '', window.location.pathname);
@@ -18,5 +23,5 @@ export function useCustomBackAction(callback: () => boolean | void) {
     return () => {
       window.removeEventListener('popstate', handlePopState);
     };
-  }, [callback]);
+  }, [callback, router]);
 }

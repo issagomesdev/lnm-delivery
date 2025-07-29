@@ -24,7 +24,7 @@ export default function CartBar() {
         <Bar onClick={() => router.push('/meus-pedidos/carrinho')}>
             <Label>
                 <span>{cart.length}</span>
-                <Icon icon="mdi:shopping-outline" width={30} />
+                <img alt='sack-icon' src={'/images/sack-icon.png'}/>
                 Ver sacola
             </Label>
             <Total>R$ {total.toFixed(2)}</Total>

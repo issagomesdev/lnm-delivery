@@ -1,0 +1,175 @@
+"use client";
+
+import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState, useRef, useCallback } from "react";
+import { shopCategories } from "@/components/Into/data";
+import Header from "@/components/Into/Shops/Profile/Header";
+import {
+    Wrapper,
+    CategorySelector,
+    CategoryButton,
+    MenuItem,
+    MenuInfo,
+    MenuName,
+    MenuDescription,
+    MenuPrice,
+    MenuImage,
+    MenuItems,
+    CategoriesHeader,
+} from "./styles";
+import { FilterInput } from "@/components/Into/Shops/styles";
+import { Icon } from '@iconify/react';
+import { useScrollTop } from "@/hooks/useScrollTop";
+import CartBar from "@/components/Into/Shops/ShoppingCart/CartBar";
+import { Checkout } from "@/components/Into/Shops/Checkout/Checkout";
+import { useShoppingCart } from "@/contexts/ShoppingCartContext";
+import { useIsMobile } from "@/hooks/useIsMobile";
+import { useCustomBackAction } from "@/hooks/useCustomBackAction";
+
+const Cardapio = () => {
+    const searchParams = useSearchParams();
+    const { shopId } = useParams();
+    const [search, setSearch] = useState('');
+    const isAtTop = useScrollTop();
+    const router = useRouter();
+    const categories = shopCategories(Number(shopId));
+    const [category, setCategory] = useState<any>(categories[0]);
+    const isFirstRender = useRef(true);
+    const categoryRefs = useRef<Record<number, HTMLDivElement | null>>({});
+    const [checkoutIsOpen, setCheckoutIsOpen] = useState(false);
+    const [itemSelected, setItemSelected] = useState({});
+    const [loading, setLoading] = useState(true);
+    const { addItem, cart } = useShoppingCart();
+
+    const handleSelectCategory = (cat: any) => {
+        if (cat.name.includes("Pizza")) {
+            router.push(`/shops/${shopId}/monte-sua-pizza?productId=${encodeURIComponent(cat.id)}`);
+        } else {
+            router.push(`?category=${encodeURIComponent(cat.name)}`);
+            setCategory(cat)
+        }
+    };
+
+    const filteredItems = category?.menu?.filter((item: any) =>
+        item.name.toLowerCase().includes(search.toLowerCase()) ||
+        item.description.toLowerCase().includes(search.toLowerCase())
+    );
+
+    const addProductToCart = (item: any) => {
+        setCheckoutIsOpen(false);
+
+        addItem({ ...item, id: cart.length + 1 });
+
+        console.log('Produto adicionado ao carrinho:', cart);
+    };
+
+    useEffect(() => {
+        const param = searchParams.get("category");
+        const selected = categories.find((i) => i.name === param);
+
+        if (selected) setCategory(selected);
+
+        if (category.name.includes("Pizza")) {
+            router.push(`/shops/${shopId}/monte-sua-pizza?productId=${encodeURIComponent(category.id)}`);
+            return
+        }
+
+        setLoading(false)
+    }, [searchParams]);
+
+    useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            setTimeout(() => {
+                const button = categoryRefs.current[category?.id];
+                if (button) {
+                    button.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                }
+            }, 100);
+        }
+    }, [])
+
+    useCustomBackAction(
+        useCallback(() => {
+            if (checkoutIsOpen) {
+                setCheckoutIsOpen(false);
+                return true;
+            } else {
+                return `/shops/${shopId}?CouponAlert=false`;
+            }
+        }, [checkoutIsOpen, shopId])
+    );
+
+    if (loading) return <h1>carregando...</h1>
+
+    return (
+        <>
+            <Header>
+                <h2 className="category">{category?.name || ""}</h2>
+            </Header>
+
+            <Wrapper>
+                <CategoriesHeader fixed={!isAtTop}>
+                    <CategorySelector>
+                        {categories.map((cat) => (
+                            <div
+                                key={cat.id}
+                                ref={(el: HTMLDivElement | null) => {
+                                    if (el) categoryRefs.current[cat.id] = el;
+                                }}
+                            >
+                                <CategoryButton
+                                    selected={cat.id === category.id}
+                                    onClick={() => handleSelectCategory(cat)}
+                                >
+                                    {cat.name}
+                                </CategoryButton>
+                            </div>
+                        ))}
+                    </CategorySelector>
+
+                    <FilterInput>
+                        <Icon icon={'lets-icons:search-alt'} color={'gray'} width="20" />
+                        <input
+                            type="text"
+                            placeholder="Buscar por nome ou descrição..."
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)} />
+                    </FilterInput>
+                </CategoriesHeader>
+
+                <MenuItems fixed={!isAtTop}>
+                    {filteredItems?.map((item: any) => (
+                        <MenuItem key={item.id} withImage={!!item.photo} onClick={() => {
+                            setItemSelected({ id: item.id, categoryID: category.id });
+                            setCheckoutIsOpen(true);
+                        }}>
+                            <MenuInfo>
+                                <MenuName>{item.name}</MenuName>
+                                <MenuDescription>{item.description}</MenuDescription>
+                                <MenuPrice>R$ {item.price.toFixed(2)}</MenuPrice>
+                            </MenuInfo>
+                            {item.photo && <MenuImage src={item.photo} alt={item.name} />}
+                        </MenuItem>
+                    ))}
+                </MenuItems>
+            </Wrapper>
+
+            <Checkout
+                isOpen={checkoutIsOpen}
+                selected={itemSelected}
+                onClose={(product) => {
+                    if (product) {
+                        addProductToCart(product);
+                    }
+                    setCheckoutIsOpen(false);
+                }}
+                shopId={`${shopId}`} />
+
+            <CartBar />
+
+        </>
+    );
+};
+
+export default Cardapio;

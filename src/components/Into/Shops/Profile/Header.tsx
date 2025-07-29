@@ -42,8 +42,7 @@ export default function Header({ children }: { children?: ReactNode }) {
       </span>
 
       {children}
-
-
+      
       <ModalComponent
         isOpen={storeExitAlert}
         title={"Atenção"}

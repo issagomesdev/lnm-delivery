@@ -1,11 +1,12 @@
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import { styled as styledBase } from 'styled-components';
-
 interface Props {
   fixed?: boolean;
   isSelected?: boolean;
   close?: boolean;
   active?: boolean;
+  animate?: boolean;
+
 }
 
 export const Wrapper = styled.div.withConfig({
@@ -16,6 +17,7 @@ export const Wrapper = styled.div.withConfig({
   flex-direction: column;
   padding: ${({ fixed }) => (fixed ? '7.5rem' : '2rem')} 1rem 3rem 1rem;
   margin-bottom: 5rem;
+  width: 100%;
 
   @media (max-width: 980px) {
     padding: ${({ fixed }) => (fixed ? '5.5rem' : '6rem')} 1rem 0 1rem;
@@ -49,7 +51,7 @@ export const CategoriesWrapper = styled.div`
 
 export const CategoryItem = styled.div.withConfig({
   shouldForwardProp: (prop) => prop !== 'isSelected',
-})<Props>`
+}) <Props>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -63,7 +65,7 @@ export const CategoryItem = styled.div.withConfig({
 
 export const CategoryImage = styled.img.withConfig({
   shouldForwardProp: (prop) => prop !== 'isSelected',
-})<Props>`
+}) <Props>`
   width: 80px;
   height: auto;
   border-radius: 8px;
@@ -74,7 +76,7 @@ export const CategoryImage = styled.img.withConfig({
 
 export const CategoryName = styled.span.withConfig({
   shouldForwardProp: (prop) => prop !== 'isSelected',
-})<Props>`
+}) <Props>`
   font-size: 12px;
   margin-top: 4px;
   background: ;
@@ -89,7 +91,7 @@ export const CategoryName = styled.span.withConfig({
   width: 100%;
 
   background-color: ${({ isSelected, theme }) =>
-    isSelected ? theme.colors.conceptual_green: theme.colors.primary };
+    isSelected ? theme.colors.conceptual_green : theme.colors.primary};
 `;
 
 // banners
@@ -138,10 +140,10 @@ export const ShopsWrapper = styled.div`
 `;
 
 export const FiltersWrapper = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'fixed',
-}) <Props>`
-  position: ${({ fixed }) => fixed? 'fixed' : 'relative'};
-  ${({ fixed }) => fixed? 'padding: 1rem; left: 0; top: 72px;' : ''}
+  shouldForwardProp: (prop) => prop !== 'fixed' && prop !== 'animate',
+})<Props>`
+  position: ${({ fixed }) => (fixed ? 'fixed' : 'relative')};
+  ${({ fixed }) => (fixed ? 'padding: 1rem; left: 0; top: 72px;' : '')}
   width: 100%;
   display: flex;
   row-gap: 2rem;
@@ -151,7 +153,11 @@ export const FiltersWrapper = styled.div.withConfig({
   z-index: 9;
   background-color: #fff;
 
-  @media (max-width: 980px){
+  opacity: ${({ animate, fixed }) => (animate || !fixed ? 1 : 0)};
+  transform: ${({ animate }) => (animate ? 'translateY(0)' : '')};
+  transition: all 2s ease;
+
+  @media (max-width: 980px) {
     flex-direction: column;
   }
 `;
@@ -405,7 +411,7 @@ export const BottomNavWrapper = styled.div`
 `;
 
 export const NavItem = styledBase.a.withConfig({
-  shouldForwardProp: (prop) => prop !== 'active', 
+  shouldForwardProp: (prop) => prop !== 'active',
 }) <Props>`
   display: flex;
   gap: 3px;
@@ -458,8 +464,8 @@ export const TagList = styled.div`
 `;
 
 export const TagItem = styled.span.withConfig({
-  shouldForwardProp: (prop) => prop !== 'active', 
-})<Props>`
+  shouldForwardProp: (prop) => prop !== 'active',
+}) <Props>`
   padding: 6px 12px;
   font-size: 13px;
   border-radius: 12px;

@@ -320,116 +320,6 @@ export const dataCategories = [
     "IDGroup": 5
   },
   {
-    "id": 6,
-    "name": "Pizza",
-    "path": "/images/categories/06 Pizza.png",
-    "menu": [
-      {
-        "id": 1,
-        "name": "Mussarela",
-        "description": "molho de tomate, mussarela, rodelas de tomate e orégano.",
-        "price": 17.61,
-        "photo": "/images/menu-item-default.jpg"
-      },
-      {
-        "id": 2,
-        "name": "Frango com Catupiry",
-        "description": "molho de tomate, frango desfiado e temperado com catupiry.",
-        "price": 21.74,
-        "photo": "/images/menu-item-default.jpg"
-      },
-      {
-        "id": 3,
-        "name": "Brócolis com bacon",
-        "description": "molho de tomate, brócolis, bacon e mussarela ralada.",
-        "price": 48.73,
-        "photo": "/images/menu-item-default.jpg"
-      },
-      {
-        "id": 4,
-        "name": "Marguerita",
-        "description": "molho de tomate, mussarela, rodelas de tomate e manjericão.",
-        "price": 21.2,
-        "photo": "/images/menu-item-default.jpg"
-      },
-      {
-        "id": 5,
-        "name": "Calabresa",
-        "description": "molho de tomate, calabresa fatiada e cebola.",
-        "price": 46.38,
-        "photo": "/images/menu-item-default.jpg"
-      },
-      {
-        "id": 6,
-        "name": "Atum com Mussarela",
-        "description": "molho de tomate, atum desfiado e mussarela.",
-        "price": 14.89,
-        "photo": "/images/menu-item-default.jpg"
-      },
-      {
-        "id": 7,
-        "name": "Pepperoni",
-        "description": "Molho de tomate, pepperoni fatiado, e mussarela.",
-        "price": 48.07,
-        "photo": "/images/menu-item-default.jpg"
-      },
-      {
-        "id": 8,
-        "name": "Napolitana",
-        "description": "molho de tomate, mussarela, presunto, rodelas de tomate e orégano.",
-        "price": 29.49,
-        "photo": "/images/menu-item-default.jpg"
-      },
-      {
-        "id": 9,
-        "name": "Quatro Queijos",
-        "description": "molho de tomate, mussarela, provolone, gorgonzola e parmesão.",
-        "price": 39.90,
-        "photo": "/images/menu-item-default.jpg"
-      },
-      {
-        "id": 10,
-        "name": "Portuguesa",
-        "description": "molho de tomate, presunto, ovos, cebola, ervilha e mussarela.",
-        "price": 42.50,
-        "photo": "/images/menu-item-default.jpg"
-      },
-      {
-        "id": 11,
-        "name": "Bacon com Cheddar",
-        "description": "molho de tomate, mussarela, bacon crocante e cheddar cremoso.",
-        "price": 36.80,
-        "photo": "/images/menu-item-default.jpg"
-      },
-      {
-        "id": 12,
-        "name": "Vegetariana",
-        "description": "molho de tomate, abobrinha, berinjela, pimentão, cebola e mussarela.",
-        "price": 33.25,
-        "photo": "/images/menu-item-default.jpg"
-      }
-    ],
-    "sizes": [
-      {
-        "name": "Brotinho",
-        "parts": 1
-      },
-      {
-        "name": "Média",
-        "parts": 2
-      },
-      {
-        "name": "Grande",
-        "parts": 4
-      },
-      {
-        "name": "Gigante",
-        "parts": 4
-      }
-    ],
-    "IDGroup": 6
-  },
-  {
     "id": 7,
     "name": "Esfiha",
     "path": "/images/categories/07 Esfiha.png",
@@ -1907,6 +1797,85 @@ export const dataCategories = [
       }
     ],
     "IDGroup": 5
+  },
+  {
+    "id": 30,
+    "name": "Pizza",
+    "path": "/images/categories/06 Pizza.png",
+    "menu": [
+      { "id": 1, "idOption": 1, "name": "Mussarela", "description": "molho de tomate, mussarela, rodelas de tomate e orégano.", "price": 17.61, "photo": "/images/menu-item-default.jpg" },
+      { "id": 2, "idOption": 2, "name": "Frango com Catupiry", "description": "molho de tomate, frango desfiado e temperado com catupiry.", "price": 21.74, "photo": "/images/menu-item-default.jpg" },
+      { "id": 3, "idOption": 3, "name": "Brócolis com bacon", "description": "molho de tomate, brócolis, bacon e mussarela ralada.", "price": 48.73, "photo": "/images/menu-item-default.jpg" },
+      { "id": 4, "idOption": 4, "name": "Marguerita", "description": "molho de tomate, mussarela, rodelas de tomate e manjericão.", "price": 21.2, "photo": "/images/menu-item-default.jpg" },
+      { "id": 5, "idOption": 5, "name": "Calabresa", "description": "molho de tomate, calabresa fatiada e cebola.", "price": 46.38, "photo": "/images/menu-item-default.jpg" },
+      { "id": 6, "idOption": 6, "name": "Atum com Mussarela", "description": "molho de tomate, atum desfiado e mussarela.", "price": 14.89, "photo": "/images/menu-item-default.jpg" },
+      { "id": 7, "idOption": 7, "name": "Pepperoni", "description": "Molho de tomate, pepperoni fatiado, e mussarela.", "price": 48.07, "photo": "/images/menu-item-default.jpg" },
+      { "id": 8, "idOption": 8, "name": "Napolitana", "description": "molho de tomate, mussarela, presunto, rodelas de tomate e orégano.", "price": 29.49, "photo": "/images/menu-item-default.jpg" },
+      { "id": 9, "idOption": 9, "name": "Quatro Queijos", "description": "molho de tomate, mussarela, provolone, gorgonzola e parmesão.", "price": 39.90, "photo": "/images/menu-item-default.jpg" },
+      { "id": 10, "idOption": 10, "name": "Portuguesa", "description": "molho de tomate, presunto, ovos, cebola, ervilha e mussarela.", "price": 42.50, "photo": "/images/menu-item-default.jpg" },
+      { "id": 11, "idOption": 11, "name": "Bacon com Cheddar", "description": "molho de tomate, mussarela, bacon crocante e cheddar cremoso.", "price": 36.80, "photo": "/images/menu-item-default.jpg" },
+      { "id": 12, "idOption": 12, "name": "Vegetariana", "description": "molho de tomate, abobrinha, berinjela, pimentão, cebola e mussarela.", "price": 33.25, "photo": "/images/menu-item-default.jpg" }
+    ],
+    "sizes": [
+      { "name": "Brotinho", "parts": 1 },
+      { "name": "Média", "parts": 2 },
+      { "name": "Grande", "parts": 4 },
+      { "name": "Gigante", "parts": 4 }
+    ],
+    "IDGroup": 2
+  },
+  {
+    "id": 33,
+    "name": "Pizzas doces",
+    "path": "/images/categories/06 Pizza.png",
+    "menu": [
+      { "id": 1, "idOption": 13, "name": "Chocolate com Morango", "description": "Creme de chocolate, morangos frescos e granulado.", "price": 29.90, "photo": "/images/menu-item-default.jpg" },
+      { "id": 2, "idOption": 14, "name": "Prestígio", "description": "Chocolate, coco ralado e leite condensado.", "price": 28.50, "photo": "/images/menu-item-default.jpg" },
+      { "id": 3, "idOption": 15, "name": "Banana com Canela", "description": "Banana fatiada, açúcar e canela.", "price": 22.75, "photo": "/images/menu-item-default.jpg" },
+      { "id": 4, "idOption": 16, "name": "Romeu e Julieta", "description": "Goiabada cremosa e queijo mussarela.", "price": 27.30, "photo": "/images/menu-item-default.jpg" }
+    ],
+    "sizes": [
+      { "name": "Brotinho", "parts": 1 },
+      { "name": "Média", "parts": 2 },
+      { "name": "Grande", "parts": 4 },
+      { "name": "Gigante", "parts": 4 }
+    ],
+    "IDGroup": 2
+  },
+  {
+    "id": 36,
+    "name": "Pizzas premium",
+    "path": "/images/categories/06 Pizza.png",
+    "menu": [
+      { "id": 1, "idOption": 17, "name": "Camarão com Catupiry", "description": "Molho branco, camarões salteados, catupiry e salsinha.", "price": 58.90, "photo": "/images/menu-item-default.jpg" },
+      { "id": 2, "idOption": 18, "name": "Pesto com Burrata", "description": "Molho pesto, burrata fresca, tomate cereja e rúcula.", "price": 62.00, "photo": "/images/menu-item-default.jpg" },
+      { "id": 3, "idOption": 19, "name": "Parma com Rúcula", "description": "Presunto de parma, rúcula e lascas de parmesão.", "price": 54.20, "photo": "/images/menu-item-default.jpg" },
+      { "id": 4, "idOption": 20, "name": "Trufada", "description": "Molho branco, mix de cogumelos e azeite trufado.", "price": 59.90, "photo": "/images/menu-item-default.jpg" }
+    ],
+    "sizes": [
+      { "name": "Brotinho", "parts": 1 },
+      { "name": "Média", "parts": 2 },
+      { "name": "Grande", "parts": 4 },
+      { "name": "Gigante", "parts": 4 }
+    ],
+    "IDGroup": 2
+  },
+  {
+    "id": 39,
+    "name": "Pizzas em promoção",
+    "path": "/images/categories/06 Pizza.png",
+    "menu": [
+      { "id": 1, "idOption": 21, "name": "Mussarela", "description": "molho de tomate, mussarela, tomate e orégano.", "price": 14.90, "photo": "/images/menu-item-default.jpg" },
+      { "id": 2, "idOption": 22, "name": "Calabresa", "description": "molho de tomate, calabresa e cebola.", "price": 16.50, "photo": "/images/menu-item-default.jpg" },
+      { "id": 3, "idOption": 23, "name": "Frango com Catupiry", "description": "molho de tomate, frango e catupiry.", "price": 17.90, "photo": "/images/menu-item-default.jpg" }
+    ],
+    "sizes": [
+      { "name": "Brotinho", "parts": 1 },
+      { "name": "Média", "parts": 2 },
+      { "name": "Grande", "parts": 4 },
+      { "name": "Gigante", "parts": 4 }
+    ],
+    "IDGroup": 2
   }
 ]
 

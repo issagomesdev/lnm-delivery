@@ -147,8 +147,6 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
 
     const hasUnfulfilledRequiredGroups = (): boolean => {
         const requiredGroups = groupOption.groups.filter((group: any) => group.required || group.min > 0);
-
-        console.log(requiredGroups, groupOption)
         if (requiredGroups.length === 0) return false;
 
         return requiredGroups.some((group: any) => {
@@ -189,7 +187,7 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
                 setObservations('')
                 onClose()
             }
-        }, 1000)
+        }, 1500)
     }
 
     return (

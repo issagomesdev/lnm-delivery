@@ -7,6 +7,20 @@ interface Props {
     fixed?: boolean;
 }
 
+export const Wrapper = styled.div`
+  display: flex;
+  gap: 1.5rem;
+  flex-direction: column;
+  padding: 2rem 1rem 3rem 1rem;
+  margin-bottom: 1rem;
+
+  @media (max-width: 980px) {
+    padding: 6rem 1rem 0 1rem;
+    margin-bottom: 5rem;
+  }
+`;
+
+
 export const CategorySelector = styled.div`
   display: flex;
   gap: 0.75rem;
@@ -97,6 +111,10 @@ export const MenuItem = styled.div.withConfig({
   gap: 1rem;
   width: calc(50% - 0.75rem);
   cursor: pointer;
+
+  &:last-child {
+    border-bottom: none;
+  }
 
   ${({ withImage }) =>
     withImage &&

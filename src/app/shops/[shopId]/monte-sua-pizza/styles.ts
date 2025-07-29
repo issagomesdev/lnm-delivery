@@ -1,16 +1,15 @@
 'use client';
 
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 
 interface Props {
   selected?: boolean;
 }
 
-
 export const PizzaBackground = styled.div`
-    position: absolute;
-    bottom: -4px;
+    position: fixed;
+    bottom: 0;
     left: 0;
     width: 20rem;
     z-index: -1;
@@ -30,10 +29,12 @@ export const Container = styled.div`
     width: 100%;
     justify-content: center;
     align-items: center;
-    margin-top: 2rem;
+    padding-top: 2rem;
     
     @media (max-width: 980px){
-        margin-top: 5rem;
+        top: 3rem;
+        position: fixed;
+        z-index: 999;
     }
 `;
 
@@ -58,6 +59,18 @@ export const Options = styled.div`
     gap: 10px;
 `;
 
+const scale = keyframes`
+  0% {
+    transform: scale(1);
+  }
+  60% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+`;
+
 export const Option = styled.div`
     cursor: pointer;
     background-color: ${({ theme }) => theme.colors.primary};
@@ -69,6 +82,7 @@ export const Option = styled.div`
     width: 15rem;
     color: #fff;
     border-radius: 4px;
+    animation: ${scale} 2s ease-in-out infinite;
 `;
 
 export const FlavorsFigure = styled.div`
@@ -83,7 +97,7 @@ export const FlavorsFigure = styled.div`
        width: 15rem; 
     }
 
-    @media (min-width: 600px) and (max-width: 1300px) {
+    @media (min-width: 600px) and (max-width: 1500px) {
        width: 25rem; 
     }
 `;
@@ -93,6 +107,30 @@ export const FlavorsOptions = styled.div`
     top: 0;
     width: 100%;
     height: 100%;
+`;
+
+const shakeScale = keyframes`
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  15% {
+    transform: scale(1.05) rotate(-3deg);
+  }
+  30% {
+    transform: scale(1.1) rotate(3deg);
+  }
+  45% {
+    transform: scale(1.05) rotate(-2deg);
+  }
+  60% {
+    transform: scale(1.08) rotate(2deg);
+  }
+  75% {
+    transform: scale(1.03) rotate(-1deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
 `;
 
 export const FlavorsOption = styled.div.withConfig({
@@ -109,31 +147,39 @@ export const FlavorsOption = styled.div.withConfig({
   position: absolute;
   cursor: pointer;
   text-align: center;
+  animation: ${shakeScale} 1s ease-in-out infinite;
 
-  @media (max-width: 600px){
-    width: 4rem;
-    padding: 6px;
-    
-    h4 {
-     font-size: 10px;
-    }
+  h4 {
+    font-size: 16px;
+   }
      
-    span {
-     font-size: 7px;
-    }
+   span {
+    font-size: 12px;
    }
 
-   @media (min-width: 600px) and (max-width: 1300px) {
-     width: 7rem;
+   @media (max-width: 600px) {
+     width: 4.5rem;
 
      h4 {
       font-size: 14px;
+      white-space: nowrap;
      }
      
      span {
       font-size: 9px;
+      white-space: nowrap;
      }
     }
+`;
+
+export const ChangeCategory = styled.div`
+    cursor: pointer;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 4px;
+    color: ${({theme}) => theme.colors.primary};
+    font-weight: 500;
+    font-size: 13px;
 `;
 
 export const FlavorSelected = styled.div`
@@ -150,7 +196,7 @@ export const FlavorSelected = styled.div`
 export const ForwardButton = styled.div`
     width: 100%;
     background-color: ${({theme}) => theme.colors.conceptual_green};
-    position: absolute;
+    position: fixed;
     bottom: 0;
     padding: 1rem 0;
     display: flex;
@@ -161,4 +207,5 @@ export const ForwardButton = styled.div`
     font-weight: 500;
     gap: 5px;
     cursor: pointer;
+    animation: ${shakeScale} 1s ease-in-out infinite;
 `;

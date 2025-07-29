@@ -44,9 +44,10 @@ const slideDown = keyframes`
 export const ModalBox = styled.div`
   background: #fff;
   border-radius: 4px;
-  max-width: 65%;
   width: 90%;
   height: 95%;
+  max-width: 65%;
+  max-height: 600px;
   padding: 0;
   text-align: center;
   position: relative;
@@ -58,6 +59,7 @@ export const ModalBox = styled.div`
 
   @media (max-width: 980px){
     max-width: 100%;
+    max-height: 100%;
     width: 100%;
     height: 100%;
   }
@@ -198,7 +200,7 @@ export const OptionItem = styled.div`
   input[type="checkbox"]:not(:checked) {
     appearance: none;
     -webkit-appearance: none;
-    border: 2px solid rgba(0, 0, 0, 0.54);
+    border: 1px solid rgb(0 0 0 / 30%);
   }
 `;
 
@@ -241,7 +243,7 @@ export const QuantityButton = styled.button`
 export const TextArea = styled.div`
   
   width: 100%;
-  border: 2px solid rgba(0, 0, 0, 0.54);
+  border: 1px solid rgb(0 0 0 / 30%);
   border-radius: 6px;
   padding: 10px;
 

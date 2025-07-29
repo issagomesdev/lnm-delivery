@@ -21,6 +21,14 @@ export const Bar = styled.div`
   align-items: center;
   z-index: 999;
   cursor: pointer;
+
+  @media (min-width: 980px){
+    bottom: 10px;
+    width: 500px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 8px;
+  }
 `;
 
 export const Label = styled.div`
@@ -44,6 +52,10 @@ export const Label = styled.div`
     font-weight: 600;
     position: absolute;
     left: 16px;
+  }
+
+  > img {
+   width: 2rem; 
   }
 `;
 

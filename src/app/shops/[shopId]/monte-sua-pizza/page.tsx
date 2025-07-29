@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { useEffect, useState, useCallback } from "react";
 import { shopCategories } from "@/components/Into/data";
 import Header from "@/components/Into/Shops/Profile/Header";
@@ -13,34 +13,21 @@ import {
     FlavorsFigure,
     FlavorsOptions,
     FlavorsOption,
-    FlavorSelected,
     ForwardButton,
 } from "./styles";
-import {
-    CategorySelector,
-    CategoryButton,
-    MenuItem,
-    MenuInfo,
-    MenuName,
-    MenuDescription,
-    MenuPrice,
-    MenuImage,
-    MenuItems,
-    CategoriesHeader,
-} from "@/app/shops/[id]/cardapio/styles";
-import { FilterInput, Wrapper } from "@/components/Into/Shops/styles";
+
 import { useCustomBackAction } from "@/hooks/useCustomBackAction";
-import { useScrollTop } from "@/hooks/useScrollTop";
 import { Icon } from '@iconify/react';
 import { useRouter } from "next/navigation";
 import { Checkout } from "@/components/Into/Shops/Checkout/Checkout";
-import { useShoppingCart } from "@/contexts/ShoppingCartContext";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import ChooseFlavor from "@/components/Into/Shops/Profile/pizzaBuild/ChooseFlavor";
 
-const PizzaBuild = () => {
-    const params = useParams();
-    const shopId = params.id || "";
+export default function PizzaBuild() {
+    const { shopId } = useParams();
+    const searchParams = useSearchParams();
     const [category, setCategory] = useState<any>();
+    const [productId, setProductId] = useState<string | null>('')
     const [steps, setSteps] = useState<number>(1);
     const [partSelected, setPartSelected] = useState<number | null>(null);
     const [flavorsQuantity, setFlavorsQuantity] = useState<number | null>(null);
@@ -48,24 +35,26 @@ const PizzaBuild = () => {
     const [selectedFlavors, setSelectedFlavors] = useState<(number | null)[]>([]);
     const [checkoutIsOpen, setCheckoutIsOpen] = useState(false);
     const [itemSelected, setItemSelected] = useState<any>({});
-    const [search, setSearch] = useState('');
-    const isAtTop = useScrollTop();
+    const [loading, setLoading] = useState(true);
     const isMobile = useIsMobile();
     const router = useRouter();
 
-    const filteredItems = category?.menu?.filter((item: any) =>
-        item.name.toLowerCase().includes(search.toLowerCase()) ||
-        item.description.toLowerCase().includes(search.toLowerCase())
-    );
+    useEffect(() => {
+        const id = searchParams.get("productId");
+        if (id) setProductId(id)
+    }, [searchParams]);
 
     useEffect(() => {
-        const selected = shopCategories(Number(shopId)).find(
-            (i) => i.name === "Pizza"
-        );
-        if (selected) {
-            setCategory(selected);
+        if (shopId && productId) {
+            const selected = shopCategories(Number(shopId)).find(
+                (i) => i.id === Number(productId)
+            );
+            if (selected) {
+                setCategory(selected);
+                setLoading(false)
+            }
         }
-    }, [shopId]);
+    }, [shopId, productId]);
 
     useEffect(() => {
         if (flavorsQuantity && selectedFlavors.length !== flavorsQuantity) {
@@ -90,7 +79,14 @@ const PizzaBuild = () => {
 
     useCustomBackAction(
         useCallback(() => {
+            if(steps === 3){
+                setFlavorsQuantity(1)
+            }
             if (steps > 1) {
+                if (flavorsQuantity === 1) {
+                    setSteps(2);
+                    return true;
+                }
                 setSteps((prev) => prev - 1);
                 return true;
             }
@@ -100,38 +96,35 @@ const PizzaBuild = () => {
 
     const getFlavorPositions = (count: number) => {
         const positions: { [key: number]: { top: string; left: string }[] } = {
-            1: [{ top: "41%", left: "36%" }],
+            1: [{ top: "38%", left: "34%" }],
             2: [
-                { top: "42%", left: "17%" },
-                { top: "42%", left: "57%" },
+                { top: "40%", left: "14%" },
+                { top: "40%", left: "54%" },
             ],
             3: [
-                { top: "30%", left: "19%" },
+                { top: "30%", left: "16%" },
                 { top: "30%", left: "55%" },
-                { top: "65%", left: "37%" },
+                { top: "62%", left: "35%" },
             ],
             4: [
-                { top: "27%", left: "20%" },
-                { top: "27%", left: "54%" },
-                { top: "60%", left: "20%" },
-                { top: "60%", left: "54%" },
+                { top: "24%", left: "16%" },
+                { top: "24%", left: "55%" },
+                { top: "57%", left: "16%" },
+                { top: "57%", left: "54%" },
             ],
         };
         return positions[count] || [];
     };
 
-    const SelectOptions = () => {
-        if (isMobile) {
-            router.push(`/shops/${shopId}/checkout?id=${selectedFlavors.join(",")}&categoryID=${category.id}`)
-            return
-        }
-        
+    const SelectOptions = (flavors: (number | null)[]) => {
         setItemSelected({
-            id: selectedFlavors,
+            id: flavors,
             categoryID: category.id
         })
         setCheckoutIsOpen(true);
     }
+
+    if (loading) return <h1>carregando...</h1>
 
     return (
         <>
@@ -181,6 +174,11 @@ const PizzaBuild = () => {
                                         onClick={() => {
                                             setFlavorsQuantity(part);
                                             setSteps(3);
+
+                                            if (part === 1) {
+                                                setSelectedFlavor(0);
+                                                setSteps(4)
+                                            }
                                         }}
                                     >
                                         <h3>
@@ -225,57 +223,27 @@ const PizzaBuild = () => {
                     </Content>
                 )}
 
-                {steps === 3 && selectedFlavors.every(f => f !== null) && (<ForwardButton onClick={() => SelectOptions()}>
+                {steps === 3 && selectedFlavors.every(f => f !== null) && (<ForwardButton onClick={() => SelectOptions(selectedFlavors)}>
                     <span>Avançar </span>
                     <Icon icon={'mingcute:arrow-right-line'} color={'#fff'} width="18" />
                 </ForwardButton>)}
 
                 {steps === 4 && (
-                    <Wrapper style={{ marginBottom: 0, paddingTop: 0 }}>
-                        <CategoriesHeader fixed={!isAtTop}>
-
-                            <FilterInput>
-                                <Icon icon={'lets-icons:search-alt'} color={'gray'} width="20" />
-                                <input
-                                    type="text"
-                                    placeholder="Buscar por nome ou descrição..."
-                                    value={search}
-                                    onChange={(e) => setSearch(e.target.value)} />
-                            </FilterInput>
-                        </CategoriesHeader>
-
-                        <MenuItems>
-                            {filteredItems?.map((item: any) => (
-                                <MenuItem key={item.id} withImage={!!item.photo} onClick={() => {
-
-                                    const updated = [...selectedFlavors];
-                                    if (selectedFlavors[selectedFlavor as number] === null || selectedFlavors[selectedFlavor as number] !== item.id) {
-                                        updated[selectedFlavor as number] = item.id;
-                                        setSelectedFlavors(updated);
-                                    } else {
-                                        updated[selectedFlavor as number] = null;
-                                        setSelectedFlavors(updated);
-                                    }
-                                    setSteps(3)
-                                }}>
-                                    <MenuInfo>
-                                        <MenuName>{item.name}</MenuName>
-                                        <MenuDescription>{item.description}</MenuDescription>
-                                        <MenuPrice>R$ {item.price.toFixed(2)}</MenuPrice>
-                                        {selectedFlavors[selectedFlavor as number] === item.id &&
-                                            <FlavorSelected>
-                                                <span>({(selectedFlavor as number) + 1}º sabor selecionado)</span>
-                                                <Icon icon={'ic:baseline-close'} color={'red'} width="18" />
-                                            </FlavorSelected>}
-                                    </MenuInfo>
-                                    {item.photo && <MenuImage src={item.photo} alt={item.name} />}
-                                </MenuItem>
-                            ))}
-                        </MenuItems>
-                    </Wrapper>
+                    <ChooseFlavor
+                        category={category}
+                        shopId={Number(shopId)}
+                        setSelectedFlavors={(value: (number | null)[]) => {
+                            setSelectedFlavors(value)
+                            if (flavorsQuantity == 1) {
+                                SelectOptions(value)
+                            }
+                            setSteps(3)
+                        }}
+                        selectedFlavors={selectedFlavors}
+                        selectedFlavor={selectedFlavor}
+                        productId={productId}
+                        setProductId={(value) => setProductId(value)} />
                 )}
-
-
             </Container>
 
             <Checkout
@@ -286,5 +254,3 @@ const PizzaBuild = () => {
         </>
     );
 };
-
-export default PizzaBuild;

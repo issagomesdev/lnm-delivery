@@ -54,6 +54,8 @@ const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory
   const [selectedOrder, setSelectedOrder] = useState<string | null>(null);
   const [selectedPayments, setSelectedPayments] = useState<string[]>([]);
   const { selectedCity, selectedNeighborhood } = useLocation();
+  const [animate, setAnimate] = useState(false);
+
   const router = useRouter()
 
   useEffect(() => {
@@ -99,14 +101,25 @@ const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory
     console.log(now, filtered, openShops, closeShops, selectedCategories)
   }, [shops, search, selectedCategories, selectedCategory]);
 
-  return (
-    <ShopsWrapper style={!triggered || filteredShops.length < 1? { gap: '1rem'} : {}}>
-      {!mode && <FiltersWrapper fixed={triggered && filteredShops.length > 0} style={triggered && filterIsActive ? { top: '113px' } : undefined}>
+  useEffect(() => {
+    if (triggered && filteredShops.length > 0) {
+      setAnimate(true);
+    } else {
+      setAnimate(false);
+    }
+  }, [triggered, filteredShops]);
 
+  return (
+    <ShopsWrapper style={!triggered || filteredShops.length < 1 ? { gap: '1rem' } : {}}>
+      {!mode && <FiltersWrapper
+        fixed={triggered && filteredShops.length > 0}
+        style={triggered && filterIsActive ? { top: '113px' } : undefined}
+        animate={animate}>
         <FilterInput>
           <Icon icon={'lets-icons:search-alt'} color={'gray'} width="20" />
           <input placeholder="Buscar por loja ou categoria"
             value={search}
+            type='search'
             onChange={(e) => setSearch(e.target.value)} />
         </FilterInput>
 
