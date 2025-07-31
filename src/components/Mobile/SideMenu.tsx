@@ -53,7 +53,7 @@ export default function SideMenu({ locationSelector = true }: { locationSelector
                             .map((item) => (
                                 <NavItem
                                     key={item.href}
-                                    onClick={() => router.push(`/redirect?to=${item.href}`)}
+                                    onClick={() => router.push(item.href)}
                                     style={{ display: 'flex', alignItems: 'center' }}
                                 >
                                     <img

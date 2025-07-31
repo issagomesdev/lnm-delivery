@@ -35,7 +35,7 @@ export default function LocationSelector() {
   const searchDelivery = () => {
     setSelectedCity(selectedCityLocal);
     setSelectedNeighborhood(selectedNeighborhoodLocal);
-    router.push('/redirect?to=/shops')
+    router.push('shops')
   }
 
   return (
