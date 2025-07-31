@@ -10,9 +10,10 @@ import { useCallback, useEffect, useState } from "react";
 import { DeliveryMethods } from "@/components/Into/Shops/ShoppingCart/DeliveryMethods";
 import { PaymentMethods } from "@/components/Into/Shops/ShoppingCart/PaymentMethods";
 import { useCustomBackAction } from '@/hooks/useCustomBackAction';
+import { useBackLayers } from "@/hooks/useBackLayers";
 
 const Carrinho = () => {
-    const {cart, removeItem, updateItemQuantity, clearCart } = useShoppingCart();
+    const { cart, removeItem, updateItemQuantity, clearCart } = useShoppingCart();
     const [detailsIsOpen, setDetailsIsOpen] = useState(false);
     const [steps, setSteps] = useState<1 | 2 | null>(null);
     const [selectedItemId, setSelectedItemId] = useState<number | null>(null);

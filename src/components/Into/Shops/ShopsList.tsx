@@ -41,8 +41,8 @@ type ShopsListProps = {
   selectedCategory?: string;
   filterIsActive?: boolean;
   setFilterIsActive?: React.Dispatch<React.SetStateAction<boolean>>;
-  filterIsOpen: boolean;
-  setFilterIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  filterIsOpen?: boolean;
+  setFilterIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   mode?: 'coupon' | 'fav';
   triggered?: boolean;
 };
@@ -126,7 +126,7 @@ const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory
           }
         </FilterInput>
 
-        {!isMobile && <FilterButton onClick={() => setFilterIsOpen(true)}>
+        {!isMobile && setFilterIsOpen && <FilterButton onClick={() => setFilterIsOpen(true)}>
           <Icon icon={'mage:filter'} width="15" />
           Filtro avançado
         </FilterButton>}
@@ -134,7 +134,7 @@ const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory
         {isMobile && <FilterAdvance>
           {openShops.length > 0 && <ShopCount>Lojas abertas ({openShops.length})</ShopCount>}
           {openShops.length < 1 && closeShops.length > 0 && <ShopCount close={true}>Fechadas agora ({closeShops.length})</ShopCount>}
-          {!mode && isMobile && <FilterButton onClick={() => setFilterIsOpen(true)}>
+          {!mode && isMobile && setFilterIsOpen && <FilterButton onClick={() => setFilterIsOpen(true)}>
             <Icon icon={'mage:filter'} width="12" />
             Filtro avançado
           </FilterButton>}
@@ -281,13 +281,13 @@ const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory
       }
 
       <AdvancedFilter
-        isOpen={filterIsOpen}
-        onClose={() => setFilterIsOpen(false)}
+        isOpen={filterIsOpen ?? false}
+        onClose={() => setFilterIsOpen && setFilterIsOpen(false)}
         onApply={(order, categories, payments) => {
           setSelectedOrder(order)
           setSelectedCategories && setSelectedCategories(categories);
           setSelectedPayments(payments);
-          setFilterIsOpen(false);
+          setFilterIsOpen && setFilterIsOpen(false);
           setFilterIsActive && setFilterIsActive(true)
         }}
         values={[selectedOrder, selectedCategories ?? [], selectedPayments]}

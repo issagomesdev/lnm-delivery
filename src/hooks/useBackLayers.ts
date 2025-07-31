@@ -44,7 +44,11 @@ export function useBackLayers(layers: Layer[], { fallbackRoute }: UseBackLayersO
         return;
       }
 
-      router.replace(fallbackRoute);
+      if(fallbackRoute.length > 0) {
+        router.replace(fallbackRoute);
+      } else {
+        window.history.back();
+      }
     };
 
     window.addEventListener('popstate', handlePopState);

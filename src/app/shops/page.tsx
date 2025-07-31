@@ -21,19 +21,33 @@ const ShopsPage = () => {
 
   const bannerRef = useRef<HTMLDivElement>(null);
   const triggered = useScrollTrigger(bannerRef);
-  
-  useBackLayers([
-    {
-      isOpen: filterIsOpen,
-      onClose: () => setFilterIsOpen(false),
-    },
-    {
-      isOpen: (selectedCategory.length > 0),
-      onClose: () => setSelectedCategory(''),
-    }
-  ], {
-    fallbackRoute: '/',
-  });
+
+  // useBackLayers([
+  //   {
+  //     isOpen: filterIsOpen,
+  //     onClose: () => setFilterIsOpen(false),
+  //   },
+  //   {
+  //     isOpen: (selectedCategory.length > 0),
+  //     onClose: () => setSelectedCategory(''),
+  //   }
+  // ], {
+  //   fallbackRoute: '/',
+  // });
+
+  useCustomBackAction(
+    useCallback(() => {
+      if (filterIsOpen) {
+        setFilterIsOpen(false);
+        return true;
+      } else if (selectedCategory) {
+        setSelectedCategory('')
+        return true;
+      }
+
+      return false;
+    }, [filterIsOpen, selectedCategory])
+  );
 
   return (
     <>
