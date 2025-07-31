@@ -86,7 +86,7 @@ export const Option = styled.div`
 `;
 
 export const FlavorsFigure = styled.div`
-    width: 30rem;
+    width: 25rem;
     position: relative;
 
     img {
@@ -96,9 +96,15 @@ export const FlavorsFigure = styled.div`
     @media (max-width: 600px){
        width: 15rem; 
     }
+`;
 
-    @media (min-width: 600px) and (max-width: 1500px) {
-       width: 25rem; 
+export const FlavorsSelecteds = styled.div`
+    cursor: pointer;
+    background-color: #fff091;
+    border-radius: 8px;
+
+    h4 {
+     padding: 0.5rem 1.5rem;
     }
 `;
 

@@ -120,7 +120,7 @@ const Carrinho = () => {
                     setPaymentData(data);
                     clearCart();
                     setTimeout(() => {
-                        router.push(`/meus-pedidos/rastreio/21777179?step=pendent&date=26/05/2025%2016:10`);
+                        router.push(`/meus-pedidos/rastreio/21777179?step=pendent&date=26/05/2025%2016:10&return=shops`);
                     }, 100);
                 }} />
         </>

@@ -50,10 +50,21 @@ export const BottomRow = styled.div`
 `;
 
 export const SecondModal = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    height: 468px;
+    max-width: 400px;
+    background-color: #000000ad;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+export const SecondModalContent = styled.div`
   background: white;
   padding: 1.5rem;
   border-radius: 10px;
@@ -75,6 +86,7 @@ export const SecondModal = styled.div`
     resize: none;
     margin-bottom: 1rem;
   }
+  
 `;
 
 

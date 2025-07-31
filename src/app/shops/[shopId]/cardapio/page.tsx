@@ -25,6 +25,7 @@ import { Checkout } from "@/components/Into/Shops/Checkout/Checkout";
 import { useShoppingCart } from "@/contexts/ShoppingCartContext";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { useCustomBackAction } from "@/hooks/useCustomBackAction";
+import { useTheme } from "styled-components";
 
 const Cardapio = () => {
     const searchParams = useSearchParams();
@@ -40,6 +41,7 @@ const Cardapio = () => {
     const [itemSelected, setItemSelected] = useState({});
     const [loading, setLoading] = useState(true);
     const { addItem, cart } = useShoppingCart();
+    const theme = useTheme();
 
     const handleSelectCategory = (cat: any) => {
         if (cat.name.includes("Pizza")) {
@@ -78,16 +80,13 @@ const Cardapio = () => {
     }, [searchParams]);
 
     useEffect(() => {
-        if (isFirstRender.current) {
-            isFirstRender.current = false;
-            setTimeout(() => {
+        setTimeout(() => {
                 const button = categoryRefs.current[category?.id];
                 if (button) {
                     button.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
                 }
             }, 100);
-        }
-    }, [])
+    }, [category])
 
     useCustomBackAction(
         useCallback(() => {
@@ -135,6 +134,8 @@ const Cardapio = () => {
                             placeholder="Buscar por nome ou descrição..."
                             value={search}
                             onChange={(e) => setSearch(e.target.value)} />
+                        {search.length > 0 && <Icon icon={'material-symbols:close-rounded'} color={theme.colors.primary} width="20" onClick={() => setSearch('')} />
+                        }
                     </FilterInput>
                 </CategoriesHeader>
 

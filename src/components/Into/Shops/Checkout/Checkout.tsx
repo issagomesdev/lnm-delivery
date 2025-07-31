@@ -3,7 +3,7 @@ import { Title, Overlay, CloseXButton } from '@/components/shared/Modal/styles';
 import { Icon } from '@iconify/react';
 import { categories, groupOptions } from "@/components/Into/data";
 import { useEffect, useState } from 'react';
-import { ItemImage } from './styles';
+import { FooterContent, ItemImage } from './styles';
 import { useShoppingCart } from '@/contexts/ShoppingCartContext';
 import { useRouter } from 'next/navigation';
 import { QuantityControls } from '@/app/meus-pedidos/carrinho/styles';
@@ -27,21 +27,27 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
     useEffect(() => {
         const findCategory = categories.find((cat: any) => cat.id == selected?.categoryID);
 
-        if (findCategory && findCategory.name === "Pizza") {
-            const findItems = selected?.id.flatMap((id: number) =>
-                findCategory?.menu.filter((item: any) => item.id === id)
-            ) || [];
+        if (findCategory && findCategory.name.includes("Pizza")) {
+            const findItems = selected.flavors.map((s: any) => {
+
+                const itemCategory = categories.find(c => c.id === s.categoryId);
+                const item = itemCategory?.menu.find((item: any) => item.idOption === s.idOption)
+
+                return item;
+
+            }) || [];
 
             if (findItems) {
                 const calculatePrice: number = 2;
                 const prices = findItems.map((item: any) => item.price);
 
                 const newItem = {
-                    name: findItems.map((item:any) => item.name).join(" / "),
+                    name: findItems.map((item: any) => item.name).join(" / "),
                     photo: findItems[0].photo,
-                    description: `Você está pedindo uma combinação de pizza de ${selected.id.length} ${selected.id.length > 1 ? 'sabores' : 'sabor'}.`,
-                    price: calculatePrice === 0 ? Math.max(...prices) : calculatePrice === 1 ? Math.max(...prices) : prices.reduce((acc:any, val:any) => acc + val, 0) / prices.length
+                    description: `Você está pedindo uma combinação de pizza de ${selected.flavors.length} ${selected.flavors.length > 1 ? 'sabores' : 'sabor'}.`,
+                    price: calculatePrice === 0 ? Math.max(...prices) : calculatePrice === 1 ? Math.max(...prices) : prices.reduce((acc: any, val: any) => acc + val, 0) / prices.length
                 }
+
                 setItem(newItem)
             }
         } else {
@@ -178,7 +184,7 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
 
 
         setTimeout(() => {
-            if (category.name === "Pizza") {
+            if (category.name.includes("Pizza")) {
                 router.push(`/shops/${shopId}`);
             } else {
                 setAddItemAnimation(false);
@@ -279,15 +285,17 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
                     </Content>
                 </Container>
                 <Footer>
-                    <QuantityControls>
-                        <QuantityButton onClick={() => setQuantity(Math.max(1, quantity - 1))}>-</QuantityButton>
-                        <span>{quantity}</span>
-                        <QuantityButton onClick={() => setQuantity(quantity + 1)}>+</QuantityButton>
-                    </QuantityControls>
+                    <FooterContent>
+                        <QuantityControls>
+                            <QuantityButton onClick={() => setQuantity(Math.max(1, quantity - 1))}>-</QuantityButton>
+                            <span>{quantity}</span>
+                            <QuantityButton onClick={() => setQuantity(quantity + 1)}>+</QuantityButton>
+                        </QuantityControls>
 
-                    <AddButton onClick={addProductToCart} active={!hasUnfulfilledRequiredGroups()}>
-                        Adicionar <TotalPrice>R$ {totalPrice.toFixed(2)}</TotalPrice>
-                    </AddButton>
+                        <AddButton onClick={addProductToCart} active={!hasUnfulfilledRequiredGroups()}>
+                            Adicionar <TotalPrice>R$ {totalPrice.toFixed(2)}</TotalPrice>
+                        </AddButton>
+                    </FooterContent>
                 </Footer>
 
                 <ModalComponent

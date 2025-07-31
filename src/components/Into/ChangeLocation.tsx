@@ -3,13 +3,14 @@
 import { LocationContainer, SelectedLocation, } from "./styles";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useLocation } from '@/contexts/LocationContext';
+import { useRouter } from "next/navigation";
 
 export default function ChangeLocation() {
 
     const { selectedCity, selectedNeighborhood } = useLocation();
-
+    const router = useRouter();
     return (
-        <LocationContainer>
+        <LocationContainer onClick={() => router.push("/")}>
             <SelectedLocation>
                 <h4>
                     <Icon icon="mingcute:location-fill" width="20" color="#fff" />

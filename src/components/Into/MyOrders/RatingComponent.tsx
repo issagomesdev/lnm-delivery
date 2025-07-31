@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Overlay, ModalBox, CancelButton, ConfirmButton } from '@/components/shared/Modal/styles';
-import { Title, RatingRow, Stars, CommentBox, BottomRow, SecondModal } from "./styles"
+import { Title, RatingRow, Stars, CommentBox, BottomRow, SecondModal, SecondModalContent } from "./styles"
 import { Icon } from '@iconify/react';
 
 interface RatingComponentProps {
@@ -75,25 +75,33 @@ export default function RatingComponent({ isOpen, onClose }: RatingComponentProp
 
             {commentModalOpen && (
                 <SecondModal>
-                    <h4>Algum comentário?</h4>
-                    <textarea
-                        placeholder="Digite seu comentário"
-                        value={comment}
-                        onChange={(e) => setComment(e.target.value)}
-                    />
-                    <BottomRow>
-                        <CancelButton onClick={() => {setCommentModalOpen(false); setComment('')}}>Fechar</CancelButton>
-                        <ConfirmButton onClick={() => handleCommentConfirm(comment)}>Concluir</ConfirmButton>
-                    </BottomRow>
+                    <SecondModalContent>
+                        <h4>Algum comentário?</h4>
+                        <textarea
+                            placeholder="Digite seu comentário"
+                            value={comment}
+                            onChange={(e) => setComment(e.target.value)}
+                        />
+                        <BottomRow>
+                            <CancelButton onClick={() => { setCommentModalOpen(false); setComment('') }}>Fechar</CancelButton>
+                            <ConfirmButton onClick={() => handleCommentConfirm(comment)}>Concluir</ConfirmButton>
+                        </BottomRow>
+                    </SecondModalContent>
                 </SecondModal>
             )}
 
             {confirmModalOpen && (
                 <SecondModal>
-                    <span>Avaliação realizada com sucesso</span>
-                    <BottomRow>
-                        <ConfirmButton onClick={() => onClose()}>Ok</ConfirmButton>
-                    </BottomRow>
+                    <SecondModalContent>
+                        <span>Avaliação realizada com sucesso</span>
+                        <BottomRow>
+                            <ConfirmButton onClick={() => {
+                                setConfirmModalOpen(false);
+                                setComment('') 
+                                onClose()
+                            }}>Ok</ConfirmButton>
+                        </BottomRow>
+                    </SecondModalContent>
                 </SecondModal>
             )}
         </Overlay>

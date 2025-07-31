@@ -139,6 +139,25 @@ export const ShopsWrapper = styled.div`
   gap: 2rem;
 `;
 
+const shakeScale = keyframes`
+  0% {
+    -webkit-transform: translateY(-100px);
+            transform: translateY(-100px);
+  }
+  25% {
+    -webkit-transform: translateY(-10px);
+            transform: translateY(-10px);
+  }
+  50% {
+    -webkit-transform: translateY(-5px);
+            transform: translateY(-5px);
+  }
+  100% {
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+  }
+`;
+
 export const FiltersWrapper = styled.div.withConfig({
   shouldForwardProp: (prop) => prop !== 'fixed' && prop !== 'animate',
 })<Props>`
@@ -154,8 +173,11 @@ export const FiltersWrapper = styled.div.withConfig({
   background-color: #fff;
 
   opacity: ${({ animate, fixed }) => (animate || !fixed ? 1 : 0)};
-  transform: ${({ animate }) => (animate ? 'translateY(0)' : '')};
-  transition: all 2s ease;
+    ${({ animate }) =>
+    animate &&
+    css`
+      animation: ${shakeScale} 8s alternate both;
+    `}
 
   @media (max-width: 980px) {
     flex-direction: column;
@@ -228,6 +250,7 @@ export const ShopItems = styled.div`
 
 export const ShopItem = styled.div`
   display: flex;
+  flex-direction: column;
   gap: 12px;
   padding: 12px;
   background-color: #fff;
@@ -245,6 +268,12 @@ export const ShopItem = styled.div`
   }
 `;
 
+export const ShopContent = styled.div`
+  display: flex;
+  gap: 12px;
+  width: 100%;
+`;
+
 export const ShopImage = styled.img`
   width: 64px;
   height: 64px;
@@ -260,6 +289,7 @@ export const ShopInfo = styled.div`
   max-width: 100%;
   flex-direction: column;
   gap: 5px;
+  width: 100%;
 `;
 
 export const ShopName = styled.h4`

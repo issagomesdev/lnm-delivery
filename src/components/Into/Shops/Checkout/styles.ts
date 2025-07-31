@@ -200,7 +200,7 @@ export const OptionItem = styled.div`
   input[type="checkbox"]:not(:checked) {
     appearance: none;
     -webkit-appearance: none;
-    border: 1px solid rgb(0 0 0 / 30%);
+    border: 2px solid rgb(0 0 0 / 30%);
   }
 `;
 
@@ -263,13 +263,23 @@ export const TextArea = styled.div`
 
 export const Footer = styled.div`
   display: flex;
-  justify-content: space-between;
   padding: 16px;
+  justify-content: flex-end;
   border-top: 1px solid #eee;
   position: absolute;
   width: 100%;
   bottom: 0;
   background: #fff;
+`;
+
+export const FooterContent = styled.div`
+  width: 48%;
+  display: flex;
+  justify-content: space-between;
+
+  @media (max-width: 600px){
+    width: 100%;
+  }
 `;
 
 export const AddButton = styled.button.withConfig({

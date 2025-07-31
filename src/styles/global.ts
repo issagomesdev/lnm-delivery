@@ -42,4 +42,18 @@ export const GlobalStyle = createGlobalStyle`
         color: ${({ theme }) => theme.colors.primary};
         text-decoration: none;
     }
+
+    @media (pointer: coarse) {
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+    *[style*="cursor: pointer"],
+    *[class*="cursor-pointer"],
+    button,
+    a,
+    [role="button"],
+    [data-clickable] {
+      user-select: none;
+    }
+  }
 `

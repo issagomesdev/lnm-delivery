@@ -14,6 +14,7 @@ import {
     FlavorsOptions,
     FlavorsOption,
     ForwardButton,
+    FlavorsSelecteds,
 } from "./styles";
 
 import { useCustomBackAction } from "@/hooks/useCustomBackAction";
@@ -22,6 +23,21 @@ import { useRouter } from "next/navigation";
 import { Checkout } from "@/components/Into/Shops/Checkout/Checkout";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import ChooseFlavor from "@/components/Into/Shops/Profile/pizzaBuild/ChooseFlavor";
+import { ModalBox } from "@/components/Into/Shops/Checkout/styles";
+import { Title, Overlay, CloseXButton } from '@/components/shared/Modal/styles';
+import {
+    MenuItems,
+    MenuItem,
+    MenuInfo,
+    MenuName,
+    MenuDescription,
+    MenuPrice,
+    MenuImage
+} from "@/app/shops/[shopId]/cardapio/styles";
+import {
+    FlavorSelected,
+    ChangeCategory,
+} from "@/app/shops/[shopId]/monte-sua-pizza/styles";
 
 export default function PizzaBuild() {
     const { shopId } = useParams();
@@ -32,12 +48,11 @@ export default function PizzaBuild() {
     const [partSelected, setPartSelected] = useState<number | null>(null);
     const [flavorsQuantity, setFlavorsQuantity] = useState<number | null>(null);
     const [selectedFlavor, setSelectedFlavor] = useState<number | null>(null);
-    const [selectedFlavors, setSelectedFlavors] = useState<(number | null)[]>([]);
+    const [selectedFlavors, setSelectedFlavors] = useState<(any | null)[]>([]);
     const [checkoutIsOpen, setCheckoutIsOpen] = useState(false);
     const [itemSelected, setItemSelected] = useState<any>({});
     const [loading, setLoading] = useState(true);
-    const isMobile = useIsMobile();
-    const router = useRouter();
+    const [showFlavorsSelecteds, setShowFlavorsSelecteds] = useState(false);
 
     useEffect(() => {
         const id = searchParams.get("productId");
@@ -79,7 +94,7 @@ export default function PizzaBuild() {
 
     useCustomBackAction(
         useCallback(() => {
-            if(steps === 3){
+            if (steps === 3) {
                 setFlavorsQuantity(1)
             }
             if (steps > 1) {
@@ -116,13 +131,17 @@ export default function PizzaBuild() {
         return positions[count] || [];
     };
 
-    const SelectOptions = (flavors: (number | null)[]) => {
+    const SelectOptions = (flavors: (any | null)[]) => {
         setItemSelected({
-            id: flavors,
+            flavors: flavors,
             categoryID: category.id
         })
         setCheckoutIsOpen(true);
     }
+
+    useEffect(() => {
+        console.log('selectedFlavors', selectedFlavors)
+    }, [selectedFlavors])
 
     if (loading) return <h1>carregando...</h1>
 
@@ -220,6 +239,9 @@ export default function PizzaBuild() {
                                 )}
                             </FlavorsOptions>
                         </FlavorsFigure>
+                        {selectedFlavors.filter(f => f !== null).length > 0 && <FlavorsSelecteds onClick={() => setShowFlavorsSelecteds(true)}>
+                            <h4>{selectedFlavors.filter(f => f !== null).length} Sabor(es) selecionado(s)</h4>
+                        </FlavorsSelecteds>}
                     </Content>
                 )}
 
@@ -232,7 +254,7 @@ export default function PizzaBuild() {
                     <ChooseFlavor
                         category={category}
                         shopId={Number(shopId)}
-                        setSelectedFlavors={(value: (number | null)[]) => {
+                        setSelectedFlavors={(value: (any | null)[]) => {
                             setSelectedFlavors(value)
                             if (flavorsQuantity == 1) {
                                 SelectOptions(value)
@@ -245,6 +267,51 @@ export default function PizzaBuild() {
                         setProductId={(value) => setProductId(value)} />
                 )}
             </Container>
+
+            {showFlavorsSelecteds && (<Overlay>
+                <ModalBox>
+                    <CloseXButton>
+                        <Icon icon="material-symbols:close" color="#fff" width="24" onClick={() => setShowFlavorsSelecteds(false)} />
+                    </CloseXButton>
+
+                    <Title style={{ margin: 0 }}>SABOR SELECIONADO</Title>
+
+                    <MenuItems style={{ flexDirection: 'column' }}>
+                        {selectedFlavors.map((item, index) => (
+                            item && (
+                                <MenuItem
+                                    key={item.idOption}
+                                    withImage={!!item.photo}
+                                    style={{ width: '100%' }}
+                                    onClick={() => {
+                                        setSelectedFlavors((prev) =>
+                                            prev.map((val, i) =>
+                                                val?.idOption === item.idOption ? null : val
+                                            )
+                                        );
+                                    }}
+                                >
+                                    <MenuInfo>
+                                        <MenuName>{item.name}</MenuName>
+                                        <MenuDescription>{item.description}</MenuDescription>
+                                        <MenuPrice>R$ {item.price.toFixed(2)}</MenuPrice>
+
+                                        <FlavorSelected>
+                                            <span>({index + 1}º sabor selecionado)</span>
+                                            <Icon icon="ic:baseline-close" color="red" width="18" />
+                                        </FlavorSelected>
+                                    </MenuInfo>
+
+                                    {item.photo && <MenuImage src={item.photo} alt={item.name} />}
+                                </MenuItem>
+                            )
+                        ))}
+
+                    </MenuItems>
+
+                </ModalBox>
+            </Overlay >)
+            }
 
             <Checkout
                 isOpen={checkoutIsOpen}

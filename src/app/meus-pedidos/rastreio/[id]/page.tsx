@@ -66,8 +66,12 @@ export default function TrackOrderPage() {
 
   useCustomBackAction(
     useCallback(() => {
-      router.push(`/shops`);
-      return false;
+      const returnShops = searchParams.get('return');
+      if (returnShops && returnShops === 'shops') {
+        return "/shops";
+      }
+
+      return "/meus-pedidos";
     }, [])
   );
 

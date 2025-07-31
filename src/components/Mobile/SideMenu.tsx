@@ -5,13 +5,14 @@ import { MenuButton, MenuPanel, MenuOverlay, Content, UserContent, Nav, NavItem,
 import { Icon } from '@iconify/react';
 import { useLocation } from '@/contexts/LocationContext';
 import ChangeLocation from '../Into/ChangeLocation';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 export default function SideMenu({ locationSelector = true }: { locationSelector?: boolean }) {
     const [isOpen, setIsOpen] = useState(false);
     const { selectedCity, selectedNeighborhood } = useLocation();
     const pathname = usePathname();
     const toggleMenu = () => setIsOpen(prev => !prev);
+    const router = useRouter()
 
     const links = [
         { href: '/shops', icon: 'Icon inicio.png', label: 'Inicio' },
@@ -52,7 +53,7 @@ export default function SideMenu({ locationSelector = true }: { locationSelector
                             .map((item) => (
                                 <NavItem
                                     key={item.href}
-                                    href={item.href}
+                                    onClick={() => router.push(`/redirect?to=${item.href}`)}
                                     style={{ display: 'flex', alignItems: 'center' }}
                                 >
                                     <img

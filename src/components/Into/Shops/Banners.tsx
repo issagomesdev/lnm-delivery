@@ -37,7 +37,6 @@ useEffect(() => {
   return () => clearInterval(interval);
 }, [ref]);
 
-
   return (
     <BannersWrapper
       ref={ref}

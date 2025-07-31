@@ -96,7 +96,7 @@ export const Nav = styled.nav`
   
 `
 
-export const NavItem = styled.a`
+export const NavItem = styled.div`
   color: ${({ theme }) => theme.colors.text};
   font-weight: 400;
   gap: .3rem;
