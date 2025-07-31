@@ -40,6 +40,11 @@ export const Container = styled.div.withConfig({
         justify-content: center;
         position: fixed;
         top: 0;
+
+        >span {
+         user-select: none;
+         cursor: none;
+        }
     }
 
     @media (min-width: 980px) {
@@ -57,6 +62,7 @@ export const Container = styled.div.withConfig({
 
     >h2 {
         font-size: 16px;
+        user-select: none;
     }
 
     >span {
@@ -68,6 +74,7 @@ export const Container = styled.div.withConfig({
         gap: 2px;
         cursor: pointer;
     }
+        
 `
 
 export const RightSide = styled.div.withConfig({
@@ -82,6 +89,7 @@ export const RightSide = styled.div.withConfig({
         display: flex;
         align-items: center;
         justify-content: center;
+        user-select: none;
     }
     hr {
         border: 1px solid #fff;
@@ -115,10 +123,12 @@ export const SelectedLocation = styled.div`
         align-items: center;
         width: 100%;
         justify-content: flex-end;
+        user-select: none;
     }
     
     span {
         font-size: 12px;
+        user-select: none;
     }
 
 `

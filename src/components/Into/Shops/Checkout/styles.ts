@@ -1,7 +1,8 @@
-import styled, { keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 
 interface Props {
   active?: boolean;
+  requerid?: boolean;
 }
 
 export const ItemImage = styled.div`
@@ -115,6 +116,18 @@ export const Content = styled.div`
   }
 `;
 
+const scale = keyframes`
+  0% {
+    transform: scale(1);
+  }
+  60% {
+    transform: scale(1.04);
+  }
+  100% {
+    transform: scale(1);
+  }
+`;
+
 export const Section = styled.div`
   padding: 10px 15px;
   text-align: left;
@@ -133,7 +146,9 @@ export const OptionsLabel = styled.strong`
   padding: 10px 0;
 `;
 
-export const OptionHeader = styled.div`
+export const OptionHeader = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== 'requerid',
+}) <Props>`
   background-color: #ebebeb;
   padding: 10px;
   border-radius: 6px;
@@ -150,6 +165,12 @@ export const OptionHeader = styled.div`
     right: 10px;
     bottom: 5px;
   }
+
+  ${({ requerid }) =>
+    requerid &&
+    css`
+      animation: ${scale} 2s ease-in-out infinite;
+    `}
 `;
 
 export const OptionQuantity = styled.div`
@@ -238,6 +259,7 @@ export const QuantityButton = styled.button`
   height: 28px;
   font-size: 16px;
   cursor: pointer;
+  user-select: none;
 `;
 
 export const TextArea = styled.div`
@@ -273,11 +295,13 @@ export const Footer = styled.div`
 `;
 
 export const FooterContent = styled.div`
-  width: 48%;
+  width: 50%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  gap: 2.5rem;
 
   @media (max-width: 600px){
+    justify-content: space-between;
     width: 100%;
   }
 `;

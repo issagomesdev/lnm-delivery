@@ -38,6 +38,7 @@ export const Label = styled.div`
   font-size: 18px;
   position: relative;
   font-weight: 500;
+  user-select: none;
   
   > span {
     background-color: #fff;
@@ -52,6 +53,7 @@ export const Label = styled.div`
     font-weight: 600;
     position: absolute;
     left: 16px;
+    user-select: none;
   }
 
   > img {
@@ -62,6 +64,7 @@ export const Label = styled.div`
 export const Total = styled.div`
   font-weight: bold;
   font-size: 18px;
+  user-select: none;
 `;
 
 // ItemDetails

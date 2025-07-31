@@ -47,7 +47,7 @@ type ShopsListProps = {
   triggered?: boolean;
 };
 
-const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory, filterIsActive, setFilterIsActive, mode, triggered, filterIsOpen, setFilterIsOpen}: ShopsListProps) => {
+const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory, filterIsActive, setFilterIsActive, mode, triggered, filterIsOpen, setFilterIsOpen }: ShopsListProps) => {
   const [search, setSearch] = useState('');
   const isMobile = useIsMobile();
   const now = new Date();
@@ -223,40 +223,43 @@ const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory
         {closeShops.map((shop, i) => {
           return (
             <ShopItem key={i} style={{ opacity: 0.5 }} onClick={() => { router.push(`/shops/${shop.id}`) }}>
-              <ShopImage style={{ filter: 'grayscale(85%)' }} src={'/images/default-store.png'} alt={shop.name} />
-              <ShopInfo>
-                <ShopName>{shop.name}</ShopName>
-                <ShopMeta> {shop.category.name} </ShopMeta>
-                {mode && mode === 'coupon' &&
-                  <>
-                    <ShopMeta className={'coupon'}> Cupom: <span>{shop.coupon.name}</span> </ShopMeta>
-                    <ShopMeta className={'coupon'}> {shop.coupon.discount} {shop.coupon.discount !== "Frete grátis" && "desc. em produtos"} </ShopMeta>
-                    {shop.coupon.minimum_value > 0 && <ShopMeta className={'coupon'}> Pedido mínimo para uso: R$ {shop.coupon.minimum_value.toFixed(2)} </ShopMeta>}
-                    {shop.coupon.rule && <ShopMeta className={'coupon rule'}> {shop.coupon.rule} </ShopMeta>}
-                  </>
-                }
-                {(!mode || mode === 'fav') &&
-                  <>
-                    <ShopMeta>
-                      <span> <Icon icon={'formkit:time'} width="15" /> {shop.deliveryTime} min </span>
-                      <span> <Icon icon={'mdi:delivery-dining'} width="15" />  R${shop.deliveryFee.toFixed(2)} </span>
-                    </ShopMeta>
-                    <ShopFooter>
-                      <ShopMeta className={'close'}>Fechado</ShopMeta>
-                      <ShopRating>
-                        <Icon icon={'material-symbols:star-rounded'} width="20" color={'#f5a623'} />
-                        {shop.rating.toFixed(1)}
-                      </ShopRating>
-                    </ShopFooter>
-                    {shop.offer &&
-                      <Tag>
-                        <Icon icon={'streamline-plump:announcement-megaphone'} width="20" />
-                        <p> {shop.offer} </p>
-                      </Tag>}
-                  </>
-                }
-              </ShopInfo>
+              <ShopContent>
+                <ShopImage style={{ filter: 'grayscale(85%)' }} src={'/images/default-store.png'} alt={shop.name} />
+                <ShopInfo>
+                  <ShopName>{shop.name}</ShopName>
+                  <ShopMeta> {shop.category.name} </ShopMeta>
+                  {mode && mode === 'coupon' &&
+                    <>
+                      <ShopMeta className={'coupon'}> Cupom: <span>{shop.coupon.name}</span> </ShopMeta>
+                      <ShopMeta className={'coupon'}> {shop.coupon.discount} {shop.coupon.discount !== "Frete grátis" && "desc. em produtos"} </ShopMeta>
+                      {shop.coupon.minimum_value > 0 && <ShopMeta className={'coupon'}> Pedido mínimo para uso: R$ {shop.coupon.minimum_value.toFixed(2)} </ShopMeta>}
+                      {shop.coupon.rule && <ShopMeta className={'coupon rule'}> {shop.coupon.rule} </ShopMeta>}
+                    </>
+                  }
+                  {(!mode || mode === 'fav') &&
+                    <>
+                      <ShopMeta>
+                        <span> <Icon icon={'formkit:time'} width="15" /> {shop.deliveryTime} min </span>
+                        <span> <Icon icon={'mdi:delivery-dining'} width="15" />  R${shop.deliveryFee.toFixed(2)} </span>
+                      </ShopMeta>
+                      <ShopFooter>
+                        <ShopMeta className={'close'}>Fechado</ShopMeta>
+                        <ShopRating>
+                          <Icon icon={'material-symbols:star-rounded'} width="20" color={'#f5a623'} />
+                          {shop.rating.toFixed(1)}
+                        </ShopRating>
+                      </ShopFooter>
+                    </>
+                  }
+                </ShopInfo>
+              </ShopContent>
 
+              {shop.offer && <ShopOffer>
+                <Tag>
+                  <Icon icon={'streamline-plump:announcement-megaphone'} width="20" />
+                  <p> {shop.offer} </p>
+                </Tag>
+              </ShopOffer>}
             </ShopItem>
           );
         })}

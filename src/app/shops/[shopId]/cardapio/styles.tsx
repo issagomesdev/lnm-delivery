@@ -69,6 +69,7 @@ export const CategoryButton = styled.button<{ selected: boolean }>`
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
+   user-select: none;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.primary};
@@ -138,18 +139,21 @@ export const MenuName = styled.h3`
   font-size: 15px;
   font-weight: 500;
   margin: 0 0 4px;
+  user-select: none;
 `;
 
 export const MenuDescription = styled.p`
   font-size: 13px;
   color: #777;
   margin: 0 0 8px;
+  user-select: none;
 `;
 
 export const MenuPrice = styled.span`
   font-weight: bold;
   color: ${({ theme }) => theme.colors.green_highlight};
   font-size: 14px;
+  user-select: none;
 `;
 
 export const MenuImage = styled.img`

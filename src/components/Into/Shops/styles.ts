@@ -18,6 +18,8 @@ export const Wrapper = styled.div.withConfig({
   padding: ${({ fixed }) => (fixed ? '7.5rem' : '2rem')} 1rem 3rem 1rem;
   margin-bottom: 5rem;
   width: 100%;
+  height: 90%;
+  overflow: auto;
 
   @media (max-width: 980px) {
     padding: ${({ fixed }) => (fixed ? '5.5rem' : '6rem')} 1rem 0 1rem;
@@ -212,6 +214,7 @@ export const FilterButton = styled.button`
   display: flex;
   gap: 10px;
   align-items: center;
+  user-select: none;
 
   @media (max-width: 400px) {
     padding: 4px 8px;
@@ -231,6 +234,7 @@ export const ShopCount = styled.div.withConfig({
   font-weight: bold;
   color: ${({ close }) => (close ? '#f02649' : '#24b03c')};
   padding: 0 1rem;
+  user-select: none;
 
   @media (max-width: 400px) {
     font-size: 13px;
@@ -299,6 +303,7 @@ export const ShopName = styled.h4`
   overflow: hidden;
   text-overflow: ellipsis;
   width: 95%;
+  user-select: none;
 `;
 
 export const ShopMeta = styled.p`
@@ -306,12 +311,14 @@ export const ShopMeta = styled.p`
   color: #666;
   display: flex;
   gap: 10px;
+  user-select: none;
 
   span {
     font-size: 13px;
     display: flex;
     align-items: center;
     gap: 5px;
+    user-select: none;
   }
 
   &.coupon {
@@ -451,6 +458,7 @@ export const NavItem = styledBase.a.withConfig({
   font-weight: 500;
   color: ${({ active, theme }) => (active ? theme.colors.primary : '#333')};
   cursor: pointer;
+  user-select: none;
 `;
 
 // Advanced Filter

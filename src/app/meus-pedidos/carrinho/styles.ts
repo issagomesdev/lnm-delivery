@@ -1,5 +1,9 @@
 
 import styled from "styled-components";
+interface Props {
+  active?: boolean;
+  withBorder?: boolean;
+}
 
 export const Wrapper = styled.div`
   margin-bottom: 6rem;
@@ -68,7 +72,9 @@ export const Delete = styled.button`
     right: 10px;
 `;
 
-export const QuantityControls = styled.div`
+export const QuantityControls = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== 'withBorder',
+}) <Props>`
   display: flex;
   align-items: center;
   gap: 8px;
@@ -77,6 +83,14 @@ export const QuantityControls = styled.div`
     min-width: 20px;
     text-align: center;
   }
+
+   ${({ withBorder }) =>
+    withBorder &&
+    `
+      border: 1px solid rgb(0 0 0 / 30%);
+      padding: 10px;
+      border-radius: 10px;
+    `}
 `;
 
 export const QtyBtn = styled.button`

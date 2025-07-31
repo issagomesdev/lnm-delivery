@@ -43,7 +43,8 @@ export const ModalBox = styled.div.withConfig({
   position: relative;
 
   >h2 {
-    color: #000
+    color: #000;
+    user-select: none;
   }
 `
 
@@ -88,6 +89,7 @@ export const CancelButton = styled.button`
   width: 100%;
   cursor: pointer;
   border-radius: 4px;
+  user-select: none;
 `
 
 export const ConfirmButton = styled.button`
@@ -98,6 +100,7 @@ export const ConfirmButton = styled.button`
   min-width: 160px;
   border-radius: 4px;
   cursor: pointer;
+  user-select: none;
 `
 
 export const CloseXButton = styled.button.withConfig({

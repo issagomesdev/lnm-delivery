@@ -19,9 +19,7 @@ import {
 
 import { useCustomBackAction } from "@/hooks/useCustomBackAction";
 import { Icon } from '@iconify/react';
-import { useRouter } from "next/navigation";
 import { Checkout } from "@/components/Into/Shops/Checkout/Checkout";
-import { useIsMobile } from "@/hooks/useIsMobile";
 import ChooseFlavor from "@/components/Into/Shops/Profile/pizzaBuild/ChooseFlavor";
 import { ModalBox } from "@/components/Into/Shops/Checkout/styles";
 import { Title, Overlay, CloseXButton } from '@/components/shared/Modal/styles';
@@ -36,7 +34,6 @@ import {
 } from "@/app/shops/[shopId]/cardapio/styles";
 import {
     FlavorSelected,
-    ChangeCategory,
 } from "@/app/shops/[shopId]/monte-sua-pizza/styles";
 
 export default function PizzaBuild() {
@@ -53,6 +50,7 @@ export default function PizzaBuild() {
     const [itemSelected, setItemSelected] = useState<any>({});
     const [loading, setLoading] = useState(true);
     const [showFlavorsSelecteds, setShowFlavorsSelecteds] = useState(false);
+    const [categorySelector, setCategorySelector] = useState(false);
 
     useEffect(() => {
         const id = searchParams.get("productId");
@@ -94,16 +92,24 @@ export default function PizzaBuild() {
 
     useCustomBackAction(
         useCallback(() => {
-            if (steps === 3) {
-                setFlavorsQuantity(1)
-            }
-            if (steps > 1) {
-                if (flavorsQuantity === 1) {
-                    setSteps(2);
-                    return true;
-                }
-                setSteps((prev) => prev - 1);
+            if (steps === 4) {
+                setSteps(3);
                 return true;
+            } else if (showFlavorsSelecteds) {
+                setShowFlavorsSelecteds(false)
+                return true;
+            } else if (categorySelector) {
+                setCategorySelector(false)
+                return true;
+            } else if (steps === 3) {
+                setFlavorsQuantity(1)
+                setSteps(2);
+                return true;
+            } else if (steps === 2) {
+                setSteps(1);
+                return true;
+            } else if (steps === 1) {
+                return `/shops/${shopId}`;
             }
             return false;
         }, [steps])
@@ -264,7 +270,9 @@ export default function PizzaBuild() {
                         selectedFlavors={selectedFlavors}
                         selectedFlavor={selectedFlavor}
                         productId={productId}
-                        setProductId={(value) => setProductId(value)} />
+                        setProductId={(value) => setProductId(value)}
+                        categorySelector={categorySelector}
+                        setCategorySelector={(value) => setCategorySelector(value)} />
                 )}
             </Container>
 
@@ -289,6 +297,7 @@ export default function PizzaBuild() {
                                                 val?.idOption === item.idOption ? null : val
                                             )
                                         );
+                                        setShowFlavorsSelecteds(false)
                                     }}
                                 >
                                     <MenuInfo>

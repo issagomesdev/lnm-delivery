@@ -81,142 +81,167 @@ export const reviewData = [
     rate: { product: 1, packaging: 5, delivery: 5, costBenefit: 4.5 },
     date: new Date('2025-05-24'),
     review: 'Teste',
+    reply: 'teste resposta okk'
   },
   {
     name: 'Maria',
     rate: { product: 5, packaging: 4, delivery: 5, costBenefit: 5 },
     date: new Date('2025-02-26'),
+    reply: ''
   },
   {
     name: 'Felipe',
     rate: { product: 4, packaging: 4, delivery: 2, costBenefit: 5 },
     date: new Date('2025-02-24'),
     review: 'Bom',
+    reply: 'teste resposta okk'
   },
   {
     name: 'Eduardo',
     rate: { product: 2, packaging: 2, delivery: 2, costBenefit: 1 },
     date: new Date('2025-02-24'),
     review: 'Bom',
+    reply: ''
   },
   {
     name: 'Maria',
     rate: { product: 5, packaging: 4, delivery: 5, costBenefit: 5 },
     date: new Date('2025-02-26'),
+    reply: ''
   },
   {
     name: 'Felipe',
     rate: { product: 4, packaging: 4, delivery: 2, costBenefit: 5 },
     date: new Date('2025-02-24'),
     review: 'Bom',
+    reply: ''
   },
   {
     name: 'Eduardo',
     rate: { product: 2, packaging: 2, delivery: 2, costBenefit: 1 },
     date: new Date('2025-02-24'),
     review: 'Bom',
+    reply: 'obg'
   },
   {
     name: 'Maria',
     rate: { product: 5, packaging: 4, delivery: 5, costBenefit: 5 },
     date: new Date('2025-02-26'),
+    reply: ''
   },
   {
     name: 'Felipe',
     rate: { product: 4, packaging: 4, delivery: 2, costBenefit: 5 },
     date: new Date('2025-02-24'),
     review: 'Bom',
+    reply: ''
   },
   {
     name: 'Eduardo',
     rate: { product: 2, packaging: 2, delivery: 2, costBenefit: 1 },
     date: new Date('2025-02-24'),
     review: 'Bom',
+    reply: ''
   },
   {
     name: 'Maria',
     rate: { product: 5, packaging: 4, delivery: 5, costBenefit: 5 },
     date: new Date('2025-02-26'),
+    reply: ''
   },
   {
     name: 'Felipe',
     rate: { product: 4, packaging: 4, delivery: 2, costBenefit: 5 },
     date: new Date('2025-02-24'),
     review: 'Bom',
+    reply: ''
   },
   {
     name: 'Eduardo',
     rate: { product: 2, packaging: 2, delivery: 2, costBenefit: 1 },
     date: new Date('2025-02-24'),
     review: 'Bom',
+    reply: ''
   },
   {
     name: 'Maria',
     rate: { product: 5, packaging: 4, delivery: 5, costBenefit: 5 },
     date: new Date('2025-02-26'),
+    reply: ''
   },
   {
     name: 'Felipe',
     rate: { product: 4, packaging: 4, delivery: 2, costBenefit: 5 },
     date: new Date('2025-02-24'),
     review: 'Bom',
+    reply: 'okk'
   },
   {
     name: 'Eduardo',
     rate: { product: 2, packaging: 2, delivery: 2, costBenefit: 1 },
     date: new Date('2025-02-24'),
     review: 'Bom',
+    reply: 'valeeeeu'
   },
   {
     name: 'Maria',
     rate: { product: 5, packaging: 4, delivery: 5, costBenefit: 5 },
     date: new Date('2025-02-26'),
+    reply: ''
   },
   {
     name: 'Felipe',
     rate: { product: 4, packaging: 4, delivery: 2, costBenefit: 5 },
     date: new Date('2025-02-24'),
     review: 'Bom',
+    reply: ''
   },
   {
     name: 'Eduardo',
     rate: { product: 2, packaging: 2, delivery: 2, costBenefit: 1 },
     date: new Date('2025-02-24'),
     review: 'Bom',
+    reply: ''
   },
   {
     name: 'Maria',
     rate: { product: 5, packaging: 4, delivery: 5, costBenefit: 5 },
     date: new Date('2025-02-26'),
+    reply: ''
   },
   {
     name: 'Felipe',
     rate: { product: 4, packaging: 4, delivery: 2, costBenefit: 5 },
     date: new Date('2025-02-24'),
     review: 'Bom',
+    reply: ''
   },
   {
     name: 'Eduardo',
     rate: { product: 2, packaging: 2, delivery: 2, costBenefit: 1 },
     date: new Date('2025-02-24'),
     review: 'Bom',
+    reply: ''
   },
   {
     name: 'Maria',
     rate: { product: 5, packaging: 4, delivery: 5, costBenefit: 5 },
     date: new Date('2025-02-26'),
+    reply: ''
   },
   {
     name: 'Felipe',
     rate: { product: 4, packaging: 4, delivery: 2, costBenefit: 5 },
     date: new Date('2025-02-24'),
     review: 'Bom',
+    reply: ''
   },
   {
     name: 'Eduardo',
     rate: { product: 2, packaging: 2, delivery: 2, costBenefit: 1 },
     date: new Date('2025-02-24'),
     review: 'Bom',
+    reply: ''
   }
 ];
 

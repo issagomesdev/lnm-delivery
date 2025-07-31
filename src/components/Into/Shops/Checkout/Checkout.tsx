@@ -2,7 +2,7 @@
 import { Title, Overlay, CloseXButton } from '@/components/shared/Modal/styles';
 import { Icon } from '@iconify/react';
 import { categories, groupOptions } from "@/components/Into/data";
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FooterContent, ItemImage } from './styles';
 import { useShoppingCart } from '@/contexts/ShoppingCartContext';
 import { useRouter } from 'next/navigation';
@@ -15,6 +15,7 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
 
     const [category, setCategory] = useState<any>();
     const [groupOption, setGroupOption] = useState<any>();
+    const [groupRequerid, setGroupRequerid] = useState<number[]>([]);
     const [item, setItem] = useState<any>();
     const [selectedOptions, setSelectedOptions] = useState<any>({});
     const [quantity, setQuantity] = useState(1);
@@ -59,7 +60,6 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
         setGroupOption(findGroupOption || []);
     }, [selected])
 
-    if (!isOpen || !item) return null;
 
     const handleSelect = (group: any, option: any) => {
 
@@ -86,6 +86,10 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
             return updated;
         });
 
+        if (groupRequerid.includes(group.id)) {
+            setGroupRequerid(prev => prev.filter(id => id !== group.id));
+        }
+
     };
 
     const handleAdjustQuantity = (group: any, option: any, value: number) => {
@@ -101,10 +105,14 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
             const current = updated[group.id][option.id];
             const maxValue = groupOption.groups.find((g: any) => g.id === group.id)?.max;
 
-            if (value === -1 && !current || value === 1 && countTotalSelectedItems(group.id) >= maxValue) {
-                return updated;
-            } else if (current) {
+            const total = Object.values(updated[group.id])
+                .reduce((acc: number, item: any) => acc + (item?.quantity || 0), 0);
 
+            if (value === 1 && total >= maxValue) return prev;
+
+            if (value === -1 && !current) return prev;
+
+            if (current) {
                 const newQty = current.quantity + value;
 
                 if (newQty < 1) {
@@ -130,6 +138,7 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
         });
     };
 
+
     const countTotalSelectedItems = (id: number): number => {
         const groupOptions = selectedOptions[id.toString()];
         if (!groupOptions) return 0;
@@ -151,26 +160,30 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
         return total;
     };
 
-    const hasUnfulfilledRequiredGroups = (): boolean => {
+    const hasUnfulfilledRequiredGroups = () => {
         const requiredGroups = groupOption.groups.filter((group: any) => group.required || group.min > 0);
         if (requiredGroups.length === 0) return false;
 
-        return requiredGroups.some((group: any) => {
-            const selectedCount = countTotalSelectedItems(group.id);
-
-            return selectedCount < group.min;
-        });
+        return requiredGroups
+            .filter((group: any) => {
+                const selectedCount = countTotalSelectedItems(group.id);
+                return selectedCount < group.min;
+            })
+            .map((group: any) => group.id);
     };
 
     const totalPrice = (item?.price || 0) * quantity + calculateSelectedOptionsTotal();
 
     const addProductToCart = () => {
-        if (hasUnfulfilledRequiredGroups()) {
+        const groups = hasUnfulfilledRequiredGroups();
+        if (groups.length > 0) {
+            setGroupRequerid(groups)
             setRequiredAlert(true);
             return;
         }
 
         setAddItemAnimation(true)
+
 
         addItem({
             ...item,
@@ -190,11 +203,45 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
                 setAddItemAnimation(false);
                 setQuantity(1);
                 setSelectedOptions({});
-                setObservations('')
+                setObservations('');
+                setGroupRequerid([]);
                 onClose()
             }
         }, 1500)
     }
+
+    const holdTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const holdIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+    const startHold = (group: any, option: any, value: number) => {
+        stopHold();
+
+        holdTimeoutRef.current = setTimeout(() => {
+            holdIntervalRef.current = setInterval(() => {
+                handleAdjustQuantity(group, option, value);
+
+                if (groupRequerid.includes(group.id)) {
+                    setGroupRequerid(prev => prev.filter(id => id !== group.id));
+                }
+            }, 120);
+        }, 400);
+    };
+
+
+    const stopHold = () => {
+        if (holdTimeoutRef.current) clearTimeout(holdTimeoutRef.current);
+        if (holdIntervalRef.current) clearInterval(holdIntervalRef.current);
+    };
+
+    const handleClick = (group: any, option: any, value: number) => {
+        handleAdjustQuantity(group, option, value);
+
+        if (groupRequerid.includes(group.id)) {
+            setGroupRequerid(prev => prev.filter(id => id !== group.id));
+        }
+    };
+
+    if (!isOpen || !item) return null;
 
     return (
         <Overlay>
@@ -204,7 +251,8 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
                         setAddItemAnimation(false);
                         setQuantity(1);
                         setSelectedOptions({});
-                        setObservations('')
+                        setObservations('');
+                        setGroupRequerid([]);
                         onClose()
                     }} />
                 </CloseXButton>
@@ -236,7 +284,7 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
                             const isQuantity = group.min >= 2;
                             return (
                                 <Section key={group.id}>
-                                    <OptionHeader>
+                                    <OptionHeader requerid={groupRequerid.includes(group.id)}>
                                         <h4>{group.name}</h4>
                                         <OptionQuantity>
                                             {group.min > 0 && <span>Mínimo: {group.min}</span>}
@@ -255,9 +303,28 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
 
                                                 {isQuantity ? (
                                                     <QuantityControls>
-                                                        <QuantityButton onClick={() => handleAdjustQuantity(group, opt, -1)}>-</QuantityButton>
+                                                        <QuantityButton onClick={() => handleClick(group, opt, -1)}
+                                                            onMouseDown={() => startHold(group, opt, -1)}
+                                                            onTouchStart={() => startHold(group, opt, -1)}
+                                                            onMouseUp={stopHold}
+                                                            onMouseLeave={stopHold}
+                                                            onTouchEnd={stopHold}
+                                                        >
+                                                            -
+                                                        </QuantityButton>
+
                                                         <span>{selectedOptions[group.id]?.[opt.id]?.quantity || 0}</span>
-                                                        <QuantityButton onClick={() => handleAdjustQuantity(group, opt, 1)}>+</QuantityButton>
+
+                                                        <QuantityButton onClick={() => handleClick(group, opt, 1)}
+                                                            onMouseDown={() => startHold(group, opt, 1)}
+                                                            onTouchStart={() => startHold(group, opt, 1)}
+                                                            onMouseUp={stopHold}
+                                                            onMouseLeave={stopHold}
+                                                            onTouchEnd={stopHold}
+                                                        >
+                                                            +
+                                                        </QuantityButton>
+
                                                     </QuantityControls>
                                                 ) : (
                                                     <input
@@ -286,13 +353,14 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
                 </Container>
                 <Footer>
                     <FooterContent>
-                        <QuantityControls>
+                        <QuantityControls withBorder>
+
                             <QuantityButton onClick={() => setQuantity(Math.max(1, quantity - 1))}>-</QuantityButton>
                             <span>{quantity}</span>
                             <QuantityButton onClick={() => setQuantity(quantity + 1)}>+</QuantityButton>
                         </QuantityControls>
 
-                        <AddButton onClick={addProductToCart} active={!hasUnfulfilledRequiredGroups()}>
+                        <AddButton onClick={addProductToCart} active={hasUnfulfilledRequiredGroups().length < 1}>
                             Adicionar <TotalPrice>R$ {totalPrice.toFixed(2)}</TotalPrice>
                         </AddButton>
                     </FooterContent>

@@ -41,7 +41,7 @@ export default function Header({ name, full = false, fixed = false }: { name?: s
     return (
         <Container full={full} fixed={fixed}>
             <RightSide full={full}>
-                <LogoWrapper onClick={() => router.replace("/shops")}>
+                <LogoWrapper onClick={() => router.push("/shops")}>
                     <img src="/images/logo_white.png" alt="Logo" />
                 </LogoWrapper>
                 <hr />

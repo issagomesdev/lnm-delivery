@@ -2,8 +2,9 @@
 
 import { Icon } from '@iconify/react';
 import { Title, Overlay, ModalBox, CloseXButton } from '@/components/shared/Modal/styles';
-import { CommentBox, Content, RatingHeader, RatingRow, RatingsSummary, ReviewsContainer, Stars, Summary } from './styles';
+import { CommentBox, Content, RatingHeader, RatingRow, RatingsSummary, ReplyContainer, ReplyIcon, ReplyLab, ReviewsContainer, Stars, Summary } from './styles';
 import { reviewData } from '../../data';
+
 
 const average = {
   product: 0,
@@ -47,7 +48,7 @@ const renderStars = (value: number) => {
   return stars;
 };
 
-const Reviews = ({ isOpen, onClose, id }: { isOpen: boolean; onClose: () => void; id:number }) => {
+const Reviews = ({ isOpen, onClose, id }: { isOpen: boolean; onClose: () => void; id: number }) => {
   if (!isOpen) return null;
 
   return (
@@ -121,6 +122,15 @@ const Reviews = ({ isOpen, onClose, id }: { isOpen: boolean; onClose: () => void
                 </RatingHeader>
                 {r.review && (
                   <p style={{ fontSize: '13px', marginTop: '4px' }}>{r.review}</p>
+                )}
+                {r.reply && (
+                  <ReplyContainer>
+                    <ReplyLab>
+                      <ReplyIcon icon="akar-icons:arrow-back-thick-fill"/>
+                      <strong> Resposta do estabelecimento </strong>
+                    </ReplyLab>
+                    <span style={{ fontSize: '13px', marginTop: '4px' }}>{r.reply}</span>
+                  </ReplyContainer>
                 )}
               </CommentBox>
             ))}

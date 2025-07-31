@@ -31,7 +31,9 @@ const ChooseFlavor = ({
     selectedFlavors,
     selectedFlavor,
     productId,
-    setProductId
+    setProductId,
+    categorySelector,
+    setCategorySelector
 }: {
     category: any,
     shopId: number,
@@ -39,11 +41,12 @@ const ChooseFlavor = ({
     selectedFlavors: (any | null)[],
     selectedFlavor: number | null,
     productId: string | null,
-    setProductId: (value: string) => void
+    setProductId: (value: string) => void,
+    setCategorySelector: (value: boolean) => void,
+    categorySelector: boolean,
 }) => {
 
     const [search, setSearch] = useState('');
-    const [categorySelector, setCategorySelector] = useState(false);
     const isAtTop = useScrollTop();
     const theme = useTheme();
 

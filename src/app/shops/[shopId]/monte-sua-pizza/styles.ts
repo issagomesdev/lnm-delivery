@@ -28,9 +28,10 @@ export const Container = styled.div`
     display: flex;
     width: 100%;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     padding-top: 2rem;
-    
+    height: 100%;
+
     @media (max-width: 980px){
         top: 3rem;
         position: fixed;

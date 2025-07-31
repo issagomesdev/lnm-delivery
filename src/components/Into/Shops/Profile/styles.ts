@@ -346,6 +346,28 @@ export const FeeRow = styled.div`
     justify-content: space-between;
 `;
 
+ export const ReplyContainer = styled.div`
+   display: flex;
+   flex-direction: column;
+   align-items: flex-start;
+
+  >span {
+    color: gray;
+  }
+`;
+
+ export const ReplyLab = styled.div`
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+`;
+
+export const ReplyIcon = styled(Icon)`
+  font-size: 10px;
+  transform: scaleX(-1);
+`;
+
 // Categories
 
 export const CategoriesContainer = styled.div`
