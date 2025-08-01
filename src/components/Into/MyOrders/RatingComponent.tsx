@@ -21,6 +21,8 @@ export default function RatingComponent({ isOpen, onClose }: RatingComponentProp
 
     const [ratings, setRatings] = useState<Record<string, number>>({});
     const [comment, setComment] = useState('');
+    const [keyboardOpen, setKeyboardOpen] = useState(false);
+    const isTouchDevice = typeof window !== 'undefined' && 'ontouchstart' in window;
     const [commentModalOpen, setCommentModalOpen] = useState(false);
     const [confirmModalOpen, setConfirmModalOpen] = useState(false);
 
@@ -75,12 +77,18 @@ export default function RatingComponent({ isOpen, onClose }: RatingComponentProp
 
             {commentModalOpen && (
                 <SecondModal>
-                    <SecondModalContent>
+                    <SecondModalContent keyboardOpen={keyboardOpen}>
                         <h4>Algum comentário?</h4>
                         <textarea
                             placeholder="Digite seu comentário"
                             value={comment}
                             onChange={(e) => setComment(e.target.value)}
+                            onFocus={() => {
+                                if (isTouchDevice) setKeyboardOpen(true);
+                            }}
+                            onBlur={() => {
+                                if (isTouchDevice) setKeyboardOpen(false);
+                            }}
                         />
                         <BottomRow>
                             <CancelButton onClick={() => { setCommentModalOpen(false); setComment('') }}>Fechar</CancelButton>
@@ -97,7 +105,7 @@ export default function RatingComponent({ isOpen, onClose }: RatingComponentProp
                         <BottomRow>
                             <ConfirmButton onClick={() => {
                                 setConfirmModalOpen(false);
-                                setComment('') 
+                                setComment('')
                                 onClose()
                             }}>Ok</ConfirmButton>
                         </BottomRow>

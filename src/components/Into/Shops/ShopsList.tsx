@@ -36,6 +36,7 @@ import { useRouter } from 'next/navigation';
 import { useTheme } from 'styled-components';
 
 type ShopsListProps = {
+  ref: React.Ref<HTMLDivElement | null>;
   selectedCategories?: number[];
   setSelectedCategories?: React.Dispatch<React.SetStateAction<number[]>>;
   selectedCategory?: string;
@@ -47,7 +48,7 @@ type ShopsListProps = {
   triggered?: boolean;
 };
 
-const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory, filterIsActive, setFilterIsActive, mode, triggered, filterIsOpen, setFilterIsOpen }: ShopsListProps) => {
+const ShopsList = ({ ref, selectedCategories, setSelectedCategories, selectedCategory, filterIsActive, setFilterIsActive, mode, triggered, filterIsOpen, setFilterIsOpen }: ShopsListProps) => {
   const [search, setSearch] = useState('');
   const isMobile = useIsMobile();
   const now = new Date();
@@ -114,34 +115,67 @@ const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory
 
   return (
     <ShopsWrapper style={!triggered || filteredShops.length < 1 ? { gap: '1rem' } : {}}>
-      {!mode && <FiltersWrapper
-        fixed={triggered && filteredShops.length > 0}
-        animate={animate}>
-        <FilterInput>
-          <Icon icon={'lets-icons:search-alt'} color={'gray'} width="20" />
-          <input placeholder="Buscar por loja ou categoria"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)} />
-          {search.length > 0 && <Icon icon={'material-symbols:close-rounded'} color={theme.colors.primary} width="20" onClick={() => setSearch('')} />
-          }
-        </FilterInput>
+      {!mode && <>
+        <div ref={ref}>
+          <FiltersWrapper>
+            <FilterInput>
+              <Icon icon={'lets-icons:search-alt'} color={'gray'} width="20" />
+              <input placeholder="Buscar por loja ou categoria"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)} />
+              {search.length > 0 && <Icon icon={'material-symbols:close-rounded'} color={theme.colors.primary} width="20" onClick={() => setSearch('')} />
+              }
+            </FilterInput>
 
-        {!isMobile && setFilterIsOpen && <FilterButton onClick={() => setFilterIsOpen(true)}>
-          <Icon icon={'mage:filter'} width="15" />
-          Filtro avançado
-        </FilterButton>}
+            {!isMobile && setFilterIsOpen && <FilterButton onClick={() => setFilterIsOpen(true)}>
+              <Icon icon={'mage:filter'} width="15" />
+              Filtro avançado
+            </FilterButton>}
 
-        {isMobile && <FilterAdvance>
-          {openShops.length > 0 && <ShopCount>Lojas abertas ({openShops.length})</ShopCount>}
-          {openShops.length < 1 && closeShops.length > 0 && <ShopCount close={true}>Fechadas agora ({closeShops.length})</ShopCount>}
-          {!mode && isMobile && setFilterIsOpen && <FilterButton onClick={() => setFilterIsOpen(true)}>
-            <Icon icon={'mage:filter'} width="12" />
+            {isMobile && <FilterAdvance>
+              {openShops.length > 0 && <ShopCount>Lojas abertas ({openShops.length})</ShopCount>}
+              {openShops.length < 1 && closeShops.length > 0 && <ShopCount close={true}>Fechadas agora ({closeShops.length})</ShopCount>}
+              {!mode && isMobile && setFilterIsOpen && <FilterButton onClick={() => setFilterIsOpen(true)}>
+                <Icon icon={'mage:filter'} width="12" />
+                Filtro avançado
+              </FilterButton>}
+            </FilterAdvance>
+            }
+
+          </FiltersWrapper>
+        </div>
+
+        {triggered && <FiltersWrapper
+          fixed={triggered && filteredShops.length > 0}
+          animate={animate}>
+          <FilterInput>
+            <Icon icon={'lets-icons:search-alt'} color={'gray'} width="20" />
+            <input placeholder="Buscar por loja ou categoria"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)} />
+            {search.length > 0 && <Icon icon={'material-symbols:close-rounded'} color={theme.colors.primary} width="20" onClick={() => setSearch('')} />
+            }
+          </FilterInput>
+
+          {!isMobile && setFilterIsOpen && <FilterButton onClick={() => setFilterIsOpen(true)}>
+            <Icon icon={'mage:filter'} width="15" />
             Filtro avançado
           </FilterButton>}
-        </FilterAdvance>
-        }
 
-      </FiltersWrapper>}
+          {isMobile && <FilterAdvance>
+            {openShops.length > 0 && <ShopCount>Lojas abertas ({openShops.length})</ShopCount>}
+            {openShops.length < 1 && closeShops.length > 0 && <ShopCount close={true}>Fechadas agora ({closeShops.length})</ShopCount>}
+            {!mode && isMobile && setFilterIsOpen && <FilterButton onClick={() => setFilterIsOpen(true)}>
+              <Icon icon={'mage:filter'} width="12" />
+              Filtro avançado
+            </FilterButton>}
+          </FilterAdvance>
+          }
+
+        </FiltersWrapper>
+        }
+      </>
+      }
 
       {mode && mode === 'coupon' && filteredShops.length > 0 &&
         <CuponsLabel>
@@ -190,7 +224,7 @@ const ShopsList = ({ selectedCategories, setSelectedCategories, selectedCategory
                     <>
                       <ShopMeta>
                         <span> <Icon icon={'formkit:time'} width="15" /> {shop.deliveryTime} min </span>
-                        <span> <Icon icon={'mdi:delivery-dining'} width="15" />  R${shop.deliveryFee.toFixed(2)} </span>
+                        <span> <Icon icon={'mdi:delivery-dining'} width="15" /> R${shop.deliveryFee.toFixed(2)} </span>
                       </ShopMeta>
                       <ShopFooter>
                         <ShopMeta className={'time'}>Fecha às {closingHour}</ShopMeta>

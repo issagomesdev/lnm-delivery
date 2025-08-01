@@ -13,6 +13,7 @@ export const PizzaBackground = styled.div`
     left: 0;
     width: 20rem;
     z-index: -1;
+    user-select: none;
 
     @media (max-width: 980px){
         width: 10rem;
@@ -31,6 +32,7 @@ export const Container = styled.div`
     align-items: flex-start;
     padding-top: 2rem;
     height: 100%;
+    user-select: none;
 
     @media (max-width: 980px){
         top: 3rem;

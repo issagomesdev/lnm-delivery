@@ -28,7 +28,7 @@ export const CategorySelector = styled.div`
   overflow: auto;
 
   &::-webkit-scrollbar {
-    height: 6px;
+    height: 0;
     background-color: #F5F5F5;
   }
   
@@ -161,4 +161,5 @@ export const MenuImage = styled.img`
   height: 80px;
   object-fit: cover;
   border-radius: 6px;
+  user-select: none;
 `;

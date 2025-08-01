@@ -37,7 +37,7 @@ export const CategoriesWrapper = styled.div`
   padding-bottom: 5px;
 
   &::-webkit-scrollbar {
-    height: 6px;
+    height: 0;
     background-color: #F5F5F5;
   }
 
@@ -106,7 +106,7 @@ export const BannersWrapper = styled.div`
   padding-bottom: 5px;
 
   &::-webkit-scrollbar {
-    height: 6px;
+    height: 0;
     background-color: #F5F5F5;
   }
 
@@ -127,6 +127,7 @@ export const BannerImage = styled.img`
   width: 100%;
   max-width: 400px;
   border-radius: 8px;
+    user-select: none;
 
   @media (max-width: 450px) {
     min-width: 90vw;
@@ -178,7 +179,7 @@ export const FiltersWrapper = styled.div.withConfig({
     ${({ animate }) =>
     animate &&
     css`
-      animation: ${shakeScale} 8s alternate both;
+      animation: ${shakeScale} .5s alternate both;
     `}
 
   @media (max-width: 980px) {
@@ -200,6 +201,7 @@ export const FilterInput = styled.div`
     outline: none;
     width: 100%;
     background-color: transparent;
+    user-select: none;
   }
 `;
 
@@ -283,6 +285,7 @@ export const ShopImage = styled.img`
   height: 64px;
   border-radius: 8px;
   object-fit: cover;
+  user-select: none;
 `;
 
 export const ShopInfo = styled.div`
@@ -369,6 +372,7 @@ export const ShopRating = styled.div`
   display: flex;
   align-items: center;
   gap: 2px;
+  user-select: none;
 `;
 
 export const ShopOffer = styled.div`
@@ -394,6 +398,7 @@ export const Tag = styled.div`
 
   p {
      width: 90%;
+    user-select: none;
   }
 `;
 

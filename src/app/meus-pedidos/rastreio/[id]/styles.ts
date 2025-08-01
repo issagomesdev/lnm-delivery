@@ -9,6 +9,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  user-select: none;
 
   @media (max-width: 980px) {
     padding: 5rem 2rem;

@@ -23,6 +23,7 @@ export const CoverImage = styled.img`
   height: 100%;
   object-fit: cover;
   border-bottom: 2px solid #eee;
+  user-select: none;
 `;
 
 export const ProfileSection = styled.div`
@@ -41,6 +42,7 @@ export const ProfileSection = styled.div`
 export const Profile = styled.div`
     display: flex;
     align-items: center;
+    user-select: none;
 
     img {
       position: relative;
@@ -102,6 +104,7 @@ export const QuickInfoItem = styled.div`
   color: ${({ theme }) => theme.colors.text_secondary};
   font-weight: 500;
   cursor: pointer;
+  user-select: none;
 
   h1 {
     font-size: 24px;
@@ -389,6 +392,7 @@ export const CategoryItem = styled.button`
   color: #333;
   cursor: pointer;
   transition: background 0.2s ease;
+  user-select: none;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.separators};

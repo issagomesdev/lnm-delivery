@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Title = styled.h3`
   text-align: center;
@@ -64,7 +64,7 @@ export const SecondModal = styled.div`
     align-items: center;
 `;
 
-export const SecondModalContent = styled.div`
+export const SecondModalContent = styled.div<{ keyboardOpen?: boolean }>`
   background: white;
   padding: 1.5rem;
   border-radius: 10px;
@@ -86,6 +86,12 @@ export const SecondModalContent = styled.div`
     resize: none;
     margin-bottom: 1rem;
   }
+
+    ${({ keyboardOpen }) =>
+    keyboardOpen &&
+    css`
+      transform: translateY(-60px); 
+    `}
   
 `;
 

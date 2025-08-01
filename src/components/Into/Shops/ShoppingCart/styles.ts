@@ -21,6 +21,7 @@ export const Bar = styled.div`
   align-items: center;
   z-index: 999;
   cursor: pointer;
+  user-select: none;
 
   @media (min-width: 980px){
     bottom: 10px;

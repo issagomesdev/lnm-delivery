@@ -121,7 +121,7 @@ const scale = keyframes`
     transform: scale(1);
   }
   60% {
-    transform: scale(1.04);
+    transform: scale(1.05);
   }
   100% {
     transform: scale(1);
@@ -169,8 +169,14 @@ export const OptionHeader = styled.div.withConfig({
   ${({ requerid }) =>
     requerid &&
     css`
-      animation: ${scale} 2s ease-in-out infinite;
+      animation: ${scale} .8s ease-in-out infinite;
+
+      >h4 {
+        color: ${({theme}) => theme.colors.primary}
+      }
     `}
+
+    
 `;
 
 export const OptionQuantity = styled.div`

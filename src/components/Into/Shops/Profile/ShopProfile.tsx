@@ -35,7 +35,7 @@ const ShopProfile = ({ shop }: { shop: any }) => {
   const [shopIsClosed, setShopIsClosed] = useState(false);
   const [categories, setCategories] = useState<any>([]);
   const theme = useTheme();
-  const router= useRouter();
+  const router = useRouter();
   const searchParams = useSearchParams();
   const CouponAlert = searchParams?.get("CouponAlert");
 
@@ -47,6 +47,18 @@ const ShopProfile = ({ shop }: { shop: any }) => {
     if (!isClosed && shop.coupon && !CouponAlert) setCouponAlertIsOpen(true);
     setCategories(shopCategories(shop.id));
   }, []);
+
+  useEffect(() => {
+    if (infoIsOpen || reviewsIsOpen || feesIsOpen || timeInfoIsOpen || couponAlertIsOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [infoIsOpen, reviewsIsOpen, feesIsOpen, timeInfoIsOpen, couponAlertIsOpen]);
 
   return (
     <Wrapper>
@@ -90,13 +102,13 @@ const ShopProfile = ({ shop }: { shop: any }) => {
       {!shopIsClosed && categories.length > 0 && (
         <ShopCategoriesList
           categories={categories}
-          onSelectCategory={(category) => router.push(category.name.includes("Pizza")? `/shops/${shop.id}/monte-sua-pizza?productId=${encodeURIComponent(category.id)}`: `/shops/${shop.id}/cardapio?category=${encodeURIComponent(category.name)}`)}
+          onSelectCategory={(category) => router.push(category.name.includes("Pizza") ? `/shops/${shop.id}/monte-sua-pizza?productId=${encodeURIComponent(category.id)}` : `/shops/${shop.id}/cardapio?category=${encodeURIComponent(category.name)}`)}
         />
       )}
 
       {/* Restaurante fechado tratativa */}
       {shopIsClosed && (
-        <div style={{ textAlign: 'center', margin: '2rem', minHeight: '10vw' }}>
+        <div style={{ textAlign: 'center', margin: '2rem', minHeight: '10vw', userSelect: 'none' }}>
           <p style={{ marginBottom: '1rem', fontWeight: 500 }}>
             Desculpe-nos, infelizmente o restaurante encontra-se fechado no momento, devido ao horário ou falta de conexão com a internet.
           </p>
@@ -141,9 +153,9 @@ const ShopProfile = ({ shop }: { shop: any }) => {
             <p style={{ textAlign: 'center', marginTop: '1rem', fontSize: '16px', userSelect: 'none' }}>
               Estamos com cupom <span style={{ color: theme.colors.primary, fontWeight: 'bold', userSelect: 'none' }}>{shop.coupon.name}. </span>
               <br />
-              <span style={{ userSelect: 'none'}}>{shop.coupon.discount === 'Frete grátis' ? shop.coupon.discount : shop.coupon.discount + ' de desconto'}, válido para {shop.coupon?.rule ? <span style={{ color: theme.colors.primary, fontWeight: 'bold', userSelect: 'none' }}>{shop.coupon.rule}</span> : <span style={{ userSelect: 'none'}}> todos os produtos</span>}</span>
+              <span style={{ userSelect: 'none' }}>{shop.coupon.discount === 'Frete grátis' ? shop.coupon.discount : shop.coupon.discount + ' de desconto'}, válido para {shop.coupon?.rule ? <span style={{ color: theme.colors.primary, fontWeight: 'bold', userSelect: 'none' }}>{shop.coupon.rule}</span> : <span style={{ userSelect: 'none' }}> todos os produtos</span>}</span>
               <br />
-              {shop.coupon.minimum_value > 0 && <span style={{ userSelect: 'none'}}>O pedido mínimo para efetivação do cupom é de <span style={{ color: theme.colors.primary, fontWeight: 'bold', userSelect: 'none' }}>R$ {shop.coupon.minimum_value}</span> em produto.</span>}
+              {shop.coupon.minimum_value > 0 && <span style={{ userSelect: 'none' }}>O pedido mínimo para efetivação do cupom é de <span style={{ color: theme.colors.primary, fontWeight: 'bold', userSelect: 'none' }}>R$ {shop.coupon.minimum_value}</span> em produto.</span>}
             </p>
           </>
         }

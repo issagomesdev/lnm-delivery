@@ -7,6 +7,7 @@ interface Props {
 
 export const Wrapper = styled.div`
   margin-bottom: 6rem;
+  user-select: none;
 
   @media (max-width: 980px) {
     padding-top: 4rem;

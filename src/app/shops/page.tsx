@@ -19,8 +19,8 @@ const ShopsPage = () => {
   const [filterIsActive, setFilterIsActive] = useState<boolean>(false);
   const [filterIsOpen, setFilterIsOpen] = useState(false);
 
-  const bannerRef = useRef<HTMLDivElement>(null);
-  const triggered = useScrollTrigger(bannerRef);
+  const itemRef = useRef<HTMLDivElement>(null);
+  const triggered = useScrollTrigger(itemRef);
 
   // useBackLayers([
   //   {
@@ -60,11 +60,9 @@ const ShopsPage = () => {
           setSelectedCategory={setSelectedCategory}
         />
 
-        <div ref={bannerRef}>
-          <Banners filterIsActive={filterIsActive} />
-        </div>
+        <Banners filterIsActive={filterIsActive} />
 
-        <ShopsList
+        <ShopsList ref={itemRef}
           selectedCategories={selectedCategories}
           setSelectedCategories={setSelectedCategories}
           selectedCategory={selectedCategory}

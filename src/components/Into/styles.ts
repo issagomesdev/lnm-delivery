@@ -40,11 +40,6 @@ export const Container = styled.div.withConfig({
         justify-content: center;
         position: fixed;
         top: 0;
-
-        >span {
-         user-select: none;
-         cursor: none;
-        }
     }
 
     @media (min-width: 980px) {
@@ -72,7 +67,8 @@ export const Container = styled.div.withConfig({
         position: absolute;
         left: 15px;
         gap: 2px;
-        cursor: pointer;
+        user-select: none;
+        cursor: none;
     }
         
 `
