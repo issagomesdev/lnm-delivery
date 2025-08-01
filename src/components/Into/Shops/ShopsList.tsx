@@ -36,7 +36,7 @@ import { useRouter } from 'next/navigation';
 import { useTheme } from 'styled-components';
 
 type ShopsListProps = {
-  ref: React.Ref<HTMLDivElement | null>;
+  ref?: React.Ref<HTMLDivElement | null>;
   selectedCategories?: number[];
   setSelectedCategories?: React.Dispatch<React.SetStateAction<number[]>>;
   selectedCategory?: string;
