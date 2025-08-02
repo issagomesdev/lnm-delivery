@@ -6,9 +6,9 @@ import BottomNav from '@/components/Into/Shops/BottomNav';
 import { Wrapper } from '@/components/Into/Shops/styles';
 import { useState } from "react";
 import { Loading } from "@/components/Loading";
-const [loading, setLoading] = useState(false);
 
 const Coupon = () => {
+  const [loading, setLoading] = useState(false);
 
   return (
     <>
