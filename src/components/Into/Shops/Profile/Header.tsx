@@ -17,7 +17,7 @@ export default function Header({ children }: { children?: ReactNode }) {
   const [loading, setLoading] = useState(false);
 
   const handleBack = () => {
-    setLoading(true)
+    if (cart.length === 0) setLoading(true)
     const match1 = pathname.match(/^\/shops\/(\d+)\/cardapio$/) || pathname.match(/^\/shops\/(\d+)\/monte-sua-pizza$/);
     const match2 = pathname.match(/^\/shops\/(\d+)$/);
 
@@ -51,6 +51,7 @@ export default function Header({ children }: { children?: ReactNode }) {
         isOpen={storeExitAlert}
         title={"Atenção"}
         onConfirm={() => {
+          setLoading(true)
           clearCart();
           router.push(`/shops`);
         }}
