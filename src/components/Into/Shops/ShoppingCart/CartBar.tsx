@@ -4,10 +4,13 @@ import { useShoppingCart } from '@/contexts/ShoppingCartContext';
 import { useRouter } from 'next/navigation';
 import { Icon } from '@iconify/react';
 import { Bar, Label, Total } from './styles';
+import { useState } from 'react';
+import { Loading } from '@/components/Loading';
 
 
 export default function CartBar() {
     const { cart } = useShoppingCart();
+    const [loading, setLoading] = useState(false);
     const router = useRouter();
 
     const total = cart.reduce((sum, item) => {
@@ -21,10 +24,14 @@ export default function CartBar() {
     if (cart.length === 0) return null;
 
     return (
-        <Bar onClick={() => router.push('/meus-pedidos/carrinho')}>
+        <Bar onClick={() => {
+            setLoading(true);
+            router.push('/meus-pedidos/carrinho')
+        }}>
+            {loading && <Loading />}
             <Label>
                 <span>{cart.length}</span>
-                <img alt='sack-icon' src={'/images/sack-icon.png'}/>
+                <img alt='sack-icon' src={'/images/sack-icon.png'} />
                 Ver sacola
             </Label>
             <Total>R$ {total.toFixed(2)}</Total>
