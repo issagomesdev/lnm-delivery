@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  padding: 3rem 1rem;
+  padding: 2rem 1rem;
 
   @media (max-width: 980px) {
-    padding: 7rem 1rem;
+    padding: 7rem 1rem 2rem 1rem;
   }
 `;
 

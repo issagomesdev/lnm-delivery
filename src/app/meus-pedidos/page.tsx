@@ -9,6 +9,7 @@ import { Label } from "@/components/shared/Modal/styles";
 import ModalComponent from "@/components/shared/Modal/ModalComponent";
 import { useRouter } from 'next/navigation'
 import OrderDetails from "@/components/Into/MyOrders/OrderDetails";
+import { Loading } from "@/components/Loading";
 
 type Order = {
     id: string;
@@ -47,6 +48,7 @@ export default function MyOrders() {
     const [warning, setWarning] = useState({ title: '', text: '' });
     const [orderIsOpen, setOrderIsOpen] = useState(false);
     const [IDOrder, setIDOrder] = useState('');
+    const [loading, setLoading] = useState(false);
     const router = useRouter()
 
     const handlePageChange = (page: number) => {
@@ -61,6 +63,7 @@ export default function MyOrders() {
     }
 
     const handleTrackOrder = (step: string, id: string, date: string) => {
+        setLoading(true);
         router.push(`/meus-pedidos/rastreio/${id}?step=${step}&date=${date}`)
     }
 
@@ -79,6 +82,7 @@ export default function MyOrders() {
     return (
         <>
             <Header name={'Meus pedidos'} full={false} />
+            { loading && <Loading/> }
             {
                 allOrders.length > 0 ? <Container>
                     {currentOrders.map((order) => (

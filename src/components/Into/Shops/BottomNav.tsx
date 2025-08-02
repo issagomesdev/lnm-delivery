@@ -5,15 +5,21 @@ import { BottomNavWrapper, NavItem } from './styles';
 import { Icon } from '@iconify/react';
 import { useRouter, usePathname } from 'next/navigation';
 
-const BottomNav = () => {
+
+const BottomNav = ({ setLoading }: {setLoading: (value: boolean) => void}) => {
   const router = useRouter();
   const pathname = usePathname();
+
+  const goTo = (url:string) => {
+    setLoading?.(true);
+    router.push(url)
+  }
 
   return (
     <BottomNavWrapper>
       <NavItem
         active={pathname === '/shops'}
-        onClick={() => router.push("/shops")}
+        onClick={() => goTo("/shops")}
       >
         <Icon icon="ic:round-home" width="30" />
         Lojas
@@ -21,7 +27,7 @@ const BottomNav = () => {
 
       <NavItem
         active={pathname === '/cupons'}
-        onClick={() => router.push("/cupons")}
+        onClick={() => goTo("/cupons")}
       >
         <Icon icon="fluent-emoji-high-contrast:label" width="30" />
         Cupons
@@ -29,7 +35,7 @@ const BottomNav = () => {
 
       <NavItem
         active={pathname === '/favoritos'}
-        onClick={() => router.push("/favoritos")}
+        onClick={() => goTo("/favoritos")}
       >
         <Icon icon="ic:round-favorite" width="30" />
         Favoritos

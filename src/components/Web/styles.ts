@@ -78,6 +78,8 @@ export const NavItem = styled.a`
   font-weight: 400;
   gap: .3rem;
   font-size: .8rem;
+  cursor: pointer;
+  user-select: none;
 
   img {
       width: 2rem;

@@ -11,6 +11,7 @@ import { DeliveryMethods } from "@/components/Into/Shops/ShoppingCart/DeliveryMe
 import { PaymentMethods } from "@/components/Into/Shops/ShoppingCart/PaymentMethods";
 import { useCustomBackAction } from '@/hooks/useCustomBackAction';
 import { useBackLayers } from "@/hooks/useBackLayers";
+import { Loading } from "@/components/Loading";
 
 const Carrinho = () => {
     const { cart, removeItem, updateItemQuantity, clearCart } = useShoppingCart();
@@ -19,6 +20,7 @@ const Carrinho = () => {
     const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
     const [deliveryData, setDeliveryData] = useState<any>({});
     const [paymentData, setPaymentData] = useState<any>({});
+    const [loading, setLoading] = useState(false);
     const router = useRouter();
 
     const handleIncrease = (id: number) => {
@@ -59,6 +61,7 @@ const Carrinho = () => {
 
     return (
         <>
+            {loading && <Loading />}
             <Header>
                 <h2 className="category">MEU PEDIDO</h2>
             </Header>
@@ -121,6 +124,7 @@ const Carrinho = () => {
                     setPaymentData(data);
                     clearCart();
                     setTimeout(() => {
+                        setLoading(true)
                         router.push(`/meus-pedidos/rastreio/21777179?step=pendent&date=26/05/2025%2016:10&return=shops`);
                     }, 100);
                 }} />

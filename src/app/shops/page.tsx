@@ -9,8 +9,8 @@ import BottomNav from '@/components/Into/Shops/BottomNav';
 import { Wrapper } from '@/components/Into/Shops/styles';
 import { useScrollTrigger } from "@/hooks/useScrollTrigger";
 import { useCustomBackAction } from "@/hooks/useCustomBackAction";
-import { useBackLayers } from "@/hooks/useBackLayers";
-import { useRouter } from 'next/navigation';
+import { usePathname  } from 'next/navigation';
+import { Loading } from "@/components/Loading";
 
 const ShopsPage = () => {
 
@@ -18,22 +18,10 @@ const ShopsPage = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [filterIsActive, setFilterIsActive] = useState<boolean>(false);
   const [filterIsOpen, setFilterIsOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const itemRef = useRef<HTMLDivElement>(null);
   const triggered = useScrollTrigger(itemRef);
-
-  // useBackLayers([
-  //   {
-  //     isOpen: filterIsOpen,
-  //     onClose: () => setFilterIsOpen(false),
-  //   },
-  //   {
-  //     isOpen: (selectedCategory.length > 0),
-  //     onClose: () => setSelectedCategory(''),
-  //   }
-  // ], {
-  //   fallbackRoute: '/',
-  // });
 
   useCustomBackAction(
     useCallback(() => {
@@ -51,6 +39,7 @@ const ShopsPage = () => {
 
   return (
     <>
+      {loading && <Loading />}
       <Header full={true} fixed={true} />
       <Wrapper fixed={true}>
 
@@ -63,6 +52,7 @@ const ShopsPage = () => {
         <Banners filterIsActive={filterIsActive} />
 
         <ShopsList ref={itemRef}
+          setLoading={(value) => setLoading(value)}
           selectedCategories={selectedCategories}
           setSelectedCategories={setSelectedCategories}
           selectedCategory={selectedCategory}
@@ -72,7 +62,8 @@ const ShopsPage = () => {
           setFilterIsOpen={setFilterIsOpen}
           triggered={triggered}
         />
-        <BottomNav />
+        <BottomNav
+          setLoading={(value) => setLoading(value)} />
       </Wrapper>
     </>
   );

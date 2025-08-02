@@ -13,6 +13,7 @@ import { useCustomBackAction } from '@/hooks/useCustomBackAction';
 import { useShoppingCart } from '@/contexts/ShoppingCartContext';
 import ModalComponent from '@/components/shared/Modal/ModalComponent';
 import { Label } from "@/components/shared/Modal/styles";
+import { Loading } from '@/components/Loading';
 
 const ShopPage = () => {
     const { shopId } = useParams();
@@ -21,6 +22,7 @@ const ShopPage = () => {
     const [shop, setShop] = useState<any>();
     const { cart, clearCart } = useShoppingCart();
     const [storeExitAlert, setStoreExitAlert] = useState(false);
+    const [loading, setLoading] = useState(false);
     const router = useRouter();
 
     const toggleLike = () => {
@@ -29,7 +31,7 @@ const ShopPage = () => {
     };
 
     useEffect(() => {
-         window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         const item = shops.find(s => s.id.toString() === shopId)
         if (item) setShop(item)
     }, []);
@@ -54,6 +56,7 @@ const ShopPage = () => {
 
     return (
         <>
+            {loading && <Loading />}
             <Header>
                 <Heart onClick={toggleLike}>
                     <Icon
@@ -65,7 +68,7 @@ const ShopPage = () => {
                 </Heart>
             </Header>
 
-            {shop && <ShopProfile shop={shop} />}
+            {shop && <ShopProfile setLoading={(value) => setLoading(value)} shop={shop} />}
 
             <CartBar />
 
@@ -73,6 +76,7 @@ const ShopPage = () => {
                 isOpen={storeExitAlert}
                 title={"Atenção"}
                 onConfirm={() => {
+                    setLoading(true)
                     clearCart();
                     router.push(`/shops`);
                 }}

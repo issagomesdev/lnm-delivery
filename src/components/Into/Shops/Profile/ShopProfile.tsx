@@ -11,7 +11,9 @@ import {
   RatingBadge,
   ShopName,
   QuickInfoItem,
-  ItemIcon
+  ItemIcon,
+  CategoryItem,
+  CategoriesContainer
 } from './styles';
 import DeliveryFees from './DeliveryFees';
 import ModalComponent from '@/components/shared/Modal/ModalComponent';
@@ -21,11 +23,10 @@ import { ConfirmButton, Label } from '@/components/shared/Modal/styles';
 import { useTheme } from 'styled-components';
 import Reviews from './Reviews';
 import { shopCategories } from '../../data';
-import { ShopCategoriesList } from './ShopCategoriesList';
 import { isBefore, isAfter } from 'date-fns';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-const ShopProfile = ({ shop }: { shop: any }) => {
+const ShopProfile = ({ shop, setLoading }: { shop: any, setLoading: (value: boolean) => void  }) => {
 
   const [reviewsIsOpen, setReviewsIsOpen] = useState(false);
   const [feesIsOpen, setFeesIsOpen] = useState(false);
@@ -100,21 +101,35 @@ const ShopProfile = ({ shop }: { shop: any }) => {
       </ProfileSection>
 
       {!shopIsClosed && categories.length > 0 && (
-        <ShopCategoriesList
-          categories={categories}
-          onSelectCategory={(category) => router.push(category.name.includes("Pizza") ? `/shops/${shop.id}/monte-sua-pizza?productId=${encodeURIComponent(category.id)}` : `/shops/${shop.id}/cardapio?category=${encodeURIComponent(category.name)}`)}
-        />
+
+        <CategoriesContainer>
+          {categories.map((category: any) => (
+            <CategoryItem
+              key={category.id}
+              onClick={() => {
+                setLoading(true)
+                router.push(category.name.includes("Pizza") ? `/shops/${shop.id}/monte-sua-pizza?productId=${encodeURIComponent(category.id)}` : `/shops/${shop.id}/cardapio?category=${encodeURIComponent(category.name)}`)
+              }}
+            >
+              <span>{category.name}</span>
+              <Icon icon="ep:arrow-right-bold" width="16" color={theme.colors.primary} />
+            </CategoryItem>
+          ))
+          }
+        </CategoriesContainer >
       )}
 
       {/* Restaurante fechado tratativa */}
-      {shopIsClosed && (
-        <div style={{ textAlign: 'center', margin: '2rem', minHeight: '10vw', userSelect: 'none' }}>
-          <p style={{ marginBottom: '1rem', fontWeight: 500 }}>
-            Desculpe-nos, infelizmente o restaurante encontra-se fechado no momento, devido ao horário ou falta de conexão com a internet.
-          </p>
-          <ConfirmButton onClick={() => setInfoIsOpen(true)}> Ver horários de atendimento </ConfirmButton>
-        </div>
-      )}
+      {
+        shopIsClosed && (
+          <div style={{ textAlign: 'center', margin: '2rem', minHeight: '10vw', userSelect: 'none' }}>
+            <p style={{ marginBottom: '1rem', fontWeight: 500 }}>
+              Desculpe-nos, infelizmente o restaurante encontra-se fechado no momento, devido ao horário ou falta de conexão com a internet.
+            </p>
+            <ConfirmButton onClick={() => setInfoIsOpen(true)}> Ver horários de atendimento </ConfirmButton>
+          </div>
+        )
+      }
 
       {/* Modal de avaliações */}
       <Reviews
@@ -167,7 +182,7 @@ const ShopProfile = ({ shop }: { shop: any }) => {
         onClose={() => setInfoIsOpen(false)}
       />
 
-    </Wrapper>
+    </Wrapper >
   );
 };
 

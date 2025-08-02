@@ -6,12 +6,14 @@ import { Icon } from '@iconify/react';
 import { useLocation } from '@/contexts/LocationContext';
 import ChangeLocation from '../Into/ChangeLocation';
 import { usePathname, useRouter } from 'next/navigation';
+import { Loading } from '../Loading';
 
 export default function SideMenu({ locationSelector = true }: { locationSelector?: boolean }) {
     const [isOpen, setIsOpen] = useState(false);
     const { selectedCity, selectedNeighborhood } = useLocation();
     const pathname = usePathname();
     const toggleMenu = () => setIsOpen(prev => !prev);
+    const [loading, setLoading] = useState(false);
     const router = useRouter()
 
     const links = [
@@ -19,7 +21,7 @@ export default function SideMenu({ locationSelector = true }: { locationSelector
         { href: '/minha-conta', icon: 'Icon Minha conta.png', label: 'Minha conta' },
         { href: '/meus-pedidos', icon: 'Icon Meus pedidos.png', label: 'Meus pedidos' },
         { href: '/meus-enderecos', icon: 'Icon Meus endereços.png', label: 'Meus endereços' },
-        { href: '/fale-conosco', icon: 'Icon Fale conosco.png', label: 'Fale conosco' },
+        { href: 'https://litoralnamesa.com.br/contato/', icon: 'Icon Fale conosco.png', label: 'Fale conosco' },
         { href: '/termos-de-uso', icon: 'Icon Termos de uso.png', label: 'Termos de uso' },
         { href: '/seja-parceiro', icon: 'Icon Seja parceiro.png', label: 'Seja parceiro' },
         { href: '/logout', icon: 'Icon Deslogar.png', label: 'Deslogar' },
@@ -27,6 +29,8 @@ export default function SideMenu({ locationSelector = true }: { locationSelector
 
     return (
         <MobileHeader $view={locationSelector}>
+            {loading && <Loading />}
+
             <MenuButton onClick={toggleMenu} $open={true}>
                 <Icon icon="material-symbols:menu-rounded" width="24" color="#fff" />
             </MenuButton>
@@ -53,7 +57,12 @@ export default function SideMenu({ locationSelector = true }: { locationSelector
                             .map((item) => (
                                 <NavItem
                                     key={item.href}
-                                    onClick={() => router.push(item.href)}
+                                    onClick={() => {
+                                        if (pathname !== item.href) {
+                                            setLoading(true);
+                                            router.push(item.href);
+                                        }
+                                    }}
                                     style={{ display: 'flex', alignItems: 'center' }}
                                 >
                                     <img

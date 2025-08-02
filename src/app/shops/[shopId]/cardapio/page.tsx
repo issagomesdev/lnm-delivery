@@ -26,6 +26,7 @@ import { useShoppingCart } from "@/contexts/ShoppingCartContext";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { useCustomBackAction } from "@/hooks/useCustomBackAction";
 import { useTheme } from "styled-components";
+import { Loading } from "@/components/Loading";
 
 const Cardapio = () => {
     const searchParams = useSearchParams();
@@ -44,6 +45,7 @@ const Cardapio = () => {
     const theme = useTheme();
 
     const handleSelectCategory = (cat: any) => {
+         setLoading(true)
         if (cat.name.includes("Pizza")) {
             router.push(`/shops/${shopId}/monte-sua-pizza?productId=${encodeURIComponent(cat.id)}`);
         } else {
@@ -99,10 +101,9 @@ const Cardapio = () => {
         }, [checkoutIsOpen, shopId])
     );
 
-    if (loading) return <h1>carregando...</h1>
-
     return (
         <>
+        { loading && <Loading/> }
             <Header>
                 <h2 className="category">{category?.name || ""}</h2>
             </Header>

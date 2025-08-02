@@ -1,5 +1,10 @@
 import styled, { css } from 'styled-components';
 
+interface Props {
+    keyboardOpen?: boolean
+}
+
+
 export const Title = styled.h3`
   text-align: center;
   margin-bottom: 1rem;
@@ -64,7 +69,9 @@ export const SecondModal = styled.div`
     align-items: center;
 `;
 
-export const SecondModalContent = styled.div<{ keyboardOpen?: boolean }>`
+export const SecondModalContent = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'keyboardOpen',
+}) <Props>`
   background: white;
   padding: 1.5rem;
   border-radius: 10px;

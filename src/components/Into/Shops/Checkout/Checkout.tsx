@@ -10,6 +10,7 @@ import { QuantityControls } from '@/app/meus-pedidos/carrinho/styles';
 import { ModalBox, Container, Content, Section, ItemInfo, Description, Price, OptionsLabel, OptionHeader, OptionQuantity, OptionGroup, OptionItem, ItemName, QuantityButton, TextArea, Footer, AddButton, TotalPrice, AddItem } from "@/components/Into/Shops/Checkout/styles";
 import { Label } from "@/components/shared/Modal/styles";
 import ModalComponent from '@/components/shared/Modal/ModalComponent';
+import { Loading } from '@/components/Loading';
 
 export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolean; onClose: (product?: any) => void; selected: any, shopId: string }) => {
 
@@ -23,6 +24,7 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
     const [requiredAlert, setRequiredAlert] = useState(false);
     const [addItemAnimation, setAddItemAnimation] = useState(false);
     const { addItem, cart } = useShoppingCart();
+    const [loading, setLoading] = useState(false);
     const router = useRouter();
 
     useEffect(() => {
@@ -198,7 +200,8 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
 
         setTimeout(() => {
             if (category.name.includes("Pizza")) {
-                router.push(`/shops/${shopId}`);
+                setLoading(true)
+                router.push(`/shops/${shopId}?CouponAlert=false`);
             } else {
                 setAddItemAnimation(false);
                 setQuantity(1);
@@ -245,6 +248,7 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
 
     return (
         <Overlay>
+            { loading && <Loading/> }
             <ModalBox>
                 <CloseXButton>
                     <Icon icon="material-symbols:close" color="#fff" width="24" onClick={() => {

@@ -34,6 +34,7 @@ import { CloseXButton } from '@/components/shared/Modal/styles';
 import { useLocation } from '@/contexts/LocationContext';
 import { useRouter } from 'next/navigation';
 import { useTheme } from 'styled-components';
+import { Loading } from '@/components/Loading';
 
 type ShopsListProps = {
   ref?: React.Ref<HTMLDivElement | null>;
@@ -46,9 +47,10 @@ type ShopsListProps = {
   setFilterIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   mode?: 'coupon' | 'fav';
   triggered?: boolean;
+  setLoading: (value: boolean) => void;
 };
 
-const ShopsList = ({ ref, selectedCategories, setSelectedCategories, selectedCategory, filterIsActive, setFilterIsActive, mode, triggered, filterIsOpen, setFilterIsOpen }: ShopsListProps) => {
+const ShopsList = ({ ref, selectedCategories, setSelectedCategories, selectedCategory, filterIsActive, setFilterIsActive, mode, triggered, filterIsOpen, setFilterIsOpen, setLoading }: ShopsListProps) => {
   const [search, setSearch] = useState('');
   const isMobile = useIsMobile();
   const now = new Date();
@@ -206,7 +208,10 @@ const ShopsList = ({ ref, selectedCategories, setSelectedCategories, selectedCat
           });
 
           return (
-            <ShopItem key={i} onClick={() => { router.push(`/shops/${shop.id}`) }}>
+            <ShopItem key={i} onClick={() => { 
+              setLoading?.(true);
+              router.push(`/shops/${shop.id}`)
+            }}>
               <ShopContent>
                 <ShopImage src={'/images/default-store.png'} alt={shop.name} />
                 <ShopInfo>
@@ -256,7 +261,10 @@ const ShopsList = ({ ref, selectedCategories, setSelectedCategories, selectedCat
       {<ShopItems>
         {closeShops.map((shop, i) => {
           return (
-            <ShopItem key={i} style={{ opacity: 0.5 }} onClick={() => { router.push(`/shops/${shop.id}`) }}>
+            <ShopItem key={i} style={{ opacity: 0.5 }} onClick={() => { 
+              setLoading?.(true);
+              router.push(`/shops/${shop.id}`)
+            }}>
               <ShopContent>
                 <ShopImage style={{ filter: 'grayscale(85%)' }} src={'/images/default-store.png'} alt={shop.name} />
                 <ShopInfo>

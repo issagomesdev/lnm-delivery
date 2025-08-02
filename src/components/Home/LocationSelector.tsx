@@ -4,12 +4,14 @@ import AppLinks from './AppLinks'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useLocation } from '@/contexts/LocationContext';
+import { Loading } from '../Loading'
 
 export default function LocationSelector() {
   const [neighborhoods, setNeighborhoods] = useState<string[]>([])
   const [selectedCityLocal, setSelectedCityLocal] = useState<string>('')
   const [selectedNeighborhoodLocal, setSelectedNeighborhoodLocal] = useState<string>('')
   const { setSelectedCity, setSelectedNeighborhood } = useLocation();
+  const [loading, setLoading ] = useState(false);
 
   const router = useRouter()
 
@@ -33,6 +35,7 @@ export default function LocationSelector() {
   };
 
   const searchDelivery = () => {
+    setLoading(true)
     setSelectedCity(selectedCityLocal);
     setSelectedNeighborhood(selectedNeighborhoodLocal);
     router.push('shops')
@@ -40,6 +43,7 @@ export default function LocationSelector() {
 
   return (
     <LocationContainer>
+      { loading && <Loading/> }
       <LocationSelectorContainer>
         <h2>Informe sua localização</h2>
         <Select>

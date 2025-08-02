@@ -13,11 +13,12 @@ export function useCustomBackAction(callback: () => string | boolean | void) {
       } else if (result === false) {
         window.history.back();
       } else {
-        window.history.pushState(null, '', window.location.pathname);
+        window.history.pushState(null, '', window.location.pathname + window.location.search);
+
       }
     };
 
-    window.history.pushState(null, '', window.location.pathname);
+    window.history.pushState(null, '', window.location.pathname + window.location.search);
     window.addEventListener('popstate', handlePopState);
 
     return () => {
