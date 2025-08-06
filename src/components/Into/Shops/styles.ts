@@ -37,7 +37,8 @@ export const CategoriesWrapper = styled.div`
   padding-bottom: 5px;
 
   &::-webkit-scrollbar {
-    height: 0;
+    height: 0px;
+    width: 0px;
     background-color: #F5F5F5;
   }
 
@@ -106,7 +107,8 @@ export const BannersWrapper = styled.div`
   padding-bottom: 5px;
 
   &::-webkit-scrollbar {
-    height: 0;
+    height: 0px;
+    width: 0px;
     background-color: #F5F5F5;
   }
 

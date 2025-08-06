@@ -1,5 +1,3 @@
-'use client'
-
 import { Container, Logo } from './styles'
 import LocationSelector from '../Home/LocationSelector'
 import SideMenu from '@/components/Mobile/SideMenu';

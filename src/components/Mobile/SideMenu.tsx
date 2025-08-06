@@ -1,5 +1,3 @@
-'use client';
-
 import { useState } from 'react';
 import { MenuButton, MenuPanel, MenuOverlay, Content, UserContent, Nav, NavItem, MobileHeader } from './styles';
 import { Icon } from '@iconify/react';

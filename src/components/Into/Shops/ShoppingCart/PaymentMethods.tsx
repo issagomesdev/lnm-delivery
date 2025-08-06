@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Title, Overlay, ModalBox, Label, Content, CloseXButton } from '@/components/shared/Modal/styles';
 import { NumericFormat } from 'react-number-format';
 import { Icon } from '@iconify/react';
@@ -42,8 +42,39 @@ export const PaymentMethods = ({ isOpen, onClose, productsTotal, handleData }: {
     const [hasObservation, setHasObservation] = useState(false);
     const [observation, setObservation] = useState('');
     const [needChange, setNeedChange] = useState(true);
-    const [changeFor, setChangeFor] = useState<number>(0);
+    const [changeFor, setChangeFor] = useState<{ value: number; label: string }>({
+        value: 0,
+        label: ''
+    });
     const [alertData, setAlertData] = useState<{ isOpen: boolean; title: string; message: string }>({ isOpen: false, title: '', message: '' });
+
+    const inputRef = useRef<HTMLInputElement>(null);
+
+
+    const handleChange = (val: string) => {
+        const onlyNumbers = val.replace(/\D/g, '');
+        const padded = onlyNumbers.length < 3
+            ? onlyNumbers.padStart(3, '0')
+            : onlyNumbers;
+
+        const floatValue = Number(padded) / 100;
+
+        console.log(floatValue)
+
+        setChangeFor({
+            value: floatValue,
+            label: floatValue === 0? '' : `R$ ${floatValue.toFixed(2).replace('.', ',')}`
+        });
+    };
+
+    const handleCaretToEnd = () => {
+        if (inputRef.current) {
+            const len = inputRef.current.value.length;
+            inputRef.current.setSelectionRange(len, len);
+        }
+    };
+
+
 
     const handleRequest = () => {
 
@@ -56,7 +87,7 @@ export const PaymentMethods = ({ isOpen, onClose, productsTotal, handleData }: {
             return;
         }
 
-        if (method === 'Dinheiro' && (needChange && changeFor === 0)) {
+        if (method === 'Dinheiro' && (needChange && changeFor.value === 0)) {
             setAlertData({
                 isOpen: true,
                 title: 'Opss!',
@@ -65,7 +96,7 @@ export const PaymentMethods = ({ isOpen, onClose, productsTotal, handleData }: {
             return;
         }
 
-        if (method === 'Dinheiro' && (needChange && Number(productsTotal) > changeFor)) {
+        if (method === 'Dinheiro' && (needChange && Number(productsTotal) > changeFor.value)) {
             setAlertData({
                 isOpen: true,
                 title: 'Erro',
@@ -83,7 +114,7 @@ export const PaymentMethods = ({ isOpen, onClose, productsTotal, handleData }: {
             method,
             coupon: coupon,
             observation,
-            changeFor
+            changeFor: changeFor.value
         });
 
     }
@@ -96,7 +127,10 @@ export const PaymentMethods = ({ isOpen, onClose, productsTotal, handleData }: {
         setHasObservation(false);
         setObservation('');
         setNeedChange(true);
-        setChangeFor(0);
+        setChangeFor({
+            value: 0,
+            label: ""
+        });
         setAlertData({ isOpen: false, title: '', message: '' });
         onClose(null);
     }
@@ -175,15 +209,12 @@ export const PaymentMethods = ({ isOpen, onClose, productsTotal, handleData }: {
                             {needChange && (
                                 <ChangeBox>
                                     <Icon icon="mdi:cash" width={20} />
-                                    <NumericFormat
-                                        value={changeFor}
-                                        onValueChange={({ floatValue }) => {
-                                            console.log(floatValue);
-                                            setChangeFor(floatValue ?? 0);
-                                        }}
-                                        thousandSeparator="."
-                                        decimalSeparator=","
-                                        prefix="R$ "
+                                    <input
+                                        ref={inputRef}
+                                        value={changeFor.label}
+                                        onChange={(e) => handleChange(e.target.value)}
+                                        onFocus={handleCaretToEnd}
+                                        onClick={handleCaretToEnd}
                                         placeholder="Pra quanto?"
                                     />
                                 </ChangeBox>

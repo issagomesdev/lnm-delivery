@@ -131,3 +131,96 @@ export const ScrollDownContainer = styled.span`
     right: 45%;
   }
 `
+
+// Footer
+
+export const FooterContainer = styled.footer`
+  background-color: #0e0e0e;
+  padding: 30px;
+  font-size: 0.8em;
+`
+
+export const Row = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+
+  @media (max-width: 600px) {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+`
+
+export const FooterNav = styled.ul`
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+
+  li {
+    margin-right: 20px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    a {
+      text-decoration: none;
+      border: 0;
+      color: #888;
+
+      &:hover,
+      &:active {
+        color: #ddd;
+      }
+    }
+  }
+
+  @media (max-width: 600px) {
+    justify-content: center;
+  }
+`
+
+export const SocialIcons = styled.ul`
+  list-style: none;
+  padding: 0;
+  display: flex;
+
+  li {
+    margin-right: 20px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    a {
+      color: #888;
+      font-size: 1.6em;
+      transition: color 0.2s;
+
+      &:hover {
+        color: currentColor;
+      }
+    }
+  }
+`
+
+export const Copyright = styled.p`
+  color: #888;
+  text-align: center;
+  width: 100%;
+  margin-top: 20px;
+`
+
+export const DividerLine = styled.div`
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(
+    to right,
+    #ff5100 0%, #ff5100 33.33%,
+    #ed9268 33.33%, #ed9268 66.66%,
+    #ff621a 66.66%, #ff621a 100%
+  );
+`

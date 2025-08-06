@@ -302,7 +302,7 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
                                             <OptionItem key={opt.id}>
                                                 <ItemName>
                                                     {opt.name}
-                                                    {opt.value > 0 && <span> + R$ ${opt.value.toFixed(2)}</span>}
+                                                    {opt.value > 0 && <span> + R$ {opt.value.toFixed(2)}</span>}
                                                 </ItemName>
 
                                                 {isQuantity ? (

@@ -1,11 +1,10 @@
-'use client';
-
 import { ReactNode } from 'react';
-import { ThemeProvider } from 'styled-components';
-import { GlobalStyle } from '../styles/global';
-import { theme } from '../styles/theme';
-import { LocationProvider } from '@/contexts/LocationContext';
-import { ShoppingCartProvider } from '@/contexts/ShoppingCartContext';
+import StyledComponentsRegistry from '@/lib/registry';
+
+export const metadata = {
+  title: 'Litoral na mesa',
+  description: 'Peça nos melhores deliveries do litoral.',
+};
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -27,14 +26,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
       </head>
       <body>
-        <ThemeProvider theme={theme}>
-          <GlobalStyle />
-          <LocationProvider>
-            <ShoppingCartProvider>
-              <main>{children}</main>
-            </ShoppingCartProvider>
-          </LocationProvider>
-        </ThemeProvider>
+        <StyledComponentsRegistry>
+          <main>{children}</main>
+        </StyledComponentsRegistry>
       </body>
     </html>
   );

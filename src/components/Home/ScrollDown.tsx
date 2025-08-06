@@ -1,5 +1,3 @@
-'use client'
-
 import { ScrollDownContainer } from './styles'
 import { Icon } from '@iconify/react'
 import { theme } from '@/styles/theme'

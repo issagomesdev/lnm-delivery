@@ -28,7 +28,8 @@ export const CategorySelector = styled.div`
   overflow: auto;
 
   &::-webkit-scrollbar {
-    height: 0;
+    height: 0px;
+    width: 0px;
     background-color: #F5F5F5;
   }
   
@@ -87,7 +88,8 @@ export const MenuItems = styled.div.withConfig({
   margin-top: ${({ fixed }) => fixed? '9rem' : '0'};
 
     &::-webkit-scrollbar {
-    height: 6px;
+    height: 0px;
+    width: 0px;
     background-color: #F5F5F5;
   }
 

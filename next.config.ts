@@ -11,7 +11,7 @@ const withPWA = require('next-pwa')({
 
 const nextConfig = {
   compiler: {
-    styledComponents: true,
+    styledComponents: true
   },
   experimental: {
     turbo: false,

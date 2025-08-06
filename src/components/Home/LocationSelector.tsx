@@ -64,7 +64,7 @@ export default function LocationSelector() {
           </select>
         </Select>}
 
-        {selectedCityLocal.length > 0 && setSelectedNeighborhoodLocal.length > 0 &&
+        {selectedCityLocal.length > 0 && selectedNeighborhoodLocal.length > 0 &&
           <SearchDeliveryButton onClick={searchDelivery}>
             <img src="/images/search.png" alt="Buscar Delivery" width={'20rem'} />
             Buscar Delivery
