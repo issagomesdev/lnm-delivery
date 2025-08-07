@@ -99,7 +99,10 @@ const Carrinho = () => {
                         <strong>Subtotal:</strong>
                         <strong>R$ {total.toFixed(2)}</strong>
                     </SubTotal>
-                    <RightButton onClick={() => setSteps(1)}>
+                    <RightButton onClick={() => {
+                        setSteps(1)
+                        window.history.pushState(null, '', window.location.pathname);
+                    }}>
                         FINALIZAR
                     </RightButton>
                 </TotalFooter>
@@ -112,13 +115,19 @@ const Carrinho = () => {
 
             <DeliveryMethods
                 isOpen={steps === 1}
-                onClose={(step: 2 | null) => setSteps(step)}
+                onClose={(step: 2 | null) => {
+                    setSteps(step)
+                    window.history.pushState(null, '', window.location.pathname);
+                }}
                 productsTotal={total}
                 handleData={(data: any) => setDeliveryData(data)} />
 
             <PaymentMethods
                 isOpen={steps === 2}
-                onClose={(step: 1 | null) => setSteps(step)}
+                onClose={(step: 1 | null) => {
+                    setSteps(step)
+                    window.history.pushState(null, '', window.location.pathname);
+                }}
                 productsTotal={total}
                 handleData={(data: any) => {
                     setPaymentData(data);

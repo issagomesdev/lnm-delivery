@@ -43,16 +43,18 @@ const ShopPage = () => {
         }
     }, [showEffect]);
 
-    // useCustomBackAction(
-    //     useCallback(() => {
-    //         if (cart.length > 0) {
-    //             setStoreExitAlert(true);
-    //             return true;
-    //         }
+    useCustomBackAction(
+        useCallback(() => {
+            setLoading(true);
+            if (cart.length > 0) {
+                setStoreExitAlert(true);
+                setLoading(false);
+                return true;
+            }
 
-    //         return false;
-    //     }, [cart])
-    // );
+            return "/shops";
+        }, [cart])
+    );
 
     return (
         <>
@@ -80,7 +82,10 @@ const ShopPage = () => {
                     clearCart();
                     router.push(`/shops`);
                 }}
-                onClose={() => setStoreExitAlert(false)}
+                onClose={() => {
+                    setStoreExitAlert(false)
+                    window.history.pushState(null, '', window.location.pathname);
+                }}
                 onConfirmText={"Sim"}
                 onCloseText={"Não"}
             >

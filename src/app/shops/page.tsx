@@ -9,7 +9,7 @@ import BottomNav from '@/components/Into/Shops/BottomNav';
 import { Wrapper } from '@/components/Into/Shops/styles';
 import { useScrollTrigger } from "@/hooks/useScrollTrigger";
 import { useCustomBackAction } from "@/hooks/useCustomBackAction";
-import { usePathname  } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { Loading } from "@/components/Loading";
 
 const ShopsPage = () => {
@@ -25,6 +25,7 @@ const ShopsPage = () => {
 
   useCustomBackAction(
     useCallback(() => {
+      setLoading(true);
       if (filterIsOpen) {
         setFilterIsOpen(false);
         return true;
@@ -33,7 +34,7 @@ const ShopsPage = () => {
         return true;
       }
 
-      return false;
+      return "/";
     }, [filterIsOpen, selectedCategory])
   );
 
@@ -46,7 +47,10 @@ const ShopsPage = () => {
         <Categories
           filterIsActive={filterIsActive}
           selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
+          setSelectedCategory={(value) => {
+            setSelectedCategory(value)
+            window.history.pushState(null, '', window.location.pathname);
+          }}
         />
 
         <Banners filterIsActive={filterIsActive} />
@@ -54,12 +58,20 @@ const ShopsPage = () => {
         <ShopsList ref={itemRef}
           setLoading={(value) => setLoading(value)}
           selectedCategories={selectedCategories}
-          setSelectedCategories={setSelectedCategories}
+          setSelectedCategories={(value) => {
+            setSelectedCategories(value)
+            window.history.pushState(null, '', window.location.pathname);
+
+          }}
           selectedCategory={selectedCategory}
           filterIsActive={filterIsActive}
           setFilterIsActive={setFilterIsActive}
           filterIsOpen={filterIsOpen}
-          setFilterIsOpen={setFilterIsOpen}
+          setFilterIsOpen={(value) => {
+            setFilterIsOpen(value);
+            window.history.pushState(null, '', window.location.pathname);
+
+          }}
           triggered={triggered}
         />
         <BottomNav

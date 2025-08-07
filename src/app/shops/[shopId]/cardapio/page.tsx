@@ -45,7 +45,7 @@ const Cardapio = () => {
     const theme = useTheme();
 
     const handleSelectCategory = (cat: any) => {
-         setLoading(true)
+        setLoading(true)
         if (cat.name.includes("Pizza")) {
             router.push(`/shops/${shopId}/monte-sua-pizza?productId=${encodeURIComponent(cat.id)}`);
         } else {
@@ -83,17 +83,19 @@ const Cardapio = () => {
 
     useEffect(() => {
         setTimeout(() => {
-                const button = categoryRefs.current[category?.id];
-                if (button) {
-                    button.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-                }
-            }, 100);
+            const button = categoryRefs.current[category?.id];
+            if (button) {
+                button.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            }
+        }, 100);
     }, [category])
 
     useCustomBackAction(
         useCallback(() => {
+            setLoading(true);
             if (checkoutIsOpen) {
                 setCheckoutIsOpen(false);
+                setLoading(false);
                 return true;
             } else {
                 return `/shops/${shopId}?CouponAlert=false`;
@@ -103,7 +105,7 @@ const Cardapio = () => {
 
     return (
         <>
-        { loading && <Loading/> }
+            {loading && <Loading />}
             <Header>
                 <h2 className="category">{category?.name || ""}</h2>
             </Header>
@@ -145,6 +147,7 @@ const Cardapio = () => {
                         <MenuItem key={item.id} withImage={!!item.photo} onClick={() => {
                             setItemSelected({ id: item.id, categoryID: category.id });
                             setCheckoutIsOpen(true);
+                            window.history.pushState(null, '', window.location.pathname);
                         }}>
                             <MenuInfo>
                                 <MenuName>{item.name}</MenuName>

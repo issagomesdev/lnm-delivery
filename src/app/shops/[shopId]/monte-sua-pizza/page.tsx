@@ -35,6 +35,7 @@ import {
 import {
     FlavorSelected,
 } from "@/app/shops/[shopId]/monte-sua-pizza/styles";
+import { Loading } from "@/components/Loading";
 
 export default function PizzaBuild() {
     const { shopId } = useParams();
@@ -75,6 +76,10 @@ export default function PizzaBuild() {
         }
     }, [flavorsQuantity]);
 
+    useEffect(() => {
+        console.log('steps::', steps)
+    }, [steps]);
+
     const getPizzaImagePath = () => {
         if (!flavorsQuantity) return "";
         if (selectedFlavors.filter(f => f !== null).length === flavorsQuantity) {
@@ -92,27 +97,42 @@ export default function PizzaBuild() {
 
     useCustomBackAction(
         useCallback(() => {
-            if (steps === 4) {
-                setSteps(3);
+            setLoading(true);
+            if (checkoutIsOpen) {
+                if (flavorsQuantity == 1) {
+                    setCheckoutIsOpen(false)
+                    setSelectedFlavors(Array(1).fill(null));
+                    setSteps(2);
+                } else {
+                    setCheckoutIsOpen(false)
+                }
+                setLoading(false);
                 return true;
-            } else if (showFlavorsSelecteds) {
-                setShowFlavorsSelecteds(false)
+            } else if (steps === 4) {
+                setSteps(3);
+                setLoading(false);
                 return true;
             } else if (categorySelector) {
                 setCategorySelector(false)
+                setLoading(false);
                 return true;
             } else if (steps === 3) {
-                setFlavorsQuantity(1)
-                setSteps(2);
+                if (showFlavorsSelecteds) {
+                    setShowFlavorsSelecteds(false)
+                } else {
+                    setFlavorsQuantity(1)
+                    setSteps(2);
+                }
+                setLoading(false);
                 return true;
             } else if (steps === 2) {
                 setSteps(1);
+                setLoading(false);
                 return true;
-            } else if (steps === 1) {
-                return `/shops/${shopId}`;
             }
-            return false;
-        }, [steps])
+
+            return `/shops/${shopId}`;
+        }, [steps, showFlavorsSelecteds, categorySelector, checkoutIsOpen])
     );
 
     const getFlavorPositions = (count: number) => {
@@ -149,10 +169,9 @@ export default function PizzaBuild() {
         console.log('selectedFlavors', selectedFlavors)
     }, [selectedFlavors])
 
-    if (loading) return <h1>carregando...</h1>
-
     return (
         <>
+            {loading && <Loading />}
             <Header>
                 <h2 className="category">{steps === 4 ? "Escolha os sabores" : "MONTE SUA PIZZA"} </h2>
             </Header>
@@ -172,6 +191,7 @@ export default function PizzaBuild() {
                                     onClick={() => {
                                         setPartSelected(size.parts);
                                         setSteps(2);
+                                        window.history.pushState(null, '', window.location.pathname + window.location.search);
                                     }}
                                 >
                                     <h3>{size?.name}</h3>
@@ -204,6 +224,7 @@ export default function PizzaBuild() {
                                                 setSelectedFlavor(0);
                                                 setSteps(4)
                                             }
+                                            window.history.pushState(null, '', window.location.pathname + window.location.search);
                                         }}
                                     >
                                         <h3>
@@ -236,6 +257,7 @@ export default function PizzaBuild() {
                                             onClick={() => {
                                                 setSelectedFlavor(index);
                                                 setSteps(4)
+                                                window.history.pushState(null, '', window.location.pathname + window.location.search);
                                             }}
                                         >
                                             <h4>{index + 1}° sabor</h4>
@@ -245,7 +267,10 @@ export default function PizzaBuild() {
                                 )}
                             </FlavorsOptions>
                         </FlavorsFigure>
-                        {selectedFlavors.filter(f => f !== null).length > 0 && <FlavorsSelecteds onClick={() => setShowFlavorsSelecteds(true)}>
+                        {selectedFlavors.filter(f => f !== null).length > 0 && <FlavorsSelecteds onClick={() => {
+                            setShowFlavorsSelecteds(true);
+                            window.history.pushState(null, '', window.location.pathname + window.location.search);
+                        }}>
                             <h4>{selectedFlavors.filter(f => f !== null).length} Sabor(es) selecionado(s)</h4>
                         </FlavorsSelecteds>}
                     </Content>
@@ -266,20 +291,27 @@ export default function PizzaBuild() {
                                 SelectOptions(value)
                             }
                             setSteps(3)
+                            window.history.pushState(null, '', window.location.pathname + window.location.search);
                         }}
                         selectedFlavors={selectedFlavors}
                         selectedFlavor={selectedFlavor}
                         productId={productId}
                         setProductId={(value) => setProductId(value)}
                         categorySelector={categorySelector}
-                        setCategorySelector={(value) => setCategorySelector(value)} />
+                        setCategorySelector={(value) => {
+                            setCategorySelector(value)
+                            window.history.pushState(null, '', window.location.pathname + window.location.search);
+                        }} />
                 )}
             </Container>
 
             {showFlavorsSelecteds && (<Overlay>
                 <ModalBox>
                     <CloseXButton>
-                        <Icon icon="material-symbols:close" color="#fff" width="24" onClick={() => setShowFlavorsSelecteds(false)} />
+                        <Icon icon="material-symbols:close" color="#fff" width="24" onClick={() => {
+                            setShowFlavorsSelecteds(false)
+                            window.history.pushState(null, '', window.location.pathname + window.location.search);
+                        }} />
                     </CloseXButton>
 
                     <Title style={{ margin: 0 }}>SABOR SELECIONADO</Title>
@@ -298,6 +330,7 @@ export default function PizzaBuild() {
                                             )
                                         );
                                         setShowFlavorsSelecteds(false)
+                                        window.history.pushState(null, '', window.location.pathname + window.location.search);
                                     }}
                                 >
                                     <MenuInfo>

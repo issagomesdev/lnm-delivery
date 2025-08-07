@@ -11,14 +11,11 @@ export function useCustomBackAction(callback: () => string | boolean | void) {
       if (typeof result === 'string') {
         router.push(result);
       } else if (result === false) {
-        window.history.back();
-      } else {
-        window.history.pushState(null, '', window.location.pathname + window.location.search);
-
+        // Deixa o navegador seguir
+        return;
       }
     };
 
-    window.history.pushState(null, '', window.location.pathname + window.location.search);
     window.addEventListener('popstate', handlePopState);
 
     return () => {
