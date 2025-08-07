@@ -130,7 +130,8 @@ export default function PizzaBuild() {
                 setLoading(false);
                 return true;
             }
-
+            
+            setLoading(false);
             return `/shops/${shopId}`;
         }, [steps, showFlavorsSelecteds, categorySelector, checkoutIsOpen])
     );

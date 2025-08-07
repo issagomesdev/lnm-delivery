@@ -97,9 +97,10 @@ const Cardapio = () => {
                 setCheckoutIsOpen(false);
                 setLoading(false);
                 return true;
-            } else {
-                return `/shops/${shopId}?CouponAlert=false`;
             }
+            
+            setLoading(false);
+            return `/shops/${shopId}?CouponAlert=false`;
         }, [checkoutIsOpen, shopId])
     );
 

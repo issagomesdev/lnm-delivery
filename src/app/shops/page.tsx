@@ -28,11 +28,14 @@ const ShopsPage = () => {
       setLoading(true);
       if (filterIsOpen) {
         setFilterIsOpen(false);
+        setLoading(false);
         return true;
       } else if (selectedCategory) {
         setSelectedCategory('')
+        setLoading(false);
         return true;
       }
+      setLoading(false);
 
       return "/";
     }, [filterIsOpen, selectedCategory])

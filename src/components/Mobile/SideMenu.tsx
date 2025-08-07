@@ -21,7 +21,7 @@ export default function SideMenu({ locationSelector = true }: { locationSelector
         { href: '/meus-enderecos', icon: 'Icon Meus endereços.png', label: 'Meus endereços' },
         { href: 'https://litoralnamesa.com.br/contato/', icon: 'Icon Fale conosco.png', label: 'Fale conosco' },
         { href: '/termos-de-uso', icon: 'Icon Termos de uso.png', label: 'Termos de uso' },
-        { href: '/seja-parceiro', icon: 'Icon Seja parceiro.png', label: 'Seja parceiro' },
+        { href: 'https://litoralnamesa.com.br/seja-parceiro/', icon: 'Icon Seja parceiro.png', label: 'Seja parceiro' },
         { href: '/logout', icon: 'Icon Deslogar.png', label: 'Deslogar' },
     ]
 
@@ -59,6 +59,7 @@ export default function SideMenu({ locationSelector = true }: { locationSelector
                                         if (pathname !== item.href) {
                                             setLoading(true);
                                             router.push(item.href);
+                                            setLoading(false);
                                         }
                                     }}
                                     style={{ display: 'flex', alignItems: 'center' }}

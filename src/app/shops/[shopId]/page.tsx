@@ -51,6 +51,7 @@ const ShopPage = () => {
                 setLoading(false);
                 return true;
             }
+            setLoading(false);
 
             return "/shops";
         }, [cart])
