@@ -1,7 +1,7 @@
 'use client';
 
 import Header from "@/components/Into/Header";
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Categories from '@/components/Into/Shops/Categories';
 import Banners from '@/components/Into/Shops/Banners';
 import ShopsList from '@/components/Into/Shops/ShopsList';
@@ -21,6 +21,11 @@ const ShopsPage = () => {
 
   const itemRef = useRef<HTMLDivElement>(null);
   const triggered = useScrollTrigger(itemRef);
+
+  useEffect(() => {
+    window.history.pushState(null, '', window.location.pathname);
+    window.history.replaceState(null, '', '/');
+  }, [])
 
   useCustomBackAction(
     useCallback(() => {
