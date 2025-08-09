@@ -36,6 +36,7 @@ import {
     FlavorSelected,
 } from "@/app/shops/[shopId]/monte-sua-pizza/styles";
 import { Loading } from "@/components/Loading";
+import ImageWithSkeleton from "@/components/Into/Skeleton/ImageWithSkeleton";
 
 export default function PizzaBuild() {
     const { shopId } = useParams();
@@ -130,7 +131,7 @@ export default function PizzaBuild() {
                 setLoading(false);
                 return true;
             }
-            
+
             setLoading(false);
             return `/shops/${shopId}`;
         }, [steps, showFlavorsSelecteds, categorySelector, checkoutIsOpen])
@@ -243,9 +244,13 @@ export default function PizzaBuild() {
                         <h2>Selecione os sabores</h2>
 
                         <FlavorsFigure>
-                            <img
+
+                            <ImageWithSkeleton
                                 src={getPizzaImagePath()}
                                 alt={`forma-pizza-${flavorsQuantity}`}
+                                ratio="1/1"
+                                rounded={true}
+                                priority
                             />
 
                             <FlavorsOptions>

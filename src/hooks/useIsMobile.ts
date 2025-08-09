@@ -1,17 +1,15 @@
+'use client';
 import { useEffect, useState } from 'react';
 
-export function useIsMobile(breakpoint = 980) {
-  const [isMobile, setIsMobile] = useState<boolean>(false);
+export function useIsMobile(breakpoint = 980, initial = false) {
+  const [isMobile, setIsMobile] = useState<boolean>(initial);
 
   useEffect(() => {
-    const checkScreenSize = () => {
-      setIsMobile(window.innerWidth <= breakpoint);
-    };
-
-    checkScreenSize();
-
-    window.addEventListener('resize', checkScreenSize);
-    return () => window.removeEventListener('resize', checkScreenSize);
+    const check = () => setIsMobile(window.innerWidth <= breakpoint);
+    // já mede na montagem para alinhar a qualquer redimensionamento pós-hidratação
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
   }, [breakpoint]);
 
   return isMobile;

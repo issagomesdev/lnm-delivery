@@ -101,7 +101,6 @@ export const LocationContainer = styled.div`
     display: flex;
     align-items: flex-start;
     gap: 5px;
-    cursor: pointer;
     position: relative;
     justify-content: flex-end;
 `
@@ -110,6 +109,7 @@ export const SelectedLocation = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    cursor: pointer;
 
     h4 {
         display: flex;

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Container, StepProgress, StepItem, StepCircle, Circle, Label, Emoji, OrderInfo, DeliveryTime, OrderButton, ContactChannel, CallButton } from './styles';
 import Header from "@/components/Into/Header";
 import { useSearchParams, useParams, useRouter } from 'next/navigation';
@@ -52,6 +52,7 @@ export default function TrackOrderPage() {
   const params = useParams();
   const orderId = params?.id as string;
   const searchParams = useSearchParams();
+  const returnShops = searchParams.get('return');
   const step = (searchParams.get('step') ?? 'pendent') as Step;
   const [orderIsOpen, setOrderIsOpen] = useState(false);
   const statusLabels: Record<Step, string> = {
@@ -64,9 +65,15 @@ export default function TrackOrderPage() {
   const [ratingIsOpen, setRatingIsOpen] = useState(false);
   const router = useRouter();
 
+  useEffect(() => {
+    if (returnShops && returnShops === 'shops') {
+      window.history.pushState(null, '', window.location.pathname + window.location.search);
+      window.history.replaceState(null, '', '/shops');
+    }
+  }, [returnShops])
+
   useCustomBackAction(
     useCallback(() => {
-      const returnShops = searchParams.get('return');
       if (returnShops && returnShops === 'shops') {
         return "/shops";
       }

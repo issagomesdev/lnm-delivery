@@ -76,25 +76,6 @@ export const SearchDeliveryButton = styled.button`
   font-weight: 500;
   cursor: pointer;
 `
-
-export const LinkAppContainer = styled.div`
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  align-items: center;
-  margin-top: 2rem;
-
-  img {
-    width: 10rem;
-  }
-
-  @media (max-width: 768px) {
-    img {
-      width: 7rem;
-    }
-  }
-`
-
 const bounce = keyframes`
   0%, 100% {
     transform: translateY(0);

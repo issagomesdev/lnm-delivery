@@ -4,7 +4,6 @@ import { Icon } from '@iconify/react';
 import {
   Wrapper,
   Cover,
-  CoverImage,
   ProfileSection,
   Profile,
   InfoRow,
@@ -18,15 +17,18 @@ import {
 import DeliveryFees from './DeliveryFees';
 import ModalComponent from '@/components/shared/Modal/ModalComponent';
 import Informations from './Informations';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { ConfirmButton, Label } from '@/components/shared/Modal/styles';
 import { useTheme } from 'styled-components';
 import Reviews from './Reviews';
 import { shopCategories } from '../../data';
 import { isBefore, isAfter } from 'date-fns';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { ImageWithLoader } from '@/components/ImageWithLoader';
+import { useCustomBackAction } from '@/hooks/useCustomBackAction';
+import { useShoppingCart } from '@/contexts/ShoppingCartContext';
 
-const ShopProfile = ({ shop, setLoading }: { shop: any, setLoading: (value: boolean) => void  }) => {
+const ShopProfile = ({ shop, setLoading }: { shop: any, setLoading: (value: boolean) => void }) => {
 
   const [reviewsIsOpen, setReviewsIsOpen] = useState(false);
   const [feesIsOpen, setFeesIsOpen] = useState(false);
@@ -36,9 +38,11 @@ const ShopProfile = ({ shop, setLoading }: { shop: any, setLoading: (value: bool
   const [shopIsClosed, setShopIsClosed] = useState(false);
   const [categories, setCategories] = useState<any>([]);
   const theme = useTheme();
+  const { cart, clearCart } = useShoppingCart();
   const router = useRouter();
   const searchParams = useSearchParams();
   const CouponAlert = searchParams?.get("CouponAlert");
+  const [storeExitAlert, setStoreExitAlert] = useState(false);
 
   useEffect(() => {
     const now = new Date();
@@ -61,11 +65,47 @@ const ShopProfile = ({ shop, setLoading }: { shop: any, setLoading: (value: bool
     };
   }, [infoIsOpen, reviewsIsOpen, feesIsOpen, timeInfoIsOpen, couponAlertIsOpen]);
 
+  useCustomBackAction(
+    useCallback(() => {
+      if (timeInfoIsOpen) {
+        setTimeInfoIsOpen(false)
+        return true;
+      } else if (feesIsOpen) {
+        setFeesIsOpen(false)
+        return true;
+      } else if (reviewsIsOpen) {
+        setReviewsIsOpen(false)
+        return true;
+      } else if (infoIsOpen) {
+        setInfoIsOpen(false)
+        return true;
+      } else if (cart.length > 0) {
+        setStoreExitAlert(true);
+        return true;
+      }
+      return "/shops";
+    }, [cart.length, infoIsOpen, timeInfoIsOpen, feesIsOpen, reviewsIsOpen])
+  );
+
+
   return (
     <Wrapper>
       <Cover>
-        <CoverImage src={shop.cover} alt={`Capa da loja ${shop.name}`} />
-        <RatingBadge onClick={() => setReviewsIsOpen(true)}>
+        <ImageWithLoader
+          src={shop.cover}
+          alt={`Banner ${shop.name}`}
+          imgStyle={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            borderBottom: '2px solid #eee',
+            userSelect: 'none',
+          }}
+        />
+        <RatingBadge onClick={() => {
+          setReviewsIsOpen(true)
+          window.history.pushState(null, '', window.location.pathname);
+        }}>
           <Icon icon={"material-symbols:star-rounded"} width="15" />
           avaliações {shop.rating.toFixed(1)}
           <Icon icon={"ep:arrow-right-bold"} width="9" />
@@ -74,16 +114,26 @@ const ShopProfile = ({ shop, setLoading }: { shop: any, setLoading: (value: bool
 
       <ProfileSection>
         <Profile>
-          <img src={shop.image} alt={`Logo ${shop.name}`} />
+          <ImageWithLoader
+            src={shop.image}
+            alt={`Logo ${shop.name}`}
+            wrapperStyle={{ width: '90px', height: '90px', bottom: '20px' }}
+          />
           <ShopName>{shop.name}</ShopName>
         </Profile>
 
         <InfoRow>
-          <QuickInfoItem onClick={() => setFeesIsOpen(true)}>
+          <QuickInfoItem onClick={() => {
+            setFeesIsOpen(true)
+            window.history.pushState(null, '', window.location.pathname);
+          }}>
             <ItemIcon icon="mdi:delivery-dining" />
             <span>txs entrega</span>
           </QuickInfoItem>
-          <QuickInfoItem onClick={() => setTimeInfoIsOpen(true)}>
+          <QuickInfoItem onClick={() => {
+            setTimeInfoIsOpen(true);
+            window.history.pushState(null, '', window.location.pathname);
+          }}>
             <ItemIcon icon="material-symbols:timer-outline" />
             <span>{shop.deliveryTime} min.</span>
           </QuickInfoItem>
@@ -91,7 +141,10 @@ const ShopProfile = ({ shop, setLoading }: { shop: any, setLoading: (value: bool
             <h1>R${shop.minimum_value_order}</h1>
             <span>ped. minímo</span>
           </QuickInfoItem>}
-          <QuickInfoItem onClick={() => setInfoIsOpen(true)}>
+          <QuickInfoItem onClick={() => {
+            setInfoIsOpen(true)
+            window.history.pushState(null, '', window.location.pathname);
+          }}>
             <ItemIcon icon="material-symbols:info-outline" />
             <span>informações</span>
           </QuickInfoItem>
@@ -126,7 +179,10 @@ const ShopProfile = ({ shop, setLoading }: { shop: any, setLoading: (value: bool
             <p style={{ marginBottom: '1rem', fontWeight: 500 }}>
               Desculpe-nos, infelizmente o restaurante encontra-se fechado no momento, devido ao horário ou falta de conexão com a internet.
             </p>
-            <ConfirmButton onClick={() => setInfoIsOpen(true)}> Ver horários de atendimento </ConfirmButton>
+            <ConfirmButton onClick={() => {
+              setInfoIsOpen(true)
+              window.history.pushState(null, '', window.location.pathname);
+            }}> Ver horários de atendimento </ConfirmButton>
           </div>
         )
       }
@@ -158,7 +214,10 @@ const ShopProfile = ({ shop, setLoading }: { shop: any, setLoading: (value: bool
       {/* modal de alerta para cupom */}
       <ModalComponent
         isOpen={couponAlertIsOpen}
-        onConfirm={() => setCouponAlertIsOpen(false)}
+        onConfirm={() => {
+          setCouponAlertIsOpen(false);
+          window.history.replaceState(null, '', window.location.pathname + '?CouponAlert=false');
+        }}
         onConfirmText={"Ok, entendi"}
       >
         {shop.coupon &&
@@ -174,6 +233,25 @@ const ShopProfile = ({ shop, setLoading }: { shop: any, setLoading: (value: bool
             </p>
           </>
         }
+      </ModalComponent>
+
+      {/*  */}
+
+
+
+      <ModalComponent
+        isOpen={storeExitAlert}
+        title={"Atenção"}
+        onConfirm={() => {
+          setLoading(true)
+          clearCart();
+          router.push(`/shops`);
+        }}
+        onClose={() => setStoreExitAlert(false)}
+        onConfirmText={"Sim"}
+        onCloseText={"Não"}
+      >
+        <Label>Ao sair da loja os itens adicionados serão excluídos. Tem certeza que deseja sair?</Label>
       </ModalComponent>
 
       {/* modal de informações */}

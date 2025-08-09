@@ -35,6 +35,7 @@ import { useLocation } from '@/contexts/LocationContext';
 import { useRouter } from 'next/navigation';
 import { useTheme } from 'styled-components';
 import { Loading } from '@/components/Loading';
+import { ImageWithLoader } from '@/components/ImageWithLoader';
 
 type ShopsListProps = {
   ref?: React.Ref<HTMLDivElement | null>;
@@ -208,12 +209,22 @@ const ShopsList = ({ ref, selectedCategories, setSelectedCategories, selectedCat
           });
 
           return (
-            <ShopItem key={i} onClick={() => { 
+            <ShopItem key={i} onClick={() => {
               setLoading?.(true);
               router.push(`/shops/${shop.id}`)
             }}>
               <ShopContent>
-                <ShopImage src={'/images/default-store.png'} alt={shop.name} />
+                <ImageWithLoader alt={`icon ${shop.name}`} src={'/images/default-store.png'}
+                wrapperStyle={{
+                  width: "64px",
+                  height: "64px",
+                }}
+                imgStyle={{
+                  borderRadius: "8px",
+                  objectFit: "cover",
+                  userSelect: "none"
+                }} />
+
                 <ShopInfo>
                   <ShopName>{shop.name}</ShopName>
                   <ShopMeta> {shop.category.name} </ShopMeta>
@@ -261,7 +272,7 @@ const ShopsList = ({ ref, selectedCategories, setSelectedCategories, selectedCat
       {<ShopItems>
         {closeShops.map((shop, i) => {
           return (
-            <ShopItem key={i} style={{ opacity: 0.5 }} onClick={() => { 
+            <ShopItem key={i} style={{ opacity: 0.5 }} onClick={() => {
               setLoading?.(true);
               router.push(`/shops/${shop.id}`)
             }}>

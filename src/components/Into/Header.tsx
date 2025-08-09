@@ -3,7 +3,7 @@
 import { Container, LeftSide, NavItem, LogoWrapper, RightSide, UserContent } from "./styles";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useEffect, useRef, useState } from "react";
-import FloatingMenu from '@/components/Web/FloatingMenu';
+import FloatingMenu from "../Web/FloatingMenu";
 import SideMenu from '@/components/Mobile/SideMenu';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import { useRouter } from 'next/navigation'

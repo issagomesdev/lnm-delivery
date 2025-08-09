@@ -1,0 +1,134 @@
+.locationContainer {
+  width: 100%;
+  gap: 6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 980px) {
+  .locationContainer {
+    margin-top: 1rem;
+  }
+}
+
+.locationSelectorContainer {
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.select {
+  background: var(--background);
+  width: 30rem;
+  padding: 0.5rem;
+  border-radius: var(--border-radius);
+  border: 3px solid var(--separators);
+}
+
+.select select {
+  width: 100%;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  padding: 0.3rem 0.5rem;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+@media (max-width: 768px) {
+  .select {
+    width: 100%;
+  }
+}
+
+.locationIcon {
+  display: flex;
+  gap: 3px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.locationIcon img {
+  width: 1.6rem;
+}
+
+@media (max-width: 768px) {
+  .locationIcon {
+    font-size: 0.9rem;
+  }
+}
+
+.searchDeliveryButton {
+  background: var(--primary);
+  outline: none;
+  border: none;
+  width: 99%;
+  padding: 1rem 0;
+  border-radius: var(--border-radius);
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.linkAppContainer {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.linkAppContainer img {
+  width: 10rem;
+}
+
+@media (max-width: 768px) {
+  .linkAppContainer img {
+    width: 7rem;
+  }
+}
+
+/* animação */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+
+.scrollDownContainer {
+  position: fixed;
+  bottom: 10px;
+  background: var(--primary);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  right: 48%;
+  transform: translateX(50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: bounce 1.5s infinite;
+  z-index: 1000;
+  transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+  opacity: 1;
+  visibility: visible;
+}
+
+.scrollDownContainer.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+@media (max-width: 768px) {
+  .scrollDownContainer {
+    right: 45%;
+  }
+}

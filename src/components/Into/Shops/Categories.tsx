@@ -1,9 +1,11 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { CategoriesWrapper, CategoryItem, CategoryImage, CategoryName } from './styles';
+import React, { useState } from 'react';
+import { CategoriesWrapper, CategoryItem, CategoryName } from './styles';
 import { categories } from '../data';
 import { useHorizontalScrollDrag } from '@/hooks/useHorizontalScrollDrag';
+import ImageWithSkeleton from "@/components/Into/Skeleton/ImageWithSkeleton";
+import { SkeletonText } from "@/components/Into/Skeleton";
 
 type Props = {
   selectedCategory: string;
@@ -13,6 +15,7 @@ type Props = {
 
 const Categories = ({ selectedCategory, setSelectedCategory, filterIsActive }: Props) => {
   const { ref, isDragging, events } = useHorizontalScrollDrag();
+  const [loadedCategories, setLoadedCategories] = useState<{ [key: string]: boolean }>({});
 
   return (
     <CategoriesWrapper
@@ -21,6 +24,7 @@ const Categories = ({ selectedCategory, setSelectedCategory, filterIsActive }: P
       style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
     >
       {!filterIsActive && categories.map((category) => {
+        const isLoaded = loadedCategories[category.id];
 
         return (
           <CategoryItem
@@ -28,13 +32,33 @@ const Categories = ({ selectedCategory, setSelectedCategory, filterIsActive }: P
             isSelected={selectedCategory === category.name}
             onClick={() => setSelectedCategory(category.name)}
           >
-            <CategoryImage
+            <div style={{
+              backgroundColor: selectedCategory === category.name? '#E6F4F1' : 'transparent',
+              width: '100%'
+            }}>
+
+              <ImageWithSkeleton
               src={category.path}
               alt={category.name}
-              isSelected={selectedCategory === category.name}
+              ratio="4/3"
+              rounded={false}
+              priority
+              onLoadComplete={() =>
+                setLoadedCategories(prev => ({ ...prev, [category.id]: true }))
+              }
               onDragStart={(e) => e.preventDefault()}
             />
-            <CategoryName isSelected={selectedCategory === category.name}>{category.name}</CategoryName>
+            </div>
+
+            {isLoaded ? (
+              <CategoryName isSelected={selectedCategory === category.name}>
+                {category.name}
+              </CategoryName>
+            ) : (
+              <div style={{ width: "100%", marginTop: 6 }}>
+                <SkeletonText lines={1} />
+              </div>
+            )}
 
             {selectedCategory === category.name && (
               <span
@@ -56,7 +80,7 @@ const Categories = ({ selectedCategory, setSelectedCategory, filterIsActive }: P
                 }}
                 onClick={(e) => {
                   e.stopPropagation();
-                  setSelectedCategory('')
+                  setSelectedCategory('');
                 }}
               >
                 ✕
@@ -70,3 +94,4 @@ const Categories = ({ selectedCategory, setSelectedCategory, filterIsActive }: P
 };
 
 export default Categories;
+

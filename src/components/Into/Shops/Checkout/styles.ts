@@ -9,9 +9,9 @@ export const ItemImage = styled.div`
     width: 100%;
     display: flex;
     justify-content: center;
-     align-items: center;
+    align-items: center;
 
-    >img {
+    img {
         width: 100%;
         height: auto;
         padding: .5em;
@@ -21,7 +21,7 @@ export const ItemImage = styled.div`
       margin: 0;
       width: 100%;
 
-      >img {
+      img {
        padding: 0
       }
     }

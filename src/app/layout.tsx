@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import StyledComponentsRegistry from '@/lib/registry';
+import './globals.css';
 
 export const metadata = {
   title: 'Litoral na mesa',

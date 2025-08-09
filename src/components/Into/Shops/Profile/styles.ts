@@ -18,14 +18,6 @@ export const Cover = styled.div`
   height: 300px;
 `;
 
-export const CoverImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-bottom: 2px solid #eee;
-  user-select: none;
-`;
-
 export const ProfileSection = styled.div`
   display: flex;
   flex-direction: column;
@@ -46,13 +38,10 @@ export const Profile = styled.div`
 
     img {
       position: relative;
-      width: 90px;
-      height: auto;
       border: 3px solid white;
       background-color: #fff;
       object-fit: cover;
       border-radius: 6px;
-      bottom: 20px;
     }
 `;
 

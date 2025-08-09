@@ -11,6 +11,7 @@ import { ModalBox, Container, Content, Section, ItemInfo, Description, Price, Op
 import { Label } from "@/components/shared/Modal/styles";
 import ModalComponent from '@/components/shared/Modal/ModalComponent';
 import { Loading } from '@/components/Loading';
+import { ImageWithLoader } from '@/components/ImageWithLoader';
 
 export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolean; onClose: (product?: any) => void; selected: any, shopId: string }) => {
 
@@ -248,7 +249,7 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
 
     return (
         <Overlay>
-            { loading && <Loading/> }
+            {loading && <Loading />}
             <ModalBox>
                 <CloseXButton>
                     <Icon icon="material-symbols:close" color="#fff" width="24" onClick={() => {
@@ -270,7 +271,15 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
                 <Container>
 
                     {item && item.photo && <ItemImage>
-                        <img src={item.photo} alt={item.name} />
+                        <ImageWithLoader src={item.photo} alt={item.name}
+                        loaderStyle={{
+                            height: '200px',
+                            position: 'relative'
+                        }}
+                        loaderImgStyle={{
+                            width: '80px'
+                        }}
+                        />
                     </ItemImage>}
 
                     <Content>

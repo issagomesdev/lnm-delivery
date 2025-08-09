@@ -1,7 +1,7 @@
 'use client';
 
 import Header from "@/components/Into/Header";
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import Categories from '@/components/Into/Shops/Categories';
 import Banners from '@/components/Into/Shops/Banners';
 import ShopsList from '@/components/Into/Shops/ShopsList';
@@ -9,7 +9,6 @@ import BottomNav from '@/components/Into/Shops/BottomNav';
 import { Wrapper } from '@/components/Into/Shops/styles';
 import { useScrollTrigger } from "@/hooks/useScrollTrigger";
 import { useCustomBackAction } from "@/hooks/useCustomBackAction";
-import { usePathname } from 'next/navigation';
 import { Loading } from "@/components/Loading";
 
 const ShopsPage = () => {

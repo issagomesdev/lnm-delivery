@@ -1,0 +1,17 @@
+.linkAppContainer {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.linkAppContainer img {
+  width: 10rem;
+}
+
+@media (max-width: 768px) {
+  .linkAppContainer img {
+    width: 7rem;
+  }
+}

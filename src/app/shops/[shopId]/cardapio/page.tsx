@@ -23,10 +23,10 @@ import { useScrollTop } from "@/hooks/useScrollTop";
 import CartBar from "@/components/Into/Shops/ShoppingCart/CartBar";
 import { Checkout } from "@/components/Into/Shops/Checkout/Checkout";
 import { useShoppingCart } from "@/contexts/ShoppingCartContext";
-import { useIsMobile } from "@/hooks/useIsMobile";
 import { useCustomBackAction } from "@/hooks/useCustomBackAction";
 import { useTheme } from "styled-components";
 import { Loading } from "@/components/Loading";
+import { ImageWithLoader } from '@/components/ImageWithLoader';
 
 const Cardapio = () => {
     const searchParams = useSearchParams();
@@ -98,7 +98,7 @@ const Cardapio = () => {
                 setLoading(false);
                 return true;
             }
-            
+
             setLoading(false);
             return `/shops/${shopId}?CouponAlert=false`;
         }, [checkoutIsOpen, shopId])
@@ -155,7 +155,20 @@ const Cardapio = () => {
                                 <MenuDescription>{item.description}</MenuDescription>
                                 <MenuPrice>R$ {item.price.toFixed(2)}</MenuPrice>
                             </MenuInfo>
-                            {item.photo && <MenuImage src={item.photo} alt={item.name} />}
+                            {item.photo &&
+                                <ImageWithLoader src={item.photo} alt={item.name}
+                                    wrapperStyle={{
+                                        width: '80px',
+                                        height: '80px',
+                                    }}
+                                    imgStyle={{
+                                        width: '100%',
+                                        height: '100%',
+                                        objectFit: 'cover',
+                                        borderRadius: '6px',
+                                        userSelect: 'none',
+                                    }} />
+                            }
                         </MenuItem>
                     ))}
                 </MenuItems>

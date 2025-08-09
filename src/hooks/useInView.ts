@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useRef, useState } from 'react';
 
 export function useInView(offset = 0.5) {

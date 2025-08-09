@@ -1,0 +1,14 @@
+.container {
+  background-color: var(--background);
+  min-height: 100vh;
+}
+
+.logo {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.logo img {
+  width: 100px;
+}

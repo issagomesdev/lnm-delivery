@@ -3,13 +3,12 @@
 import { Heart } from './styles';
 import { Icon } from '@iconify/react';
 import { useParams, useRouter } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Header from '@/components/Into/Shops/Profile/Header';
 import ShopProfile from '@/components/Into/Shops/Profile/ShopProfile';
 import { shops } from '@/components/Into/data';
 import FavoriteEffect from '@/components/Into/Shops/Profile/FavoriteEffect';
 import CartBar from '@/components/Into/Shops/ShoppingCart/CartBar';
-import { useCustomBackAction } from '@/hooks/useCustomBackAction';
 import { useShoppingCart } from '@/contexts/ShoppingCartContext';
 import ModalComponent from '@/components/shared/Modal/ModalComponent';
 import { Label } from "@/components/shared/Modal/styles";
@@ -20,10 +19,7 @@ const ShopPage = () => {
     const [isLiked, setIsLiked] = useState(false);
     const [showEffect, setShowEffect] = useState(false);
     const [shop, setShop] = useState<any>();
-    const { cart, clearCart } = useShoppingCart();
-    const [storeExitAlert, setStoreExitAlert] = useState(false);
     const [loading, setLoading] = useState(false);
-    const router = useRouter();
 
     const toggleLike = () => {
         setIsLiked((prev) => !prev);
@@ -43,20 +39,6 @@ const ShopPage = () => {
         }
     }, [showEffect]);
 
-    useCustomBackAction(
-        useCallback(() => {
-            setLoading(true);
-            if (cart.length > 0) {
-                setStoreExitAlert(true);
-                setLoading(false);
-                return true;
-            }
-            setLoading(false);
-
-            return "/shops";
-        }, [cart])
-    );
-
     return (
         <>
             {loading && <Loading />}
@@ -74,24 +56,6 @@ const ShopPage = () => {
             {shop && <ShopProfile setLoading={(value) => setLoading(value)} shop={shop} />}
 
             <CartBar />
-
-            <ModalComponent
-                isOpen={storeExitAlert}
-                title={"Atenção"}
-                onConfirm={() => {
-                    setLoading(true)
-                    clearCart();
-                    router.push(`/shops`);
-                }}
-                onClose={() => {
-                    setStoreExitAlert(false)
-                    window.history.pushState(null, '', window.location.pathname);
-                }}
-                onConfirmText={"Sim"}
-                onCloseText={"Não"}
-            >
-                <Label>Ao sair da loja os itens adicionados serão excluídos. Tem certeza que deseja sair?</Label>
-            </ModalComponent>
 
             <FavoriteEffect visible={showEffect} like={isLiked} />
         </>
