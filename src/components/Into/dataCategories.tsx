@@ -137,7 +137,7 @@ export const dataCategories = [
   {
     "id": 3,
     "name": "Refeições",
-    "path": "/images/categories/03 Refeições.png",
+    "path": "/images/categories/03 Refeicoes.png",
     "menu": [
       {
         "id": 1,
@@ -457,7 +457,7 @@ export const dataCategories = [
   {
     "id": 9,
     "name": "Açaí e Sorvete",
-    "path": "/images/categories/09 Açaí e Sorvete.png",
+    "path": "/images/categories/09 Acai e Sorvete.png",
     "menu": [
       {
         "id": 1,
@@ -677,7 +677,7 @@ export const dataCategories = [
   {
     "id": 12,
     "name": "Café",
-    "path": "/images/categories/12 Café.png",
+    "path": "/images/categories/12 Cafe.png",
     "menu": [
       {
         "id": 1,
@@ -1295,7 +1295,7 @@ export const dataCategories = [
   {
     "id": 21,
     "name": "Árabe",
-    "path": "/images/categories/21 Árabe.png",
+    "path": "/images/categories/21 Arabe.png",
     "menu": [
       {
         "id": 1,
@@ -1509,7 +1509,7 @@ export const dataCategories = [
   {
     "id": 25,
     "name": "Conveniência",
-    "path": "/images/categories/25 Conveniência.png",
+    "path": "/images/categories/25 Conveniencia.png",
     "menu": [
       {
         "id": 1,
@@ -1637,7 +1637,7 @@ export const dataCategories = [
   {
     "id": 27,
     "name": "Açougue",
-    "path": "/images/categories/27 Açougue.png",
+    "path": "/images/categories/27 Acougue.png",
     "menu": [
       {
         "id": 1,
