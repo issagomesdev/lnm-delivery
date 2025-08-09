@@ -160,6 +160,7 @@ const Cardapio = () => {
                                     wrapperStyle={{
                                         width: '80px',
                                         height: '80px',
+                                        zIndex: '-1'
                                     }}
                                     imgStyle={{
                                         width: '100%',
