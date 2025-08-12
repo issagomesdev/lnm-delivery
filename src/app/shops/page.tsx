@@ -22,10 +22,10 @@ const ShopsPage = () => {
   const itemRef = useRef<HTMLDivElement>(null);
   const triggered = useScrollTrigger(itemRef);
 
-  useEffect(() => {
-    window.history.pushState(null, '', window.location.pathname);
-    window.history.replaceState(null, '', '/');
-  }, [])
+  // useEffect(() => {
+  //   window.history.pushState(null, '', window.location.pathname);
+  //   window.history.replaceState(null, '', '/');
+  // }, [])
 
   useCustomBackAction(
     useCallback(() => {

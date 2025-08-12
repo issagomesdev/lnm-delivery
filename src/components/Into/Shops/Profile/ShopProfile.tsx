@@ -17,7 +17,7 @@ import {
 import DeliveryFees from './DeliveryFees';
 import ModalComponent from '@/components/shared/Modal/ModalComponent';
 import Informations from './Informations';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { ConfirmButton, Label } from '@/components/shared/Modal/styles';
 import { useTheme } from 'styled-components';
 import Reviews from './Reviews';
@@ -101,6 +101,7 @@ const ShopProfile = ({ shop, setLoading }: { shop: any, setLoading: (value: bool
             borderBottom: '2px solid #eee',
             userSelect: 'none',
           }}
+          loaderStyle={{ width: '40px', height: '40px' }}
         />
         <RatingBadge onClick={() => {
           setReviewsIsOpen(true)
@@ -118,6 +119,7 @@ const ShopProfile = ({ shop, setLoading }: { shop: any, setLoading: (value: bool
             src={shop.image}
             alt={`Logo ${shop.name}`}
             wrapperStyle={{ width: '90px', height: '90px', bottom: '20px' }}
+            loaderStyle={{ width: '40px', height: '40px' }}
           />
           <ShopName>{shop.name}</ShopName>
         </Profile>

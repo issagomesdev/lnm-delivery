@@ -198,7 +198,7 @@ export const PaymentMethods = ({ isOpen, onClose, productsTotal, handleData }: {
                         <PaymentSelect value={method} onChange={(e) => setMethod(e.target.value)}>
                             <option value="">Selecione</option>
                             {paymentOptions.map((option) => (
-                                <option key={option} value={option}>{option}</option>
+                                <option key={option} value={option}>{option} (R${productsTotal})</option>
                             ))}
                         </PaymentSelect>
                     </PaymentField>

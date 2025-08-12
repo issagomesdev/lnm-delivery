@@ -37,6 +37,7 @@ import {
 } from "@/app/shops/[shopId]/monte-sua-pizza/styles";
 import { Loading } from "@/components/Loading";
 import ImageWithSkeleton from "@/components/Into/Skeleton/ImageWithSkeleton";
+import { ImageWithLoader } from "@/components/ImageWithLoader";
 
 export default function PizzaBuild() {
     const { shopId } = useParams();
@@ -350,7 +351,19 @@ export default function PizzaBuild() {
                                         </FlavorSelected>
                                     </MenuInfo>
 
-                                    {item.photo && <MenuImage src={item.photo} alt={item.name} />}
+                                    {item.photo && <ImageWithLoader src={item.photo} alt={item.name}
+                                    wrapperStyle={{
+                                        width: '80px',
+                                        height: '80px'
+                                    }}
+                                    imgStyle={{
+                                        width: '100%',
+                                        height: '100%',
+                                        objectFit: 'cover',
+                                        borderRadius: '6px',
+                                        userSelect: 'none',
+                                    }}
+                                    loaderStyle={{ width: '35px', height: '35px' }}  />}
                                 </MenuItem>
                             )
                         ))}

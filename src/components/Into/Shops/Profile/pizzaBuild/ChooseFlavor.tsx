@@ -23,6 +23,7 @@ import { Title, Overlay, CloseXButton } from '@/components/shared/Modal/styles';
 import { shopCategories } from "@/components/Into/data";
 import { Options, Option } from "./styles";
 import { useTheme } from "styled-components";
+import { ImageWithLoader } from "@/components/ImageWithLoader";
 
 const ChooseFlavor = ({
     category,
@@ -106,7 +107,19 @@ const ChooseFlavor = ({
                                 <Icon icon={'ic:baseline-close'} color={'red'} width="18" />
                             </FlavorSelected>}
                     </MenuInfo>
-                    {item.photo && <MenuImage src={item.photo} alt={item.name} />}
+                    {item.photo && <ImageWithLoader src={item.photo} alt={item.name}
+                        wrapperStyle={{
+                            width: '80px',
+                            height: '80px'
+                        }}
+                        imgStyle={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            borderRadius: '6px',
+                            userSelect: 'none',
+                        }}
+                        loaderStyle={{ width: '35px', height: '35px' }} />}
                 </MenuItem>
             ))}
         </MenuItems>

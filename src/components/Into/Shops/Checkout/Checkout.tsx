@@ -272,13 +272,13 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
 
                     {item && item.photo && <ItemImage>
                         <ImageWithLoader src={item.photo} alt={item.name}
-                        loaderStyle={{
-                            height: '200px',
-                            position: 'relative'
-                        }}
-                        loaderImgStyle={{
-                            width: '80px'
-                        }}
+                            loaderStyle={{
+                                height: '200px',
+                                position: 'relative'
+                            }}
+                            loaderImgStyle={{
+                                width: '50px'
+                            }}
                         />
                     </ItemImage>}
 
