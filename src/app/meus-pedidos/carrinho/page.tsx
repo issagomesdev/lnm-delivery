@@ -11,6 +11,7 @@ import { DeliveryMethods } from "@/components/Into/Shops/ShoppingCart/DeliveryMe
 import { PaymentMethods } from "@/components/Into/Shops/ShoppingCart/PaymentMethods";
 import { useCustomBackAction } from '@/hooks/useCustomBackAction';
 import { Loading } from "@/components/Loading";
+import { useShopPage } from "@/contexts/ShopPageContext";
 
 export default function Carrinho() {
   return (
@@ -30,6 +31,7 @@ const CarrinhoInner = () => {
     const [paymentData, setPaymentData] = useState<any>({});
     const [deliveryValue, setDeliveryValue] = useState<number>(0);
     const [loading, setLoading] = useState(false);
+    const { shopId, updateShopId } = useShopPage();
     const router = useRouter();
 
     const handleIncrease = (id: number) => {
@@ -145,6 +147,7 @@ const CarrinhoInner = () => {
                     clearCart();
                     setTimeout(() => {
                         setLoading(true)
+                        updateShopId(null);
                         router.push(`/meus-pedidos/rastreio/21777179?step=pendent&date=26/05/2025%2016:10&return=shops`);
                     }, 100);
                 }} />
