@@ -15,11 +15,7 @@ export const ShopPageProvider = ({ children }: { children: ReactNode }) => {
   const updateShopId = (id: string | null) => {
     setShopId(id)
 
-    if (id) {
-      window.history.pushState(null, '', window.location.pathname + `?shopId=${id}`);
-    } else {
-      window.history.pushState(null, '', window.location.pathname);
-    }
+    
   }
   return (
     <ShopPageContext.Provider value={{ shopId, updateShopId }}>

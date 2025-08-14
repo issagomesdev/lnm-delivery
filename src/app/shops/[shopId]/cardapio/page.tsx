@@ -100,7 +100,7 @@ const Cardapio = () => {
             }
 
             setLoading(false);
-            return `/shops/${shopId}?CouponAlert=false`;
+            return `/shops?shopId=${shopId}&CouponAlert=false`;
         }, [checkoutIsOpen, shopId])
     );
 
@@ -148,7 +148,7 @@ const Cardapio = () => {
                         <MenuItem key={item.id} withImage={!!item.photo} onClick={() => {
                             setItemSelected({ id: item.id, categoryID: category.id });
                             setCheckoutIsOpen(true);
-                            window.history.pushState(null, '', window.location.pathname);
+                            window.history.pushState(null, '', window.location.pathname + window.location.search);
                         }}>
                             <MenuInfo>
                                 <MenuName>{item.name}</MenuName>

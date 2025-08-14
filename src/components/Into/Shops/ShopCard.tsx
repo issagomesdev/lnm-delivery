@@ -41,8 +41,8 @@ export default function ShopCard(props: {
     : `Fechadas agora (${shops.length})`;
 
   const goToShop = (id: string) => {
-    setLoading(true);
     updateShopId(id)
+    window.history.pushState(null, '', window.location.pathname);
   };
 
   const renderCouponBlock = (shop: any) => {

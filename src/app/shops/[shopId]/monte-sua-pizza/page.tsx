@@ -134,7 +134,7 @@ export default function PizzaBuild() {
             }
 
             setLoading(false);
-            return `/shops/${shopId}`;
+            return `/shops?shopId=${shopId}&CouponAlert=false`;
         }, [steps, showFlavorsSelecteds, categorySelector, checkoutIsOpen])
     );
 

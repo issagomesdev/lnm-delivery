@@ -5,14 +5,13 @@ interface Props {
   overflow?: boolean;
 }
 
+// ShopPage
+
 export const Heart = styled.div`
     height: 100%;
     display: flex;
     align-items: center;
 `;
-
-// ShopProfile
-
 export const Wrapper = styled.div.withConfig({
   shouldForwardProp: (prop) => prop !== 'overflow',
 }) <Props>`

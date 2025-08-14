@@ -92,7 +92,6 @@ const ShopsList = ({ ref, selectedCategories, setSelectedCategories, selectedCat
     setOpenShops(opened);
     setCloseShops(closed);
 
-    console.log(now, filtered, openShops, closeShops, selectedCategories)
   }, [shops, search, selectedCategories, selectedCategory]);
 
   useEffect(() => {

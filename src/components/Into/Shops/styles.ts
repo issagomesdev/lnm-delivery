@@ -174,7 +174,7 @@ export const FiltersWrapper = styled.div.withConfig({
   column-gap: 10px;
   flex-wrap: wrap;
   justify-content: space-between;
-  z-index: ${({ fixed }) => (fixed ? 9 : -1)};
+  z-index: ${({ fixed }) => (fixed ? 9 : 1)};
   background-color: #fff;
 
   opacity: ${({ animate, fixed }) => (animate || !fixed ? 1 : 0)};
@@ -452,6 +452,7 @@ export const BottomNavWrapper = styled.div`
   background-color: #fff;
   padding: 12px 0;
   border-top: 1px solid #eee;
+  z-index: 9;
 `;
 
 export const NavItem = styledBase.a.withConfig({

@@ -34,7 +34,6 @@ export default function Header({ children, setLoading }: { children?: ReactNode,
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
       updateShopId(null);
-      setLoading?.(false)
     } else {
       router.back();
     }
@@ -55,7 +54,7 @@ export default function Header({ children, setLoading }: { children?: ReactNode,
         onConfirm={() => {
           setLoading?.(true)
           clearCart();
-          router.push(`/shops`);
+          updateShopId(null);
         }}
         onClose={() => setStoreExitAlert(false)}
         onConfirmText={"Sim"}

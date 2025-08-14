@@ -21,6 +21,7 @@ const Favorites = () => {
     if (getShopId && shopId !== getShopId) {
       updateShopId(getShopId);
     }
+    
     setLoading(false);
   }, [getShopId]);
 
