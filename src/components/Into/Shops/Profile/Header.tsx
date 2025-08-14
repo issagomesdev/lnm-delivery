@@ -20,7 +20,7 @@ export default function Header({ children, setLoading }: { children?: ReactNode,
   const handleBack = () => {
     setLoading?.(true)
     const match1 = pathname.match(/^\/shops\/(\d+)\/cardapio$/) || pathname.match(/^\/shops\/(\d+)\/monte-sua-pizza$/);
-    const match2 =  /^\/(?:shops|cupons|favoritos)\/?$/.test(pathname) && searchParams.has('shopId');
+    const match2 = /^\/(?:shops|cupons|favoritos)\/?$/.test(pathname) && searchParams.has('shopId');
 
     if (match1) {
       const shopId = match1[1];
@@ -29,11 +29,12 @@ export default function Header({ children, setLoading }: { children?: ReactNode,
       if (cart.length > 0) {
         setLoading?.(false)
         setStoreExitAlert(true);
-        return;
+        return true;
       }
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
       updateShopId(null);
+      setLoading?.(false)
     } else {
       router.back();
     }

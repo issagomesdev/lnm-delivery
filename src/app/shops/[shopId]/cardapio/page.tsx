@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState, useRef, useCallback, Suspense } from "react";
 import { shopCategories } from "@/components/Into/data";
 import Header from "@/components/Into/Shops/Profile/Header";
 import {
@@ -28,7 +28,15 @@ import { useTheme } from "styled-components";
 import { Loading } from "@/components/Loading";
 import { ImageWithLoader } from '@/components/ImageWithLoader';
 
-const Cardapio = () => {
+export default function Cardapio() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <CardapioInner />
+    </Suspense>
+  );
+}
+
+const CardapioInner = () => {
     const searchParams = useSearchParams();
     const { shopId } = useParams();
     const [search, setSearch] = useState('');
@@ -36,7 +44,6 @@ const Cardapio = () => {
     const router = useRouter();
     const categories = shopCategories(Number(shopId));
     const [category, setCategory] = useState<any>(categories[0]);
-    const isFirstRender = useRef(true);
     const categoryRefs = useRef<Record<number, HTMLDivElement | null>>({});
     const [checkoutIsOpen, setCheckoutIsOpen] = useState(false);
     const [itemSelected, setItemSelected] = useState({});
@@ -68,11 +75,6 @@ const Cardapio = () => {
     };
 
     useEffect(() => {
-        const param = searchParams.get("category");
-        const selected = categories.find((i) => i.name === param);
-
-        if (selected) setCategory(selected);
-
         if (category.name.includes("Pizza")) {
             router.push(`/shops/${shopId}/monte-sua-pizza?productId=${encodeURIComponent(category.id)}`);
             return
@@ -148,7 +150,7 @@ const Cardapio = () => {
                         <MenuItem key={item.id} withImage={!!item.photo} onClick={() => {
                             setItemSelected({ id: item.id, categoryID: category.id });
                             setCheckoutIsOpen(true);
-                            window.history.pushState(null, '', window.location.pathname + window.location.search);
+                            window.history.replaceState(null, '', window.location.pathname + window.location.search);
                         }}>
                             <MenuInfo>
                                 <MenuName>{item.name}</MenuName>
@@ -192,5 +194,3 @@ const Cardapio = () => {
         </>
     );
 };
-
-export default Cardapio;

@@ -6,14 +6,22 @@ import { Icon } from "@iconify/react";
 import { Actions, CategoryName, SubTotal, Delete, DetailsLink, ItemCard, ItemName, LeftButton, Price, QtyBtn, QuantityControls, RightButton, TotalFooter, Wrapper, ItemsCard } from "./styles";
 import { useRouter } from "next/navigation";
 import { ItemDetails } from "@/components/Into/Shops/ShoppingCart/ItemDetails";
-import { useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import { DeliveryMethods } from "@/components/Into/Shops/ShoppingCart/DeliveryMethods";
 import { PaymentMethods } from "@/components/Into/Shops/ShoppingCart/PaymentMethods";
 import { useCustomBackAction } from '@/hooks/useCustomBackAction';
-import { useBackLayers } from "@/hooks/useBackLayers";
 import { Loading } from "@/components/Loading";
 
-const Carrinho = () => {
+export default function Carrinho() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <CarrinhoInner />
+    </Suspense>
+  );
+}
+
+
+const CarrinhoInner = () => {
     const { cart, removeItem, updateItemQuantity, clearCart } = useShoppingCart();
     const [detailsIsOpen, setDetailsIsOpen] = useState(false);
     const [steps, setSteps] = useState<1 | 2 | null>(null);
@@ -143,5 +151,3 @@ const Carrinho = () => {
         </>
     );
 };
-
-export default Carrinho;

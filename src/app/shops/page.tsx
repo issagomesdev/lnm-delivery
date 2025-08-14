@@ -1,7 +1,7 @@
 'use client';
 
 import Header from "@/components/Into/Header";
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import Categories from '@/components/Into/Shops/Categories';
 import Banners from '@/components/Into/Shops/Banners';
 import ShopsList from '@/components/Into/Shops/ShopsList';
@@ -15,7 +15,15 @@ import { useShopPage } from "@/contexts/ShopPageContext";
 import { useSearchParams } from "next/navigation";
 import { useShoppingCart } from "@/contexts/ShoppingCartContext";
 
-const ShopsPage = () => {
+export default function ShopsPage() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <ShopsPageInner />
+    </Suspense>
+  );
+}
+
+const ShopsPageInner = () => {
 
   const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('');
@@ -39,7 +47,6 @@ const ShopsPage = () => {
   const getShopId = searchParams.get('shopId');
 
   useEffect(() => {
-    setLoading(true);
     if (getShopId && shopId !== getShopId) {
       updateShopId(getShopId);
       window.history.pushState(null, '', window.location.pathname);
@@ -60,7 +67,6 @@ const ShopsPage = () => {
   useCustomBackAction(
     useCallback(() => {
       setLoading(true);
-
       if (timeInfoIsOpen) {
         console.log('timeInfoIsOpen', timeInfoIsOpen)
         setTimeInfoIsOpen(false)
@@ -176,4 +182,3 @@ const ShopsPage = () => {
   );
 };
 
-export default ShopsPage;

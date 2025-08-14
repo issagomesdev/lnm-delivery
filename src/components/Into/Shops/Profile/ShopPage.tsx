@@ -46,8 +46,8 @@ const ShopPage = ({
     setInfoIsOpen,
     storeExitAlert,
     setStoreExitAlert
-}: { 
-    setLoading: (value: boolean) => void ,
+}: {
+    setLoading: (value: boolean) => void,
     timeInfoIsOpen: boolean,
     setTimeInfoIsOpen: (value: boolean) => void,
     reviewsIsOpen: boolean,
@@ -73,6 +73,7 @@ const ShopPage = ({
     const CouponAlert = searchParams?.get("CouponAlert");
     const [overflow, setOverflow] = useState(true);
     const { updateShopId } = useShopPage();
+    const getShopId = searchParams.get('shopId');
 
     const toggleLike = () => {
         setIsLiked((prev) => !prev);
@@ -144,7 +145,7 @@ const ShopPage = ({
                             />
                             <RatingBadge onClick={() => {
                                 setReviewsIsOpen(true)
-                                
+
                             }}>
                                 <Icon icon={"material-symbols:star-rounded"} width="15" />
                                 avaliações {shop.rating.toFixed(1)}
@@ -166,14 +167,14 @@ const ShopPage = ({
                             <InfoRow>
                                 <QuickInfoItem onClick={() => {
                                     setFeesIsOpen(true)
-                                    
+
                                 }}>
                                     <ItemIcon icon="mdi:delivery-dining" />
                                     <span>txs entrega</span>
                                 </QuickInfoItem>
                                 <QuickInfoItem onClick={() => {
                                     setTimeInfoIsOpen(true);
-                                    
+
                                 }}>
                                     <ItemIcon icon="material-symbols:timer-outline" />
                                     <span>{shop.deliveryTime} min.</span>
@@ -184,7 +185,7 @@ const ShopPage = ({
                                 </QuickInfoItem>}
                                 <QuickInfoItem onClick={() => {
                                     setInfoIsOpen(true)
-                                    
+
                                 }}>
                                     <ItemIcon icon="material-symbols:info-outline" />
                                     <span>informações</span>
@@ -222,7 +223,7 @@ const ShopPage = ({
                                     </p>
                                     <ConfirmButton onClick={() => {
                                         setInfoIsOpen(true)
-                                        
+
                                     }}> Ver horários de atendimento </ConfirmButton>
                                 </div>
                             )
@@ -257,7 +258,7 @@ const ShopPage = ({
                             isOpen={couponAlertIsOpen}
                             onConfirm={() => {
                                 setCouponAlertIsOpen(false);
-                                window.history.replaceState(null, '', window.location.pathname + `?shopId=${shop.id}&CouponAlert=false`);
+                        window.history.replaceState(null, '', window.location.pathname + `?${getShopId ? `shopId=${shop.id}&` : ''}CouponAlert=false`);
                             }}
                             onConfirmText={"Ok, entendi"}
                         >
