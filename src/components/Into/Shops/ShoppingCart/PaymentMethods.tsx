@@ -33,7 +33,7 @@ const paymentOptions = [
     'Pix - QR Code na máquina'
 ];
 
-export const PaymentMethods = ({ isOpen, onClose, productsTotal, handleData }: { isOpen: boolean; onClose: (step: 1 | null) => void, productsTotal: any, handleData: any }) => {
+export const PaymentMethods = ({ isOpen, onClose, total, handleData }: { isOpen: boolean; onClose: (step: 1 | null) => void, total: number, handleData: any }) => {
     const router = useRouter()
     const [coupon, setCoupon] = useState('');
     const [couponInvalid, setCouponInvalid] = useState(false);
@@ -96,7 +96,7 @@ export const PaymentMethods = ({ isOpen, onClose, productsTotal, handleData }: {
             return;
         }
 
-        if (method === 'Dinheiro' && (needChange && Number(productsTotal) > changeFor.value)) {
+        if (method === 'Dinheiro' && (needChange && total > changeFor.value)) {
             setAlertData({
                 isOpen: true,
                 title: 'Erro',
@@ -198,7 +198,7 @@ export const PaymentMethods = ({ isOpen, onClose, productsTotal, handleData }: {
                         <PaymentSelect value={method} onChange={(e) => setMethod(e.target.value)}>
                             <option value="">Selecione</option>
                             {paymentOptions.map((option) => (
-                                <option key={option} value={option}>{option} (R${productsTotal})</option>
+                                <option key={option} value={option}>{option} (R${total.toFixed(2)})</option>
                             ))}
                         </PaymentSelect>
                     </PaymentField>

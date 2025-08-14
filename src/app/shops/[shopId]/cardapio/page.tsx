@@ -187,7 +187,7 @@ const Cardapio = () => {
                 }}
                 shopId={`${shopId}`} />
 
-            <CartBar />
+            <CartBar setLoading={(value:boolean) => setLoading(value)}/>
 
         </>
     );

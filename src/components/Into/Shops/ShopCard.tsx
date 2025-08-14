@@ -15,12 +15,14 @@ import {
   ShopItems,
   ShopContent
 } from './styles';
+import { useShopPage } from '@/contexts/ShopPageContext';
+
 export default function ShopCard(props: {
   shops: any[];
   open: boolean;
   isMobile?: boolean;
   mode?: 'coupon' | 'fav' | undefined;
-  setLoading?: (value: boolean) => void;
+  setLoading: (value: boolean) => void;
 }) {
   const {
     shops,
@@ -30,7 +32,7 @@ export default function ShopCard(props: {
     setLoading
   } = props;
 
-  const router = useRouter();
+  const { updateShopId } = useShopPage();
 
   if (!shops || shops.length === 0) return null;
 
@@ -38,9 +40,9 @@ export default function ShopCard(props: {
     ? `Lojas abertas (${shops.length})`
     : `Fechadas agora (${shops.length})`;
 
-  const goToShop = (id: number) => {
-    setLoading?.(true);
-    router.push(`/shops/${id}`);
+  const goToShop = (id: string) => {
+    setLoading(true);
+    updateShopId(id)
   };
 
   const renderCouponBlock = (shop: any) => {

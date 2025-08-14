@@ -3,36 +3,38 @@
 import { Container } from '@/components/Into/styles';
 import { Icon } from '@iconify/react';
 import { ReactNode, useState } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { useShoppingCart } from '@/contexts/ShoppingCartContext';
 import ModalComponent from '@/components/shared/Modal/ModalComponent';
 import { Label } from "@/components/shared/Modal/styles";
-import { Loading } from '@/components/Loading';
+import { useShopPage } from '@/contexts/ShopPageContext';
 
-export default function Header({ children }: { children?: ReactNode }) {
+export default function Header({ children, setLoading }: { children?: ReactNode, setLoading?: (value: boolean) => void }) {
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const { cart, clearCart } = useShoppingCart();
   const [storeExitAlert, setStoreExitAlert] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const { updateShopId } = useShopPage();
 
   const handleBack = () => {
-    setLoading(true)
+    setLoading?.(true)
     const match1 = pathname.match(/^\/shops\/(\d+)\/cardapio$/) || pathname.match(/^\/shops\/(\d+)\/monte-sua-pizza$/);
-    const match2 = pathname.match(/^\/shops\/(\d+)$/);
+    const match2 =  /^\/(?:shops|cupons|favoritos)\/?$/.test(pathname) && searchParams.has('shopId');
 
     if (match1) {
       const shopId = match1[1];
-      router.push(`/shops/${shopId}?CouponAlert=false`);
+      router.push(`/shops?shopId=${shopId}&CouponAlert=false`);
     } else if (match2) {
-
       if (cart.length > 0) {
-        setLoading(false)
+        setLoading?.(false)
         setStoreExitAlert(true);
         return;
       }
 
-      router.push(`/shops`);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      updateShopId(null);
+      setLoading?.(false)
     } else {
       router.back();
     }
@@ -40,7 +42,6 @@ export default function Header({ children }: { children?: ReactNode }) {
 
   return (
     <Container full={false} fixed={false} style={{ justifyContent: 'center', height: '3.5rem' }}>
-      {loading && <Loading />}
       <span onClick={handleBack} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}>
         <Icon icon="ep:arrow-left-bold" width="15" color="#fff" />
         Voltar
@@ -52,7 +53,7 @@ export default function Header({ children }: { children?: ReactNode }) {
         isOpen={storeExitAlert}
         title={"Atenção"}
         onConfirm={() => {
-          setLoading(true)
+          setLoading?.(true)
           clearCart();
           router.push(`/shops`);
         }}

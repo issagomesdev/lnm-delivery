@@ -7,13 +7,12 @@ import AddressFormComponent from '../../MyAddresses/AddressFormComponent';
 import { MethodWrapper, Select, NewAddressButton, PriceSummary, PaymentButton, AddressField, CustomCheckbox, ConfirmDelivery, ConfirmDeliveryContent } from './styles';
 import ModalComponent from '@/components/shared/Modal/ModalComponent';
 
-export const DeliveryMethods = ({ isOpen, onClose, productsTotal, handleData }: { isOpen: boolean; onClose: (step: 2 | null) => void, productsTotal: any, handleData: any }) => {
+export const DeliveryMethods = ({ isOpen, onClose, productsTotal, setDeliveryValue, deliveryValue, handleData }: { isOpen: boolean; onClose: (step: 2 | null) => void, productsTotal: any, setDeliveryValue: (value: number) => void, deliveryValue: number, handleData: any }) => {
 
     const [addresses, setAddresses] = useState<any[]>(addressesData);
     const [deliveryMethod, setDeliveryMethod] = useState<'entrega' | 'retirada'>('entrega');
     const [selectedAddress, setSelectedAddress] = useState<any>();
     const [newAddressIsOpen, setNewAddressIsOpen] = useState(false);
-    const [deliveryFee, setDeliveryFee] = useState<number>(0);
     const [adressIncompatibleIsOpen, setAdressIncompatibleIsOpen] = useState(false);
     const [confirmDeliveryIsOpen, setConfirmDeliveryIsOpen] = useState(false);
     const isRetirada = deliveryMethod === 'retirada';
@@ -21,9 +20,9 @@ export const DeliveryMethods = ({ isOpen, onClose, productsTotal, handleData }: 
     useEffect(() => {
         if (deliveryMethod === 'entrega') {
             const fee = parseFloat((Math.random() * 19 + 1).toFixed(2));
-            setDeliveryFee(fee);
+            setDeliveryValue(fee);
         } else {
-            setDeliveryFee(0);
+            setDeliveryValue(0);
         }
     }, [deliveryMethod, selectedAddress]);
 
@@ -35,8 +34,8 @@ export const DeliveryMethods = ({ isOpen, onClose, productsTotal, handleData }: 
         handleData({
             deliveryMethod,
             address: selectedAddress,
-            deliveryFee,
-            productsTotal: productsTotal + deliveryFee
+            deliveryValue,
+            productsTotal: productsTotal + deliveryValue
         });
         onClose(2);
     }
@@ -122,12 +121,12 @@ export const DeliveryMethods = ({ isOpen, onClose, productsTotal, handleData }: 
                             </div>
                             <div>
                                 <strong>Entrega</strong>
-                                <span>R$ {deliveryFee.toFixed(2)}</span>
+                                <span>R$ {deliveryValue.toFixed(2)}</span>
                             </div>
                         </>}
                         {(selectedAddress || deliveryMethod === 'retirada') && <div style={deliveryMethod === 'retirada' ? { width: '100%', alignItems: 'flex-end' } : {}}>
                             <strong>Total</strong>
-                            <span>R$ {deliveryMethod === 'entrega' ? (productsTotal + deliveryFee).toFixed(2) : productsTotal.toFixed(2)}</span>
+                            <span>R$ {deliveryMethod === 'entrega' ? (productsTotal + deliveryValue).toFixed(2) : productsTotal.toFixed(2)}</span>
                         </div>}
                     </PriceSummary>
 

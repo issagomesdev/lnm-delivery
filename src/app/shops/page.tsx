@@ -10,6 +10,9 @@ import { Wrapper } from '@/components/Into/Shops/styles';
 import { useScrollTrigger } from "@/hooks/useScrollTrigger";
 import { useCustomBackAction } from "@/hooks/useCustomBackAction";
 import { Loading } from "@/components/Loading";
+import ShopPage from "@/components/Into/Shops/Profile/ShopPage";
+import { useShopPage } from "@/contexts/ShopPageContext";
+import { useSearchParams } from "next/navigation";
 
 const ShopsPage = () => {
 
@@ -22,10 +25,26 @@ const ShopsPage = () => {
   const itemRef = useRef<HTMLDivElement>(null);
   const triggered = useScrollTrigger(itemRef);
 
-  // useEffect(() => {
-  //   window.history.pushState(null, '', window.location.pathname);
-  //   window.history.replaceState(null, '', '/');
-  // }, [])
+  const { shopId, updateShopId } = useShopPage();
+    const searchParams = useSearchParams();
+    const getShopId = searchParams.get('shopId');
+  
+    useEffect(() => {
+      setLoading(true);
+      if (getShopId && shopId !== getShopId) {
+        updateShopId(getShopId);
+      }
+      setLoading(false);
+    }, [getShopId]);
+
+  useEffect(() => {
+    if (shopId !== null) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+  }, [shopId]);
 
   useCustomBackAction(
     useCallback(() => {
@@ -81,6 +100,12 @@ const ShopsPage = () => {
           }}
           triggered={triggered}
         />
+
+        {shopId && (
+          <ShopPage
+            setLoading={(value: boolean) => setLoading(value)} />
+        )}
+
         <BottomNav
           setLoading={(value) => setLoading(value)} />
       </Wrapper>

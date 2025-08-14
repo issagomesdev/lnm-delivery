@@ -5,37 +5,48 @@ import { BannersWrapper, BannerImage } from './styles';
 import { banners } from '../data';
 import { useHorizontalScrollDrag } from '@/hooks/useHorizontalScrollDrag';
 
-const Banners = ({filterIsActive}: {filterIsActive: boolean}) => {
+const Banners = ({ filterIsActive }: { filterIsActive: boolean }) => {
   const { ref, isDragging, events } = useHorizontalScrollDrag();
 
-useEffect(() => {
-  const el = ref.current;
-  if (!el) return;
-
-  let currentIndex = 0;
-
-  const interval = setInterval(() => {
+  useEffect(() => {
+    const el = ref.current;
     if (!el) return;
 
-    const banners = el.querySelectorAll('img');
-    if (!banners.length) return;
+    let currentIndex = 0;           
+    let direction: 1 | -1 = 1;   
 
-    currentIndex = (currentIndex + 1) % banners.length;
+    const interval = setInterval(() => {
+      if (!el) return;
 
-    const banner = banners[currentIndex] as HTMLElement;
-    const bannerLeft = banner.offsetLeft;
-    const bannerWidth = banner.offsetWidth;
-    const scrollCenter = bannerLeft - (el.clientWidth / 2) + (bannerWidth / 2);
+      const banners = el.querySelectorAll('img');
+      const len = banners.length;
+      if (!len) return;
 
-    el.scrollTo({
-      left: scrollCenter - 15,
-      behavior: 'smooth'
-    });
+      if (currentIndex === len - 1) {
+        direction = -1; 
+      } else if (currentIndex === 0) {
+        direction = 1; 
+      }
 
-  }, 3000);
+      currentIndex = currentIndex + direction;
 
-  return () => clearInterval(interval);
-}, [ref]);
+      if (currentIndex < 0) currentIndex = 0;
+      if (currentIndex > len - 1) currentIndex = len - 1;
+
+      const banner = banners[currentIndex] as HTMLElement;
+      const bannerLeft = banner.offsetLeft;
+      const bannerWidth = banner.offsetWidth;
+      const scrollCenter = bannerLeft - (el.clientWidth / 2) + (bannerWidth / 2);
+
+      el.scrollTo({
+        left: scrollCenter - 15,
+        behavior: 'smooth'
+      });
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [ref]);
+
 
   return (
     <BannersWrapper

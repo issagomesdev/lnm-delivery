@@ -174,7 +174,7 @@ export const FiltersWrapper = styled.div.withConfig({
   column-gap: 10px;
   flex-wrap: wrap;
   justify-content: space-between;
-  z-index: 9;
+  z-index: ${({ fixed }) => (fixed ? 9 : -1)};
   background-color: #fff;
 
   opacity: ${({ animate, fixed }) => (animate || !fixed ? 1 : 0)};
@@ -237,7 +237,7 @@ export const ShopCount = styled.div.withConfig({
 }) <Props>`
   font-weight: bold;
   color: ${({ close }) => (close ? '#f02649' : '#24b03c')};
-  padding: 0 1rem;
+  padding: ${({ close }) => (close ? '0' : '1rem')}; 1rem;
   user-select: none;
 
   @media (max-width: 400px) {
@@ -271,9 +271,9 @@ export const ShopItem = styled.div`
   overflow: hidden;
   cursor: pointer;
 
-  &:hover {
-      filter: brightness(0.9);
-  }
+  // &:hover {
+  //     filter: brightness(0.9);
+  // }
 `;
 
 export const ShopContent = styled.div`

@@ -8,9 +8,8 @@ import { useState } from 'react';
 import { Loading } from '@/components/Loading';
 
 
-export default function CartBar() {
+export default function CartBar({setLoading}: {setLoading: (value: boolean) => void}) {
     const { cart } = useShoppingCart();
-    const [loading, setLoading] = useState(false);
     const router = useRouter();
 
     const total = cart.reduce((sum, item) => {
@@ -28,7 +27,6 @@ export default function CartBar() {
             setLoading(true);
             router.push('/meus-pedidos/carrinho')
         }}>
-            {loading && <Loading />}
             <Label>
                 <span>{cart.length}</span>
                 <img alt='sack-icon' src={'/images/sack-icon.png'} />

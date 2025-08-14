@@ -43,6 +43,7 @@ const ShopProfile = ({ shop, setLoading }: { shop: any, setLoading: (value: bool
   const searchParams = useSearchParams();
   const CouponAlert = searchParams?.get("CouponAlert");
   const [storeExitAlert, setStoreExitAlert] = useState(false);
+  const [overflow, setOverflow] = useState(true);
 
   useEffect(() => {
     const now = new Date();
@@ -55,14 +56,11 @@ const ShopProfile = ({ shop, setLoading }: { shop: any, setLoading: (value: bool
 
   useEffect(() => {
     if (infoIsOpen || reviewsIsOpen || feesIsOpen || timeInfoIsOpen || couponAlertIsOpen) {
-      document.body.style.overflow = 'hidden';
+      setOverflow(false);
     } else {
-      document.body.style.overflow = '';
+      setOverflow(true);
     }
 
-    return () => {
-      document.body.style.overflow = '';
-    };
   }, [infoIsOpen, reviewsIsOpen, feesIsOpen, timeInfoIsOpen, couponAlertIsOpen]);
 
   useCustomBackAction(
@@ -89,7 +87,7 @@ const ShopProfile = ({ shop, setLoading }: { shop: any, setLoading: (value: bool
 
 
   return (
-    <Wrapper>
+    <Wrapper overflow={overflow}>
       <Cover>
         <ImageWithLoader
           src={shop.cover}
@@ -218,7 +216,7 @@ const ShopProfile = ({ shop, setLoading }: { shop: any, setLoading: (value: bool
         isOpen={couponAlertIsOpen}
         onConfirm={() => {
           setCouponAlertIsOpen(false);
-          window.history.replaceState(null, '', window.location.pathname + '?CouponAlert=false');
+          window.history.replaceState(null, '', window.location.pathname + `?shopId=${shop.id}&CouponAlert=false`);
         }}
         onConfirmText={"Ok, entendi"}
       >
@@ -236,11 +234,7 @@ const ShopProfile = ({ shop, setLoading }: { shop: any, setLoading: (value: bool
           </>
         }
       </ModalComponent>
-
-      {/*  */}
-
-
-
+      
       <ModalComponent
         isOpen={storeExitAlert}
         title={"Atenção"}

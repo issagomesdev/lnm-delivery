@@ -20,6 +20,7 @@ const Carrinho = () => {
     const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
     const [deliveryData, setDeliveryData] = useState<any>({});
     const [paymentData, setPaymentData] = useState<any>({});
+    const [deliveryValue, setDeliveryValue] = useState<number>(0);
     const [loading, setLoading] = useState(false);
     const router = useRouter();
 
@@ -120,6 +121,8 @@ const Carrinho = () => {
                     window.history.pushState(null, '', window.location.pathname);
                 }}
                 productsTotal={total}
+                setDeliveryValue={(value: number) => setDeliveryValue(value)}
+                deliveryValue={deliveryValue}
                 handleData={(data: any) => setDeliveryData(data)} />
 
             <PaymentMethods
@@ -128,7 +131,7 @@ const Carrinho = () => {
                     setSteps(step)
                     window.history.pushState(null, '', window.location.pathname);
                 }}
-                productsTotal={total}
+                total={total + deliveryValue}
                 handleData={(data: any) => {
                     setPaymentData(data);
                     clearCart();

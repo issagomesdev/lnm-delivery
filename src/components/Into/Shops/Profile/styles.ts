@@ -1,11 +1,24 @@
 import styled from 'styled-components';
 import { Icon } from '@iconify/react';
 
+interface Props {
+  overflow?: boolean;
+}
+
+export const Heart = styled.div`
+    height: 100%;
+    display: flex;
+    align-items: center;
+`;
+
 // ShopProfile
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== 'overflow',
+}) <Props>`
   position: relative;
   margin-bottom: 5rem;
+  overflow: ${({ overflow }) => (overflow ? 'auto' : 'hidden')};
 
   hr {
    margin-top: 1rem;
