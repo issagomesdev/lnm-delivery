@@ -14,6 +14,7 @@ import ShopPage from "@/components/Into/Shops/Profile/ShopPage";
 import { useShopPage } from "@/contexts/ShopPageContext";
 import { useSearchParams } from "next/navigation";
 import { useShoppingCart } from "@/contexts/ShoppingCartContext";
+import { Button } from "@/components/Into/MyAddresses/styles";
 
 export default function ShopsPage() {
   return (
@@ -57,18 +58,19 @@ const ShopsPageInner = () => {
   useEffect(() => {
     if (shopId !== null) {
       document.body.style.overflow = 'hidden';
+      const prev = document.body.style.overscrollBehaviorY;
+      document.body.style.overscrollBehaviorY = 'contain';
+      return () => { document.body.style.overscrollBehaviorY = prev; };
     } else {
       document.body.style.overflow = '';
     }
     setLoading(false);
-
   }, [shopId]);
 
   useCustomBackAction(
     useCallback(() => {
       setLoading(true);
       if (timeInfoIsOpen) {
-        console.log('timeInfoIsOpen', timeInfoIsOpen)
         setTimeInfoIsOpen(false)
         setLoading(false);
         return true;
@@ -91,7 +93,7 @@ const ShopsPageInner = () => {
       } else if (shopId !== null) {
         updateShopId(null);
         setLoading(false);
-        return `/shops`
+        return true
       } else if (filterIsOpen) {
         setFilterIsOpen(false);
         setLoading(false);

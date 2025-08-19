@@ -32,7 +32,6 @@ export default function Header({ children, setLoading }: { children?: ReactNode,
         return true;
       }
 
-      window.scrollTo({ top: 0, behavior: 'smooth' });
       updateShopId(null);
       setLoading?.(false)
     } else {

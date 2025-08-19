@@ -14,8 +14,6 @@ export const ShopPageProvider = ({ children }: { children: ReactNode }) => {
 
   const updateShopId = (id: string | null) => {
     setShopId(id)
-
-    
   }
   return (
     <ShopPageContext.Provider value={{ shopId, updateShopId }}>

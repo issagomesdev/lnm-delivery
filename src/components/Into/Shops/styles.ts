@@ -131,7 +131,7 @@ export const BannerImage = styled.img`
   border-radius: 8px;
     user-select: none;
 
-  @media (max-width: 450px) {
+  @media (max-width: 600px) {
     min-width: 90vw;
     max-width: 90vw;
   }

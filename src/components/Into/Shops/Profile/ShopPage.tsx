@@ -25,7 +25,6 @@ import { useShopPage } from '@/contexts/ShopPageContext';
 import { useTheme } from 'styled-components';
 import { useShoppingCart } from '@/contexts/ShoppingCartContext';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { isBefore, isAfter } from 'date-fns';
 import { shopCategories } from '../../data';
 import { ConfirmButton, Label } from '@/components/shared/Modal/styles';
 import { ImageWithLoader } from '@/components/ImageWithLoader';
@@ -64,7 +63,6 @@ const ShopPage = ({
     const [shop, setShop] = useState<any>();
     const { shopId } = useShopPage();
     const [categories, setCategories] = useState<any>([]);
-    const [shopIsClosed, setShopIsClosed] = useState(false);
     const [couponAlertIsOpen, setCouponAlertIsOpen] = useState(false);
     const theme = useTheme();
     const { cart, clearCart } = useShoppingCart();
@@ -89,11 +87,7 @@ const ShopPage = ({
 
     useEffect(() => {
         if (shop) {
-            const now = new Date();
-            const isClosed = isBefore(now, new Date(shop.openingTime)) || isAfter(now, new Date(shop.closingTime));
-            setShopIsClosed(isClosed);
-
-            if (!isClosed && shop.coupon && !CouponAlert) setCouponAlertIsOpen(true);
+            if (!shop.isClosed && shop.coupon && !CouponAlert) setCouponAlertIsOpen(true);
             setCategories(shopCategories(shop.id));
         }
     }, [shop]);
@@ -195,7 +189,7 @@ const ShopPage = ({
                             <hr />
                         </ProfileSection>
 
-                        {!shopIsClosed && categories.length > 0 && (
+                        {categories.length > 0 ? (
 
                             <CategoriesContainer>
                                 {categories.map((category: any) => (
@@ -212,11 +206,7 @@ const ShopPage = ({
                                 ))
                                 }
                             </CategoriesContainer >
-                        )}
-
-                        {/* Restaurante fechado tratativa */}
-                        {
-                            shopIsClosed && (
+                        ) : (
                                 <div style={{ textAlign: 'center', margin: '2rem', minHeight: '10vw', userSelect: 'none' }}>
                                     <p style={{ marginBottom: '1rem', fontWeight: 500 }}>
                                         Desculpe-nos, infelizmente o restaurante encontra-se fechado no momento, devido ao horário ou falta de conexão com a internet.
@@ -226,8 +216,7 @@ const ShopPage = ({
 
                                     }}> Ver horários de atendimento </ConfirmButton>
                                 </div>
-                            )
-                        }
+                            )}
 
                         {/* Modal de avaliações */}
                         <Reviews

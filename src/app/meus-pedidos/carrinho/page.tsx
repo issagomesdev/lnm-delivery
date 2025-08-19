@@ -14,13 +14,12 @@ import { Loading } from "@/components/Loading";
 import { useShopPage } from "@/contexts/ShopPageContext";
 
 export default function Carrinho() {
-  return (
-    <Suspense fallback={<Loading />}>
-      <CarrinhoInner />
-    </Suspense>
-  );
+    return (
+        <Suspense fallback={<Loading />}>
+            <CarrinhoInner />
+        </Suspense>
+    );
 }
-
 
 const CarrinhoInner = () => {
     const { cart, removeItem, updateItemQuantity, clearCart } = useShoppingCart();
@@ -33,6 +32,13 @@ const CarrinhoInner = () => {
     const [loading, setLoading] = useState(false);
     const { shopId, updateShopId } = useShopPage();
     const router = useRouter();
+
+    useEffect(() => {
+        const prev = document.body.style.overscrollBehaviorY;
+        document.body.style.overscrollBehaviorY = 'contain';
+        return () => { document.body.style.overscrollBehaviorY = prev; };
+    }, []);
+
 
     const handleIncrease = (id: number) => {
         updateItemQuantity(id, 1);

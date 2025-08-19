@@ -45,6 +45,9 @@ const CouponInner = () => {
   useEffect(() => {
     if (shopId !== null) {
       document.body.style.overflow = 'hidden';
+      const prev = document.body.style.overscrollBehaviorY;
+      document.body.style.overscrollBehaviorY = 'contain';
+      return () => { document.body.style.overscrollBehaviorY = prev; };
     } else {
       document.body.style.overflow = '';
     }
@@ -52,40 +55,40 @@ const CouponInner = () => {
 
   }, [shopId]);
 
-    useCustomBackAction(
-      useCallback(() => {
-        setLoading(true);
-        if (timeInfoIsOpen) {
-          console.log('timeInfoIsOpen', timeInfoIsOpen)
-          setTimeInfoIsOpen(false)
-          setLoading(false);
-          return true;
-        } else if (feesIsOpen) {
-          setFeesIsOpen(false)
-          setLoading(false);
-          return true;
-        } else if (reviewsIsOpen) {
-          setReviewsIsOpen(false)
-          setLoading(false);
-          return true;
-        } else if (infoIsOpen) {
-          setInfoIsOpen(false)
-          setLoading(false);
-          return true;
-        } else if (cart.length > 0) {
-          setStoreExitAlert(true);
-          setLoading(false);
-          return true;
-        } else if (shopId !== null) {
-          updateShopId(null);
-          setLoading(false);
-          return `/cupons`;
-        }
-  
+  useCustomBackAction(
+    useCallback(() => {
+      setLoading(true);
+      if (timeInfoIsOpen) {
+        console.log('timeInfoIsOpen', timeInfoIsOpen)
+        setTimeInfoIsOpen(false)
         setLoading(false);
-        return "/";
-      }, [timeInfoIsOpen, feesIsOpen, reviewsIsOpen, infoIsOpen, cart.length, shopId])
-    );
+        return true;
+      } else if (feesIsOpen) {
+        setFeesIsOpen(false)
+        setLoading(false);
+        return true;
+      } else if (reviewsIsOpen) {
+        setReviewsIsOpen(false)
+        setLoading(false);
+        return true;
+      } else if (infoIsOpen) {
+        setInfoIsOpen(false)
+        setLoading(false);
+        return true;
+      } else if (cart.length > 0) {
+        setStoreExitAlert(true);
+        setLoading(false);
+        return true;
+      } else if (shopId !== null) {
+        updateShopId(null);
+        setLoading(false);
+        return `/cupons`;
+      }
+
+      setLoading(false);
+      return "/";
+    }, [timeInfoIsOpen, feesIsOpen, reviewsIsOpen, infoIsOpen, cart.length, shopId])
+  );
 
   return (
     <>

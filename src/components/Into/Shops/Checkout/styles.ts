@@ -334,5 +334,15 @@ export const TotalPrice = styled.span`
   font-weight: bold;
 `;
 
+export const ClosedWarning = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 
-// 
+  h2 {
+    font-size: 16px;
+    border-bottom: 2px solid ${({ theme }) => theme.colors.separators};
+    padding-bottom: 10px;
+  }
+
+  `

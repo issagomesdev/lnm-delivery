@@ -1,4 +1,5 @@
 import { dataCategories, dataGroupOptions } from "./dataCategories";
+import { isBefore, isAfter } from 'date-fns';
 
 export const categories = dataCategories;
 
@@ -29,14 +30,18 @@ export const banners = [
 export const shops = Array.from({ length: 50 }, (_, i) => {
   let openingTime = new Date();
   let closingTime = new Date();
+  const now = new Date();
 
   if (i < 25) {
     openingTime.setHours(0, 0, 0);
     closingTime.setHours(23, 59, 59);
   } else {
-    openingTime.setHours(10 + (i % 3) * 2, 0, 0); 
+    openingTime.setHours(10 + (i % 3) * 2, 0, 0);
     closingTime.setHours(10 + (i % 4), 0, 0);
   }
+
+  const isClosed = isBefore(now, new Date(openingTime)) || isAfter(now, new Date(closingTime));
+
   return {
     id: i + 1,
     name: (i + 1) % 2 === 0 ? `Loja Exemplo ${i + 1}` : `Loja Exemplo ${i + 1} Nome Grande`,
@@ -47,6 +52,7 @@ export const shops = Array.from({ length: 50 }, (_, i) => {
     deliveryFee: (i + 1) % 3 === 0 ? 0 : 5 + ((i + 1) % 4),
     openingTime,
     closingTime,
+    isClosed,
     fav: (i + 1) % 2 === 0 ? true : false,
     rating: 3 + ((i + 1) % 3) + Math.random(),
     offer: (i + 1) % 4 === 0 ? 'frete grátis' : (i + 1) % 5 === 0 ? 'FRETEGRATIS' : '',
@@ -246,7 +252,9 @@ export const reviewData = [
 ];
 
 export const shopCategories = (id: number) => {
-  if (id % 5 === 0) {
+  if (id === 1) {
+    return []
+  } else if (id % 5 === 0) {
     return categories.filter(i => i.id % 5 === 0);
   } else if (id % 4 === 0) {
     return categories.filter(i => i.id % 4 === 0);
@@ -258,64 +266,64 @@ export const shopCategories = (id: number) => {
 };
 
 export const addressesData = [
-    {
-      id: 1,
-      apelido: 'Teste são sebastião',
-      endereco: 'Rua das Flores',
-      numero: '707',
-      bairro: 'Indaiá',
-      cidade: 'São Sebastião',
-      referencia: 'efw',
-      complemento: 'de',
-      estado: 'SP',
-      compatible: true
-    },
-    {
-      id: 2,
-      apelido: 'Teste caraguatatuba',
-      endereco: 'Av. Central',
-      numero: '348',
-      bairro: 'Tabatinga',
-      cidade: 'Caraguatatuba',
-      referencia: 'ewq',
-      complemento: 'de',
-      estado: 'SP',
-      compatible: false
-    },
-    {
-      id: 3,
-      apelido: 'Teste ilhabela',
-      endereco: 'Av. Central',
-      numero: '966',
-      bairro: 'Indaiá',
-      cidade: 'Ilhabela',
-      complemento: 'de',
-      referencia: 'eq',
-      estado: 'SP',
-      compatible: true
-    },
-    {
-      id: 4,
-      apelido: 'Teste ilhabela',
-      endereco: 'Rua das Flores',
-      numero: '379',
-      bairro: 'Jardim das Palmeiras',
-      cidade: 'Ilhabela',
-      complemento: 'de',
-      referencia: '',
-      estado: 'SP',
-      compatible: false
-    },
-    {
-      id: 5,
-      apelido: 'Teste caraguatatuba',
-      endereco: 'Rua das Flores',
-      numero: '821',
-      bairro: 'Estufa II',
-      cidade: 'Caraguatatuba',
-      complemento: 'de',
-      referencia: 'fd',
-      estado: 'SP',
-      compatible: true
-    },
+  {
+    id: 1,
+    apelido: 'Teste são sebastião',
+    endereco: 'Rua das Flores',
+    numero: '707',
+    bairro: 'Indaiá',
+    cidade: 'São Sebastião',
+    referencia: 'efw',
+    complemento: 'de',
+    estado: 'SP',
+    compatible: true
+  },
+  {
+    id: 2,
+    apelido: 'Teste caraguatatuba',
+    endereco: 'Av. Central',
+    numero: '348',
+    bairro: 'Tabatinga',
+    cidade: 'Caraguatatuba',
+    referencia: 'ewq',
+    complemento: 'de',
+    estado: 'SP',
+    compatible: false
+  },
+  {
+    id: 3,
+    apelido: 'Teste ilhabela',
+    endereco: 'Av. Central',
+    numero: '966',
+    bairro: 'Indaiá',
+    cidade: 'Ilhabela',
+    complemento: 'de',
+    referencia: 'eq',
+    estado: 'SP',
+    compatible: true
+  },
+  {
+    id: 4,
+    apelido: 'Teste ilhabela',
+    endereco: 'Rua das Flores',
+    numero: '379',
+    bairro: 'Jardim das Palmeiras',
+    cidade: 'Ilhabela',
+    complemento: 'de',
+    referencia: '',
+    estado: 'SP',
+    compatible: false
+  },
+  {
+    id: 5,
+    apelido: 'Teste caraguatatuba',
+    endereco: 'Rua das Flores',
+    numero: '821',
+    bairro: 'Estufa II',
+    cidade: 'Caraguatatuba',
+    complemento: 'de',
+    referencia: 'fd',
+    estado: 'SP',
+    compatible: true
+  },
 ]

@@ -43,6 +43,9 @@ const FavoritesInner = () => {
   useEffect(() => {
     if (shopId !== null) {
       document.body.style.overflow = 'hidden';
+      const prev = document.body.style.overscrollBehaviorY;
+      document.body.style.overscrollBehaviorY = 'contain';
+      return () => { document.body.style.overscrollBehaviorY = prev; };
     } else {
       document.body.style.overflow = '';
     }

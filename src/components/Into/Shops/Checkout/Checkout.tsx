@@ -1,9 +1,9 @@
 
 import { Title, Overlay, CloseXButton } from '@/components/shared/Modal/styles';
 import { Icon } from '@iconify/react';
-import { categories, groupOptions } from "@/components/Into/data";
+import { categories, groupOptions, shops } from "@/components/Into/data";
 import { useEffect, useRef, useState } from 'react';
-import { FooterContent, ItemImage } from './styles';
+import { ClosedWarning, FooterContent, ItemImage } from './styles';
 import { useShoppingCart } from '@/contexts/ShoppingCartContext';
 import { useRouter } from 'next/navigation';
 import { QuantityControls } from '@/app/meus-pedidos/carrinho/styles';
@@ -12,6 +12,7 @@ import { Label } from "@/components/shared/Modal/styles";
 import ModalComponent from '@/components/shared/Modal/ModalComponent';
 import { Loading } from '@/components/Loading';
 import { ImageWithLoader } from '@/components/ImageWithLoader';
+import { DeliveryHours } from '@/components/Into/Shops/Profile/styles';
 
 export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolean; onClose: (product?: any) => void; selected: any, shopId: string }) => {
 
@@ -23,9 +24,11 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
     const [quantity, setQuantity] = useState(1);
     const [observations, setObservations] = useState<string>('');
     const [requiredAlert, setRequiredAlert] = useState(false);
+    const [isClosedWarning, setIsClosedWarning] = useState(false);
     const [addItemAnimation, setAddItemAnimation] = useState(false);
     const { addItem, cart } = useShoppingCart();
     const [loading, setLoading] = useState(false);
+    const [shop, setShop] = useState<any>();
     const router = useRouter();
 
     useEffect(() => {
@@ -63,6 +66,12 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
         setGroupOption(findGroupOption || []);
     }, [selected])
 
+    useEffect(() => {
+        const item = shops.find(s => s.id.toString() == shopId)
+        if (item) {
+            setShop(item)
+        }
+    }, []);
 
     const handleSelect = (group: any, option: any) => {
 
@@ -141,7 +150,6 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
         });
     };
 
-
     const countTotalSelectedItems = (id: number): number => {
         const groupOptions = selectedOptions[id.toString()];
         if (!groupOptions) return 0;
@@ -178,6 +186,12 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
     const totalPrice = (item?.price || 0) * quantity + calculateSelectedOptionsTotal();
 
     const addProductToCart = () => {
+
+        if (shop?.isClosed) {
+            setIsClosedWarning(true);
+            return;
+        }
+
         const groups = hasUnfulfilledRequiredGroups();
         if (groups.length > 0) {
             setGroupRequerid(groups)
@@ -186,7 +200,6 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
         }
 
         setAddItemAnimation(true)
-
 
         addItem({
             ...item,
@@ -230,7 +243,6 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
             }, 120);
         }, 400);
     };
-
 
     const stopHold = () => {
         if (holdTimeoutRef.current) clearTimeout(holdTimeoutRef.current);
@@ -386,6 +398,29 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
                     title={'Opsss!'}
                 >
                     <Label>Antes de adicionar o produto ao carrinho, você deve selecionar as opções obrigatórias.</Label>
+                </ModalComponent>
+
+
+                <ModalComponent
+                    isOpen={isClosedWarning}
+                    onConfirm={() => setIsClosedWarning(false)}
+                    onConfirmText={"Ok, entendi"}
+                    styles={{ padding: 0 }}
+                >
+                    <ClosedWarning>
+                        <h2>Estabelecimento fechado</h2>
+                        <h3>Horários delivery</h3>
+                        <div>
+                            <DeliveryHours>
+                                {['segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado', 'domingo'].map((day) => (
+                                    <li key={day}>
+                                        <h4>{day}</h4>
+                                        <span>05:00–23:59</span>
+                                    </li>
+                                ))}
+                            </DeliveryHours>
+                        </div>
+                    </ClosedWarning>
                 </ModalComponent>
             </ModalBox>
         </Overlay>

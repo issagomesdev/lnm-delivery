@@ -56,6 +56,13 @@ export default function PizzaBuild() {
     const [categorySelector, setCategorySelector] = useState(false);
 
     useEffect(() => {
+        const prev = document.body.style.overscrollBehaviorY;
+        document.body.style.overscrollBehaviorY = 'contain';
+        return () => { document.body.style.overscrollBehaviorY = prev; };
+    }, []);
+
+
+    useEffect(() => {
         const id = searchParams.get("productId");
         if (id) setProductId(id)
     }, [searchParams]);
@@ -352,18 +359,18 @@ export default function PizzaBuild() {
                                     </MenuInfo>
 
                                     {item.photo && <ImageWithLoader src={item.photo} alt={item.name}
-                                    wrapperStyle={{
-                                        width: '80px',
-                                        height: '80px'
-                                    }}
-                                    imgStyle={{
-                                        width: '100%',
-                                        height: '100%',
-                                        objectFit: 'cover',
-                                        borderRadius: '6px',
-                                        userSelect: 'none',
-                                    }}
-                                    loaderStyle={{ width: '35px', height: '35px' }}  />}
+                                        wrapperStyle={{
+                                            width: '80px',
+                                            height: '80px'
+                                        }}
+                                        imgStyle={{
+                                            width: '100%',
+                                            height: '100%',
+                                            objectFit: 'cover',
+                                            borderRadius: '6px',
+                                            userSelect: 'none',
+                                        }}
+                                        loaderStyle={{ width: '35px', height: '35px' }} />}
                                 </MenuItem>
                             )
                         ))}

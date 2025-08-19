@@ -29,11 +29,11 @@ import { Loading } from "@/components/Loading";
 import { ImageWithLoader } from '@/components/ImageWithLoader';
 
 export default function Cardapio() {
-  return (
-    <Suspense fallback={<Loading />}>
-      <CardapioInner />
-    </Suspense>
-  );
+    return (
+        <Suspense fallback={<Loading />}>
+            <CardapioInner />
+        </Suspense>
+    );
 }
 
 const CardapioInner = () => {
@@ -50,6 +50,12 @@ const CardapioInner = () => {
     const [loading, setLoading] = useState(true);
     const { addItem, cart } = useShoppingCart();
     const theme = useTheme();
+
+    useEffect(() => {
+        const prev = document.body.style.overscrollBehaviorY;
+        document.body.style.overscrollBehaviorY = 'contain';
+        return () => { document.body.style.overscrollBehaviorY = prev; };
+    }, []);
 
     const handleSelectCategory = (cat: any) => {
         setLoading(true)
@@ -189,7 +195,7 @@ const CardapioInner = () => {
                 }}
                 shopId={`${shopId}`} />
 
-            <CartBar setLoading={(value:boolean) => setLoading(value)}/>
+            <CartBar setLoading={(value: boolean) => setLoading(value)} />
 
         </>
     );
