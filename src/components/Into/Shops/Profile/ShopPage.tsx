@@ -87,7 +87,13 @@ const ShopPage = ({
 
     useEffect(() => {
         if (shop) {
-            if (!shop.isClosed && shop.coupon && !CouponAlert) setCouponAlertIsOpen(true);
+            if (shop.coupon) {
+                if (CouponAlert && CouponAlert === 'false') {
+                    window.history.replaceState(null, '', window.location.pathname + window.location.search);
+                } else {
+                    setCouponAlertIsOpen(true);
+                }
+            }
             setCategories(shopCategories(shop.id));
         }
     }, [shop]);
@@ -207,16 +213,16 @@ const ShopPage = ({
                                 }
                             </CategoriesContainer >
                         ) : (
-                                <div style={{ textAlign: 'center', margin: '2rem', minHeight: '10vw', userSelect: 'none' }}>
-                                    <p style={{ marginBottom: '1rem', fontWeight: 500 }}>
-                                        Desculpe-nos, infelizmente o restaurante encontra-se fechado no momento, devido ao horário ou falta de conexão com a internet.
-                                    </p>
-                                    <ConfirmButton onClick={() => {
-                                        setInfoIsOpen(true)
+                            <div style={{ textAlign: 'center', margin: '2rem', minHeight: '10vw', userSelect: 'none' }}>
+                                <p style={{ marginBottom: '1rem', fontWeight: 500 }}>
+                                    Desculpe-nos, infelizmente o restaurante encontra-se fechado no momento, devido ao horário ou falta de conexão com a internet.
+                                </p>
+                                <ConfirmButton onClick={() => {
+                                    setInfoIsOpen(true)
 
-                                    }}> Ver horários de atendimento </ConfirmButton>
-                                </div>
-                            )}
+                                }}> Ver horários de atendimento </ConfirmButton>
+                            </div>
+                        )}
 
                         {/* Modal de avaliações */}
                         <Reviews
@@ -247,7 +253,7 @@ const ShopPage = ({
                             isOpen={couponAlertIsOpen}
                             onConfirm={() => {
                                 setCouponAlertIsOpen(false);
-                        window.history.replaceState(null, '', window.location.pathname + `?${getShopId ? `shopId=${shop.id}&` : ''}CouponAlert=false`);
+                                window.history.replaceState(null, '', window.location.pathname + `?${getShopId ? `shopId=${shop.id}&` : ''}CouponAlert=false`);
                             }}
                             onConfirmText={"Ok, entendi"}
                         >

@@ -88,14 +88,13 @@ const ChooseFlavor = ({
                     const isSelected = selectedFlavors.findIndex(i => i && i.idOption === item.idOption);
                     if (isSelected > -1) {
                         updated[isSelected] = null;
-                        setSelectedFlavors(updated);
                     } else if (selectedFlavors[selectedFlavor as number] === null || selectedFlavors[selectedFlavor as number].idOption !== item.idOption) {
                         updated[selectedFlavor as number] = { ...item, categoryId: category.id };
-                        setSelectedFlavors(updated);
                     } else {
                         updated[selectedFlavor as number] = null;
-                        setSelectedFlavors(updated);
                     }
+                    
+                    setSelectedFlavors(updated);
                 }}>
                     <MenuInfo>
                         <MenuName>{item.name}</MenuName>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState, useCallback } from "react";
 import { shopCategories } from "@/components/Into/data";
 import Header from "@/components/Into/Shops/Profile/Header";
@@ -38,6 +38,7 @@ import {
 import { Loading } from "@/components/Loading";
 import ImageWithSkeleton from "@/components/Into/Skeleton/ImageWithSkeleton";
 import { ImageWithLoader } from "@/components/ImageWithLoader";
+import { useShopPage } from "@/contexts/ShopPageContext";
 
 export default function PizzaBuild() {
     const { shopId } = useParams();
@@ -54,6 +55,8 @@ export default function PizzaBuild() {
     const [loading, setLoading] = useState(true);
     const [showFlavorsSelecteds, setShowFlavorsSelecteds] = useState(false);
     const [categorySelector, setCategorySelector] = useState(false);
+    const { updateShopId } = useShopPage();
+    const router = useRouter();
 
     useEffect(() => {
         const prev = document.body.style.overscrollBehaviorY;
@@ -82,6 +85,7 @@ export default function PizzaBuild() {
     useEffect(() => {
         if (flavorsQuantity && selectedFlavors.length !== flavorsQuantity) {
             setSelectedFlavors(Array(flavorsQuantity).fill(null));
+            
         }
     }, [flavorsQuantity]);
 
@@ -141,8 +145,9 @@ export default function PizzaBuild() {
             }
 
             setLoading(false);
+            updateShopId(null);
             return `/shops?shopId=${shopId}&CouponAlert=false`;
-        }, [steps, showFlavorsSelecteds, categorySelector, checkoutIsOpen])
+        }, [showFlavorsSelecteds, categorySelector, checkoutIsOpen, selectedFlavors])
     );
 
     const getFlavorPositions = (count: number) => {
@@ -234,7 +239,8 @@ export default function PizzaBuild() {
                                                 setSelectedFlavor(0);
                                                 setSteps(4)
                                             }
-                                            window.history.pushState(null, '', window.location.pathname + window.location.search);
+                                            // window.history.pushState(null, '', window.location.pathname + window.location.search);
+
                                         }}
                                     >
                                         <h3>
@@ -271,7 +277,7 @@ export default function PizzaBuild() {
                                             onClick={() => {
                                                 setSelectedFlavor(index);
                                                 setSteps(4)
-                                                window.history.pushState(null, '', window.location.pathname + window.location.search);
+                                                // window.history.pushState(null, '', window.location.pathname + window.location.search);
                                             }}
                                         >
                                             <h4>{index + 1}° sabor</h4>
@@ -305,7 +311,7 @@ export default function PizzaBuild() {
                                 SelectOptions(value)
                             }
                             setSteps(3)
-                            window.history.pushState(null, '', window.location.pathname + window.location.search);
+                            // window.history.pushState(null, '', window.location.pathname + window.location.search);
                         }}
                         selectedFlavors={selectedFlavors}
                         selectedFlavor={selectedFlavor}
