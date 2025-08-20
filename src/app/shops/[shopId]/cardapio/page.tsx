@@ -82,6 +82,11 @@ const CardapioInner = () => {
     };
 
     useEffect(() => {
+        const param = searchParams.get("category");
+        const selected = categories.find((i) => i.name === param);
+
+        if (selected) setCategory(selected);
+        
         if (category.name.includes("Pizza")) {
             router.push(`/shops/${shopId}/monte-sua-pizza?productId=${encodeURIComponent(category.id)}`);
             return
