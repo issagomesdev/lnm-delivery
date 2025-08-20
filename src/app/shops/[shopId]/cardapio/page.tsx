@@ -52,11 +52,11 @@ const CardapioInner = () => {
     const theme = useTheme();
 
     useEffect(() => {
+        document.body.style.overflow = '';
         const prev = document.body.style.overscrollBehaviorY;
         document.body.style.overscrollBehaviorY = 'contain';
         return () => { document.body.style.overscrollBehaviorY = prev; };
     }, []);
-
 
     const handleSelectCategory = (cat: any) => {
         setLoading(true)
@@ -82,11 +82,6 @@ const CardapioInner = () => {
     };
 
     useEffect(() => {
-        const param = searchParams.get("category");
-        const selected = categories.find((i) => i.name === param);
-
-        if (selected) setCategory(selected);
-
         if (category.name.includes("Pizza")) {
             router.push(`/shops/${shopId}/monte-sua-pizza?productId=${encodeURIComponent(category.id)}`);
             return
