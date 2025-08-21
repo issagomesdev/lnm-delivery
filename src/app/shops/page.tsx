@@ -1,7 +1,7 @@
 'use client';
 
 import Header from "@/components/Into/Header";
-import React, { Suspense, useCallback, useEffect, useRef, useState } from 'react';
+import React, { Suspense, use, useCallback, useEffect, useRef, useState } from 'react';
 import Categories from '@/components/Into/Shops/Categories';
 import Banners from '@/components/Into/Shops/Banners';
 import ShopsList from '@/components/Into/Shops/ShopsList';
@@ -46,11 +46,19 @@ const ShopsPageInner = () => {
   const { shopId, updateShopId } = useShopPage();
   const searchParams = useSearchParams();
   const getShopId = searchParams.get('shopId');
+  const previousPage = searchParams.get('previousPage');
+
+  useEffect(() => {
+    if (previousPage) {
+      window.history.pushState(null, '', window.location.pathname + window.location.search);
+      window.history.replaceState(null, '', '/shops?CouponAlert=false');
+    }
+  }, [cart.length, previousPage]);
 
   useEffect(() => {
     if (getShopId && shopId !== getShopId) {
       updateShopId(getShopId);
-      window.history.pushState(null, '', window.location.pathname);
+      window.history.pushState(null, '', window.location.pathname + 'CouponAlert=false');
     }
     setLoading(false);
   }, [getShopId]);
@@ -120,7 +128,7 @@ const ShopsPageInner = () => {
           selectedCategory={selectedCategory}
           setSelectedCategory={(value) => {
             setSelectedCategory(value)
-            window.history.pushState(null, '', window.location.pathname);
+            window.history.pushState(null, '', window.location.pathname + 'CouponAlert=false');
           }}
         />
 
@@ -131,7 +139,7 @@ const ShopsPageInner = () => {
           selectedCategories={selectedCategories}
           setSelectedCategories={(value) => {
             setSelectedCategories(value)
-            window.history.pushState(null, '', window.location.pathname);
+            window.history.pushState(null, '', window.location.pathname + 'CouponAlert=false');
 
           }}
           selectedCategory={selectedCategory}
@@ -140,7 +148,7 @@ const ShopsPageInner = () => {
           filterIsOpen={filterIsOpen}
           setFilterIsOpen={(value) => {
             setFilterIsOpen(value);
-            window.history.pushState(null, '', window.location.pathname);
+            window.history.pushState(null, '', window.location.pathname + 'CouponAlert=false');
 
           }}
           triggered={triggered}
@@ -152,27 +160,27 @@ const ShopsPageInner = () => {
             timeInfoIsOpen={timeInfoIsOpen}
             setTimeInfoIsOpen={(value: boolean) => {
               setTimeInfoIsOpen(value)
-              window.history.pushState(null, '', window.location.pathname);
+              window.history.pushState(null, '', window.location.pathname + 'CouponAlert=false');
             }}
             reviewsIsOpen={reviewsIsOpen}
             setReviewsIsOpen={(value: boolean) => {
               setReviewsIsOpen(value)
-              window.history.pushState(null, '', window.location.pathname);
+              window.history.pushState(null, '', window.location.pathname + 'CouponAlert=false');
             }}
             feesIsOpen={feesIsOpen}
             setFeesIsOpen={(value: boolean) => {
               setFeesIsOpen(value)
-              window.history.pushState(null, '', window.location.pathname);
+              window.history.pushState(null, '', window.location.pathname + 'CouponAlert=false');
             }}
             infoIsOpen={infoIsOpen}
             setInfoIsOpen={(value: boolean) => {
               setInfoIsOpen(value)
-              window.history.pushState(null, '', window.location.pathname);
+              window.history.pushState(null, '', window.location.pathname + 'CouponAlert=false');
             }}
             storeExitAlert={storeExitAlert}
             setStoreExitAlert={(value: boolean) => {
               setStoreExitAlert(value)
-              window.history.pushState(null, '', window.location.pathname);
+              window.history.pushState(null, '', window.location.pathname + 'CouponAlert=false');
             }}
           />
         )}

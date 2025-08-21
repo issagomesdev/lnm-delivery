@@ -11,7 +11,6 @@ export default function MyAccount() {
   const [reason, setReason] = useState('')
 
   const handleConfirm = () => {
-    console.log('Ação confirmada!')
     setIsModalOpen(false)
   }
   

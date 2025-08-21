@@ -71,10 +71,6 @@ export default function PizzaBuild() {
     }, [searchParams]);
 
     useEffect(() => {
-        console.log('backActionCount', backActionCount)
-    }, [backActionCount])
-
-    useEffect(() => {
         if (shopId && productId) {
             const selected = shopCategories(Number(shopId)).find(
                 (i) => i.id === Number(productId)
@@ -92,10 +88,6 @@ export default function PizzaBuild() {
             setSelectedFlavors(Array(flavorsQuantity).fill(null));
         }
     }, [flavorsQuantity]);
-
-    useEffect(() => {
-        console.log('steps::', steps)
-    }, [steps]);
 
     const getPizzaImagePath = () => {
         if (!flavorsQuantity) return "";
@@ -188,10 +180,6 @@ export default function PizzaBuild() {
         })
         setCheckoutIsOpen(true);
     }
-
-    useEffect(() => {
-        console.log('selectedFlavors', selectedFlavors)
-    }, [selectedFlavors])
 
     return (
         <>

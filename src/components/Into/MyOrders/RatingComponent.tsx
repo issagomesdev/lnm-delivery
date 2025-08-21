@@ -36,7 +36,6 @@ export default function RatingComponent({ isOpen, onClose }: RatingComponentProp
     };
 
     const evaluateOrder = () => {
-        console.log('Pedido Avaliado!', comment, ratings);
         setConfirmModalOpen(true);
     }
 

@@ -63,7 +63,6 @@ export default function TrackOrderPage() {
   };
 
   const [ratingIsOpen, setRatingIsOpen] = useState(false);
-  const router = useRouter();
 
   useEffect(() => {
     if (returnShops && returnShops === 'shops') {

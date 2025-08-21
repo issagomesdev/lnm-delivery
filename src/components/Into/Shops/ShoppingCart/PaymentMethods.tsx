@@ -59,8 +59,6 @@ export const PaymentMethods = ({ isOpen, onClose, total, handleData }: { isOpen:
 
         const floatValue = Number(padded) / 100;
 
-        console.log(floatValue)
-
         setChangeFor({
             value: floatValue,
             label: floatValue === 0? '' : `R$ ${floatValue.toFixed(2).replace('.', ',')}`

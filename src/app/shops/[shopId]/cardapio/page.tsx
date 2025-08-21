@@ -63,7 +63,7 @@ const CardapioInner = () => {
         if (cat.name.includes("Pizza")) {
             router.push(`/shops/${shopId}/monte-sua-pizza?productId=${encodeURIComponent(cat.id)}`);
         } else {
-            router.push(`?category=${encodeURIComponent(cat.name)}`);
+            window.history.replaceState(null, '', window.location.pathname + `?category=${cat.name}`);
             setCategory(cat)
         }
     };
@@ -76,9 +76,7 @@ const CardapioInner = () => {
     const addProductToCart = (item: any) => {
         setCheckoutIsOpen(false);
 
-        addItem({ ...item, id: cart.length + 1 });
-
-        console.log('Produto adicionado ao carrinho:', cart);
+        addItem({ ...item, id: cart.length + 1 });;
     };
 
     useEffect(() => {
@@ -86,7 +84,7 @@ const CardapioInner = () => {
         const selected = categories.find((i) => i.name === param);
 
         if (selected) setCategory(selected);
-        
+
         if (category.name.includes("Pizza")) {
             router.push(`/shops/${shopId}/monte-sua-pizza?productId=${encodeURIComponent(category.id)}`);
             return

@@ -72,7 +72,6 @@ const MyAddresses = () => {
 
       <AddressFormComponent
         onClose={(data: any) => {
-          console.log(data)
           if (data) {
             setAddresses(prev => [...prev, { ...data, id: prev.length + 1 }]);
           }

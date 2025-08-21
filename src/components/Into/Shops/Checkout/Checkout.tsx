@@ -215,7 +215,7 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
         setTimeout(() => {
             if (category.name.includes("Pizza")) {
                 setLoading(true)
-                router.push(`/shops?CouponAlert=false`);
+                router.push(`/shops?CouponAlert=false&previousPage="Pizza"`);
             } else {
                 setAddItemAnimation(false);
                 setQuantity(1);

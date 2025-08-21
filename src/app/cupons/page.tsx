@@ -59,7 +59,6 @@ const CouponInner = () => {
     useCallback(() => {
       setLoading(true);
       if (timeInfoIsOpen) {
-        console.log('timeInfoIsOpen', timeInfoIsOpen)
         setTimeInfoIsOpen(false)
         setLoading(false);
         return true;
