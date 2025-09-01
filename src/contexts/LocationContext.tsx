@@ -2,11 +2,22 @@
 
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 
+type Address = {
+  estado: string;
+  cidade: string;
+  bairro: string;
+  endereco: string;
+};
+
 type LocationContextType = {
   selectedCity: string;
   setSelectedCity: (city: string) => void;
   selectedNeighborhood: string;
   setSelectedNeighborhood: (neighborhood: string) => void;
+  locationError: string | null;
+  useMyLocation: (changeLocation?: boolean) => void;
+  address: Address | null;
+
 };
 
 const LocationContext = createContext<LocationContextType | undefined>(undefined);
@@ -14,6 +25,8 @@ const LocationContext = createContext<LocationContextType | undefined>(undefined
 export const LocationProvider = ({ children }: { children: ReactNode }) => {
   const [selectedCity, setSelectedCity] = useState('');
   const [selectedNeighborhood, setSelectedNeighborhood] = useState('');
+  const [locationError, setLocationError] = useState<string | null>(null);
+  const [address, setAddress] = useState<Address | null>(null);
 
   useEffect(() => {
     const savedCity = localStorage.getItem('selectedCity');
@@ -31,8 +44,55 @@ export const LocationProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem('selectedNeighborhood', selectedNeighborhood);
   }, [selectedNeighborhood]);
 
+  const useMyLocation = (changeLocation: boolean = false) => {
+    if (!navigator.geolocation) {
+      alert('Geolocalização não é suportada neste navegador.');
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        const { latitude, longitude } = pos.coords;
+
+        try {
+          const response = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+          );
+          const data = await response.json();
+          const stateCode =  data.address['ISO3166-2-lvl4'].replace('BR-', '');
+          const cityName = data.address.city || data.address.town || data.address.village || '';
+          const neighborhoodName = data.address.suburb || data.address.neighbourhood || '';
+          const streetName = data.address.road || '';
+
+          if (changeLocation) {
+            setSelectedCity(cityName);
+            setSelectedNeighborhood(neighborhoodName);
+          }
+
+          const newAddress: Address = {
+            estado: stateCode,
+            cidade: cityName,
+            bairro: neighborhoodName,
+            endereco: streetName,
+          };
+
+          setAddress(newAddress)
+
+          setLocationError(null);
+
+        } catch (error) {
+          setLocationError('Não foi possível identificar sua localização.' + error?.toString());
+        }
+      },
+      (err) => {
+        setLocationError('Erro ao obter localização: ' + err.message);
+      }
+    );
+  };
+
+
   return (
-    <LocationContext.Provider value={{ selectedCity, setSelectedCity, selectedNeighborhood, setSelectedNeighborhood }}>
+    <LocationContext.Provider value={{ selectedCity, setSelectedCity, selectedNeighborhood, setSelectedNeighborhood, locationError, useMyLocation, address }}>
       {children}
     </LocationContext.Provider>
   );

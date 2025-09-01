@@ -11,7 +11,7 @@ export default function LocationSelector() {
   const [neighborhoods, setNeighborhoods] = useState<string[]>([]);
   const [selectedCityLocal, setSelectedCityLocal] = useState<string>('');
   const [selectedNeighborhoodLocal, setSelectedNeighborhoodLocal] = useState<string>('');
-  const { setSelectedCity, setSelectedNeighborhood } = useLocation();
+  const { setSelectedCity, setSelectedNeighborhood, locationError, useMyLocation } = useLocation();
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
@@ -38,6 +38,18 @@ export default function LocationSelector() {
     setSelectedCity(selectedCityLocal);
     setSelectedNeighborhood(selectedNeighborhoodLocal);
     router.push('shops'); 
+  };
+
+  const autoLocation = () => {
+    setLoading(true);
+    useMyLocation(true);
+    setLoading(false);
+
+    if(locationError) {
+      alert(locationError);
+    } else {
+      router.push('shops');
+    }
   };
 
   return (
@@ -81,7 +93,7 @@ export default function LocationSelector() {
         )}
 
         {selectedCityLocal.length === 0 && (
-          <h3 className={styles.locationIcon}>
+          <h3 className={styles.locationIcon} onClick={autoLocation}>
             <img src="/images/btn_my_location.png" alt="" />
             Usar minha localização
           </h3>

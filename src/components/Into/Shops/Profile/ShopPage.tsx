@@ -215,7 +215,7 @@ const ShopPage = ({
                         ) : (
                             <div style={{ textAlign: 'center', margin: '2rem', minHeight: '10vw', userSelect: 'none' }}>
                                 <p style={{ marginBottom: '1rem', fontWeight: 500 }}>
-                                    Desculpe-nos, infelizmente o restaurante encontra-se fechado no momento, devido ao horário ou falta de conexão com a internet.
+                                    Loja com indisponibilidade de produtos para o horário atual.
                                 </p>
                                 <ConfirmButton onClick={() => {
                                     setInfoIsOpen(true)

@@ -7,6 +7,7 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 import ModalComponent from "@/components/shared/Modal/ModalComponent";
 import AddressFormComponent from '@/components/Into/MyAddresses/AddressFormComponent';
 import { addressesData } from '@/components/Into/data';
+import { Loading } from '@/components/Loading';
 
 const MyAddresses = () => {
 
@@ -15,6 +16,7 @@ const MyAddresses = () => {
   const [isModalCreate, setIsModalCreate] = useState(false);
   const [isModalEdit, setIsModalEdit] = useState(false);
   const [selected, setSelected] = useState<any>();
+  const [loading, setLoading] = useState(false);
 
   const handleDelete = (id: number) => {
     setAddresses(prev => prev.filter((i) => i.id !== id));
@@ -31,6 +33,7 @@ const MyAddresses = () => {
 
   return (
     <>
+      {loading && <Loading />}
       <Header name={'Meus Endereços'} full={false} />
       <Container>
         <AddButton onClick={() => setIsModalCreate(true)}>
@@ -79,6 +82,7 @@ const MyAddresses = () => {
           setIsModalCreate(false);
         }}
         isOpen={isModalCreate}
+        setLoading={(value: boolean) => setLoading(value)}
       />
 
       <AddressFormComponent
@@ -100,6 +104,7 @@ const MyAddresses = () => {
           referencia: selected?.referencia,
           apelido: selected?.apelido,
         }}
+        setLoading={(value: boolean) => setLoading(value)}
       />
     </>
   );

@@ -136,6 +136,7 @@ const CarrinhoInner = () => {
                     setSteps(step)
                     window.history.pushState(null, '', window.location.pathname);
                 }}
+                setLoading={setLoading}
                 productsTotal={total}
                 setDeliveryValue={(value: number) => setDeliveryValue(value)}
                 deliveryValue={deliveryValue}

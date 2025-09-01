@@ -34,17 +34,26 @@ export const useAddressForm = (initialData?: Partial<typeof defaultForm>) => {
     }
   }, [initialData]);
 
-  const handleChange = (field: string, value: string) => {
-    setForm((prev) => ({ ...prev, [field]: value }));
+  const handleChange = (field: string | null, value: string | any) => {
+    if (field) {
+      setForm((prev) => ({ ...prev, [field]: value }));
 
-    if (field === 'estado') {
-      setForm((prev) => ({ ...prev, cidade: '', bairro: '' }));
-      setCidades([]); 
+
+      if (field === 'estado') {
+        setForm((prev) => ({ ...prev, cidade: '', bairro: '' }));
+        setCidades([]);
+      }
+
+      if (field === 'cidade') {
+        setForm((prev) => ({ ...prev, bairro: '' }));
+      }
+
+      return;
     }
 
-    if (field === 'cidade') {
-      setForm((prev) => ({ ...prev, bairro: '' }));
-    }
+    console.log({...form, ...value});
+
+    setForm((prev) => ({ ...prev, ...value }));
   };
 
   const resetForm = () => {

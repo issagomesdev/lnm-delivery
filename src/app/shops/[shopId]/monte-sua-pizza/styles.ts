@@ -96,6 +96,10 @@ export const FlavorsFigure = styled.div`
         width: 100%;
     }
 
+    @media (max-width: 1366px){
+       width: 20rem; 
+    }
+
     @media (max-width: 600px){
        width: 15rem; 
     }

@@ -7,7 +7,7 @@ import AddressFormComponent from '../../MyAddresses/AddressFormComponent';
 import { MethodWrapper, Select, NewAddressButton, PriceSummary, PaymentButton, AddressField, CustomCheckbox, ConfirmDelivery, ConfirmDeliveryContent } from './styles';
 import ModalComponent from '@/components/shared/Modal/ModalComponent';
 
-export const DeliveryMethods = ({ isOpen, onClose, productsTotal, setDeliveryValue, deliveryValue, handleData }: { isOpen: boolean; onClose: (step: 2 | null) => void, productsTotal: any, setDeliveryValue: (value: number) => void, deliveryValue: number, handleData: any }) => {
+export const DeliveryMethods = ({ isOpen, onClose, productsTotal, setDeliveryValue, deliveryValue, handleData, setLoading }: { isOpen: boolean; onClose: (step: 2 | null) => void, productsTotal: any, setDeliveryValue: (value: number) => void, deliveryValue: number, handleData: any, setLoading: (value: boolean) => void }) => {
 
     const [addresses, setAddresses] = useState<any[]>(addressesData);
     const [deliveryMethod, setDeliveryMethod] = useState<'entrega' | 'retirada'>('entrega');
@@ -188,6 +188,7 @@ export const DeliveryMethods = ({ isOpen, onClose, productsTotal, setDeliveryVal
                     }
                     setNewAddressIsOpen(false);
                 }}
+                setLoading={(value:boolean) => setLoading(value)}
                 isOpen={newAddressIsOpen}
             />
         </Overlay>
