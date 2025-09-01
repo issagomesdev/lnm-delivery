@@ -27,6 +27,10 @@ export const Field = styled.div`
     border-radius: 4px;
     border: 1px solid #ccc;
   }
+
+  input.red {
+    border: 2px solid red;
+  }
 `;
 
 export const Button = styled.button`

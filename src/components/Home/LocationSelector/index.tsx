@@ -37,20 +37,24 @@ export default function LocationSelector() {
     setLoading(true);
     setSelectedCity(selectedCityLocal);
     setSelectedNeighborhood(selectedNeighborhoodLocal);
-    router.push('shops'); 
+    router.push('shops');
   };
 
-  const autoLocation = () => {
-    setLoading(true);
-    useMyLocation(true);
-    setLoading(false);
+  const autoLocation = async () => {
+    try {
+      setLoading(true);
+      await useMyLocation(true);
 
-    if(locationError) {
-      alert(locationError);
-    } else {
-      router.push('shops');
+      if (locationError) {
+        alert(locationError);
+      } else {
+        router.push('shops');
+      }
+    } catch (error) {
+      alert(error);
     }
   };
+
 
   return (
     <div className={styles.locationContainer}>

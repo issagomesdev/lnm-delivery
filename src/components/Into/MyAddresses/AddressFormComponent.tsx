@@ -19,6 +19,7 @@ const AddressFormComponent = ({ setLoading, isOpen, onClose, initialData }: Addr
   const { estados, cidades, form, handleChange, resetForm } = useAddressForm(initialData);
   const { address, locationError, useMyLocation } = useLocation();
   const [confirmModal, setConfirmModal] = useState<boolean>(false);
+  const [redFields, setRedFields] = useState<any[]>([]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,20 +27,23 @@ const AddressFormComponent = ({ setLoading, isOpen, onClose, initialData }: Addr
     resetForm()
   };
 
-  const autoLocation = () => {
-    useMyLocation();
-    setLoading(true);
-    if (locationError) {
-      alert(locationError);
-    }
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  };
+  const autoLocation = async () => {
+    try {
+      setLoading(true);
+      await useMyLocation(true);
 
-  useEffect(() => {
-    setConfirmModal(true)
-  }, [address]);
+      if (locationError) {
+        alert(locationError);
+      } else {
+        setConfirmModal(true)
+        setRedFields(['numero', 'complemento', 'referencia'])
+      }
+    } catch (error) {
+      alert(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   if (!isOpen) return null
 
@@ -48,7 +52,7 @@ const AddressFormComponent = ({ setLoading, isOpen, onClose, initialData }: Addr
       <ModalBox style={{ height: '90%', overflow: 'auto hidden', padding: 0 }}>
         <Title>{initialData ? 'Editar' : 'Cadastrar '} endereço</Title>
         <CloseXButton>
-          <Icon icon={'material-symbols:close'} color="#fff" width="24" onClick={() => { onClose(), resetForm(), setConfirmModal(false) }} />
+          <Icon icon={'material-symbols:close'} color="#fff" width="24" onClick={() => { onClose(), resetForm(), setConfirmModal(false), setRedFields([]) }} />
         </CloseXButton>
 
         {form.estado.length === 0 && (
@@ -99,22 +103,32 @@ const AddressFormComponent = ({ setLoading, isOpen, onClose, initialData }: Addr
 
               <Field>
                 <label>Número</label>
-                <input required value={form.numero} onChange={(e) => handleChange('numero', e.target.value)} />
+                <input className={redFields.includes('numero') ? 'red' : ''} required value={form.numero} onChange={(e) => {
+                  handleChange('numero', e.target.value)
+                  setRedFields(prev => prev.filter(f => f !== 'numero'));
+                }} />
               </Field>
 
               <Field>
                 <label>Complemento</label>
-                <input required placeholder="ex: casa/apartamento n°" value={form.complemento} onChange={(e) => handleChange('complemento', e.target.value)} />
+                <input className={redFields.includes('complemento') ? 'red' : ''} required placeholder="ex: casa/apartamento n°" value={form.complemento} onChange={(e) => {
+                  handleChange('complemento', e.target.value)
+                  setRedFields(prev => prev.filter(f => f !== 'complemento'));
+
+                }} />
               </Field>
 
               <Field>
                 <label>Ponto de referência</label>
-                <input required value={form.referencia} onChange={(e) => handleChange('referencia', e.target.value)} />
+                <input className={redFields.includes('referencia') ? 'red' : ''} required value={form.referencia} onChange={(e) => {
+                  handleChange('referencia', e.target.value)
+                  setRedFields(prev => prev.filter(f => f !== 'referencia'));
+                }} />
               </Field>
 
               <Field>
                 <label>Apelido do endereço</label>
-                <input required placeholder="ex: casa, trabalho..." value={form.apelido} onChange={(e) => handleChange('apelido', e.target.value)} />
+                <input placeholder="ex: casa, trabalho..." value={form.apelido} onChange={(e) => handleChange('apelido', e.target.value)} />
               </Field>
 
               <Button type="submit">Salvar endereço</Button>
