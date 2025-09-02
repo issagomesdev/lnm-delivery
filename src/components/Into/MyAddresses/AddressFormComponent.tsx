@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Title, Overlay, ModalBox, CloseXButton } from '@/components/shared/Modal/styles';
 import { useAddressForm } from '@/controllers/AdressesController';
 import { Form, Field, Button } from './styles';
@@ -17,9 +17,11 @@ interface AddressFormComponentProps {
 
 const AddressFormComponent = ({ setLoading, isOpen, onClose, initialData }: AddressFormComponentProps) => {
   const { estados, cidades, form, handleChange, resetForm } = useAddressForm(initialData);
-  const { address, locationError, useMyLocation } = useLocation();
+  const { locationError, useMyLocation } = useLocation();
   const [confirmModal, setConfirmModal] = useState<boolean>(false);
-  const [redFields, setRedFields] = useState<any[]>([]);
+  const [address, setAddress] = useState<any | null>(null);
+  const [fieldsInRed, setFieldsInRed] = useState<any[]>([]);
+  const [regionWarning, setRegionWarning] = useState<boolean>(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,16 +29,44 @@ const AddressFormComponent = ({ setLoading, isOpen, onClose, initialData }: Addr
     resetForm()
   };
 
+  const cities = [
+    { name: 'São Sebastião', neighborhoods: ['Centro', 'Juquehy', 'Maresias'] },
+    { name: 'Ilhabela', neighborhoods: ['Praia do Curral', 'Praia do Julião'] },
+    { name: 'Caraguatatuba', neighborhoods: ['Centro', 'Martim de Sá', 'Praia das Palmeiras'] },
+    { name: 'Ubatuba', neighborhoods: ['Praia Grande', 'Praia do Tenório'] },
+  ];
+
+  const neighborhoods: any[] = (() => {
+    const getCity = cities.find(
+      (c) => c.name === form.cidade
+    );
+
+    if (!getCity) {
+      return [{id: "", name: 'Opções fora de nossa área de atendimento'}];
+    }
+
+    return getCity.neighborhoods.map(n => ({ id: n, name: n }));
+  })();
+
   const autoLocation = async () => {
     try {
       setLoading(true);
-      await useMyLocation(true);
+      const addr: any = await useMyLocation(true);
+      setAddress(addr);
 
       if (locationError) {
         alert(locationError);
       } else {
-        setConfirmModal(true)
-        setRedFields(['numero', 'complemento', 'referencia'])
+        const getCity = cities.find(c => c.name.toLowerCase() === addr.cidade.toLowerCase());
+        const getNeighb = getCity?.neighborhoods.find(c => c.toLowerCase() === addr.bairro.toLowerCase());
+
+        if (addr.estado !== 'SP' || !getCity || !getNeighb) {
+          setRegionWarning(true);
+          return;
+        }
+
+        setConfirmModal(true);
+        setFieldsInRed(['numero', 'complemento', 'referencia']);
       }
     } catch (error) {
       alert(error);
@@ -52,7 +82,7 @@ const AddressFormComponent = ({ setLoading, isOpen, onClose, initialData }: Addr
       <ModalBox style={{ height: '90%', overflow: 'auto hidden', padding: 0 }}>
         <Title>{initialData ? 'Editar' : 'Cadastrar '} endereço</Title>
         <CloseXButton>
-          <Icon icon={'material-symbols:close'} color="#fff" width="24" onClick={() => { onClose(), resetForm(), setConfirmModal(false), setRedFields([]) }} />
+          <Icon icon={'material-symbols:close'} color="#fff" width="24" onClick={() => { onClose(), resetForm(), setConfirmModal(false), setFieldsInRed([]) }} />
         </CloseXButton>
 
         {form.estado.length === 0 && (
@@ -93,7 +123,14 @@ const AddressFormComponent = ({ setLoading, isOpen, onClose, initialData }: Addr
             <>
               <Field>
                 <label>Bairro</label>
-                <input required value={form.bairro} onChange={(e) => handleChange('bairro', e.target.value)} />
+                <select value={form.bairro} onChange={(e) => handleChange('bairro', e.target.value)} required>
+                  <option value="">Selecione o bairro</option>
+                  {neighborhoods.map((neighb) => (
+                    <option key={neighb.id} value={neighb.id}>
+                      {neighb.name}
+                    </option>
+                  ))}
+                </select>
               </Field>
 
               <Field>
@@ -103,26 +140,25 @@ const AddressFormComponent = ({ setLoading, isOpen, onClose, initialData }: Addr
 
               <Field>
                 <label>Número</label>
-                <input className={redFields.includes('numero') ? 'red' : ''} required value={form.numero} onChange={(e) => {
+                <input className={fieldsInRed.includes('numero') ? 'red' : ''} required value={form.numero} onChange={(e) => {
                   handleChange('numero', e.target.value)
-                  setRedFields(prev => prev.filter(f => f !== 'numero'));
+                  setFieldsInRed(prev => prev.filter(f => f !== 'numero'));
                 }} />
               </Field>
 
               <Field>
                 <label>Complemento</label>
-                <input className={redFields.includes('complemento') ? 'red' : ''} required placeholder="ex: casa/apartamento n°" value={form.complemento} onChange={(e) => {
+                <input className={fieldsInRed.includes('complemento') ? 'red' : ''} required placeholder="ex: casa/apartamento n°" value={form.complemento} onChange={(e) => {
                   handleChange('complemento', e.target.value)
-                  setRedFields(prev => prev.filter(f => f !== 'complemento'));
-
+                  setFieldsInRed(prev => prev.filter(f => f !== 'complemento'));
                 }} />
               </Field>
 
               <Field>
                 <label>Ponto de referência</label>
-                <input className={redFields.includes('referencia') ? 'red' : ''} required value={form.referencia} onChange={(e) => {
+                <input className={fieldsInRed.includes('referencia') ? 'red' : ''} required value={form.referencia} onChange={(e) => {
                   handleChange('referencia', e.target.value)
-                  setRedFields(prev => prev.filter(f => f !== 'referencia'));
+                  setFieldsInRed(prev => prev.filter(f => f !== 'referencia'));
                 }} />
               </Field>
 
@@ -146,9 +182,19 @@ const AddressFormComponent = ({ setLoading, isOpen, onClose, initialData }: Addr
         onClose={() => setConfirmModal(false)}
         onConfirmText={"Confirmar Localização"}
         title={'Você esta aqui?'}
-        width={380}
+        width={300}
       >
         <strong>{address?.endereco}, {address?.bairro}, {address?.cidade} - {address?.estado}</strong>
+      </ModalComponent>
+
+      <ModalComponent
+        isOpen={regionWarning}
+        onClose={() => setRegionWarning(false)}
+        onCloseText={"Voltar"}
+        title={'Ops! Ainda não atendemos nessa região'}
+        width={300}
+      >
+        <strong>No momento, a região em que você está não faz parte da nossa área de atendimento.</strong>
       </ModalComponent>
     </Overlay>
   );

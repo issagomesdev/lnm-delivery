@@ -17,6 +17,7 @@ export const useAddressForm = (initialData?: Partial<typeof defaultForm>) => {
   const [form, setForm] = useState({ ...defaultForm, ...initialData });
   const [estados, setEstados] = useState<any[]>([]);
   const [cidades, setCidades] = useState<any[]>([]);
+  const [bairros, setBairros] = useState<any[]>([]);
 
   useEffect(() => {
     getEstados().then(setEstados);

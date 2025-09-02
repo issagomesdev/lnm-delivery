@@ -16,7 +16,6 @@ type LocationContextType = {
   setSelectedNeighborhood: (neighborhood: string) => void;
   locationError: string | null;
   useMyLocation: (changeLocation?: boolean) => void;
-  address: Address | null;
 
 };
 
@@ -26,7 +25,6 @@ export const LocationProvider = ({ children }: { children: ReactNode }) => {
   const [selectedCity, setSelectedCity] = useState('');
   const [selectedNeighborhood, setSelectedNeighborhood] = useState('');
   const [locationError, setLocationError] = useState<string | null>(null);
-  const [address, setAddress] = useState<Address | null>(null);
 
   useEffect(() => {
     const savedCity = localStorage.getItem('selectedCity');
@@ -44,7 +42,7 @@ export const LocationProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem('selectedNeighborhood', selectedNeighborhood);
   }, [selectedNeighborhood]);
 
-  const useMyLocation = (changeLocation: boolean = false): Promise<void> => {
+  const useMyLocation = (changeLocation: boolean = false): Promise<Address> => {
     return new Promise((resolve, reject) => {
       if (!navigator.geolocation) {
         const errorMsg = 'Geolocalização não é suportada neste navegador.';
@@ -80,9 +78,8 @@ export const LocationProvider = ({ children }: { children: ReactNode }) => {
               endereco: streetName,
             };
 
-            setAddress(newAddress);
             setLocationError(null);
-            resolve();
+            resolve(newAddress);
           } catch (error) {
             const errMsg = 'Não foi possível identificar sua localização.' + error?.toString();
             setLocationError(errMsg);
@@ -98,8 +95,9 @@ export const LocationProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
+
   return (
-    <LocationContext.Provider value={{ selectedCity, setSelectedCity, selectedNeighborhood, setSelectedNeighborhood, locationError, useMyLocation, address }}>
+    <LocationContext.Provider value={{ selectedCity, setSelectedCity, selectedNeighborhood, setSelectedNeighborhood, locationError, useMyLocation }}>
       {children}
     </LocationContext.Provider>
   );
