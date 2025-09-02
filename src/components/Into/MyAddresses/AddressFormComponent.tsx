@@ -30,7 +30,7 @@ const AddressFormComponent = ({ setLoading, isOpen, onClose, initialData }: Addr
   };
 
   const cities = [
-    { name: 'São Sebastião', neighborhoods: ['Centro', 'Juquehy', 'Maresias', 'Porto Grande', 'Porto Grande'] },
+    { name: 'São Sebastião', neighborhoods: ['Centro', 'Juquehy', 'Maresias', 'Porto Grande', 'Pontal da Cruz'] },
     { name: 'Ilhabela', neighborhoods: ['Praia do Curral', 'Praia do Julião'] },
     { name: 'Caraguatatuba', neighborhoods: ['Centro', 'Martim de Sá', 'Praia das Palmeiras'] },
     { name: 'Ubatuba', neighborhoods: ['Praia Grande', 'Praia do Tenório'] },
