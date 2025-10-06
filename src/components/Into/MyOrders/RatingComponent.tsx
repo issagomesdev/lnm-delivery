@@ -39,6 +39,23 @@ export default function RatingComponent({ isOpen, onClose }: RatingComponentProp
         setConfirmModalOpen(true);
     }
 
+    const handleComment = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        let value = e.target.value;
+
+        value = value.replace(
+            /([\u2700-\u27BF]|[\uE000-\uF8FF]|[\uD83C-\uDBFF\uDC00-\uDFFF])/g,
+            ""
+        );
+
+        value = value.replace(/[^a-zA-Z0-9À-ÿ\s.,!?;:'"()-]/g, "");
+
+        if (value.length > 400) {
+            value = value.slice(0, 400);
+        }
+
+        setComment(value)
+    };
+
     if (!isOpen) return null
 
     return (
@@ -81,7 +98,7 @@ export default function RatingComponent({ isOpen, onClose }: RatingComponentProp
                         <textarea
                             placeholder="Digite seu comentário"
                             value={comment}
-                            onChange={(e) => setComment(e.target.value)}
+                            onChange={handleComment}
                             onFocus={() => {
                                 if (isTouchDevice) setKeyboardOpen(true);
                             }}
@@ -89,6 +106,9 @@ export default function RatingComponent({ isOpen, onClose }: RatingComponentProp
                                 if (isTouchDevice) setKeyboardOpen(false);
                             }}
                         />
+                        <small style={{ width: '100%', display: 'block', textAlign: 'right' }}>
+                            {comment.length}/400 caracteres
+                        </small>
                         <BottomRow>
                             <CancelButton onClick={() => { setCommentModalOpen(false); setComment('') }}>Fechar</CancelButton>
                             <ConfirmButton onClick={() => handleCommentConfirm(comment)}>Concluir</ConfirmButton>

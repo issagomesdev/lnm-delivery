@@ -13,7 +13,7 @@ export default function MyAccount() {
   const handleConfirm = () => {
     setIsModalOpen(false)
   }
-  
+
   const data = {
     name: 'João da Silva',
     orders_number: 87,
@@ -22,9 +22,27 @@ export default function MyAccount() {
     email: 'teste@exemple.com',
   }
 
+  const handleReason = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    let value = e.target.value;
+
+    value = value.replace(
+      /([\u2700-\u27BF]|[\uE000-\uF8FF]|[\uD83C-\uDBFF\uDC00-\uDFFF])/g,
+      ""
+    );
+
+    value = value.replace(/[^a-zA-Z0-9À-ÿ\s.,!?;:'"()-]/g, "");
+
+    if (value.length > 100) {
+      value = value.slice(0, 100);
+    }
+
+    setReason(value)
+  };
+
+
   return (
     <>
-      <Header name={'Minha Conta'} full={false}/>
+      <Header name={'Minha Conta'} full={false} />
       <Datas>
         <Data>
           <h3>Dados da conta</h3>
@@ -73,8 +91,11 @@ export default function MyAccount() {
         <Textarea
           placeholder="Digite o motivo..."
           value={reason}
-          onChange={(e) => setReason(e.target.value)}
+          onChange={handleReason}
         />
+        <small style={{ display: 'block', textAlign: 'right', marginBottom: '10px' }}>
+          {reason.length}/100 caracteres
+        </small>
         <Notice>O processo de exclusão de conta pode levar até 72 horas.</Notice>
       </ModalComponent>
     </>

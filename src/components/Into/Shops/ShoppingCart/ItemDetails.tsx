@@ -15,6 +15,23 @@ export const ItemDetails = ({ isOpen, onClose, id }: { isOpen: boolean; onClose:
         if (item) setObservation(item.observations || '');
     }, [item]);
 
+    const handleObservations = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        let value = e.target.value;
+
+        value = value.replace(
+            /([\u2700-\u27BF]|[\uE000-\uF8FF]|[\uD83C-\uDBFF\uDC00-\uDFFF])/g,
+            ""
+        );
+
+        value = value.replace(/[^a-zA-Z0-9À-ÿ\s.,!?;:'"()-]/g, "");
+
+        if (value.length > 200) {
+            value = value.slice(0, 200);
+        }
+
+        setObservation(value)
+    };
+
     if (!isOpen || !item) return null;
 
     return (
@@ -49,9 +66,12 @@ export const ItemDetails = ({ isOpen, onClose, id }: { isOpen: boolean; onClose:
                         <ItemLabel> Observação </ItemLabel>
                         <Textarea
                             value={observation}
-                            onChange={(e) => setObservation(e.target.value)}
+                            onChange={handleObservations}
                             placeholder="Digite observações aqui..."
                         />
+                        <small style={{ width: '100%', display: 'block', textAlign: 'right', marginBottom: '5px' }}>
+                            {observation.length}/200 caracteres
+                        </small>
                         <SmallText>
                             Evite utilizar este campo para incluir ou trocar ingredientes. Isso poderá alterar o valor do seu pedido em relação ao informado no aplicativo.
                         </SmallText>

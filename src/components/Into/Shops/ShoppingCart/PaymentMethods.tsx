@@ -61,7 +61,7 @@ export const PaymentMethods = ({ isOpen, onClose, total, handleData }: { isOpen:
 
         setChangeFor({
             value: floatValue,
-            label: floatValue === 0? '' : `R$ ${floatValue.toFixed(2).replace('.', ',')}`
+            label: floatValue === 0 ? '' : `R$ ${floatValue.toFixed(2).replace('.', ',')}`
         });
     };
 
@@ -72,7 +72,22 @@ export const PaymentMethods = ({ isOpen, onClose, total, handleData }: { isOpen:
         }
     };
 
+    const handleObservations = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        let value = e.target.value;
 
+        value = value.replace(
+            /([\u2700-\u27BF]|[\uE000-\uF8FF]|[\uD83C-\uDBFF\uDC00-\uDFFF])/g,
+            ""
+        );
+
+        value = value.replace(/[^a-zA-Z0-9À-ÿ\s.,!?;:'"()-]/g, "");
+
+        if (value.length > 200) {
+            value = value.slice(0, 200);
+        }
+
+        setObservation(value)
+    };
 
     const handleRequest = () => {
 
@@ -242,8 +257,11 @@ export const PaymentMethods = ({ isOpen, onClose, total, handleData }: { isOpen:
                             <PaymentField>
                                 <ObservationTextarea
                                     value={observation}
-                                    onChange={(e) => setObservation(e.target.value)}
+                                    onChange={handleObservations}
                                 />
+                                <small style={{ width: '100%', display: 'block', textAlign: 'right', marginBottom: '10px' }}>
+                                    {observation.length}/200 caracteres
+                                </small>
                                 <span>Evite utilizar este campo para incluir ou trocar ingredientes. Isso pode alterar o valor do seu pedido em relação ao informado no aplicativo.</span>
                             </PaymentField>
                         )}

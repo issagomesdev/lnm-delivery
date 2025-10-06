@@ -260,6 +260,7 @@ export const PaymentField = styled.div`
     font-size: 10px;
     font-weight: 500;
     color: #999;
+    margin-top: 10px;
   }
 `;
 

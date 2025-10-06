@@ -35,10 +35,21 @@ export const useAddressForm = (initialData?: Partial<typeof defaultForm>) => {
     }
   }, [initialData]);
 
-  const handleChange = (field: string | null, value: string | any) => {
+  const handleChange = (field: string | null, value: string | any, limit?: number) => {
     if (field) {
-      setForm((prev) => ({ ...prev, [field]: value }));
 
+      value = value.replace(
+        /([\u2700-\u27BF]|[\uE000-\uF8FF]|[\uD83C-\uDBFF\uDC00-\uDFFF])/g,
+        ""
+      );
+
+      value = value.replace(/[^a-zA-Z0-9À-ÿ\s.,!?;:'"()-]/g, "");
+
+      if (limit && value.length > limit) {
+        value = value.slice(0, limit);
+      }
+
+      setForm((prev) => ({ ...prev, [field]: value }));
 
       if (field === 'estado') {
         setForm((prev) => ({ ...prev, cidade: '', bairro: '' }));
@@ -51,8 +62,6 @@ export const useAddressForm = (initialData?: Partial<typeof defaultForm>) => {
 
       return;
     }
-
-    console.log({...form, ...value});
 
     setForm((prev) => ({ ...prev, ...value }));
   };

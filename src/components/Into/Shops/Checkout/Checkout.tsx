@@ -249,6 +249,23 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
         if (holdIntervalRef.current) clearInterval(holdIntervalRef.current);
     };
 
+    const handleObservations = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        let value = e.target.value;
+
+        value = value.replace(
+            /([\u2700-\u27BF]|[\uE000-\uF8FF]|[\uD83C-\uDBFF\uDC00-\uDFFF])/g,
+            ""
+        );
+
+        value = value.replace(/[^a-zA-Z0-9À-ÿ\s.,!?;:'"()-]/g, "");
+
+        if (value.length > 200) {
+            value = value.slice(0, 200);
+        }
+
+        setObservations(value)
+    };
+
     const handleClick = (group: any, option: any, value: number) => {
         handleAdjustQuantity(group, option, value);
 
@@ -371,7 +388,10 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
                                 <textarea
                                     placeholder="Clique aqui"
                                     value={observations}
-                                    onChange={(e) => setObservations(e.target.value)} />
+                                    onChange={handleObservations} />
+                                <small>
+                                    {observations.length}/200 caracteres
+                                </small>
                             </TextArea>
                         </Section>
                     </Content>

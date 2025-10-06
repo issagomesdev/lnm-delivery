@@ -91,7 +91,7 @@ export const SecondModalContent = styled.div.withConfig({
     border: 1px solid #ccc;
     border-radius: 6px;
     resize: none;
-    margin-bottom: 1rem;
+    margin-bottom: .5rem;
   }
 
     ${({ keyboardOpen }) =>
