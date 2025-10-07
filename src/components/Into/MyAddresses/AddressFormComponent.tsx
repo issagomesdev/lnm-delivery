@@ -135,9 +135,9 @@ const AddressFormComponent = ({ setLoading, isOpen, onClose, initialData }: Addr
 
               <Field>
                 <label>Endereço</label>
-                <input required placeholder="Insira o nome da rua/avenida..." value={form.endereco} onChange={(e) => handleChange('endereco', e.target.value, 150)} />
+                <input required placeholder="Insira o nome da rua/avenida..." value={form.endereco} onChange={(e) => handleChange('endereco', e.target.value, 60)} />
                 <small style={{ display: 'block', textAlign: 'right', marginTop: 5 }}>
-                  {form.endereco.length}/150 caracteres
+                  {form.endereco.length}/60 caracteres
                 </small>
               </Field>
 
@@ -155,30 +155,30 @@ const AddressFormComponent = ({ setLoading, isOpen, onClose, initialData }: Addr
               <Field>
                 <label>Complemento</label>
                 <input className={fieldsInRed.includes('complemento') ? 'red' : ''} required placeholder="ex: casa/apartamento n°" value={form.complemento} onChange={(e) => {
-                  handleChange('complemento', e.target.value, 50)
+                  handleChange('complemento', e.target.value, 25)
                   setFieldsInRed(prev => prev.filter(f => f !== 'complemento'));
                 }} />
                 <small style={{ display: 'block', textAlign: 'right', marginTop: 5 }}>
-                  {form.complemento.length}/50 caracteres
+                  {form.complemento.length}/25 caracteres
                 </small>
               </Field>
 
               <Field>
                 <label>Ponto de referência</label>
                 <input className={fieldsInRed.includes('referencia') ? 'red' : ''} required value={form.referencia} onChange={(e) => {
-                  handleChange('referencia', e.target.value, 150)
+                  handleChange('referencia', e.target.value, 100)
                   setFieldsInRed(prev => prev.filter(f => f !== 'referencia'));
                 }} />
                 <small style={{ display: 'block', textAlign: 'right', marginTop: 5 }}>
-                  {form.referencia.length}/150 caracteres
+                  {form.referencia.length}/100 caracteres
                 </small>
               </Field>
 
               <Field>
                 <label>Apelido do endereço</label>
-                <input placeholder="ex: casa, trabalho..." value={form.apelido} onChange={(e) => handleChange('apelido', e.target.value, 150)} />
+                <input placeholder="ex: casa, trabalho..." value={form.apelido} onChange={(e) => handleChange('apelido', e.target.value, 25)} />
                 <small style={{ display: 'block', textAlign: 'right', marginTop: 5 }}>
-                  {form.apelido.length}/150 caracteres
+                  {form.apelido.length}/25 caracteres
                 </small>
               </Field>
 
