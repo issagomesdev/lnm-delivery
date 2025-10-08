@@ -389,10 +389,10 @@ export const Checkout = ({ isOpen, onClose, selected, shopId }: { isOpen: boolea
                                     placeholder="Clique aqui"
                                     value={observations}
                                     onChange={handleObservations} />
-                                <small>
-                                    {observations.length}/200 caracteres
-                                </small>
                             </TextArea>
+                            <small style={{ width: '100%', display: 'block', textAlign: 'right', marginTop: 5 }}>
+                                {observations.length}/200 caracteres
+                            </small>
                         </Section>
                     </Content>
                 </Container>
