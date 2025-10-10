@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLocation } from '@/contexts/LocationContext';
 import { Loading } from '@/components/Loading';
+import { SearchSelector } from '@/components/shared/SearchSelector';
 
 export default function LocationSelector() {
   const [neighborhoods, setNeighborhoods] = useState<string[]>([]);
@@ -75,17 +76,11 @@ export default function LocationSelector() {
 
         {neighborhoods.length > 0 && (
           <div className={styles.select}>
-            <select
-              onChange={(event) => setSelectedNeighborhoodLocal(event.target.value)}
+            <SearchSelector
+              values={neighborhoods}
               value={selectedNeighborhoodLocal}
-            >
-              <option value="">Selecione seu bairro</option>
-              {neighborhoods.map((neighborhood, index) => (
-                <option key={index} value={neighborhood}>
-                  {neighborhood}
-                </option>
-              ))}
-            </select>
+              onChange={setSelectedNeighborhoodLocal}
+            />
           </div>
         )}
 

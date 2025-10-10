@@ -20,12 +20,16 @@ export const Field = styled.div`
   }
 
   select,
-  input {
+  >input, >div {
     width: 100%;
     padding: 8px;
     font-size: 14px;
     border-radius: 4px;
     border: 1px solid #ccc;
+  }
+
+  >div {
+    padding: 0;
   }
 
   input.red {

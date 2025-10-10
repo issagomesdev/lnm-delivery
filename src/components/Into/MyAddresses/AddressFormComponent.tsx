@@ -8,6 +8,7 @@ import { Icon } from '@iconify/react';
 import { useLocation } from '@/contexts/LocationContext';
 import styles from '@/components/Home/LocationSelector/LocationSelector.module.css';
 import ModalComponent from '@/components/shared/Modal/ModalComponent';
+import { SearchSelector } from '@/components/shared/SearchSelector';
 interface AddressFormComponentProps {
   isOpen: boolean;
   onClose: (data?: any) => void;
@@ -45,7 +46,7 @@ const AddressFormComponent = ({ setLoading, isOpen, onClose, initialData }: Addr
       return [{ id: "", name: 'Opções fora de nossa área de atendimento' }];
     }
 
-    return getCity.neighborhoods.map(n => ({ id: n, name: n }));
+    return getCity.neighborhoods.map(n => (n));
   })();
 
   const autoLocation = async () => {
@@ -123,14 +124,11 @@ const AddressFormComponent = ({ setLoading, isOpen, onClose, initialData }: Addr
             <>
               <Field>
                 <label>Bairro</label>
-                <select value={form.bairro} onChange={(e) => handleChange('bairro', e.target.value)} required>
-                  <option value="">Selecione o bairro</option>
-                  {neighborhoods.map((neighb) => (
-                    <option key={neighb.id} value={neighb.id}>
-                      {neighb.name}
-                    </option>
-                  ))}
-                </select>
+                <SearchSelector
+                  values={neighborhoods}
+                  value={form.bairro}
+                  onChange={(e) => handleChange('bairro', e)}
+                />
               </Field>
 
               <Field>
