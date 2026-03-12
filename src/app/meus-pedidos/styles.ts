@@ -1,115 +1,29 @@
-import styled from 'styled-components';
+import React from 'react';
+import pedidosStyles from './meus-pedidos.module.css';
 
-export const Container = styled.div`
-  padding: 2rem 1rem;
+export const Container = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: pedidosStyles.container, style }, children);
 
-  @media (max-width: 980px) {
-    padding: 7rem 1rem 2rem 1rem;
-  }
-`;
+export const OrderCard = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: pedidosStyles.orderCard, style }, children);
 
-export const OrderCard = styled.div`
-  background: #fff;
-  border-radius: 8px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  position: relative;
-`;
+export const OrderInfo = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: pedidosStyles.orderInfo, style }, children);
 
-export const OrderInfo = styled.div`
-  strong {
-    font-weight: 700;
-    font-size: .9rem;
-    margin-top: .5rem;
-    display: flex;
-    gap: 5px;
-    align-items: center;
-    color: ${({ theme }) => theme.colors.green_highlight}
-  }
+export const StatusTag = ({ children, style, status }: { children?: React.ReactNode; style?: React.CSSProperties; status?: string }) =>
+  React.createElement('div', {
+    className: pedidosStyles.statusTag,
+    'data-status': status,
+    style
+  }, children);
 
-  span {
-    display: block;
-    font-size: 0.9rem;
-    color: #888;
-  }
+export const ActionButton = ({ children, style, color, onClick }: { children?: React.ReactNode; style?: React.CSSProperties; color?: 'orange' | 'green' | 'blue'; onClick?: React.MouseEventHandler }) =>
+  React.createElement('button', {
+    className: pedidosStyles.actionButton,
+    'data-color': color,
+    style,
+    onClick
+  }, children);
 
-  p {
-    margin: 0.3rem 0;
-    font-size: 0.95rem;
-  }
-
-  @media (max-width: 400px) {
-    strong {
-      font-size: .8rem;
-    }
-  }
-`;
-
-export const StatusTag = styled.div<{ status: string }>`
-  color: ${({ status }) =>
-    status === 'pendent' ? '#f1c40f' :
-    status === 'accepted' ? '#3498db' :
-    status === 'dispatched' ? '#2ecc71' :
-    status === 'delivered' ? '#9b59b6' :
-    '#e74c3c'};
-  font-weight: 700;
-  border-radius: 12px;
-  display: inline-block;
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
-
-  @media (max-width: 400px) {
-    font-size: .9rem;
-  }
-`;
-
-export const ActionButton = styled.button<{ color: 'orange' | 'green' | 'blue' }>`
-  background-color: ${({ color, theme }) => (color === 'orange' ? theme.colors.primary : color === 'green'? theme.colors.conceptual_green : '#3498db')};
-  color: white;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 0 6px;
-  font-weight: 500;
-  font-size: 0.85rem;
-  cursor: pointer;
-  position: absolute;
-  top: 0;
-  right: 0;
-  display: flex;
-  gap: 5px;
-
-  >img {
-    width: 1rem;
-  }
-
-   @media (max-width: 400px) {
-    font-size: 0.70rem;
-    padding: 8px;
-  }
-`;
-
-export const Pagination = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-
-  button {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-    color: #333;
-  }
-
-  span {
-    font-weight: bold;
-    font-size: 1rem;
-  }
-
-  button:disabled {
-    color: #ccc;
-    cursor: not-allowed;
-  }
-`;
+export const Pagination = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: pedidosStyles.pagination, style }, children);

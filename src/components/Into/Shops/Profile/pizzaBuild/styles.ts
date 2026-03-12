@@ -1,22 +1,13 @@
-import styled from 'styled-components';
+import React from 'react';
+import pizzaStyles from './PizzaBuild.module.css';
 
-interface Props {
-    selected: boolean;
-}
+export const Options = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: pizzaStyles.options, style }, children);
 
-export const Options = styled.div`
-    padding: 1em;
-`;
-
-export const Option = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'selected',
-}) <Props>`
-    padding: 10px;
-    width: 100%;
-    text-align: start;
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: ${({ selected, theme }) => selected ? theme.colors.primary : 'gray'};
-    cursor: pointer;
-    border-bottom: 1px solid ${({ theme }) => theme.colors.separators};
-`;
+export const Option = ({ children, style, selected, onClick }: { children?: React.ReactNode; style?: React.CSSProperties; selected?: boolean; onClick?: React.MouseEventHandler }) =>
+  React.createElement('div', {
+    className: pizzaStyles.option,
+    'data-selected': selected ? 'true' : 'false',
+    style,
+    onClick
+  }, children);

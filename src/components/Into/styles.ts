@@ -1,172 +1,35 @@
-'use client'
+import React from 'react';
+import intoStyles from './Into.module.css';
 
-import styled from 'styled-components'
+export const Container = ({ children, style, className, full, fixed }: { children?: React.ReactNode; style?: React.CSSProperties; className?: string; full?: boolean; fixed?: boolean }) =>
+  React.createElement('div', {
+    className: `${intoStyles.container}${className ? ` ${className}` : ''}`,
+    'data-full': full ? 'true' : 'false',
+    'data-fixed': fixed ? 'true' : 'false',
+    style
+  }, children);
 
-interface Props {
-    full?: boolean;
-    fixed?: boolean;
-}
+export const RightSide = ({ children, style, full }: { children?: React.ReactNode; style?: React.CSSProperties; full?: boolean }) =>
+  React.createElement('div', {
+    className: intoStyles.rightSide,
+    'data-full': full ? 'true' : 'false',
+    style
+  }, children);
 
-export const Container = styled.div.withConfig({
-    shouldForwardProp: (prop) => !['full', 'fixed'].includes(prop),
-}) <Props>`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-    background-color: ${({ theme }) => theme.colors.primary};
-    width: 100%;
-    height: 4.5rem;
-    padding: 0 2rem;
-    color: #fff;
-    font-weight: 300;
-    position: relative;
-    z-index: 999;
+export const LocationContainer = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: intoStyles.locationContainer, style }, children);
 
-    >img {
-        width: 15rem;
-    }
+export const SelectedLocation = ({ children, style, onClick }: { children?: React.ReactNode; style?: React.CSSProperties; onClick?: React.MouseEventHandler }) =>
+  React.createElement('div', { className: intoStyles.selectedLocation, style, onClick }, children);
 
-    >img::after {
-        content: '';
-    display: block;
-    width: 10px;
-    height: 100%;
-    position: absolute;
-        background-color: ${({ theme }) => theme.colors.background};
-    }
+export const LogoWrapper = ({ children, style, onClick }: { children?: React.ReactNode; style?: React.CSSProperties; onClick?: React.MouseEventHandler }) =>
+  React.createElement('div', { className: intoStyles.logoWrapper, style, onClick }, children);
 
-    @media (max-width: 980px) {
-        justify-content: center;
-        position: fixed;
-        top: 0;
-    }
+export const LeftSide = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: intoStyles.leftSide, style }, children);
 
-    @media (min-width: 980px) {
-        position: ${({ fixed }) => (fixed ? 'fixed' : 'relative')};
-        >h2:not(.category) {
-            display: none;
-        }
-    }
+export const NavItem = ({ children, style, href, onClick }: { children?: React.ReactNode; style?: React.CSSProperties; href?: string; onClick?: React.MouseEventHandler }) =>
+  React.createElement('a', { className: intoStyles.navItem, style, href, onClick }, children);
 
-    @media (max-width: 425px) {
-        >h2.category {
-            font-size: 11px;
-        }
-    }
-
-    >h2 {
-        font-size: 16px;
-        user-select: none;
-    }
-
-    >span {
-        display: flex;
-        font-weight: 500;
-        font-size: 12px;
-        position: absolute;
-        left: 15px;
-        gap: 2px;
-        user-select: none;
-        cursor: none;
-    }
-        
-`
-
-export const RightSide = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'full',
-}) <Props>` 
-    display: flex;
-    width: ${({ full }) => (full ? 'fit-content' : '85%')};
-
-    >h2 {
-        width: ${({ full }) => (full ? 'fit-content' : '100%')};
-        font-size: 1rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        user-select: none;
-    }
-    hr {
-        border: 1px solid #fff;
-        margin: 0 2rem 0 1rem;
-    }
-
-    @media (max-width: 980px) {
-        display: none;
-    }
-`
-
-export const LocationContainer = styled.div` 
-    display: flex;
-    align-items: flex-start;
-    gap: 5px;
-    position: relative;
-    justify-content: flex-end;
-`
-
-export const SelectedLocation = styled.div` 
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    cursor: pointer;
-
-    h4 {
-        display: flex;
-        gap: 5px;
-        font-weight: 500;
-        font-size: 15px;
-        align-items: center;
-        width: 100%;
-        justify-content: flex-end;
-        user-select: none;
-    }
-    
-    span {
-        font-size: 12px;
-        user-select: none;
-    }
-
-`
-
-export const LogoWrapper = styled.div` 
-    height: 40px;
-    position: relative;
-    cursor: pointer;
-    margin-right: 1.5rem;
-
-    >img {
-        height: 100%;
-    }
-`
-
-export const LeftSide = styled.div` 
-    display: flex;
-    gap: 25px;
-
-    @media (max-width: 980px) {
-        display: none;
-    }
-`
-
-export const NavItem = styled.a`
-  color: #fff;
-  cursor: pointer;
-  font-weight: 500;
-`
-
-export const UserContent = styled.div`
-    display: flex;
-    align-items: center;
-    position: relative;
-    gap: 5px;
-    color: #fff;
-    font-weight: 500;
-    font-size: 1rem;
-    cursor: pointer;
-    white-space: nowrap;
-
-    img {
-        width: 3rem;
-    }
-`
+export const UserContent = ({ children, style, onClick }: { children?: React.ReactNode; style?: React.CSSProperties; onClick?: React.MouseEventHandler }) =>
+  React.createElement('div', { className: intoStyles.userContent, style, onClick }, children);

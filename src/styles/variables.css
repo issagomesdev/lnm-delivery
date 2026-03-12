@@ -1,0 +1,23 @@
+:root {
+  --color-primary: #FF5722;
+  --color-menu-description: #666666;
+  --color-separators: #F2F2F2;
+  --color-green-highlight: #00C113;
+  --color-conceptual-green: #068C81;
+  --color-golden-yellow: #FFC100;
+  --color-blue: #4B85FC;
+  --color-promo-alert-txt: #C29D4B;
+  --color-promo-alert-bg: #FCF4E9;
+  --color-background: #fff;
+  --color-text: #0e0e0e;
+  --color-text-secondary: #555;
+  --font-main: 'Montserrat', sans-serif;
+  --border-radius: 8px;
+
+  /* aliases sem prefixo (usados nos module.css) */
+  --primary: var(--color-primary);
+  --separators: var(--color-separators);
+  --background: var(--color-background);
+  --text: var(--color-text);
+  --text-secondary: var(--color-text-secondary);
+}

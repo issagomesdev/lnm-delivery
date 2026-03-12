@@ -1,407 +1,111 @@
-import styled from 'styled-components';
+import React from 'react';
 import { Icon } from '@iconify/react';
-
-interface Props {
-  overflow?: boolean;
-}
+import profileStyles from './Profile.module.css';
 
 // ShopPage
 
-export const Heart = styled.div`
-    height: 100%;
-    display: flex;
-    align-items: center;
-`;
-export const Wrapper = styled.div.withConfig({
-  shouldForwardProp: (prop) => prop !== 'overflow',
-}) <Props>`
-  position: relative;
-  margin-bottom: 5rem;
-  overflow: ${({ overflow }) => (overflow ? 'auto' : 'hidden')};
+export const Heart = ({ children, style, onClick }: { children?: React.ReactNode; style?: React.CSSProperties; onClick?: React.MouseEventHandler }) =>
+  React.createElement('div', { className: profileStyles.heart, style, onClick }, children);
 
-  hr {
-   margin-top: 1rem;
-   color: ${({ theme }) => theme.colors.separators};
-  }
-`;
+export const Wrapper = ({ children, style, overflow }: { children?: React.ReactNode; style?: React.CSSProperties; overflow?: boolean }) =>
+  React.createElement('div', {
+    className: profileStyles.wrapper,
+    'data-overflow': overflow ? 'true' : undefined,
+    style
+  }, children);
 
-export const Cover = styled.div`
-  position: relative;
-  height: 300px;
-`;
+export const Cover = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: profileStyles.cover, style }, children);
 
-export const ProfileSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 0 2rem;
-  bottom: 12px;
-  position: relative;
+export const ProfileSection = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: profileStyles.profileSection, style }, children);
 
-  @media (max-width: 650px) {
-    padding: 0 1rem;
-  }
-`;
+export const Profile = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: profileStyles.profile, style }, children);
 
-export const Profile = styled.div`
-    display: flex;
-    align-items: center;
-    user-select: none;
+export const ShopName = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('h2', { className: profileStyles.shopName, style }, children);
 
-    img {
-      position: relative;
-      border: 3px solid white;
-      background-color: #fff;
-      object-fit: cover;
-      border-radius: 6px;
-    }
-`;
+export const RatingBadge = ({ children, style, onClick }: { children?: React.ReactNode; style?: React.CSSProperties; onClick?: React.MouseEventHandler }) =>
+  React.createElement('div', { className: profileStyles.ratingBadge, style, onClick }, children);
 
-export const ShopName = styled.h2`
-  font-size: 18px;
-  color: ${({ theme }) => theme.colors.text};
-  font-weight: 600;
-  margin-left: 15px;
-`;
+export const InfoRow = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: profileStyles.infoRow, style }, children);
 
-export const RatingBadge = styled.div`
-    background-color: ${({ theme }) => theme.colors.golden_yellow};
-    font-size: 12px;
-    padding: 4px;
-    border-radius: 6px;
-    color: #fff;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border: 2px solid #fff;
-    position: absolute;
-    right: 20px;
-    bottom: 4%;
-    cursor: pointer;
-`;
+export const QuickInfoItem = ({ children, style, onClick }: { children?: React.ReactNode; style?: React.CSSProperties; onClick?: React.MouseEventHandler }) =>
+  React.createElement('div', { className: profileStyles.quickInfoItem, style, onClick }, children);
 
-export const InfoRow = styled.div`
-  display: flex;
-  padding: 0 16px;
-  border-radius: 10px;
-  margin-top: 8px;
-  align-items: flex-end;
-  justify-content: space-around;
-
-  @media (max-width: 650px) {
-    padding: 0;
-    justify-content: space-between
-  }
-`;
-
-export const QuickInfoItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 12px;
-  gap: 2px;
-  text-align: center;
-  color: ${({ theme }) => theme.colors.text_secondary};
-  font-weight: 500;
-  cursor: pointer;
-  user-select: none;
-
-  h1 {
-    font-size: 24px;
-  }
-
-  span {
-    font-size: 12px;
-  }
-
-  @media (max-width: 650px) {
-    span {
-      font-size: 12px;
-    }
-
-    h1 {
-      font-size: 20px;
-    }
-  }
-
-  @media (max-width: 400px) {
-    span {
-      font-size: 10px;
-    }
-
-    h1 {
-      font-size: 18px;
-    }
-  }
-    
-`;
-
-export const ItemIcon = styled(Icon)`
-  font-size: 30px;
-
-  @media (max-width: 650px) {
-    font-size: 25px;
-  }
-`;
+export const ItemIcon = ({ icon, style }: { icon: string; style?: React.CSSProperties }) =>
+  React.createElement('span', { className: profileStyles.itemIcon, style },
+    React.createElement(Icon, { icon })
+  );
 
 // DeliveryFees
 
-export const Content = styled.div`
-  padding: 16px;
-  height: 85%;
-  overflow: auto;
-`;
+export const Content = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: profileStyles.content, style }, children);
 
-export const SearchInput = styled.input`
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 16px;
-  border: none;
-  border-bottom: 1px solid #ccc;
-  font-size: 14px;
-  outline: none;
-`;
+export const SearchInput = ({ style, value, onChange, placeholder, type }: { style?: React.CSSProperties; value?: string; onChange?: React.ChangeEventHandler<HTMLInputElement>; placeholder?: string; type?: string }) =>
+  React.createElement('input', { className: profileStyles.searchInput, style, value, onChange, placeholder, type });
 
-export const FeeRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 8px 0;
-  font-size: 15px;
-  border-bottom: 1px solid #f0f0f0;
-  font-weight: 500;
-
-  &:last-child {
-    border-bottom: none;
-  }
-`;
+export const FeeRow = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: profileStyles.feeRow, style }, children);
 
 // Informations
 
- export const Section = styled.section`
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1rem;
+export const Section = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('section', { className: profileStyles.section, style }, children);
 
-    &:last-child {
-      margin-bottom: 0;
-    }
-    
-  h3 {
-    font-weight: 600;
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
-  }
+export const DeliveryHours = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('ul', { className: profileStyles.deliveryHours, style }, children);
 
-  p {
-    color: #555;
-    font-size: 0.95rem;
-  }
-`;
+export const PaymentsTypes = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: profileStyles.paymentsTypes, style }, children);
 
- export const DeliveryHours = styled.ul`
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+export const PaymentsType = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: profileStyles.paymentsType, style }, children);
 
-  li {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.3rem 0;
-    width: 80%;
-    font-size: 0.95rem;
-  }
-
-  h4 {
-    color: #96989a;
-  }
-`;
-
- export const PaymentsTypes = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-`;
-
- export const PaymentsType = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
-  background-color: #f5f5f5;
-  padding: 0 4px;
-  border-radius: 4px;
-
-  img {
-    width: 2rem;
-    height: auto;
-  }
-
-  span {
-    font-size: 10px;
-  }
-`;
-
- export const MapButton = styled.button`
-  margin-top: 1rem;
-  background-color: ${({ theme }) => theme.colors.primary};
-  border: none;
-  color: #fff;
-  font-size: 0.9rem;
-  padding: 0.4rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  width: fit-content;
-`;
+export const MapButton = ({ children, style, onClick }: { children?: React.ReactNode; style?: React.CSSProperties; onClick?: React.MouseEventHandler }) =>
+  React.createElement('button', { className: profileStyles.mapButton, style, onClick }, children);
 
 // Reviews
 
- export const Summary = styled.div`
-  text-align: center;
-  margin-bottom: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+export const Summary = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: profileStyles.summary, style }, children);
 
-  h2 {
-    font-size: 2rem;
-    margin: 8px 0;
-  }
+export const Stars = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: profileStyles.stars, style }, children);
 
-  p, strong {
-    font-size: 14px;
-    color: ${({ theme }) => theme.colors.text_secondary};
-    font-weight: 500;
-    margin-top: 8px;
-  }
-`;
+export const RatingsSummary = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: profileStyles.ratingsSummary, style }, children);
 
- export const Stars = styled.div`
-  color: #FFD700;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-weight: 500;
-`;
+export const RatingRow = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: profileStyles.ratingRow, style }, children);
 
- export const RatingsSummary = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem 12px;
-  background-color: #ebebeb;
-  border-radius: 4px;
-  row-gap: 15px;
-  column-gap: 12px;
+export const ReviewsContainer = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: profileStyles.reviewsContainer, style }, children);
 
- @media (max-width: 450px) {
-    justify-content: space-around;
-  }
-`;
+export const CommentBox = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: profileStyles.commentBox, style }, children);
 
- export const RatingRow = styled.div`
-  display: flex;
-  flex-direction: column;
+export const RatingHeader = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: profileStyles.ratingHeader, style }, children);
 
-  strong, span {
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-  }
+export const ReplyContainer = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: profileStyles.replyContainer, style }, children);
 
-  strong {
-    color: ${({ theme }) => theme.colors.text_secondary};
-  }
+export const ReplyLab = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: profileStyles.replyLab, style }, children);
 
-  span {
-    font-weight: 500;
-  }
-
- @media (max-width: 400px) {
-    strong {
-      font-size: 10px;
-      white-space: nowrap;
-    }
-  }
-`;
-
- export const ReviewsContainer = styled.div`
-    margin-top: 1rem;
-`;
-
- export const CommentBox = styled.div`
-  padding: 10px;
-  border-radius: 8px;
-  margin-top: 12px;
-  border-bottom: 2px solid ${({ theme }) => theme.colors.separators};
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 16px;
-`;
-
-
- export const RatingHeader = styled.div`
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-`;
-
- export const ReplyContainer = styled.div`
-   display: flex;
-   flex-direction: column;
-   align-items: flex-start;
-
-  >span {
-    color: gray;
-  }
-`;
-
- export const ReplyLab = styled.div`
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-`;
-
-export const ReplyIcon = styled(Icon)`
-  font-size: 10px;
-  transform: scaleX(-1);
-`;
+export const ReplyIcon = ({ icon, style }: { icon: string; style?: React.CSSProperties }) =>
+  React.createElement('span', { className: profileStyles.replyIcon, style },
+    React.createElement(Icon, { icon })
+  );
 
 // Categories
 
-export const CategoriesContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 2rem 0;
-  padding: 0 1rem;
-`;
+export const CategoriesContainer = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: profileStyles.categoriesContainer, style }, children);
 
-export const CategoryItem = styled.button`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 16px;
-  background-color: #fff;
-  border: none;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.separators};
-  font-size: 15px;
-  color: #333;
-  cursor: pointer;
-  transition: background 0.2s ease;
-  user-select: none;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.separators};
-  }
-
-  span {
-    font-weight: 600;
-    color: ${({ theme }) => theme.colors.text_secondary};
-  }
-`;
-
+export const CategoryItem = ({ children, style, onClick }: { children?: React.ReactNode; style?: React.CSSProperties; onClick?: React.MouseEventHandler }) =>
+  React.createElement('button', { className: profileStyles.categoryItem, style, onClick }, children);

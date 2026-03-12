@@ -24,7 +24,6 @@ import CartBar from "@/components/Into/Shops/ShoppingCart/CartBar";
 import { Checkout } from "@/components/Into/Shops/Checkout/Checkout";
 import { useShoppingCart } from "@/contexts/ShoppingCartContext";
 import { useCustomBackAction } from "@/hooks/useCustomBackAction";
-import { useTheme } from "styled-components";
 import { Loading } from "@/components/Loading";
 import { ImageWithLoader } from '@/components/ImageWithLoader';
 
@@ -49,7 +48,6 @@ const CardapioInner = () => {
     const [itemSelected, setItemSelected] = useState({});
     const [loading, setLoading] = useState(true);
     const { addItem, cart } = useShoppingCart();
-    const theme = useTheme();
 
     useEffect(() => {
         document.body.style.overflow = '';
@@ -150,7 +148,7 @@ const CardapioInner = () => {
                             placeholder="Buscar por nome ou descrição..."
                             value={search}
                             onChange={(e) => setSearch(e.target.value)} />
-                        {search.length > 0 && <Icon icon={'material-symbols:close-rounded'} color={theme.colors.primary} width="20" onClick={() => setSearch('')} />
+                        {search.length > 0 && <Icon icon={'material-symbols:close-rounded'} color={'#FF5722'} width="20" onClick={() => setSearch('')} />
                         }
                     </FilterInput>
                 </CategoriesHeader>

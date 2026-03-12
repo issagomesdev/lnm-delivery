@@ -1,432 +1,107 @@
-import styled from "styled-components";
-
-interface Props {
-  valid?: boolean;
-}
-
+import React from 'react';
+import cartStyles from './ShoppingCart.module.css';
 
 // CartBar
 
-export const Bar = styled.div`
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: ${({ theme }) => theme.colors.primary};
-  color: white;
-  padding: 12px 16px;
-  display: flex;
-  justify-content: center;
-  gap: 3rem;
-  align-items: center;
-  z-index: 999;
-  cursor: pointer;
-  user-select: none;
+export const Bar = ({ children, style, onClick }: { children?: React.ReactNode; style?: React.CSSProperties; onClick?: React.MouseEventHandler }) =>
+  React.createElement('div', { className: cartStyles.bar, style, onClick }, children);
 
-  @media (min-width: 980px){
-    bottom: 10px;
-    width: 500px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 8px;
-  }
-`;
+export const Label = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: cartStyles.label, style }, children);
 
-export const Label = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 18px;
-  position: relative;
-  font-weight: 500;
-  user-select: none;
-  
-  > span {
-    background-color: #fff;
-    color: ${({ theme }) => theme.colors.primary};
-    border-radius: 10px;
-    width: 16px;
-    height: 16px;
-    font-size: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 600;
-    position: absolute;
-    left: 16px;
-    user-select: none;
-  }
-
-  > img {
-   width: 2rem; 
-  }
-`;
-
-export const Total = styled.div`
-  font-weight: bold;
-  font-size: 18px;
-  user-select: none;
-`;
+export const Total = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: cartStyles.total, style }, children);
 
 // ItemDetails
 
-export const ItemData = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-bottom: 12px;
-  gap: 2px;
-`;
+export const ItemData = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: cartStyles.itemData, style }, children);
 
-export const ItemLabel = styled.h3`
-  font-size: 14px;
-  color: ${({ theme }) => theme.colors.primary};
-  font-weight: 500;
-`;
+export const ItemLabel = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('h3', { className: cartStyles.itemLabel, style }, children);
 
-export const ItemTitle = styled.strong`
-  font-size: 14px;
-`;
+export const ItemTitle = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('strong', { className: cartStyles.itemTitle, style }, children);
 
-export const OpItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+export const OpItem = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: cartStyles.opItem, style }, children);
 
-  span {
-    font-weight: 500;
-    color: #4d6571;
-    font-size: 14px;
-  }
+export const GroupName = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: cartStyles.groupName, style }, children);
 
-  strong {
-    font-size: 14px;
-    margin-bottom: 5px;
-  }
-`;
+export const Textarea = ({ style, value, onChange, placeholder, maxLength }: { style?: React.CSSProperties; value?: string; onChange?: React.ChangeEventHandler<HTMLTextAreaElement>; placeholder?: string; maxLength?: number }) =>
+  React.createElement('textarea', { className: cartStyles.textarea, style, value, onChange, placeholder, maxLength });
 
-export const GroupName = styled.div`
-  font-size: 0.75rem;
-  color: #999;
-  margin-top: -0.25rem;
-`;
+export const SmallText = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('p', { className: cartStyles.smallText, style }, children);
 
-export const Textarea = styled.textarea`
-  width: 100%;
-  height: 90px;
-  padding: 8px;
-  margin: 0.5rem 0;
-  border: 1px dashed #ccc;
-  border-radius: 5px;
-`;
-
-export const SmallText = styled.p`
-  font-size: 0.7rem;
-  color: #999;
-`;
-
-export const SaveButton = styled.button`
-  background: ${({ theme }) => theme.colors.primary};
-  color: white;
-  border: none;
-  padding: 10px;
-  width: 100%;
-  font-weight: bold;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  cursor: pointer;
-`;
+export const SaveButton = ({ children, style, onClick }: { children?: React.ReactNode; style?: React.CSSProperties; onClick?: React.MouseEventHandler }) =>
+  React.createElement('button', { className: cartStyles.saveButton, style, onClick }, children);
 
 // DeliveryMethods
 
-export const AddressField = styled.div`
-  display: block;
-  text-align: left;
+export const AddressField = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: cartStyles.addressField, style }, children);
 
-  >label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 1rem;
-  }
-`;
+export const MethodWrapper = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: cartStyles.methodWrapper, style }, children);
 
-export const MethodWrapper = styled.div`
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 2rem;
+export const CustomCheckbox = ({ style, checked, onChange, type }: { style?: React.CSSProperties; checked?: boolean; onChange?: React.ChangeEventHandler<HTMLInputElement>; type?: string }) =>
+  React.createElement('input', { className: cartStyles.customCheckbox, style, checked, onChange, type: type || 'checkbox' });
 
-  input[type='checkbox'] {
-    accent-color: ${({ theme }) => theme.colors.primary};
-    width: 18px;
-    height: 18px;
-    cursor: pointer;
-  }
+export const Select = ({ children, style, value, onChange }: { children?: React.ReactNode; style?: React.CSSProperties; value?: string; onChange?: React.ChangeEventHandler<HTMLSelectElement> }) =>
+  React.createElement('select', { className: cartStyles.select, style, value, onChange }, children);
 
-  label {
-    font-weight: 500;
-    display: flex;
-    gap: 2px;
-  }
+export const NewAddressButton = ({ children, style, onClick, disabled }: { children?: React.ReactNode; style?: React.CSSProperties; onClick?: React.MouseEventHandler; disabled?: boolean }) =>
+  React.createElement('button', { className: cartStyles.newAddressButton, style, onClick, disabled }, children);
 
-  input {
-    margin-right: 4px;
-  }
-`;
+export const PriceSummary = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: cartStyles.priceSummary, style }, children);
 
-export const CustomCheckbox = styled.input`
-  appearance: none;
-  width: 18px;
-  height: 18px;
-  border: 2px solid ${({ theme }) => theme.colors.text_secondary};
-  border-radius: 4px;
-  margin-right: 8px;
-  cursor: pointer;
-  position: relative;
-`;
+export const PaymentButton = ({ children, style, onClick }: { children?: React.ReactNode; style?: React.CSSProperties; onClick?: React.MouseEventHandler }) =>
+  React.createElement('button', { className: cartStyles.paymentButton, style, onClick }, children);
 
-export const Select = styled.select`
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 1rem;
-`;
+export const ConfirmDelivery = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: cartStyles.confirmDelivery, style }, children);
 
-export const NewAddressButton = styled.button`
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 1.5rem;
-  background: #ccc;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  border-radius: 4px;
-  &:disabled {
-    opacity: 0.5;
-  }
-`;
-
-export const PriceSummary = styled.div`
-  margin-bottom: 1.5rem;
-  display: flex;
-  justify-content: space-around;
-
-  div {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    gap: 5px;
-  }
-`;
-
-export const PaymentButton = styled.button`
-  width: 100%;
-  padding: 12px;
-  background: #009688;
-  border-radius: 4px;
-  color: white;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-`;
-
-export const ConfirmDelivery = styled.div`
-  background-color: rgb(0 0 0 / 87%);
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  z-index: 1000;
-  top: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const ConfirmDeliveryContent = styled.div`
-    background: #fff;
-    border-radius: 4px;
-    width: 90%;
-    height: fit-content;
-    text-align: center;
-`;
+export const ConfirmDeliveryContent = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: cartStyles.confirmDeliveryContent, style }, children);
 
 // PaymentMethods
 
-export const PaymentField = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+export const PaymentField = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: cartStyles.paymentField, style }, children);
 
-  span {
-    font-size: 10px;
-    font-weight: 500;
-    color: #999;
-    margin-top: 10px;
-  }
-`;
+export const CouponBox = ({ children, style, valid }: { children?: React.ReactNode; style?: React.CSSProperties; valid?: boolean }) =>
+  React.createElement('div', {
+    className: cartStyles.couponBox,
+    'data-valid': valid === false ? 'false' : undefined,
+    style
+  }, children);
 
-export const CouponBox = styled.div.withConfig({
-  shouldForwardProp: (prop) => prop !== 'valid',
-}) <Props>`
-  display: flex;
-  width: 100%;
-  align-items: center;
-  gap: 8px;
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 6px 10px;
-  margin-bottom: 1rem;
+export const ValidateButton = ({ children, style, onClick }: { children?: React.ReactNode; style?: React.CSSProperties; onClick?: React.MouseEventHandler }) =>
+  React.createElement('button', { className: cartStyles.validateButton, style, onClick }, children);
 
-  svg {
-    flex-shrink: 0;
-  }
+export const SectionTitle = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('p', { className: cartStyles.sectionTitle, style }, children);
 
-  input {
-    flex: 1;
-    border: none;
-    outline: none;
-    font-size: 14px;
-    background: transparent;  
-    color: ${({ valid }) => valid ? '#000' : 'red'};
-    width: 80%;
-  }
-`;
+export const PaymentOption = ({ children, style, disabled }: { children?: React.ReactNode; style?: React.CSSProperties; disabled?: boolean }) =>
+  React.createElement('label', { className: cartStyles.paymentOption, style, disabled }, children);
 
-export const ValidateButton = styled.button`
-  background: #00a88c;
-  color: white;
-  border: none;
-  padding: 6px 14px;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 14px;
+export const PaymentSelect = ({ children, style, value, onChange }: { children?: React.ReactNode; style?: React.CSSProperties; value?: string; onChange?: React.ChangeEventHandler<HTMLSelectElement> }) =>
+  React.createElement('select', { className: cartStyles.paymentSelect, style, value, onChange }, children);
 
-  &:hover {
-    background: #008b75;
-  }
-`;
+export const PaymentText = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('p', { className: cartStyles.paymentText, style }, children);
 
-export const SectionTitle = styled.p`
-  font-weight: bold;
-  font-size: 14px;
-  margin: 0 0 1rem;
-`;
+export const ChangeBox = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: cartStyles.changeBox, style }, children);
 
-export const PaymentOption = styled.label`
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 1rem;
-  font-size: 14px;
-  font-weight: 500;
+export const ObservationToggle = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('label', { className: cartStyles.observationToggle, style }, children);
 
-  input[type='checkbox'] {
-    accent-color: ${({ theme }) => theme.colors.primary};
-    width: 18px;
-    height: 18px;
-    cursor: pointer;
-  }
+export const ObservationTextarea = ({ style, value, onChange, placeholder, maxLength }: { style?: React.CSSProperties; value?: string; onChange?: React.ChangeEventHandler<HTMLTextAreaElement>; placeholder?: string; maxLength?: number }) =>
+  React.createElement('textarea', { className: cartStyles.observationTextarea, style, value, onChange, placeholder, maxLength });
 
-  span {
-    color: #aaa;
-    font-size: 12px;
-  }
-
-  &[disabled] {
-    opacity: 0.6;
-    pointer-events: none;
-  }
-
-  p {
-    margin: 0;
-  }
-`;
-
-export const PaymentSelect = styled.select`
-  width: 100%;
-  padding: 10px;
-  margin: 0 0 1rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-  outline: none;
-`;
-
-export const PaymentText = styled.p`
-  font-size: 13px;
-  margin: 0;
-`;
-
-export const ChangeBox = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: #fff;
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ddd;
-  margin-bottom: 10px;
-  width: 100%;
-
-  input {
-    flex: 1;
-    border: none;
-    outline: none;
-    font-size: 14px;
-    background: transparent;  
-  }
-`;
-
-export const ObservationToggle = styled.label`
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-weight: bold;
-  font-size: 14px;
-  margin-top: 1rem;
-  width: 100%;
-  justify-content: space-between;
-
-  input[type='checkbox'] {
-    accent-color: ${({ theme }) => theme.colors.primary};
-    width: 18px;
-    height: 18px;
-    cursor: pointer;
-  }
-
-  p {
-    font-size: 1rem;
-  }
-`;
-
-export const ObservationTextarea = styled.textarea`
-  width: 100%;
-  min-height: 90px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  padding: 10px;
-  font-size: 14px;
-  margin: 0.5rem 0;
-
-  &::placeholder {
-    color: #aaa;
-  }
-`;
-
-export const SubmitButton = styled.button`
-  width: 100%;
-  background: #00a88c;
-  color: white;
-  padding: 12px;
-  font-size: 15px;
-  font-weight: bold;
-  border: none;
-  border-radius: 6px;
-  margin-top: 1.5rem;
-  cursor: pointer;
-
-  &:hover {
-    background: #008b75;
-  }
-`;
+export const SubmitButton = ({ children, style, onClick, disabled }: { children?: React.ReactNode; style?: React.CSSProperties; onClick?: React.MouseEventHandler; disabled?: boolean }) =>
+  React.createElement('button', { className: cartStyles.submitButton, style, onClick, disabled }, children);

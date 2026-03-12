@@ -1,4 +1,3 @@
-import styled from 'styled-components'
 import { Icon } from '@iconify/react'
 import { Copyright, DividerLine, FooterContainer, FooterNav, Row, SocialIcons } from './styles'
 

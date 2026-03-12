@@ -1,74 +1,24 @@
-import styled from 'styled-components';
+import React from 'react';
+import enderecosStyles from './meus-enderecos.module.css';
 
-export const Container = styled.div`
-  margin: 0 auto;
-  padding: 2rem;
+export const Container = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: enderecosStyles.container, style }, children);
 
-  @media (max-width: 980px) {
-    padding: 6rem 2rem;
-  }
-`;
+export const AddButton = ({ children, style, onClick }: { children?: React.ReactNode; style?: React.CSSProperties; onClick?: React.MouseEventHandler }) =>
+  React.createElement('button', { className: enderecosStyles.addButton, style, onClick }, children);
 
-export const AddButton = styled.button`
-  color: ${({ theme }) => theme.colors.blue};
-  background: none;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-  margin-bottom: 1.5rem;
-  font-size: 16px;
-  text-align: center;
-  width: 100%;
-`;
+export const Card = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: enderecosStyles.card, style }, children);
 
-export const Card = styled.div`
-  padding: 1rem 0;
-  border-bottom: 1px solid #ddd;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+export const Datas = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: enderecosStyles.datas, style }, children);
 
-  strong {
-    font-size: 16px;
-    display: block;
-    margin-bottom: 4px;
-  }
+export const Actions = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: enderecosStyles.actions, style }, children);
 
-  p {
-    margin: 0;
-    font-size: 14px;
-    line-height: 1.5;
-  }
-
-  @media (max-width: 600px) {
-    flex-direction: column;
-    gap: 15px;
-  }
-`;
-
-export const Datas = styled.div`
-  
-`;
-
-export const Actions = styled.div`
-  display: flex;
-  gap: 1rem;
-`;
-
-export const ActionButton = styled.button`
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 14px;
-  display: flex;
-  gap: 5px;
-
-  &.edit {
-    color: green;
-  }
-
-  &.delete {
-    color: red;
-  }
-`;
+export const ActionButton = ({ children, style, className, onClick }: { children?: React.ReactNode; style?: React.CSSProperties; className?: string; onClick?: React.MouseEventHandler }) =>
+  React.createElement('button', {
+    className: `${enderecosStyles.actionButton}${className ? ` ${enderecosStyles[className] || className}` : ''}`,
+    style,
+    onClick
+  }, children);

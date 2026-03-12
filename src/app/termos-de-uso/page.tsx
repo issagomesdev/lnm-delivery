@@ -1,7 +1,6 @@
 'use client'
 
 import { Container } from '@/components/Into/styles';
-import styled from 'styled-components';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import Header from '@/components/Web/Header';
 import SideMenu from '@/components/Mobile/SideMenu';

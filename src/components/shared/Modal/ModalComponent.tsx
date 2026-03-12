@@ -1,6 +1,6 @@
 'use client'
 
-import { Overlay, ModalBox, Content, ButtonGroup, CancelButton, ConfirmButton } from './styles'
+import modalStyles from './Modal.module.css'
 import { ReactNode } from 'react'
 
 type ModalConfirmProps = {
@@ -15,19 +15,19 @@ type ModalConfirmProps = {
   styles?: React.CSSProperties
 }
 
-export default function ModalComponent({ isOpen, onClose, onCloseText = 'Cancelar', onConfirm, onConfirmText = 'Confirmar', title, children, width, styles }: ModalConfirmProps) {
+export default function ModalComponent({ isOpen, onClose, onCloseText = 'Cancelar', onConfirm, onConfirmText = 'Confirmar', title, children, width, styles: stylesProp }: ModalConfirmProps) {
   if (!isOpen) return null
 
   return (
-    <Overlay>
-      <ModalBox width={width}>
+    <div className={modalStyles.overlay}>
+      <div className={modalStyles.modalBox} style={{ maxWidth: width ? `${width}px` : undefined }}>
         {title && <h2>{title}</h2>}
-        <Content style={styles}>{children}</Content>
-        <ButtonGroup>
-          {onClose && <CancelButton onClick={onClose}>{onCloseText}</CancelButton>}
-          {onConfirm && <ConfirmButton onClick={onConfirm}>{onConfirmText}</ConfirmButton> }
-        </ButtonGroup>
-      </ModalBox>
-    </Overlay>
+        <div className={modalStyles.content} style={stylesProp}>{children}</div>
+        <div className={modalStyles.buttonGroup}>
+          {onClose && <button className={modalStyles.cancelButton} onClick={onClose}>{onCloseText}</button>}
+          {onConfirm && <button className={modalStyles.confirmButton} onClick={onConfirm}>{onConfirmText}</button>}
+        </div>
+      </div>
+    </div>
   )
 }

@@ -21,7 +21,6 @@ import AdvancedFilter from './AdvancedFilter';
 import { CloseXButton } from '@/components/shared/Modal/styles';
 import { useLocation } from '@/contexts/LocationContext';
 import { useRouter } from 'next/navigation';
-import { useTheme } from 'styled-components';
 import ShopCard from './ShopCard';
 
 type ShopsListProps = {
@@ -49,8 +48,7 @@ const ShopsList = ({ ref, selectedCategories, setSelectedCategories, selectedCat
   const [selectedPayments, setSelectedPayments] = useState<string[]>([]);
   const { selectedCity, selectedNeighborhood } = useLocation();
   const [animate, setAnimate] = useState(false);
-  const router = useRouter()
-  const theme = useTheme();
+  const router = useRouter();
 
   useEffect(() => {
     let filtered;
@@ -112,7 +110,7 @@ const ShopsList = ({ ref, selectedCategories, setSelectedCategories, selectedCat
               <input placeholder="Buscar por loja ou categoria"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)} />
-              {search.length > 0 && <Icon icon={'material-symbols:close-rounded'} color={theme.colors.primary} width="20" onClick={() => setSearch('')} />
+              {search.length > 0 && <Icon icon={'material-symbols:close-rounded'} color={'#FF5722'} width="20" onClick={() => setSearch('')} />
               }
             </FilterInput>
 
@@ -142,7 +140,7 @@ const ShopsList = ({ ref, selectedCategories, setSelectedCategories, selectedCat
             <input placeholder="Buscar por loja ou categoria"
               value={search}
               onChange={(e) => setSearch(e.target.value)} />
-            {search.length > 0 && <Icon icon={'material-symbols:close-rounded'} color={theme.colors.primary} width="20" onClick={() => setSearch('')} />
+            {search.length > 0 && <Icon icon={'material-symbols:close-rounded'} color={'#FF5722'} width="20" onClick={() => setSearch('')} />
             }
           </FilterInput>
 

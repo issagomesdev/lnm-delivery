@@ -22,7 +22,6 @@ import FavoriteEffect from '@/components/Into/Shops/Profile/FavoriteEffect';
 import CartBar from '@/components/Into/Shops/ShoppingCart/CartBar';
 import { Overlay, ModalBox } from '@/components/shared/Modal/styles';
 import { useShopPage } from '@/contexts/ShopPageContext';
-import { useTheme } from 'styled-components';
 import { useShoppingCart } from '@/contexts/ShoppingCartContext';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { shopCategories } from '../../data';
@@ -64,7 +63,6 @@ const ShopPage = ({
     const { shopId } = useShopPage();
     const [categories, setCategories] = useState<any>([]);
     const [couponAlertIsOpen, setCouponAlertIsOpen] = useState(false);
-    const theme = useTheme();
     const { cart, clearCart } = useShoppingCart();
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -207,7 +205,7 @@ const ShopPage = ({
                                         }}
                                     >
                                         <span>{category.name}</span>
-                                        <Icon icon="ep:arrow-right-bold" width="16" color={theme.colors.primary} />
+                                        <Icon icon="ep:arrow-right-bold" width="16" color="#FF5722" />
                                     </CategoryItem>
                                 ))
                                 }
@@ -262,11 +260,11 @@ const ShopPage = ({
                                     <img src="/images/desconto-popup.png" alt="Desconto" style={{ width: '100%', maxWidth: '200px', margin: '0 auto', display: 'block' }} />
 
                                     <p style={{ textAlign: 'center', marginTop: '1rem', fontSize: '16px', userSelect: 'none' }}>
-                                        Estamos com cupom <span style={{ color: theme.colors.primary, fontWeight: 'bold', userSelect: 'none' }}>{shop.coupon.name}. </span>
+                                        Estamos com cupom <span style={{ color: '#FF5722', fontWeight: 'bold', userSelect: 'none' }}>{shop.coupon.name}. </span>
                                         <br />
-                                        <span style={{ userSelect: 'none' }}>{shop.coupon.discount === 'Frete grátis' ? shop.coupon.discount : shop.coupon.discount + ' de desconto'}, válido para {shop.coupon?.rule ? <span style={{ color: theme.colors.primary, fontWeight: 'bold', userSelect: 'none' }}>{shop.coupon.rule}</span> : <span style={{ userSelect: 'none' }}> todos os produtos</span>}</span>
+                                        <span style={{ userSelect: 'none' }}>{shop.coupon.discount === 'Frete grátis' ? shop.coupon.discount : shop.coupon.discount + ' de desconto'}, válido para {shop.coupon?.rule ? <span style={{ color: '#FF5722', fontWeight: 'bold', userSelect: 'none' }}>{shop.coupon.rule}</span> : <span style={{ userSelect: 'none' }}> todos os produtos</span>}</span>
                                         <br />
-                                        {shop.coupon.minimum_value > 0 && <span style={{ userSelect: 'none' }}>O pedido mínimo para efetivação do cupom é de <span style={{ color: theme.colors.primary, fontWeight: 'bold', userSelect: 'none' }}>R$ {shop.coupon.minimum_value}</span> em produto.</span>}
+                                        {shop.coupon.minimum_value > 0 && <span style={{ userSelect: 'none' }}>O pedido mínimo para efetivação do cupom é de <span style={{ color: '#FF5722', fontWeight: 'bold', userSelect: 'none' }}>R$ {shop.coupon.minimum_value}</span> em produto.</span>}
                                     </p>
                                 </>
                             }

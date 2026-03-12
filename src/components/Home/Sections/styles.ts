@@ -1,303 +1,84 @@
-import styled,  { keyframes, css } from 'styled-components';
+import React from 'react';
+import sectionStyles from './Sections.module.css';
 
-export const Row = styled.div`
-  max-width: 1140px;
-  margin: 0 auto;
+export const Row = ({ children, style, className }: { children?: React.ReactNode; style?: React.CSSProperties; className?: string }) =>
+  React.createElement('div', { className: `${sectionStyles.row}${className ? ` ${className}` : ''}`, style }, children);
 
-  p {
-    font-weight: 400;
-  }
+export const Section = ({ children, style, className, id }: { children?: React.ReactNode; style?: React.CSSProperties; className?: string; id?: string }) =>
+  React.createElement('section', { className: `${sectionStyles.section}${className ? ` ${className}` : ''}`, style, id }, children);
 
-  h2 {
-    font-size: 1.8em;
-  }
+export const H2 = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('h2', { className: sectionStyles.h2, style }, children);
 
-  @media (max-width: 768px) {
-    h2 {
-      font-size: 1.5em;
-    }
+export const H3 = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('h3', { className: sectionStyles.h3, style }, children);
 
-    >p {
-      width: 100%;
-      margin-left: 0%;
-    }
+export const Paragraph = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('p', { className: sectionStyles.paragraph, style }, children);
 
-    .steps & {
-      flex-direction: column;
-    }
-  }
-`;
+export const Box = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: sectionStyles.box, style }, children);
 
-export const Section = styled.section`
-  padding: 40px 20px;
+export const IconBox = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: sectionStyles.iconBox, style }, children);
 
-  &.meals {
-    padding: 40px 0;
-  }
-`;
+export const LongCopy = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('p', { className: sectionStyles.longCopy, style }, children);
 
-export const H2 = styled.h2`
-  font-size: 1.8em;
-  word-spacing: 2px;
-  text-align: center;
-  margin-bottom: 30px;
-  letter-spacing: 1px;
-  font-weight: 500;
-  position: relative;
+export const FadeIn = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: sectionStyles.fadeIn, style }, children);
 
-  &::after {
-    display: block;
-    height: 2px;
-    background-color: #e67e22;
-    content: "";
-    width: 100px;
-    margin: 30px auto 0;
-  }
-`;
+export const MealsGrid = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('ul', { className: sectionStyles.mealsGrid, style }, children);
 
-export const H3 = styled.h3`
-  font-size: 1.125em;
-  margin-bottom: 15px;
-  font-weight: 800;
-`;
+export const MealItem = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('li', { className: sectionStyles.mealItem, style }, children);
 
-export const Paragraph = styled.p`
-  font-size: 0.9em;
-  line-height: 1.45;
-`;
+export const MealPhoto = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('figure', { className: sectionStyles.mealPhoto, style }, children);
 
-export const Box = styled.div`
-  width: 23.8%;
-  padding: 1%;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+export const Step = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: sectionStyles.step, style }, children);
 
-  p {
-    text-align: justify;
-  }
+export const StepsItens = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: sectionStyles.stepsItens, style }, children);
 
-  @media (max-width: 768px) {
-    width: 100%;
+export const StepsBox = ({ children, style, align, id }: { children?: React.ReactNode; style?: React.CSSProperties; align?: 'left' | 'right'; id?: string }) =>
+  React.createElement('div', {
+    className: sectionStyles.stepsBox,
+    'data-align': align,
+    style,
+    id
+  }, children);
 
-    p {
-      text-align: center;
-    }
-  }
-`;
+export const AnimatedDiv = React.forwardRef<HTMLDivElement, { children?: React.ReactNode; style?: React.CSSProperties; $visible: boolean }>(
+  ({ children, style, $visible }, ref) =>
+    React.createElement('div', {
+      ref,
+      className: sectionStyles.animatedDiv,
+      'data-visible': $visible ? 'true' : 'false',
+      style
+    }, children)
+);
+AnimatedDiv.displayName = 'AnimatedDiv';
 
-export const IconBox = styled.div`
-  background-color: ${({ theme }) => theme.colors.primary};
-  border-radius: 50%;
-  width: 5.5em;
-  padding: 1rem;
-  margin-bottom: 1rem
-`;
+export const AppImage = ({ src, alt, style }: { src?: string; alt?: string; style?: React.CSSProperties }) =>
+  React.createElement('img', { className: sectionStyles.appImage, src, alt, style });
 
-export const LongCopy = styled.p`
-  line-height: 1.5;
-  width: 70%;
-  margin: 0 auto 30px;
-  text-align: center;
-  font-size: 1em;
-`;
+export const AppLinks = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: sectionStyles.appLinks, style }, children);
 
-export const FadeIn = styled.div`
-  animation: fadeIn 1.5s ease-in-out;
-`;
+export const ImageGrid = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: sectionStyles.imageGrid, style }, children);
 
-export const MealsGrid = styled.ul`
-  list-style: none;
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  padding: 0;
-  margin: 0;
-`;
+export const ImageContainer = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: sectionStyles.imageContainer, style }, children);
 
-export const MealItem = styled.li`
-  width: 25%;
-  overflow: hidden;
-`;
+export const ImageWrapper = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: sectionStyles.imageWrapper, style }, children);
 
-export const MealPhoto = styled.figure`
-  background-color: #000;
-  overflow: hidden;
-  margin: 0;
+export const StyledImg = ({ src, alt, style }: { src?: string; alt?: string; style?: React.CSSProperties }) =>
+  React.createElement('img', { className: sectionStyles.styledImg, src, alt, style });
 
-  img {
-    width: 100%;
-    height: auto;
-    opacity: 0.7;
-    transform: scale(1.16);
-    transition: transform 0.5s, opacity 0.5s;
-
-    &:hover {
-      transform: scale(1.1);
-      opacity: 1;
-    }
-  }
-`;
-
-export const Step = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 15px;
-
-  &:last-of-type {
-    margin-bottom: 80px;
-  }
-
-  div {
-    color: #e67e22;
-    border: 2px solid #e67e22;
-    border-radius: 50%;
-    height: 55px;
-    width: 55px;
-    text-align: center;
-    line-height: 50px;
-    font-size: 1.5em;
-  }
-
-  p {
-    width: 85%;
-  }
-`;
-
-export const StepsItens = styled.div<{ align?: 'left' | 'right' }>`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
-
-export const StepsBox = styled.div<{ align?: 'left' | 'right' }>`
-  text-align: ${props => (props.align === 'right' ? 'right' : 'left')};
-  padding: 3%;
-  margin-top: ${props => (props.align === 'right' ? '30px' : '70px')};
-
-  @media (max-width: 768px) {
-    margin: 0;
-    &#image {
-      padding: 0;
-      display: flex;
-      justify-content: center;
-    }
-  }
-`;
-
-interface AnimatedDivProps {
-  $visible: boolean;
-}
-
-export const AnimatedDiv = styled.div.withConfig({
-  shouldForwardProp: (prop) => prop !== '$visible',
-})<AnimatedDivProps>`
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 0.5s ease-out;
-  display: flex;
-  justify-content: center;
-
-  ${({ $visible }) =>
-    $visible &&
-    css`
-      animation: ${fadeInUp} 0.6s ease forwards;
-    `}
-`;
-
-const fadeInUp = keyframes`
-  0% {
-    opacity: 0;
-    transform: translate3d(0, 100%, 0);
-  }
-  100% {
-    opacity: 1;
-    transform: none;
-  }
-`;
-
-export const AppImage = styled.img`
-  width: 60%;
-
-  @media (max-width: 1024px) {
-    width: 80%;
-  }
-
-  @media (max-width: 900px) {
-    width: 100%;
-  }
-
-  @media (max-width: 769px) {
-    width: 40%;
-  }
-
-`;
-
-export const AppLinks = styled.div`
-  display: flex;
-  align-items: center;
-  
-  a img {
-    height: 65px;
-    width: auto;
-    margin-right: 15px;
-  }
-
-  @media (max-width: 500px) {
-    flex-direction: column;
-  }
-`;
-
-export const ImageGrid = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 20px;
-`;
-
-export const ImageContainer = styled.div`
-  flex: 0 0 calc(25% - 15px);
-  position: relative;
-  overflow: hidden;
-  margin-bottom: 20px;
-
-  @media (max-width: 992px) {
-    flex: 0 0 calc(50% - 10px);
-  }
-
-  @media (max-width: 576px) {
-     flex: 0 0 100%;
-  }
-`;
-
-export const ImageWrapper = styled.div`
-  width: 100%;
-  height: 0;
-  padding-bottom: 66.5%;
-  position: relative;
-  overflow: hidden;
-`;
-
-export const StyledImg = styled.img`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 8px;
-  transition: transform 0.3s ease;
-
-  &:hover {
-    transform: scale(1.05);
-  }
-`;
-
-export const ImageCaption = styled.div`
-  text-align: center;
-  margin-top: 10px;
-  font-size: 18px;
-  color: #4a4a4a;
-`;
-
+export const ImageCaption = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: sectionStyles.imageCaption, style }, children);

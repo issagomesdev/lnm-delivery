@@ -1,0 +1,75 @@
+.container {
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+@media (max-width: 980px) {
+  .container {
+    padding: 6rem 2rem;
+  }
+}
+
+.addButton {
+  color: var(--color-blue);
+  background: none;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  font-size: 16px;
+  text-align: center;
+  width: 100%;
+}
+
+.card {
+  padding: 1rem 0;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.card strong {
+  font-size: 16px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.card p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+  .card {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+.datas {
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.actionButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  display: flex;
+  gap: 5px;
+}
+
+.actionButton.edit {
+  color: green;
+}
+
+.actionButton.delete {
+  color: red;
+}

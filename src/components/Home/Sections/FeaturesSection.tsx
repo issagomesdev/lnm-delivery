@@ -1,7 +1,6 @@
 import { Section, Row, H2, H3, LongCopy, Box, IconBox, Paragraph } from './styles';
 import { Icon } from '@iconify/react'
 import React from 'react';
-import { theme } from '@/styles/theme';
 
 export default function FeaturesSection() {
     return (
@@ -40,7 +39,7 @@ export default function FeaturesSection() {
                 ].map((item, i) => (
                     <Box key={i}>
                         <IconBox>
-                            <Icon icon={item.icon} style={{ fontSize: '3rem', color: theme.colors.background }} />
+                            <Icon icon={item.icon} style={{ fontSize: '3rem', color: '#fff' }} />
                         </IconBox>
                         <H3>{item.title}</H3>
                         <Paragraph>{item.text}</Paragraph>

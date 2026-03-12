@@ -1,72 +1,16 @@
-'use client'
+'use client';
 
-import styled from 'styled-components'
+import React from 'react';
+import contaStyles from './minha-conta.module.css';
 
-export const Datas = styled.div`
-    display: flex;
-    justify-content: space-between;
-    padding: 4rem 3rem;
-    row-gap: 4rem;
+export const Datas = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: contaStyles.datas, style }, children);
 
-    @media (max-width: 980px) {
-        flex-direction: column;
-        padding: 7rem 2rem;
-    }
-`
+export const Data = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: contaStyles.data, style }, children);
 
-export const Data = styled.div`
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+export const Textarea = ({ style, value, onChange, placeholder, maxLength }: { style?: React.CSSProperties; value?: string; onChange?: React.ChangeEventHandler<HTMLTextAreaElement>; placeholder?: string; maxLength?: number }) =>
+  React.createElement('textarea', { className: contaStyles.textarea, style, value, onChange, placeholder, maxLength });
 
-    a {
-        text-decoration: underline;
-        color: blue;
-    }
-
-    @media (max-width: 1200px) {
-
-        h4, p, a {
-            font-size: 13px;
-        }
-    
-        h3 {
-            font-size: 15px;
-        }
-    }
-
-     @media (max-width: 980px) {
-        width: 100%;
-
-        &::after {
-            content: '';
-            display: block;
-            width: 100%;
-            height: 1px;
-            position: absolute;
-            background-color: #000;
-            bottom: -30px;
-        }
-
-        &:last-child::after {
-            height: 0;
-        }
-    }
-`
-
-export const Textarea = styled.textarea`
-  width: 100%;
-  height: 80px;
-  padding: 0.6rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  resize: none;
-`
-
-export const Notice = styled.p`
-  font-size: 0.8rem;
-  color: #666;
-  margin: 1rem 0;
-`
+export const Notice = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('p', { className: contaStyles.notice, style }, children);

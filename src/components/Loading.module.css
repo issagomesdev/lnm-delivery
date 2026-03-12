@@ -1,0 +1,43 @@
+@keyframes bounce {
+  from, 20%, 53%, 80%, to {
+    transform: translate3d(0, 0, 0);
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+
+  40%, 43% {
+    transform: translate3d(0, -30px, 0);
+    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+  }
+
+  70% {
+    transform: translate3d(0, -15px, 0);
+    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+  }
+
+  90% {
+    transform: translate3d(0, -4px, 0);
+  }
+}
+
+.overlay {
+  background-color: #000000e8;
+  position: fixed;
+  inset: 0;
+  z-index: 1000000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.bouncingImage {
+  width: 60px;
+  animation: bounce 1s infinite;
+  transform-origin: center bottom;
+}
+
+.loadingText {
+  color: white;
+  font-size: 16px;
+  margin-top: 12px;
+}

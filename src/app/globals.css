@@ -1,3 +1,5 @@
+@import '../styles/variables.css';
+
 * {
   margin: 0;
   padding: 0;
@@ -28,32 +30,14 @@
   font-display: swap;
 }
 
-:root {
-  --primary: #FF5722;
-  --menu-description: #666666;
-  --separators: #F2F2F2;
-  --green-highlight: #00C113;
-  --conceptual-green: #068C81;
-  --golden-yellow: #FFC100;
-  --blue: #4B85FC;
-  --promo-alert-txt: #C29D4B;
-  --promo-alert-background: #FCF4E9;
-  --background: #ffffff;
-  --text: #0e0e0e;
-  --text-secondary: #555555;
-
-  --font-main: 'Montserrat', sans-serif;
-  --border-radius: 8px;
-}
-
 body {
   font-family: var(--font-main);
-  background-color: var(--background);
-  color: var(--text);
+  background-color: var(--color-background);
+  color: var(--color-text);
   min-height: 100vh;
 }
 
 a {
-  color: var(--primary);
+  color: var(--color-primary);
   text-decoration: none;
 }

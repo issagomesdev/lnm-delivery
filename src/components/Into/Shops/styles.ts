@@ -1,574 +1,164 @@
-import styled, { keyframes, css } from 'styled-components';
-import { styled as styledBase } from 'styled-components';
-interface Props {
-  fixed?: boolean;
-  isSelected?: boolean;
-  close?: boolean;
-  active?: boolean;
-  animate?: boolean;
-
-}
-
-export const Wrapper = styled.div.withConfig({
-  shouldForwardProp: (prop) => prop !== 'fixed',
-}) <Props>`
-  display: flex;
-  gap: 1.5rem;
-  flex-direction: column;
-  padding: ${({ fixed }) => (fixed ? '7.5rem' : '2rem')} 1rem 3rem 1rem;
-  margin-bottom: 5rem;
-  width: 100%;
-  height: 90%;
-  overflow: auto;
-
-  @media (max-width: 980px) {
-    padding: ${({ fixed }) => (fixed ? '5.5rem' : '6rem')} 1rem 0 1rem;
-    margin-bottom: 5rem;
-  }
-`;
-
-// categories
-export const CategoriesWrapper = styled.div`
-  display: flex;
-  overflow-x: auto;
-  gap: 12px;
-  padding: 2px 0;
-  position: relative;
-  padding-bottom: 5px;
-
-  &::-webkit-scrollbar {
-    height: 0px;
-    width: 0px;
-    background-color: #F5F5F5;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.primary};
-  }
-
-  &:not(:hover)::-webkit-scrollbar-thumb, &:not(:hover)::-webkit-scrollbar {
-    display: none;
-  }
-`;
-
-
-export const CategoryItem = styled.div.withConfig({
-  shouldForwardProp: (prop) => prop !== 'isSelected',
-}) <Props>`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: 6rem;
-  cursor: pointer;
-  position: relative;
-  user-select: none;
-  border-radius: 8px;
-  transition: 0.3s;
-`;
-
-export const CategoryImage = styled.img.withConfig({
-  shouldForwardProp: (prop) => prop !== 'isSelected',
-}) <Props>`
-  width: 80px;
-  height: auto;
-  border-radius: 8px;
-  
-  background-color: ${({ isSelected }) =>
-    isSelected ? '#E6F4F1' : 'transparent'};
-`;
-
-export const CategoryName = styled.span.withConfig({
-  shouldForwardProp: (prop) => prop !== 'isSelected',
-}) <Props>`
-  font-size: 12px;
-  margin-top: 4px;
-  background: ;
-  padding: 3px 10px;
-  text-align: center;
-  border-radius: 15px;
-  color: #fff;
-  font-weight: 500;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 100%;
-
-  background-color: ${({ isSelected, theme }) =>
-    isSelected ? theme.colors.conceptual_green : theme.colors.primary};
-`;
-
-// banners
-
-export const BannersWrapper = styled.div`
-  display: flex;
-  overflow-x: auto;
-  gap: 12px;
-  margin: 16px 0;
-  padding-bottom: 5px;
-
-  &::-webkit-scrollbar {
-    height: 0px;
-    width: 0px;
-    background-color: #F5F5F5;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.primary};
-  }
-
-  &:not(:hover)::-webkit-scrollbar-thumb, &:not(:hover)::-webkit-scrollbar {
-    display: none;
-  }
-  
-  @media (max-width: 980px) {
-   margin: 0;
-  }
-`;
-
-export const BannerImage = styled.img`
-  width: 100%;
-  max-width: 400px;
-  border-radius: 8px;
-    user-select: none;
-
-  @media (max-width: 600px) {
-    min-width: 90vw;
-    max-width: 90vw;
-  }
-`;
-
-// shops
-export const ShopsWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-`;
-
-const shakeScale = keyframes`
-  0% {
-    -webkit-transform: translateY(-100px);
-            transform: translateY(-100px);
-  }
-  25% {
-    -webkit-transform: translateY(-10px);
-            transform: translateY(-10px);
-  }
-  50% {
-    -webkit-transform: translateY(-5px);
-            transform: translateY(-5px);
-  }
-  100% {
-    -webkit-transform: translateY(0px);
-            transform: translateY(0px);
-  }
-`;
-
-export const FiltersWrapper = styled.div.withConfig({
-  shouldForwardProp: (prop) => prop !== 'fixed' && prop !== 'animate',
-})<Props>`
-  position: ${({ fixed }) => (fixed ? 'fixed' : 'relative')};
-  ${({ fixed }) => (fixed ? 'padding: 1rem; left: 0; top: 72px;' : '')}
-  width: 100%;
-  display: flex;
-  row-gap: 2rem;
-  column-gap: 10px;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  z-index: ${({ fixed }) => (fixed ? 9 : 1)};
-  background-color: #fff;
-
-  opacity: ${({ animate, fixed }) => (animate || !fixed ? 1 : 0)};
-    ${({ animate }) =>
-    animate &&
-    css`
-      animation: ${shakeScale} .5s alternate both;
-    `}
-
-  @media (max-width: 980px) {
-    flex-direction: column;
-  }
-`;
-
-export const FilterInput = styled.div`
-  display: flex;
-  flex: 1;
-  gap: 10px;
-  padding: 10px;
-  border-radius: 6px;
-  font-size: 14px;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-
-  input {
-    border: none;
-    outline: none;
-    width: 100%;
-    background-color: transparent;
-    user-select: none;
-  }
-`;
-
-export const FilterButton = styled.button`
-  background-color: ${({ theme }) => theme.colors.separators};
-  border: 2px solid #ccc;
-  border-radius: 8px;
-  padding: 8px 14px;
-  font-size: 14px;
-  cursor: pointer;
-  color: gray;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  user-select: none;
-
-  @media (max-width: 400px) {
-    padding: 4px 8px;
-  }
-`;
-
-export const FilterAdvance = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`
-
-export const ShopCount = styled.div.withConfig({
-  shouldForwardProp: (prop) => prop !== 'close',
-}) <Props>`
-  font-weight: bold;
-  color: ${({ close }) => (close ? '#f02649' : '#24b03c')};
-  padding: ${({ close }) => (close ? '0' : '1rem')}; 1rem;
-  user-select: none;
-
-  @media (max-width: 400px) {
-    font-size: 13px;
-    padding: 0;
-  }
-`;
-
-export const ShopItems = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-
-  @media (min-width: 980px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-`;
-
-export const ShopItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 12px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  align-items: flex-start;
-  position: relative;
-  width: 100%;
-  box-sizing: border-box;
-  overflow: hidden;
-  cursor: pointer;
-
-  // &:hover {
-  //     filter: brightness(0.9);
-  // }
-`;
-
-export const ShopContent = styled.div`
-  display: flex;
-  gap: 12px;
-  width: 100%;
-`;
-
-export const ShopImage = styled.img`
-  width: 64px;
-  height: 64px;
-  border-radius: 8px;
-  object-fit: cover;
-  user-select: none;
-`;
-
-export const ShopInfo = styled.div`
-  flex: 1;
-  display: flex;
-  flex-wrap: nowrap;
-  overflow: hidden;
-  max-width: 100%;
-  flex-direction: column;
-  gap: 5px;
-  width: 100%;
-`;
-
-export const ShopName = styled.h4`
-  margin: 0;
-  font-size: 15px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 95%;
-  user-select: none;
-`;
-
-export const ShopMeta = styled.p`
-  font-size: 10px;
-  color: #666;
-  display: flex;
-  gap: 10px;
-  user-select: none;
-
-  span {
-    font-size: 13px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    user-select: none;
-  }
-
-  &.coupon {
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-  }
-  
-  &.rule {
-    font-size: 10px;
-    color: #ef4b77;
-    font-weight: 500;
-  }
-
-  &.coupon span {
-    color: ${({ theme }) => theme.colors.conceptual_green};
-    border: 2px solid ${({ theme }) => theme.colors.conceptual_green};
-    border-radius: 6px;
-    padding: 2px 5px
-  }
-
-  &.time {
-    color: ${({ theme }) => theme.colors.conceptual_green};
-    font-weight: 500;
-  }
-
-  &.close {
-    color: #fff;
-    background-color: #f02649;
-    font-weight: 500;
-    padding: 2px 6px;
-    width: fit-content;
-    border-radius: 10px;
-  }
-`;
-
-export const ShopFooter = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-export const ShopRating = styled.div`
-  font-size: 14px;
-  font-weight: bold;
-  color: ${({ theme }) => theme.colors.text_secondary};
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  user-select: none;
-`;
-
-export const ShopOffer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-`
-
-export const Tag = styled.div`
-  background-color: #fdf2e4;
-  color: ${({ theme }) => theme.colors.primary};
-  font-size: 12px;
-  padding: 4px 8px;
-  border-radius: 6px;
-  margin-top: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 500;
-  gap: 5px;
-  width: fit-content;
-  text-align: center;
-
-  p {
-     width: 90%;
-    user-select: none;
-  }
-`;
-
-export const ShopsEmpty = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
-
-  p {
-    color: ${({ theme }) => theme.colors.primary};
-    font-weight: 500;
-  }
-`;
-
-export const ShopsEmptyIcon = styled.div`
-  width: 8rem;
-
-  img {
-    width: 100%;
-  }
-`;
-
-export const FilterIsActiveCard = styled.div`
-  width: 100%;
-  background-color: ${({ theme }) => theme.colors.green_highlight};
-  position: fixed;
-  top: 4.5rem;
-  right: 0;
-  padding: .7rem 1rem;
-  text-align: center;
-  z-index: 10;
-  
-  h4 {
-    color: #fff;
-    font-weight: 500;
-  }
-`;
-
-// bottom navigation
-export const BottomNavWrapper = styled.div`
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  background-color: #fff;
-  padding: 12px 0;
-  border-top: 1px solid #eee;
-  z-index: 9;
-`;
-
-export const NavItem = styledBase.a.withConfig({
-  shouldForwardProp: (prop) => prop !== 'active',
-}) <Props>`
-  display: flex;
-  gap: 3px;
-  flex-direction: column;
-  align-items: center;
-  font-size: 12px;
-  font-weight: 500;
-  color: ${({ active, theme }) => (active ? theme.colors.primary : '#333')};
-  cursor: pointer;
-  user-select: none;
-`;
-
-// Advanced Filter
-
-export const FilterSections = styled.div`
-  overflow: hidden scroll;
-  height: 85%;
-`;
-
-export const Section = styled.div`
-  padding: 16px;
-`;
-
-export const SectionTitle = styled.h4`
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 10px;
-  text-align: start;
-`;
-
-export const CheckboxWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
-  justify-content: space-between;
-  
-  input[type='radio'] {
-    accent-color: ${({ theme }) => theme.colors.primary};
-  }
-
-  label {
-    font-size: 14px;
-  }
-`;
-
-export const TagList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-`;
-
-export const TagItem = styled.span.withConfig({
-  shouldForwardProp: (prop) => prop !== 'active',
-}) <Props>`
-  padding: 6px 12px;
-  font-size: 13px;
-  border-radius: 12px;
-  background: ${({ active, theme }) => active ? theme.colors.primary : '#eee'};
-  color: ${({ active }) => active ? '#fff' : '#333'};
-  cursor: pointer;
-  user-select: none;
-`;
-
-export const FooterButton = styled.button`
-  width: 100%;
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: white;
-  font-weight: bold;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-  position: sticky;
-  bottom: 0;
-`;
-
-// Cupons
-
-export const CuponsLabel = styled.div`
-`;
-
-export const CouponsEmpty = styled.div`
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 30px;
-
-  p {
-    font-weight: 500;
-    color: #b5b5b5;
-    font-size: 15px;
-    width: 80%;
-  }
-`;
-
-export const CouponsEmptyIcon = styled.div`display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 15px;
-
-  img {
-    width: 12rem;
-    height: auto;
-  }
-
-`;
+import React from 'react';
+import shopStyles from './Shops.module.css';
+
+export const Wrapper = ({ children, style, fixed }: { children?: React.ReactNode; style?: React.CSSProperties; fixed?: boolean }) =>
+  React.createElement('div', {
+    className: shopStyles.wrapper,
+    'data-fixed': fixed ? 'true' : 'false',
+    style
+  }, children);
+
+export const CategoriesWrapper = React.forwardRef<HTMLDivElement, { children?: React.ReactNode; style?: React.CSSProperties; [key: string]: any }>(
+  ({ children, style, ...rest }, ref) =>
+    React.createElement('div', { ref, className: shopStyles.categoriesWrapper, style, ...rest }, children)
+);
+CategoriesWrapper.displayName = 'CategoriesWrapper';
+
+export const CategoryItem = ({ children, style, isSelected, onClick }: { children?: React.ReactNode; style?: React.CSSProperties; isSelected?: boolean; onClick?: React.MouseEventHandler }) =>
+  React.createElement('div', {
+    className: shopStyles.categoryItem,
+    'data-selected': isSelected ? 'true' : 'false',
+    style,
+    onClick
+  }, children);
+
+export const CategoryImage = ({ src, alt, style, isSelected }: { src?: string; alt?: string; style?: React.CSSProperties; isSelected?: boolean }) =>
+  React.createElement('img', {
+    className: shopStyles.categoryImage,
+    'data-selected': isSelected ? 'true' : 'false',
+    src,
+    alt,
+    style
+  });
+
+export const CategoryName = ({ children, style, isSelected }: { children?: React.ReactNode; style?: React.CSSProperties; isSelected?: boolean }) =>
+  React.createElement('span', {
+    className: shopStyles.categoryName,
+    'data-selected': isSelected ? 'true' : 'false',
+    style
+  }, children);
+
+export const BannersWrapper = React.forwardRef<HTMLDivElement, { children?: React.ReactNode; style?: React.CSSProperties; [key: string]: any }>(
+  ({ children, style, ...rest }, ref) =>
+    React.createElement('div', { ref, className: shopStyles.bannersWrapper, style, ...rest }, children)
+);
+BannersWrapper.displayName = 'BannersWrapper';
+
+export const BannerImage = ({ src, alt, style, draggable, onDragStart }: { src?: string; alt?: string; style?: React.CSSProperties; draggable?: boolean; onDragStart?: React.DragEventHandler }) =>
+  React.createElement('img', { className: shopStyles.bannerImage, src, alt, style, draggable, onDragStart });
+
+export const ShopsWrapper = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: shopStyles.shopsWrapper, style }, children);
+
+export const FiltersWrapper = ({ children, style, fixed, animate }: { children?: React.ReactNode; style?: React.CSSProperties; fixed?: boolean; animate?: boolean }) =>
+  React.createElement('div', {
+    className: shopStyles.filtersWrapper,
+    'data-fixed': fixed ? 'true' : 'false',
+    'data-animate': animate ? 'true' : 'false',
+    'data-opacity': fixed && !animate ? 'hidden' : undefined,
+    style
+  }, children);
+
+export const FilterInput = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: shopStyles.filterInput, style }, children);
+
+export const FilterButton = ({ children, style, onClick }: { children?: React.ReactNode; style?: React.CSSProperties; onClick?: React.MouseEventHandler }) =>
+  React.createElement('button', { className: shopStyles.filterButton, style, onClick }, children);
+
+export const FilterAdvance = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: shopStyles.filterAdvance, style }, children);
+
+export const ShopCount = ({ children, style, close }: { children?: React.ReactNode; style?: React.CSSProperties; close?: boolean }) =>
+  React.createElement('div', {
+    className: shopStyles.shopCount,
+    'data-close': close ? 'true' : 'false',
+    style
+  }, children);
+
+export const ShopItems = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: shopStyles.shopItems, style }, children);
+
+export const ShopItem = ({ children, style, onClick }: { children?: React.ReactNode; style?: React.CSSProperties; onClick?: React.MouseEventHandler }) =>
+  React.createElement('div', { className: shopStyles.shopItem, style, onClick }, children);
+
+export const ShopContent = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: shopStyles.shopContent, style }, children);
+
+export const ShopImage = ({ src, alt, style }: { src?: string; alt?: string; style?: React.CSSProperties }) =>
+  React.createElement('img', { className: shopStyles.shopImage, src, alt, style });
+
+export const ShopInfo = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: shopStyles.shopInfo, style }, children);
+
+export const ShopName = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('h4', { className: shopStyles.shopName, style }, children);
+
+export const ShopMeta = ({ children, style, className }: { children?: React.ReactNode; style?: React.CSSProperties; className?: string }) =>
+  React.createElement('p', { className: `${shopStyles.shopMeta}${className ? ` ${className}` : ''}`, style }, children);
+
+export const ShopFooter = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: shopStyles.shopFooter, style }, children);
+
+export const ShopRating = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: shopStyles.shopRating, style }, children);
 
+export const ShopOffer = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: shopStyles.shopOffer, style }, children);
+
+export const Tag = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: shopStyles.tag, style }, children);
+
+export const ShopsEmpty = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: shopStyles.shopsEmpty, style }, children);
+
+export const ShopsEmptyIcon = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: shopStyles.shopsEmptyIcon, style }, children);
+
+export const FilterIsActiveCard = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: shopStyles.filterIsActiveCard, style }, children);
+
+export const BottomNavWrapper = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: shopStyles.bottomNavWrapper, style }, children);
+
+export const NavItem = ({ children, style, active, onClick }: { children?: React.ReactNode; style?: React.CSSProperties; active?: boolean; onClick?: React.MouseEventHandler }) =>
+  React.createElement('a', {
+    className: shopStyles.navItem,
+    'data-active': active ? 'true' : 'false',
+    style,
+    onClick
+  }, children);
+
+export const FilterSections = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: shopStyles.filterSections, style }, children);
+
+export const Section = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: shopStyles.section, style }, children);
+
+export const SectionTitle = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('h4', { className: shopStyles.sectionTitle, style }, children);
+
+export const CheckboxWrapper = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: shopStyles.checkboxWrapper, style }, children);
+
+export const TagList = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: shopStyles.tagList, style }, children);
+
+export const TagItem = ({ children, style, active, onClick }: { children?: React.ReactNode; style?: React.CSSProperties; active?: boolean; onClick?: React.MouseEventHandler }) =>
+  React.createElement('span', {
+    className: shopStyles.tagItem,
+    'data-active': active ? 'true' : 'false',
+    style,
+    onClick
+  }, children);
+
+export const FooterButton = ({ children, style, onClick }: { children?: React.ReactNode; style?: React.CSSProperties; onClick?: React.MouseEventHandler }) =>
+  React.createElement('button', { className: shopStyles.footerButton, style, onClick }, children);
+
+export const CuponsLabel = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: shopStyles.cuponsLabel, style }, children);
+
+export const CouponsEmpty = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: shopStyles.couponsEmpty, style }, children);
+
+export const CouponsEmptyIcon = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) =>
+  React.createElement('div', { className: shopStyles.couponsEmptyIcon, style }, children);

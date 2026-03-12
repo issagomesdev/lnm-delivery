@@ -1,0 +1,227 @@
+.pizzaBackground {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 20rem;
+  z-index: -1;
+  user-select: none;
+}
+
+@media (max-width: 980px) {
+  .pizzaBackground {
+    width: 10rem;
+  }
+}
+
+.pizzaBackground img {
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 2rem;
+  height: 100%;
+  user-select: none;
+}
+
+@media (max-width: 980px) {
+  .container {
+    top: 3rem;
+    position: fixed;
+    z-index: 999;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  padding: 0 1.5rem;
+}
+
+.content p {
+  text-align: center;
+}
+
+.content span {
+  font-size: 10px;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+@keyframes scale {
+  0% {
+    transform: scale(1);
+  }
+  60% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.option {
+  cursor: pointer;
+  background-color: var(--color-primary);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 15rem;
+  color: #fff;
+  border-radius: 4px;
+  animation: scale 2s ease-in-out infinite;
+}
+
+.flavorsFigure {
+  width: 25rem;
+  position: relative;
+}
+
+.flavorsFigure img {
+  width: 100%;
+}
+
+@media (max-width: 1366px) {
+  .flavorsFigure {
+    width: 20rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .flavorsFigure {
+    width: 15rem;
+  }
+}
+
+.flavorsSelecteds {
+  cursor: pointer;
+  background-color: #fff091;
+  border-radius: 8px;
+}
+
+.flavorsSelecteds h4 {
+  padding: 0.5rem 1.5rem;
+}
+
+.flavorsOptions {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes shakeScale {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  15% {
+    transform: scale(1.05) rotate(-3deg);
+  }
+  30% {
+    transform: scale(1.1) rotate(3deg);
+  }
+  45% {
+    transform: scale(1.05) rotate(-2deg);
+  }
+  60% {
+    transform: scale(1.08) rotate(2deg);
+  }
+  75% {
+    transform: scale(1.03) rotate(-1deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.flavorsOption {
+  display: flex;
+  background-color: #feea3b;
+  padding: 10px;
+  width: 8rem;
+  border-radius: 4px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  cursor: pointer;
+  text-align: center;
+  animation: shakeScale 1s ease-in-out infinite;
+}
+
+.flavorsOption[data-selected="true"] {
+  display: none;
+}
+
+.flavorsOption h4 {
+  font-size: 16px;
+}
+
+.flavorsOption span {
+  font-size: 12px;
+}
+
+@media (max-width: 600px) {
+  .flavorsOption {
+    width: 4.5rem;
+  }
+
+  .flavorsOption h4 {
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .flavorsOption span {
+    font-size: 9px;
+    white-space: nowrap;
+  }
+}
+
+.changeCategory {
+  cursor: pointer;
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 4px;
+  color: var(--color-primary);
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.flavorSelected {
+  color: red;
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.forwardButton {
+  width: 100%;
+  background-color: var(--color-conceptual-green);
+  position: fixed;
+  bottom: 0;
+  padding: 1rem 0;
+  display: flex;
+  justify-content: center;
+  color: #fff;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 500;
+  gap: 5px;
+  cursor: pointer;
+  animation: shakeScale 1s ease-in-out infinite;
+}

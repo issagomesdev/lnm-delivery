@@ -22,7 +22,6 @@ import { ModalBox } from "@/components/Into/Shops/Checkout/styles";
 import { Title, Overlay, CloseXButton } from '@/components/shared/Modal/styles';
 import { shopCategories } from "@/components/Into/data";
 import { Options, Option } from "./styles";
-import { useTheme } from "styled-components";
 import { ImageWithLoader } from "@/components/ImageWithLoader";
 
 const ChooseFlavor = ({
@@ -49,7 +48,6 @@ const ChooseFlavor = ({
 
     const [search, setSearch] = useState('');
     const isAtTop = useScrollTop();
-    const theme = useTheme();
 
     const filteredItems = category?.menu?.filter((item: any) =>
         item.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -69,7 +67,7 @@ const ChooseFlavor = ({
                     placeholder="Buscar por nome ou descrição..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)} />
-                {search.length > 0 && <Icon icon={'material-symbols:close-rounded'} color={theme.colors.primary} width="20" onClick={() => setSearch('')} />
+                {search.length > 0 && <Icon icon={'material-symbols:close-rounded'} color={'#FF5722'} width="20" onClick={() => setSearch('')} />
                 }
             </FilterInput>
 

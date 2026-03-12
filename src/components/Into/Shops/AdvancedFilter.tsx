@@ -68,7 +68,7 @@ export default function AdvancedFilter({
 
     return (
         <Overlay>
-            <ModalBox style={{ height: '90%', overflow: 'auto hidden', padding: 0 }}>
+            <ModalBox width={700} style={{ height: '90%', overflow: 'auto hidden', padding: 0 }}>
                 <CloseXButton>
                     <Icon icon="material-symbols:close" color="#fff" width="24" onClick={closeModal} />
                 </CloseXButton>
