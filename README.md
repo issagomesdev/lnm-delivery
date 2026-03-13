@@ -64,15 +64,11 @@ The platform serves the four main cities of the northern coast of São Paulo, of
 
 <h2 id="technologies"> 🛠 Technologies</h2>
 
-- Next.js 15 (App Router, Turbopack)
-- TypeScript
-- CSS Modules
-- Framer Motion v12
-- next-pwa v5
-- React Number Format
-- date-fns v4
-- Iconify/React
-- clsx
+- [Next.js](https://nextjs.org/) — Framework baseado em React para criação de aplicações web rápidas
+- [TypeScript](https://www.typescriptlang.org/) — Linguagem com tipagem forte para um código mais escalável
+- [CSS Modules](https://github.com/css-modules/css-modules) — Estilização modular e com escopo isolado
+- [Framer Motion v12](https://www.framer.com/motion/) — Biblioteca de animações para React
+- [next-pwa v5](https://github.com/shadowwalker/next-pwa) — Suporte a PWA com service worker para Next.js
 
 ---
 
