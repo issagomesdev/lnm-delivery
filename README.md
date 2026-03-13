@@ -77,27 +77,7 @@ The platform serves the four main cities of the northern coast of São Paulo, of
 ```
 src/
 ├── app/                         # Next.js App Router — pages and layouts
-│   ├── shops/[shopId]/          # Shop profile and pizza builder
-│   ├── meus-pedidos/            # Orders, cart, and tracking
-│   ├── meus-enderecos/          # Address management
-│   ├── minha-conta/             # User account
-│   ├── favoritos/               # Favorites
-│   ├── cupons/                  # Coupons
-│   ├── politica-de-privacidade/ # Privacy policy
-│   └── termos-de-uso/           # Terms of use
 ├── components/
-│   ├── Home/                    # Landing page sections and footer
-│   ├── Into/                    # Authenticated app components
-│   │   ├── Shops/               # Shop listing, filters, banners, categories
-│   │   │   ├── Checkout/        # Checkout flow
-│   │   │   ├── Profile/         # Shop profile, reviews, pizza builder
-│   │   │   └── ShoppingCart/    # Cart bar, item details, delivery/payment methods
-│   │   ├── MyAddresses/         # Address form component
-│   │   ├── MyOrders/            # Order details and rating
-│   │   └── Skeleton/            # Skeleton loading components
-│   ├── Mobile/                  # Mobile app shell and side menu
-│   ├── Web/                     # Desktop web shell, header, floating menu
-│   └── shared/                  # Shared primitives (Modal, SearchSelector)
 ├── styles/                      # Global CSS variables and base styles
 ├── contexts/                    # React contexts (Location, ShopPage, ShoppingCart)
 ├── controllers/                 # Business logic controllers (Addresses)
